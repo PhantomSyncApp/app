@@ -1,15 +1,20 @@
 """
-365-Day Undetected Slow-Burn Calendar Generator (.ics)
-Delayed Start Edition:
-- First notification starts in ~2 weeks (Thursday, November 12, 2026).
-- Complete radio silence for the next 13 days so the NFC tap is totally forgotten.
-- Events distributed every ~3.5 days thereafter.
-- Jessie Mitchell's real birthday locked on April 30.
+365+ Day Organic Slow-Burn Calendar Generator (.ics)
+Hybrid Cadence Edition:
+- Zero contacts deleted (all 103 hilarious entities preserved).
+- Organic gaps (3 to 11 days):
+  * Some weeks have 2 events.
+  * Some weeks have 1 event.
+  * Some weeks have ZERO events (silent periods for false sense of security).
+- First strike delayed to Thursday, November 12, 2026.
+- Spans ~18 months naturally across 2026, 2027, and 2028.
+- Jessie Mitchell's real birthday on April 30.
 - Anonymous container: "Mobile Directory Sync".
 """
 
 import os
 import sys
+import random
 from datetime import date, timedelta
 from generate_multi_contacts import FUNNY_CONTACTS_DATA
 
@@ -36,7 +41,7 @@ def generate_ics_calendar():
         "X-WR-TIMEZONE:America/Chicago"
     ]
 
-    # 1. Jessie Mitchell's Real Birthday (April 30)
+    # 1. Jessie Mitchell's Real Birthday (April 30, Annual)
     lines.extend([
         "BEGIN:VEVENT",
         "UID:jessie-real-bday@jessiemitchell.sync",
@@ -55,18 +60,28 @@ def generate_ics_calendar():
         "END:VEVENT"
     ])
 
-    # 2. Start the slow-burn prank on November 12, 2026 (~2 weeks from today)
+    # 2. Generate Organic Gaps (3 to 11 days)
+    random.seed(42)  # Fixed seed for a stable, perfectly balanced roadmap
     start_date = date(2026, 11, 12)
-    total_contacts = len(FUNNY_CONTACTS_DATA)
+    current = start_date
+    dates = [current]
 
+    gap_choices = [3, 4, 5, 6, 7, 8, 9, 10, 11]
+    weights =     [15, 20, 25, 15, 10, 6, 4, 3, 2]
+
+    for _ in range(len(FUNNY_CONTACTS_DATA) - 1):
+        gap = random.choices(gap_choices, weights=weights)[0]
+        current += timedelta(days=gap)
+        dates.append(current)
+
+    # 3. Add all 103 hilarious entities
     for i, contact in enumerate(FUNNY_CONTACTS_DATA):
         fn, org, title, email = contact
-        day_offset = int((i * 365) / total_contacts)
-        bday_date = start_date + timedelta(days=day_offset)
+        bday_date = dates[i]
 
-        # Skip Jessie's April 30
+        # Avoid collision on Jessie's April 30
         if bday_date.month == 4 and bday_date.day in [29, 30]:
-            bday_date = date(2026, 5, 2)
+            bday_date += timedelta(days=2)
 
         dt_str = bday_date.strftime("%Y%m%d")
         next_day = (bday_date + timedelta(days=1)).strftime("%Y%m%d")
@@ -96,7 +111,7 @@ def generate_ics_calendar():
 
 
 def main():
-    print("🚀 Generating 2-Week Delayed Stealth Calendar...")
+    print("🚀 Generating Organic Hybrid-Cadence Calendar...")
     ics_content = generate_ics_calendar()
     out_path = os.path.join(PRESETS_DIR, "jessie_mitchell_birthdays.ics")
     with open(out_path, "w", encoding="utf-8") as f:
