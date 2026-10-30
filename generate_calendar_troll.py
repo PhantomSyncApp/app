@@ -1,11 +1,8 @@
 """
 365-Day Undetected Slow-Burn Birthday Calendar Generator (.ics)
-Creates an RFC 5545 iCalendar file that:
-1. Puts Jessie Mitchell's real birthday (April 30) as Event #1.
-2. Injects 100 hilarious unique contacts with annual recurring birthdays staggered every 2-3 days all year.
-3. Includes 9:00 AM morning lock-screen notifications (VALARM).
-4. Disguised as "Jessie Mitchell • Birthday & Event Sync".
-5. Deletes in 1 click via Settings -> Calendar -> Subscriptions whenever desired.
+Evenly distributes 103 hilarious events across all 365 days of the year,
+including November and December, with 9:00 AM lock-screen alarms.
+Auto-updates subscribed devices via GitHub Pages.
 """
 
 import os
@@ -38,10 +35,9 @@ def generate_ics_calendar():
     ]
 
     # 1. Primary Legitimate Event: Jessie Mitchell's Birthday (April 30)
-    uid_jessie = str(uuid.uuid4())
     lines.extend([
         "BEGIN:VEVENT",
-        f"UID:{uid_jessie}@jessiemitchell.sync",
+        f"UID:jessie-real-bday@jessiemitchell.sync",
         "DTSTAMP:20260101T000000Z",
         "DTSTART;VALUE=DATE:20260430",
         "DTEND;VALUE=DATE:20260501",
@@ -52,30 +48,32 @@ def generate_ics_calendar():
         "BEGIN:VALARM",
         "ACTION:DISPLAY",
         "DESCRIPTION:Jessie Mitchell's Birthday Today!",
-        "TRIGGER:-PT9H",  # 9 AM morning alert
+        "TRIGGER:-PT9H",  # 9 AM alert
         "END:VALARM",
         "END:VEVENT"
     ])
 
-    # 2. 100 Hilarious Staggered Birthdays
+    # 2. Evenly distribute all funny contacts across 365 days (~every 3.5 days)
+    total_contacts = len(FUNNY_CONTACTS_DATA)
     start_date = date(2026, 1, 2)
-    step_days = max(1, 360 // len(FUNNY_CONTACTS_DATA))
 
     for i, contact in enumerate(FUNNY_CONTACTS_DATA):
         fn, org, title, email = contact
-        bday_offset = (i * step_days) % 360
-        bday_date = start_date + timedelta(days=bday_offset)
-        # Avoid overriding Jessie's April 30
-        if bday_date.month == 4 and bday_date.day == 30:
-            bday_date += timedelta(days=2)
+        # Calculate day of year (0 to 364) evenly spread
+        day_index = int((i * 364) / total_contacts)
+        bday_date = start_date + timedelta(days=day_index)
+
+        # Ensure we don't land exactly on Jessie's April 30
+        if bday_date.month == 4 and bday_date.day in [29, 30]:
+            bday_date = date(2026, 5, 2)
 
         dt_str = bday_date.strftime("%Y%m%d")
         next_day = (bday_date + timedelta(days=1)).strftime("%Y%m%d")
-        uid = str(uuid.uuid4())
+        uid = f"prank-bday-{i:03d}@cloudsync.events"
 
         lines.extend([
             "BEGIN:VEVENT",
-            f"UID:{uid}@cloudsync.events",
+            f"UID:{uid}",
             "DTSTAMP:20260101T000000Z",
             f"DTSTART;VALUE=DATE:{dt_str}",
             f"DTEND;VALUE=DATE:{next_day}",
@@ -86,7 +84,7 @@ def generate_ics_calendar():
             "BEGIN:VALARM",
             "ACTION:DISPLAY",
             f"DESCRIPTION:Today is {fn}'s Birthday!",
-            "TRIGGER:-PT9H",  # 9 AM morning lock screen alert
+            "TRIGGER:-PT9H",  # 9 AM morning alert
             "END:VALARM",
             "END:VEVENT"
         ])
@@ -97,7 +95,7 @@ def generate_ics_calendar():
 
 
 def main():
-    print("🚀 Generating Undetected Slow-Burn Birthday Calendar (.ics)...")
+    print("🚀 Generating 365-Day Evenly Distributed Birthday Calendar...")
     ics_content = generate_ics_calendar()
     out_path = os.path.join(PRESETS_DIR, "jessie_mitchell_birthdays.ics")
     with open(out_path, "w", encoding="utf-8") as f:
