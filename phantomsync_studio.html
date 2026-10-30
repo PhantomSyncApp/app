@@ -253,42 +253,6 @@
       gap: 12px;
     }
 
-    /* AI Engine Config Accordion */
-    .ai-config-toggle {
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      margin-bottom: 16px;
-      transition: all 0.2s;
-    }
-
-    .ai-config-toggle:hover {
-      background: rgba(139, 92, 246, 0.18);
-    }
-
-    .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #c4b5fd;
-    }
-
-    .ai-panel {
-      display: none;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 16px;
-    }
-
     /* Generate Button */
     .btn-generate {
       width: 100%;
@@ -827,27 +791,6 @@
         btn.classList.add("active");
         currentTheme = btn.dataset.theme;
       });
-    });
-
-    // AI Config Toggle
-    const aiToggle = document.getElementById("aiToggle");
-    const aiPanel = document.getElementById("aiPanel");
-    const toggleIcon = document.getElementById("toggleIcon");
-    const geminiInput = document.getElementById("geminiApiKey");
-    const aiStatusLabel = document.getElementById("aiStatusLabel");
-
-    // Load saved API key
-    const savedKey = localStorage.getItem("phantomsync_gemini_key") || "";
-    if (savedKey) {
-      geminiInput.value = savedKey;
-      aiStatusLabel.textContent = "AI Mode: Gemini 1.5 Flash Connected";
-      aiStatusLabel.style.color = "#38bdf8";
-    }
-
-    aiToggle.addEventListener("click", () => {
-      const isHidden = aiPanel.style.display === "none" || !aiPanel.style.display;
-      aiPanel.style.display = isHidden ? "block" : "none";
-      toggleIcon.innerHTML = isHidden ? "⚙️ Close &uarr;" : "⚙️ Configure Gemini API &darr;";
     });
 
     // Production Cloudflare Worker Backend URL
