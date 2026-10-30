@@ -665,33 +665,6 @@
         <textarea id="targetQuirks" placeholder="What does this person do that everyone laughs about? (e.g. Broken 2008 Honda Civic with squeaky brakes, leaves unwashed protein shaker in the sink, obsessed with Dogecoin, always eats cold hot dogs, stole my hoodie in 2022)">Drives a 2008 Honda Civic with a loud exhaust, leaves dirty BlenderBottle protein shakers in the sink, obsessed with Dogecoin, owes me $20 for Taco Bell from 2023, never replies to texts with more than 'k'</textarea>
       </div>
 
-      <!-- AI Engine Config Accordion -->
-      <div class="ai-config-toggle" id="aiToggle">
-        <div class="ai-badge">
-          <span>🧠</span>
-          <span id="aiStatusLabel">AI Mode: Enhanced Procedural Engine</span>
-        </div>
-        <span style="font-size:0.8rem; color:#94a3b8;" id="toggleIcon">⚙️ Backend & AI Settings &darr;</span>
-      </div>
-
-      <div class="ai-panel" id="aiPanel">
-        <div class="form-group" style="margin-bottom:12px;">
-          <label>Cloudflare Worker URL <span class="hint">(Recommended for production)</span></label>
-          <input type="text" id="workerApiUrl" placeholder="https://phantomsync-api.your-subdomain.workers.dev">
-          <div style="font-size:0.72rem; color:#64748b; margin-top:4px;">
-            ☁️ Points to your secure Cloudflare Worker backend. No visitor ever needs an API key!
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-bottom:4px;">
-          <label>Direct Gemini API Key <span class="hint">(Optional dev mode fallback)</span></label>
-          <input type="password" id="geminiApiKey" placeholder="AIzaSy... (leave blank to use built-in engine or Worker)">
-          <div style="font-size:0.72rem; color:#64748b; margin-top:4px;">
-            🔑 Supports automatic model fallback (Gemini 1.5 Flash / Flash Latest / Pro). Stored in local browser only.
-          </div>
-        </div>
-      </div>
-
       <div class="form-group">
         <label>Choose Incident Theme</label>
         <div class="theme-grid" id="themeGrid">
@@ -877,47 +850,8 @@
       toggleIcon.innerHTML = isHidden ? "⚙️ Close &uarr;" : "⚙️ Configure Gemini API &darr;";
     });
 
-    const workerInput = document.getElementById("workerApiUrl");
-    const geminiInput = document.getElementById("geminiApiKey");
-    const aiStatusLabel = document.getElementById("aiStatusLabel");
-
-    // Load saved settings
-    const savedWorker = localStorage.getItem("phantomsync_worker_url") || "";
-    const savedKey = localStorage.getItem("phantomsync_gemini_key") || "";
-    if (savedWorker) workerInput.value = savedWorker;
-    if (savedKey) geminiInput.value = savedKey;
-    updateStatusLabel();
-
-    aiToggle.addEventListener("click", () => {
-      const isHidden = aiPanel.style.display === "none" || !aiPanel.style.display;
-      aiPanel.style.display = isHidden ? "block" : "none";
-      toggleIcon.innerHTML = isHidden ? "⚙️ Close &uarr;" : "⚙️ Backend & AI Settings &darr;";
-    });
-
-    workerInput.addEventListener("input", (e) => {
-      localStorage.setItem("phantomsync_worker_url", e.target.value.trim());
-      updateStatusLabel();
-    });
-
-    geminiInput.addEventListener("input", (e) => {
-      localStorage.setItem("phantomsync_gemini_key", e.target.value.trim());
-      updateStatusLabel();
-    });
-
-    function updateStatusLabel() {
-      const wVal = (workerInput?.value || "").trim();
-      const gVal = (geminiInput?.value || "").trim();
-      if (wVal) {
-        aiStatusLabel.textContent = "AI Mode: Cloudflare Worker (Production)";
-        aiStatusLabel.style.color = "#34d399";
-      } else if (gVal) {
-        aiStatusLabel.textContent = "AI Mode: Direct Gemini Connected";
-        aiStatusLabel.style.color = "#38bdf8";
-      } else {
-        aiStatusLabel.textContent = "AI Mode: Enhanced Procedural Engine";
-        aiStatusLabel.style.color = "#c4b5fd";
-      }
-    }
+    // Production Cloudflare Worker Backend URL
+    const CLOUDFLARE_WORKER_URL = "https://phantomsync-api.jessiewayne430.workers.dev";
 
     // Category styling helper
     function getCategoryClass(cat) {
@@ -1237,28 +1171,12 @@ ABSOLUTE RULES:
       const quirks = document.getElementById("targetQuirks").value.trim();
       const count = parseInt(document.getElementById("eventCountSelect").value);
       const delayDays = parseInt(document.getElementById("delaySelect").value);
-      const workerUrl = (document.getElementById("workerApiUrl")?.value || "").trim();
-      const apiKey = (document.getElementById("geminiApiKey")?.value || "").trim();
 
       btn.disabled = true;
-      if (workerUrl) {
-        btn.innerHTML = `<span>☁️ Synthesizing via Cloudflare Worker...</span>`;
-      } else if (apiKey) {
-        btn.innerHTML = `<span>🧠 Synthesizing with Gemini AI...</span>`;
-      } else {
-        btn.innerHTML = `<span>⚡ Synthesizing Procedural Incidents...</span>`;
-      }
+      btn.innerHTML = `<span>🧠 Synthesizing AI Incidents...</span>`;
 
       try {
-        if (workerUrl) {
-          generatedEvents = await generateWithWorker(workerUrl, name, quirks, currentTheme, count, delayDays);
-        } else if (apiKey) {
-          generatedEvents = await generateWithGemini(apiKey, name, quirks, currentTheme, count, delayDays);
-        } else {
-          // Realistic procedural delay
-          await new Promise(r => setTimeout(r, 300));
-          generatedEvents = generateEnhancedProcedural(name, quirks, count, delayDays);
-        }
+        generatedEvents = await generateWithWorker(CLOUDFLARE_WORKER_URL, name, quirks, currentTheme, count, delayDays);
 
         document.getElementById("timelineSection").style.display = "block";
         document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
@@ -1276,11 +1194,10 @@ ABSOLUTE RULES:
         // Smooth scroll to timeline
         document.getElementById("timelineSection").scrollIntoView({ behavior: 'smooth' });
       } catch (err) {
-        console.warn("Backend error, falling back to procedural engine:", err);
-        // Clean fallback without disruptive alert
+        console.warn("Worker error, running client procedural fallback:", err);
         generatedEvents = generateEnhancedProcedural(name, quirks, count, delayDays);
         document.getElementById("timelineSection").style.display = "block";
-        document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events (Procedural)`;
+        document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
         document.getElementById("firstStrikeDate").textContent = generatedEvents[0].dateStr;
         renderTimeline(generatedEvents);
         btn.disabled = false;
