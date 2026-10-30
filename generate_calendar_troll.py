@@ -1,7 +1,8 @@
 """
 365+ Day Organic Slow-Burn Calendar Generator (.ics)
-Hybrid Cadence Edition:
+Deadpan Edition:
 - Zero contacts deleted (all 103 hilarious entities preserved).
+- Bespoke, deadpan, bureaucratic, dry official memos embedded into the DESCRIPTION of every event.
 - Organic gaps (3 to 11 days):
   * Some weeks have 2 events.
   * Some weeks have 1 event.
@@ -10,13 +11,17 @@ Hybrid Cadence Edition:
 - Spans ~18 months naturally across 2026, 2027, and 2028.
 - Jessie Mitchell's real birthday on April 30.
 - Anonymous container: "Mobile Directory Sync".
+- Automatically exports both .ics and schedule_data.json to all targets.
 """
 
 import os
 import sys
+import json
 import random
+import shutil
 from datetime import date, timedelta
 from generate_multi_contacts import FUNNY_CONTACTS_DATA
+from deadpan_memos import DEADPAN_MEMOS
 
 if sys.platform.startswith("win"):
     try:
@@ -24,12 +29,12 @@ if sys.platform.startswith("win"):
     except Exception:
         pass
 
-OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
-PRESETS_DIR = os.path.join(OUTPUT_DIR, "presets")
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+PRESETS_DIR = os.path.join(ROOT_DIR, "presets")
 os.makedirs(PRESETS_DIR, exist_ok=True)
 
 
-def generate_ics_calendar():
+def generate_ics_and_schedule():
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -41,7 +46,10 @@ def generate_ics_calendar():
         "X-WR-TIMEZONE:America/Chicago"
     ]
 
+    schedule_data = []
+
     # 1. Jessie Mitchell's Real Birthday (April 30, Annual)
+    jessie_desc = "Don't forget to wish Jessie a Happy Birthday! 🎈 Call, text, or buy him a drink."
     lines.extend([
         "BEGIN:VEVENT",
         "UID:jessie-real-bday@jessiemitchell.sync",
@@ -50,7 +58,7 @@ def generate_ics_calendar():
         "DTEND;VALUE=DATE:20260501",
         "RRULE:FREQ=YEARLY",
         "SUMMARY:🎂 Jessie Mitchell's Birthday",
-        "DESCRIPTION:Don't forget to wish Jessie a Happy Birthday! 🎈",
+        f"DESCRIPTION:{jessie_desc}",
         "TRANSP:TRANSPARENT",
         "BEGIN:VALARM",
         "ACTION:DISPLAY",
@@ -59,6 +67,13 @@ def generate_ics_calendar():
         "END:VALARM",
         "END:VEVENT"
     ])
+
+    schedule_data.append({
+        "date": "20260430",
+        "summary": "Jessie Mitchell's Birthday",
+        "desc": jessie_desc,
+        "gap": 0
+    })
 
     # 2. Generate Organic Gaps (3 to 11 days)
     random.seed(42)  # Fixed seed for a stable, perfectly balanced roadmap
@@ -74,7 +89,7 @@ def generate_ics_calendar():
         current += timedelta(days=gap)
         dates.append(current)
 
-    # 3. Add all 103 hilarious entities
+    # 3. Add all 103 hilarious entities with deadpan memos
     for i, contact in enumerate(FUNNY_CONTACTS_DATA):
         fn, org, title, email = contact
         bday_date = dates[i]
@@ -87,6 +102,9 @@ def generate_ics_calendar():
         next_day = (bday_date + timedelta(days=1)).strftime("%Y%m%d")
         uid = f"prank-dir-{i:03d}@mobiledirectory.sync"
 
+        # Lookup custom deadpan memo
+        memo = DEADPAN_MEMOS.get(fn, f"System memo: Mobile directory record for {fn} ({org}).")
+
         lines.extend([
             "BEGIN:VEVENT",
             f"UID:{uid}",
@@ -95,7 +113,7 @@ def generate_ics_calendar():
             f"DTEND;VALUE=DATE:{next_day}",
             "RRULE:FREQ=YEARLY",
             f"SUMMARY:🎂 {fn}'s Birthday",
-            f"DESCRIPTION:Annual directory reminder: {fn} ({org}).",
+            f"DESCRIPTION:{memo}",
             "TRANSP:TRANSPARENT",
             "BEGIN:VALARM",
             "ACTION:DISPLAY",
@@ -105,18 +123,58 @@ def generate_ics_calendar():
             "END:VEVENT"
         ])
 
+        # Calculate gap from previous event
+        if i == 0:
+            event_gap = (bday_date - date(2026, 4, 30)).days
+        else:
+            prev_bday = dates[i - 1]
+            if prev_bday.month == 4 and prev_bday.day in [29, 30]:
+                prev_bday += timedelta(days=2)
+            event_gap = (bday_date - prev_bday).days
+
+        schedule_data.append({
+            "date": dt_str,
+            "summary": f"{fn}'s Birthday",
+            "desc": memo,
+            "gap": event_gap
+        })
+
     lines.append("END:VCALENDAR")
     lines.append("")
-    return "\r\n".join(lines)
+    ics_text = "\r\n".join(lines)
+    return ics_text, schedule_data
 
 
 def main():
-    print("🚀 Generating Organic Hybrid-Cadence Calendar...")
-    ics_content = generate_ics_calendar()
-    out_path = os.path.join(PRESETS_DIR, "jessie_mitchell_birthdays.ics")
-    with open(out_path, "w", encoding="utf-8") as f:
+    print("🚀 Generating Deadpan Slow-Burn Calendar (.ics & JSON)...")
+    ics_content, schedule_data = generate_ics_and_schedule()
+
+    # 1. Save presets/jessie_mitchell_birthdays.ics
+    out_ics = os.path.join(PRESETS_DIR, "jessie_mitchell_birthdays.ics")
+    with open(out_ics, "w", encoding="utf-8") as f:
         f.write(ics_content)
-    print(f"  ✅ [Calendar] Saved to {out_path} ({len(ics_content) // 1024} KB)")
+    print(f"  ✅ [Calendar] Saved to {out_ics} ({len(ics_content) // 1024} KB)")
+
+    # 2. Save schedule_data.json
+    out_json = os.path.join(ROOT_DIR, "schedule_data.json")
+    json_str = json.dumps(schedule_data, indent=2, ensure_ascii=False)
+    with open(out_json, "w", encoding="utf-8") as f:
+        f.write(json_str)
+    print(f"  ✅ [Schedule JSON] Saved to {out_json} ({len(schedule_data)} events)")
+
+    # 3. Sync to public_deploy/ and web/
+    deploy_dirs = [os.path.join(ROOT_DIR, "public_deploy"), os.path.join(ROOT_DIR, "web")]
+    for d in deploy_dirs:
+        if os.path.exists(d):
+            # Sync json
+            shutil.copy(out_json, os.path.join(d, "schedule_data.json"))
+            # Sync ics
+            d_presets = os.path.join(d, "presets")
+            os.makedirs(d_presets, exist_ok=True)
+            shutil.copy(out_ics, os.path.join(d_presets, "jessie_mitchell_birthdays.ics"))
+            print(f"  ✅ [Synced] Assets updated in {os.path.basename(d)}/")
+
+    print("\n🎉 All 104 events generated with deadpan bureaucratic memos!")
 
 
 if __name__ == "__main__":
