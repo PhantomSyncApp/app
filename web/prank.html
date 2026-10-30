@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Contact Transfer - Incoming NFC Profile</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 28, 45, 0.95);
+      --border: rgba(255, 255, 255, 0.12);
+      --accent: #0a84ff;
+      --accent-red: #ff453a;
+      --accent-green: #30d158;
+      --accent-yellow: #ffd60a;
+      --text: #ffffff;
+      --subtext: #8e8e93;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #000;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient background pulses */
+    .ambient-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(10, 132, 255, 0.25) 0%, transparent 70%);
+      top: 10%;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+      animation: pulse 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      100% { transform: scale(1.15); opacity: 0.9; }
+    }
+
+    /* Top NFC Detection Pill (Apple Style) */
+    .nfc-banner {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(30, 30, 32, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+      padding: 10px 20px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      z-index: 10;
+      animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nfc-icon {
+      font-size: 1.1rem;
+      animation: wave 1.5s infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translate(-50%, -60px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    /* Bottom Contact Action Sheet */
+    .sheet-card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-top-left-radius: 36px;
+      border-top-right-radius: 36px;
+      backdrop-filter: blur(30px);
+      padding: 30px 24px 36px 24px;
+      box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 5;
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .avatar-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #1c1c1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .verified-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: #0071e3;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      border: 2px solid #000;
+    }
+
+    .contact-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .contact-sub {
+      font-size: 0.9rem;
+      color: var(--subtext);
+      margin-bottom: 20px;
+    }
+
+    /* Warning / Details Box */
+    .details-box {
+      width: 100%;
+      background: rgba(36, 42, 60, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: left;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .detail-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      color: var(--subtext);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .detail-val {
+      font-weight: 600;
+      color: #64d2ff;
+    }
+
+    .note-text {
+      color: #ffd60a;
+      background: rgba(255, 214, 10, 0.1);
+      border-left: 3px solid #ffd60a;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      margin-top: 6px;
+    }
+
+    /* Buttons */
+    .btn-save {
+      width: 100%;
+      background: #0a84ff;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 16px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-save:active {
+      transform: scale(0.98);
+      background: #0071e3;
+    }
+
+    .btn-decline {
+      margin-top: 12px;
+      background: transparent;
+      border: none;
+      color: var(--subtext);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .btn-decline:hover {
+      color: white;
+    }
+
+    /* Audio Sound Trigger Indicator */
+    .sound-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: #30d158;
+      margin-top: 14px;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow" id="glow"></div>
+
+  <!-- Simulated iOS NFC Notification -->
+  <div class="nfc-banner">
+    <span class="nfc-icon">📡</span>
+    <span>NFC Tag Detected &bull; Incoming Contact</span>
+  </div>
+
+  <!-- Bottom Sheet Card -->
+  <div class="sheet-card">
+    <div class="sheet-handle"></div>
+
+    <div class="avatar-wrapper">
+      <div class="avatar-circle" id="cardAvatar">🕵️</div>
+      <div class="verified-badge">✓</div>
+    </div>
+
+    <h1 class="contact-title" id="cardName">Special Agent FBI Surveillance Van #404</h1>
+    <p class="contact-sub" id="cardOrg">Federal Bureau of Investigation &bull; Cyber Division</p>
+
+    <div class="details-box">
+      <div class="detail-row">
+        <span class="detail-label">Phone</span>
+        <span class="detail-val" id="cardPhone">+1-800-225-5324</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-val" id="cardEmail">active.wiretap@fbi.gov</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Encrypted Memo</span>
+        <div class="note-text" id="cardNote">
+          🚨 CLASSIFIED NOTICE: This mobile device has been paired with Department of Justice Field Wiretap Unit 404. All audio, location pings, and browser cookies are currently transmitting to HQ. DO NOT DELETE THIS CONTACT.
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-save" id="btnSave">
+      <span>📥</span> Add to Contacts
+    </button>
+
+    <button class="btn-decline" id="btnDecline">
+      Dismiss Alert
+    </button>
+
+    <div class="sound-badge" id="btnSound">
+      <span>🔊 Tap for sound effects</span>
+    </div>
+  </div>
+
+  <script>
+    // Audio synthesizer using Web Audio API for prank sound effects
+    class PrankAudio {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === "suspended") {
+          this.ctx.resume();
+        }
+      }
+      // Apple Pay Ding
+      playChime() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(1046.50, now); // C6
+        osc.frequency.setValueAtTime(1318.51, now + 0.12); // E6
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.8);
+      }
+      // Vine Boom / Heavy Sub Bass
+      playBoom() {
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.6);
+        gain.gain.setValueAtTime(0.6, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.8);
+      }
+      // Rickroll 4-note motif
+      playRickroll() {
+        this.init();
+        const notes = [261.63, 293.66, 329.63, 261.63, 392.00];
+        notes.forEach((freq, idx) => {
+          const now = this.ctx.currentTime + (idx * 0.14);
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        });
+      }
+    }
+
+    const sound = new PrankAudio();
+
+    // Presets
+    const PRESETS = {
+      fbi: {
+        name: "Special Agent FBI Surveillance Van #404",
+        org: "Federal Bureau of Investigation &bull; Cyber Threat Division",
+        phone: "+1-800-225-5324",
+        email: "active.wiretap@fbi.gov",
+        note: "🚨 CLASSIFIED NOTICE: This mobile device has been paired with Department of Justice Field Wiretap Unit 404. All audio, location pings, and browser cookies are currently transmitting to HQ. DO NOT DELETE THIS CONTACT.",
+        emoji: "🕵️",
+        vcf: "/presets/fbi_full.vcf",
+        sound: "boom"
+      },
+      car_warranty: {
+        name: "FINAL NOTICE: Auto Warranty Department",
+        org: "National Vehicle Protection Bureau",
+        phone: "+1-888-555-0199",
+        email: "urgent.finalnotice@warranty-bureau.com",
+        note: "⚠️ URGENT AUTOMOTIVE NOTICE: This is our FINAL ATTEMPT to contact you regarding your vehicle's expired factory warranty. If you do not save this contact immediately, roadside assistance and engine replacement coverage will be permanently forfeited.",
+        emoji: "🚗",
+        vcf: "/presets/car_warranty_full.vcf",
+        sound: "chime"
+      },
+      rickroll: {
+        name: "Rick Astley (Official)",
+        org: "Never Gonna Give You Up Worldwide",
+        phone: "+1-248-434-5508",
+        email: "rick@nevergonna.giveyouup.com",
+        note: "🕺 You've been NFC-Rickrolled! You know the rules and so do I. A full commitment's what I'm thinking of! You wouldn't get this from any other guy. Call the phone number above for live vocal proof! 🎶",
+        emoji: "🕺",
+        vcf: "/presets/rickroll_full.vcf",
+        sound: "rickroll"
+      },
+      clown: {
+        name: "Bojangles The Friendly Clown",
+        org: "Midnight Closet Entertainment Co.",
+        phone: "+1-666-555-0133",
+        email: "under.your.bed@circusnightmare.com",
+        note: "🎈 Hello my sweet friend! I saw you tap this tag! I'm standing right outside your front porch right now! Don't look behind your bedroom curtains tonight! Honk honk! 🤡🎈",
+        emoji: "🤡",
+        vcf: "/presets/clown_full.vcf",
+        sound: "boom"
+      },
+      irs_audit: {
+        name: "IRS Delinquent Tax Enforcement Officer",
+        org: "Internal Revenue Service",
+        phone: "+1-800-829-1040",
+        email: "seizure-notice@irs.gov",
+        note: "⚖️ NOTICE CP-504 INTENT TO SEIZE: An unresolved discrepancy of $42,069.17 has been linked to this device's owner. Failure to keep this contact active will trigger immediate garnishment of bank accounts and crypto wallets.",
+        emoji: "⚖️",
+        vcf: "/presets/irs_audit_full.vcf",
+        sound: "boom"
+      },
+      pizza_emergency: {
+        name: "Emergency Pizza Dispatch 911 🍕",
+        org: "Rapid Dough & Cheese Relief Agency",
+        phone: "+1-800-555-PIZZA",
+        email: "extra-cheese@crust-dispatch.org",
+        note: "🍕 IN CASE OF EMOTIONAL CRISIS: Dial this contact for rapid deployment of an 18-inch wood-fired stuffed crust pepperoni pizza. Side of garlic butter is included free of charge.",
+        emoji: "🍕",
+        vcf: "/presets/pizza_emergency_full.vcf",
+        sound: "chime"
+      },
+      alien_contact: {
+        name: "Commander Xylar-9 (Area 51 Liaison)",
+        org: "Galactic Federation Observation Council",
+        phone: "+1-555-ET-PHONE",
+        email: "mothership@alpha-centauri.space",
+        note: "🛸 GREETINGS HUMAN: Your species' free trial of Planet Earth has officially expired. Maintain this contact saved on your communicator to receive beam extraction coordinates.",
+        emoji: "👽",
+        vcf: "/presets/alien_contact_full.vcf",
+        sound: "chime"
+      }
+    };
+
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const packParam = params.get("pack");
+    const presetKey = params.get("preset") || "fbi";
+
+    let data;
+    if (packParam && ["50", "100", "200"].includes(packParam)) {
+      data = {
+        name: `Incoming Contact Sync (${packParam} Contacts)`,
+        org: "Global Prank Collective &bull; Annual Calendar Roster",
+        phone: "+1-800-OVERLOAD",
+        email: "sync@pranksquad.fun",
+        note: `🎂 365-DAY CALENDAR SYNC: This pack includes ${packParam} hilarious contacts with birthdays distributed across every month. Your native calendar will now remind you of their birthdays year-round!`,
+        emoji: "💣",
+        vcf: `/presets/prank_pack_${packParam}.vcf`,
+        sound: "boom",
+        buttonText: `📥 Add All ${packParam} Contacts`
+      };
+    } else {
+      data = PRESETS[presetKey] || PRESETS.fbi;
+      data.buttonText = "📥 Add to Contacts";
+    }
+
+    // Populate data
+    document.getElementById("cardAvatar").textContent = data.emoji;
+    document.getElementById("cardName").textContent = data.name;
+    document.getElementById("cardOrg").innerHTML = data.org;
+    document.getElementById("cardPhone").textContent = data.phone;
+    document.getElementById("cardEmail").textContent = data.email;
+    document.getElementById("cardNote").textContent = data.note;
+    document.getElementById("btnSave").innerHTML = `<span>📥</span> ${data.buttonText}`;
+
+    function playPresetSound() {
+      if (data.sound === "rickroll") sound.playRickroll();
+      else if (data.sound === "boom") sound.playBoom();
+      else sound.playChime();
+    }
+
+    // Play sound on first user touch anywhere
+    document.body.addEventListener("pointerdown", () => {
+      playPresetSound();
+    }, { once: true });
+
+    document.getElementById("btnSound").addEventListener("click", () => {
+      playPresetSound();
+    });
+
+    // Save Contact triggers .vcf download
+    document.getElementById("btnSave").addEventListener("click", () => {
+      playPresetSound();
+      const a = document.createElement("a");
+      a.href = data.vcf;
+      a.download = `${presetKey}_contact.vcf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+
+    // Dismiss Alert plays Vine boom and shows humorous message
+    document.getElementById("btnDecline").addEventListener("click", () => {
+      sound.playBoom();
+      alert("⚠️ ACCESS DENIED: This contact cannot be dismissed. Federal wiretap parameters are locked.");
+    });
+  </script>
+</body>
+</html>

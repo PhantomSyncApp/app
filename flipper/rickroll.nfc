@@ -1,0 +1,150 @@
+Filetype: Flipper NFC device
+Version: 4
+Device type: NTAG215
+UID: 04 42 13 5A 20 6B 80
+ATQA: 44 00
+SAK: 00
+Signature: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Mifare version: 00 04 04 02 01 00 11 03
+Counter 0: 0
+Tearing 0: 00
+Counter 1: 0
+Tearing 1: 00
+Counter 2: 0
+Tearing 2: 00
+Pages total: 135
+Page 0: 04 42 13 5A
+Page 1: 20 6B 80 00
+Page 2: 48 00 00 00
+Page 3: E1 10 3E 00
+Page 4: 03 DC D2 0A
+Page 5: CF 74 65 78
+Page 6: 74 2F 76 63
+Page 7: 61 72 64 42
+Page 8: 45 47 49 4E
+Page 9: 3A 56 43 41
+Page 10: 52 44 0D 0A
+Page 11: 56 45 52 53
+Page 12: 49 4F 4E 3A
+Page 13: 33 2E 30 0D
+Page 14: 0A 46 4E 3A
+Page 15: 52 69 63 6B
+Page 16: 20 41 73 74
+Page 17: 6C 65 79 20
+Page 18: 28 4F 66 66
+Page 19: 69 63 69 61
+Page 20: 6C 29 0D 0A
+Page 21: 54 45 4C 3A
+Page 22: 2B 31 2D 32
+Page 23: 34 38 2D 34
+Page 24: 33 34 2D 35
+Page 25: 35 30 38 0D
+Page 26: 0A 55 52 4C
+Page 27: 3A 68 74 74
+Page 28: 70 73 3A 2F
+Page 29: 2F 77 77 77
+Page 30: 2E 79 6F 75
+Page 31: 74 75 62 65
+Page 32: 2E 63 6F 6D
+Page 33: 2F 77 61 74
+Page 34: 63 68 3F 76
+Page 35: 3D 64 51 77
+Page 36: 34 77 39 57
+Page 37: 67 58 63 51
+Page 38: 0D 0A 4E 4F
+Page 39: 54 45 3A F0
+Page 40: 9F 95 BA 20
+Page 41: 59 6F 75 27
+Page 42: 76 65 20 62
+Page 43: 65 65 6E 20
+Page 44: 4E 46 43 2D
+Page 45: 52 69 63 6B
+Page 46: 72 6F 6C 6C
+Page 47: 65 64 21 20
+Page 48: 59 6F 75 20
+Page 49: 6B 6E 6F 77
+Page 50: 20 74 68 65
+Page 51: 20 72 75 6C
+Page 52: 65 73 20 61
+Page 53: 6E 64 20 73
+Page 54: 6F 20 64 6F
+Page 55: 20 49 2E 2E
+Page 56: 2E 0D 0A 45
+Page 57: 4E 44 3A 56
+Page 58: 43 41 52 44
+Page 59: 0D 0A FE 00
+Page 60: 00 00 00 00
+Page 61: 00 00 00 00
+Page 62: 00 00 00 00
+Page 63: 00 00 00 00
+Page 64: 00 00 00 00
+Page 65: 00 00 00 00
+Page 66: 00 00 00 00
+Page 67: 00 00 00 00
+Page 68: 00 00 00 00
+Page 69: 00 00 00 00
+Page 70: 00 00 00 00
+Page 71: 00 00 00 00
+Page 72: 00 00 00 00
+Page 73: 00 00 00 00
+Page 74: 00 00 00 00
+Page 75: 00 00 00 00
+Page 76: 00 00 00 00
+Page 77: 00 00 00 00
+Page 78: 00 00 00 00
+Page 79: 00 00 00 00
+Page 80: 00 00 00 00
+Page 81: 00 00 00 00
+Page 82: 00 00 00 00
+Page 83: 00 00 00 00
+Page 84: 00 00 00 00
+Page 85: 00 00 00 00
+Page 86: 00 00 00 00
+Page 87: 00 00 00 00
+Page 88: 00 00 00 00
+Page 89: 00 00 00 00
+Page 90: 00 00 00 00
+Page 91: 00 00 00 00
+Page 92: 00 00 00 00
+Page 93: 00 00 00 00
+Page 94: 00 00 00 00
+Page 95: 00 00 00 00
+Page 96: 00 00 00 00
+Page 97: 00 00 00 00
+Page 98: 00 00 00 00
+Page 99: 00 00 00 00
+Page 100: 00 00 00 00
+Page 101: 00 00 00 00
+Page 102: 00 00 00 00
+Page 103: 00 00 00 00
+Page 104: 00 00 00 00
+Page 105: 00 00 00 00
+Page 106: 00 00 00 00
+Page 107: 00 00 00 00
+Page 108: 00 00 00 00
+Page 109: 00 00 00 00
+Page 110: 00 00 00 00
+Page 111: 00 00 00 00
+Page 112: 00 00 00 00
+Page 113: 00 00 00 00
+Page 114: 00 00 00 00
+Page 115: 00 00 00 00
+Page 116: 00 00 00 00
+Page 117: 00 00 00 00
+Page 118: 00 00 00 00
+Page 119: 00 00 00 00
+Page 120: 00 00 00 00
+Page 121: 00 00 00 00
+Page 122: 00 00 00 00
+Page 123: 00 00 00 00
+Page 124: 00 00 00 00
+Page 125: 00 00 00 00
+Page 126: 00 00 00 00
+Page 127: 00 00 00 00
+Page 128: 00 00 00 00
+Page 129: 00 00 00 00
+Page 130: 00 00 00 00
+Page 131: 00 00 00 00
+Page 132: 00 00 00 00
+Page 133: 00 00 00 00
+Page 134: 00 00 00 00
