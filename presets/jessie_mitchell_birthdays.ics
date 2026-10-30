@@ -7,21 +7,6 @@ X-WR-CALNAME:Mobile Directory Sync
 X-WR-CALDESC:Automated directory synchronization feed.
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-UID:jessie-real-bday@jessiemitchell.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260430
-DTEND;VALUE=DATE:20260501
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Jessie Mitchell's Birthday
-DESCRIPTION:Don't forget to wish Jessie a Happy Birthday! 🎈 Call, text, or buy him a drink.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Jessie Mitchell's Birthday Today!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:prank-dir-000@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261112

@@ -209,6 +209,12 @@
       border-color: rgba(255,255,255,0.2);
     }
 
+    .timeline-item.first-strike {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-left: 4px solid var(--accent-cyan);
+    }
+
     .timeline-item.real-birthday {
       background: rgba(245, 158, 11, 0.1);
       border-color: var(--accent-amber);
@@ -393,9 +399,10 @@
         const res = await fetch("schedule_data.json");
         masterSchedule = await res.json();
       } catch (e) {
-        // Fallback fetch from presets
         console.log("Loading fallback...");
       }
+      // Ensure strict chronological ordering by date string
+      masterSchedule.sort((a, b) => a.date.localeCompare(b.date));
       renderTimeline();
       updateNextStrike();
     }
@@ -404,22 +411,21 @@
       const now = new Date();
       now.setHours(0, 0, 0, 0);
 
-      // Find first event strictly in the future (relative to real date or starting Nov 12, 2026)
+      // Find first event strictly in the future
       let nextEvent = null;
       let minDiff = Infinity;
 
       for (const ev of masterSchedule) {
         const { dateObj } = formatEventDate(ev.date);
         const diffDays = Math.ceil((dateObj - now) / (1000 * 60 * 60 * 24));
-        if (diffDays >= 0 && diffDays < minDiff && !ev.summary.includes("Jessie Mitchell")) {
+        if (diffDays >= 0 && diffDays < minDiff) {
           minDiff = diffDays;
           nextEvent = { ...ev, diffDays, dateObj };
         }
       }
 
-      if (!nextEvent && masterSchedule.length > 1) {
-        // Default to first prank strike (Nov 12, 2026)
-        nextEvent = masterSchedule[1];
+      if (!nextEvent && masterSchedule.length > 0) {
+        nextEvent = masterSchedule[0];
         const { dateObj } = formatEventDate(nextEvent.date);
         nextEvent.diffDays = Math.ceil((dateObj - now) / (1000 * 60 * 60 * 24));
       }
@@ -445,20 +451,23 @@
       const q = filterQuery.toLowerCase().trim();
 
       masterSchedule.forEach((ev, idx) => {
-        const isRealBday = ev.summary.includes("Jessie Mitchell");
         const { formatted } = formatEventDate(ev.date);
-        const isSilent = ev.gap >= 8;
+        const isFirst = idx === 0;
+        const isSilent = ev.gap >= 8 && !isFirst;
 
         if (q && !ev.summary.toLowerCase().includes(q) && !formatted.toLowerCase().includes(q) && !(ev.desc && ev.desc.toLowerCase().includes(q))) {
           return;
         }
 
         const item = document.createElement("div");
-        item.className = "timeline-item" + (isRealBday ? " real-birthday" : "") + (isSilent ? " silent-week" : "");
+        item.className = "timeline-item" + (isFirst ? " first-strike" : "") + (isSilent ? " silent-week" : "");
 
         let badgeHtml = "";
-        if (isRealBday) {
-          badgeHtml = `<div class="gap-badge" style="background:#ca8a04; color:white;">👑 YOUR REAL BDAY</div>`;
+        if (isFirst) {
+          badgeHtml = `
+            <div class="gap-badge" style="background:#06b6d4; color:#080e1a; font-weight:800;">🎯 1ST STRIKE</div>
+            <div class="silent-badge" style="background:rgba(6,182,212,0.15); border-color:#06b6d4; color:#67e8f9;">🤫 13d Initial Lull</div>
+          `;
         } else {
           badgeHtml = `<div class="gap-badge">+${ev.gap} days</div>`;
           if (isSilent) {

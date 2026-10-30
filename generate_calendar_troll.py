@@ -1,15 +1,15 @@
 """
 365+ Day Organic Slow-Burn Calendar Generator (.ics)
-Deadpan Edition:
-- Zero contacts deleted (all 103 hilarious entities preserved).
+100% Anonymous Stealth & Deadpan Edition:
+- Zero references to Jessie Mitchell (total plausible deniability).
+- All 103 hilarious entities preserved.
 - Bespoke, deadpan, bureaucratic, dry official memos embedded into the DESCRIPTION of every event.
 - Organic gaps (3 to 11 days):
   * Some weeks have 2 events.
   * Some weeks have 1 event.
   * Some weeks have ZERO events (silent periods for false sense of security).
-- First strike delayed to Thursday, November 12, 2026.
-- Spans ~18 months naturally across 2026, 2027, and 2028.
-- Jessie Mitchell's real birthday on April 30.
+- First strike delayed to Thursday, November 12, 2026 (13 days of stealth silence).
+- Spans ~18 months naturally across 2026, 2027, and 2028 in strict chronological order.
 - Anonymous container: "Mobile Directory Sync".
 - Automatically exports both .ics and schedule_data.json to all targets.
 """
@@ -47,37 +47,11 @@ def generate_ics_and_schedule():
     ]
 
     schedule_data = []
+    tap_date = date(2026, 10, 30)  # Day target tapped the NFC card
 
-    # 1. Jessie Mitchell's Real Birthday (April 30, Annual)
-    jessie_desc = "Don't forget to wish Jessie a Happy Birthday! 🎈 Call, text, or buy him a drink."
-    lines.extend([
-        "BEGIN:VEVENT",
-        "UID:jessie-real-bday@jessiemitchell.sync",
-        "DTSTAMP:20260101T000000Z",
-        "DTSTART;VALUE=DATE:20260430",
-        "DTEND;VALUE=DATE:20260501",
-        "RRULE:FREQ=YEARLY",
-        "SUMMARY:🎂 Jessie Mitchell's Birthday",
-        f"DESCRIPTION:{jessie_desc}",
-        "TRANSP:TRANSPARENT",
-        "BEGIN:VALARM",
-        "ACTION:DISPLAY",
-        "DESCRIPTION:Jessie Mitchell's Birthday Today!",
-        "TRIGGER:-PT9H",
-        "END:VALARM",
-        "END:VEVENT"
-    ])
-
-    schedule_data.append({
-        "date": "20260430",
-        "summary": "Jessie Mitchell's Birthday",
-        "desc": jessie_desc,
-        "gap": 0
-    })
-
-    # 2. Generate Organic Gaps (3 to 11 days)
+    # 1. Generate Organic Gaps (3 to 11 days)
     random.seed(42)  # Fixed seed for a stable, perfectly balanced roadmap
-    start_date = date(2026, 11, 12)
+    start_date = date(2026, 11, 12)  # Thursday, November 12, 2026 (First strike)
     current = start_date
     dates = [current]
 
@@ -89,14 +63,10 @@ def generate_ics_and_schedule():
         current += timedelta(days=gap)
         dates.append(current)
 
-    # 3. Add all 103 hilarious entities with deadpan memos
+    # 2. Add all 103 hilarious entities with deadpan memos (Strict Chronological Order)
     for i, contact in enumerate(FUNNY_CONTACTS_DATA):
         fn, org, title, email = contact
         bday_date = dates[i]
-
-        # Avoid collision on Jessie's April 30
-        if bday_date.month == 4 and bday_date.day in [29, 30]:
-            bday_date += timedelta(days=2)
 
         dt_str = bday_date.strftime("%Y%m%d")
         next_day = (bday_date + timedelta(days=1)).strftime("%Y%m%d")
@@ -123,14 +93,11 @@ def generate_ics_and_schedule():
             "END:VEVENT"
         ])
 
-        # Calculate gap from previous event
+        # Calculate gap: for the very first event, gap from NFC tap date; for subsequent, gap from previous event
         if i == 0:
-            event_gap = (bday_date - date(2026, 4, 30)).days
+            event_gap = (bday_date - tap_date).days  # Exactly 13 days of radio silence
         else:
-            prev_bday = dates[i - 1]
-            if prev_bday.month == 4 and prev_bday.day in [29, 30]:
-                prev_bday += timedelta(days=2)
-            event_gap = (bday_date - prev_bday).days
+            event_gap = (bday_date - dates[i - 1]).days
 
         schedule_data.append({
             "date": dt_str,
@@ -146,7 +113,7 @@ def generate_ics_and_schedule():
 
 
 def main():
-    print("🚀 Generating Deadpan Slow-Burn Calendar (.ics & JSON)...")
+    print("🚀 Generating 100% Anonymous Deadpan Slow-Burn Calendar (.ics & JSON)...")
     ics_content, schedule_data = generate_ics_and_schedule()
 
     # 1. Save presets/jessie_mitchell_birthdays.ics
@@ -174,7 +141,7 @@ def main():
             shutil.copy(out_ics, os.path.join(d_presets, "jessie_mitchell_birthdays.ics"))
             print(f"  ✅ [Synced] Assets updated in {os.path.basename(d)}/")
 
-    print("\n🎉 All 104 events generated with deadpan bureaucratic memos!")
+    print(f"\n🎉 All {len(schedule_data)} events generated in strict chronological order!")
 
 
 if __name__ == "__main__":
