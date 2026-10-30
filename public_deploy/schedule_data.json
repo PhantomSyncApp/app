@@ -1,0 +1,626 @@
+[
+  {
+    "date": "20260430",
+    "summary": "Jessie Mitchell's Birthday",
+    "desc": "Don't forget to wish Jessie a Happy Birthday! \ud83c\udf88",
+    "gap": 0
+  },
+  {
+    "date": "20261112",
+    "summary": "FBI Surveillance Van #4's Birthday",
+    "desc": "Annual directory reminder: FBI Surveillance Van #4 (Federal Bureau of Investigation).",
+    "gap": 196
+  },
+  {
+    "date": "20261118",
+    "summary": "FBI Surveillance Van #9 (Undercover Prius)'s Birthday",
+    "desc": "Annual directory reminder: FBI Surveillance Van #9 (Undercover Prius) (Federal Bureau of Investigation).",
+    "gap": 6
+  },
+  {
+    "date": "20261121",
+    "summary": "CIA Operative Pigeon #42's Birthday",
+    "desc": "Annual directory reminder: CIA Operative Pigeon #42 (Central Intelligence Agency).",
+    "gap": 3
+  },
+  {
+    "date": "20261125",
+    "summary": "NSA Microphone Inspector's Birthday",
+    "desc": "Annual directory reminder: NSA Microphone Inspector (National Security Agency).",
+    "gap": 4
+  },
+  {
+    "date": "20261129",
+    "summary": "Area 51 Janitorial Services's Birthday",
+    "desc": "Annual directory reminder: Area 51 Janitorial Services (US Space Command).",
+    "gap": 4
+  },
+  {
+    "date": "20261205",
+    "summary": "IRS Audit SWAT Team's Birthday",
+    "desc": "Annual directory reminder: IRS Audit SWAT Team (Internal Revenue Service).",
+    "gap": 6
+  },
+  {
+    "date": "20261211",
+    "summary": "Department of Redundancy Department's Birthday",
+    "desc": "Annual directory reminder: Department of Redundancy Department (Federal Bureau of Redundant Affairs).",
+    "gap": 6
+  },
+  {
+    "date": "20261219",
+    "summary": "Pentagon Snack Room Attendant's Birthday",
+    "desc": "Annual directory reminder: Pentagon Snack Room Attendant (Department of Defense).",
+    "gap": 8
+  },
+  {
+    "date": "20261222",
+    "summary": "Undercover Squirrel Division's Birthday",
+    "desc": "Annual directory reminder: Undercover Squirrel Division (Wildlife Espionage Bureau).",
+    "gap": 3
+  },
+  {
+    "date": "20261227",
+    "summary": "Car Warranty Dispatcher (FINAL NOTICE)'s Birthday",
+    "desc": "Annual directory reminder: Car Warranty Dispatcher (FINAL NOTICE) (National Auto Protection).",
+    "gap": 5
+  },
+  {
+    "date": "20261230",
+    "summary": "Car Warranty Specialist #44's Birthday",
+    "desc": "Annual directory reminder: Car Warranty Specialist #44 (Vehicle Service Bureau).",
+    "gap": 3
+  },
+  {
+    "date": "20270103",
+    "summary": "Student Loan Forgiveness Goblin's Birthday",
+    "desc": "Annual directory reminder: Student Loan Forgiveness Goblin (Department of Fictional Relief).",
+    "gap": 4
+  },
+  {
+    "date": "20270108",
+    "summary": "Health Insurance Telemarketer's Birthday",
+    "desc": "Annual directory reminder: Health Insurance Telemarketer (Global Robocall Center).",
+    "gap": 5
+  },
+  {
+    "date": "20270111",
+    "summary": "Nigerian Prince (Legitimate)'s Birthday",
+    "desc": "Annual directory reminder: Nigerian Prince (Legitimate) (Royal Treasury of Lagos).",
+    "gap": 3
+  },
+  {
+    "date": "20270115",
+    "summary": "The Final Boss of Extended Warranties's Birthday",
+    "desc": "Annual directory reminder: The Final Boss of Extended Warranties (Warranty Citadel).",
+    "gap": 4
+  },
+  {
+    "date": "20270121",
+    "summary": "The Sentient Roomba's Birthday",
+    "desc": "Annual directory reminder: The Sentient Roomba (Living Room Patrol).",
+    "gap": 6
+  },
+  {
+    "date": "20270126",
+    "summary": "Smart Fridge (Judging Your Diet)'s Birthday",
+    "desc": "Annual directory reminder: Smart Fridge (Judging Your Diet) (Kitchen Appliances Union).",
+    "gap": 5
+  },
+  {
+    "date": "20270130",
+    "summary": "Printer That Won't Connect to Wi-Fi's Birthday",
+    "desc": "Annual directory reminder: Printer That Won't Connect to Wi-Fi (Office Hardware Demons).",
+    "gap": 4
+  },
+  {
+    "date": "20270204",
+    "summary": "Printer: Low on Cyan (Won't Print Black)'s Birthday",
+    "desc": "Annual directory reminder: Printer: Low on Cyan (Won't Print Black) (Hardware Cartridge Cartel).",
+    "gap": 5
+  },
+  {
+    "date": "20270211",
+    "summary": "The Duolingo Owl (Unforgiving)'s Birthday",
+    "desc": "Annual directory reminder: The Duolingo Owl (Unforgiving) (Duolingo Threat Bureau).",
+    "gap": 7
+  },
+  {
+    "date": "20270214",
+    "summary": "Guy Who Stares at Microwaves's Birthday",
+    "desc": "Annual directory reminder: Guy Who Stares at Microwaves (Midnight Kitchen Observers).",
+    "gap": 3
+  },
+  {
+    "date": "20270221",
+    "summary": "Your Wi-Fi Router at 3 AM's Birthday",
+    "desc": "Annual directory reminder: Your Wi-Fi Router at 3 AM (Packet Drop Services).",
+    "gap": 7
+  },
+  {
+    "date": "20270227",
+    "summary": "Bluetooth Speaker That Paired to Stranger's Birthday",
+    "desc": "Annual directory reminder: Bluetooth Speaker That Paired to Stranger (Unsolicited Audio Inc.).",
+    "gap": 6
+  },
+  {
+    "date": "20270303",
+    "summary": "Smoke Detector (Low Battery Chirp 2 AM)'s Birthday",
+    "desc": "Annual directory reminder: Smoke Detector (Low Battery Chirp 2 AM) (Ceiling Terror Logistics).",
+    "gap": 4
+  },
+  {
+    "date": "20270307",
+    "summary": "Phone Charger Cable (Only Works Bent)'s Birthday",
+    "desc": "Annual directory reminder: Phone Charger Cable (Only Works Bent) (Copper Fatigue Association).",
+    "gap": 4
+  },
+  {
+    "date": "20270317",
+    "summary": "Hotel Keycard That De-magnetized's Birthday",
+    "desc": "Annual directory reminder: Hotel Keycard That De-magnetized (Front Desk Relay).",
+    "gap": 10
+  },
+  {
+    "date": "20270321",
+    "summary": "Smart TV Updating at Worst Moment's Birthday",
+    "desc": "Annual directory reminder: Smart TV Updating at Worst Moment (Firmware Overlords).",
+    "gap": 4
+  },
+  {
+    "date": "20270324",
+    "summary": "Microwave Clock (Never Set Correctly)'s Birthday",
+    "desc": "Annual directory reminder: Microwave Clock (Never Set Correctly) (Kitchen Time Fabricators).",
+    "gap": 3
+  },
+  {
+    "date": "20270327",
+    "summary": "Guy Who Calls Everyone 'Chief''s Birthday",
+    "desc": "Annual directory reminder: Guy Who Calls Everyone 'Chief' (Casual Acquaintances LLC).",
+    "gap": 3
+  },
+  {
+    "date": "20270403",
+    "summary": "Neighbor With The 6 AM Leaf Blower's Birthday",
+    "desc": "Annual directory reminder: Neighbor With The 6 AM Leaf Blower (Saturday Morning Ruiners).",
+    "gap": 7
+  },
+  {
+    "date": "20270409",
+    "summary": "Emotional Support Possum's Birthday",
+    "desc": "Annual directory reminder: Emotional Support Possum (Backyard Marsupial Guild).",
+    "gap": 6
+  },
+  {
+    "date": "20270416",
+    "summary": "Guy Who Breathes Loudly on Elevators's Birthday",
+    "desc": "Annual directory reminder: Guy Who Breathes Loudly on Elevators (Vertical Transit Awkwardness).",
+    "gap": 7
+  },
+  {
+    "date": "20270422",
+    "summary": "The Guy She Told You Not To Worry About's Birthday",
+    "desc": "Annual directory reminder: The Guy She Told You Not To Worry About (Insecurity Amplification LLC).",
+    "gap": 6
+  },
+  {
+    "date": "20270427",
+    "summary": "Spotify DJ (Giving Unsolicited Recs)'s Birthday",
+    "desc": "Annual directory reminder: Spotify DJ (Giving Unsolicited Recs) (Algorithm Overreach).",
+    "gap": 5
+  },
+  {
+    "date": "20270507",
+    "summary": "Air Fryer Enthusiast Club President's Birthday",
+    "desc": "Annual directory reminder: Air Fryer Enthusiast Club President (Crispy Carbs Movement).",
+    "gap": 10
+  },
+  {
+    "date": "20270512",
+    "summary": "Guy Who Says 'Living the Dream''s Birthday",
+    "desc": "Annual directory reminder: Guy Who Says 'Living the Dream' (Corporate Coping Group).",
+    "gap": 5
+  },
+  {
+    "date": "20270517",
+    "summary": "Subway Sandwich Artist (Over-Mustarder)'s Birthday",
+    "desc": "Annual directory reminder: Subway Sandwich Artist (Over-Mustarder) (Condiment Velocity Lab).",
+    "gap": 5
+  },
+  {
+    "date": "20270524",
+    "summary": "Self-Checkout Voice: 'UNEXPECTED ITEM''s Birthday",
+    "desc": "Annual directory reminder: Self-Checkout Voice: 'UNEXPECTED ITEM' (Retail Robot Harassment).",
+    "gap": 7
+  },
+  {
+    "date": "20270530",
+    "summary": "Guy Wearing Sunglasses Indoors's Birthday",
+    "desc": "Annual directory reminder: Guy Wearing Sunglasses Indoors (Fluorescent Light Defiance).",
+    "gap": 6
+  },
+  {
+    "date": "20270607",
+    "summary": "Unsolicited Crypto Advice Cousin's Birthday",
+    "desc": "Annual directory reminder: Unsolicited Crypto Advice Cousin (Thanksgiving Table Ruiners).",
+    "gap": 8
+  },
+  {
+    "date": "20270612",
+    "summary": "Person Who Texts 'K' After 2 Paragraphs's Birthday",
+    "desc": "Annual directory reminder: Person Who Texts 'K' After 2 Paragraphs (Dry Texting League).",
+    "gap": 5
+  },
+  {
+    "date": "20270618",
+    "summary": "Overconfident IKEA Furniture Builder's Birthday",
+    "desc": "Annual directory reminder: Overconfident IKEA Furniture Builder (Allen Wrench Warriors).",
+    "gap": 6
+  },
+  {
+    "date": "20270621",
+    "summary": "Guy Who Overexplains Board Games's Birthday",
+    "desc": "Annual directory reminder: Guy Who Overexplains Board Games (Game Night Ruiners).",
+    "gap": 3
+  },
+  {
+    "date": "20270625",
+    "summary": "Self-Appointed Elevators Captain's Birthday",
+    "desc": "Annual directory reminder: Self-Appointed Elevators Captain (Vertical Transit Guild).",
+    "gap": 4
+  },
+  {
+    "date": "20270629",
+    "summary": "Cat Running at 3:14 AM's Birthday",
+    "desc": "Annual directory reminder: Cat Running at 3:14 AM (Feline Zoomies Brigade).",
+    "gap": 4
+  },
+  {
+    "date": "20270702",
+    "summary": "Person Who Waves Back When Wasn't For Them's Birthday",
+    "desc": "Annual directory reminder: Person Who Waves Back When Wasn't For Them (Awkward Social Encounters).",
+    "gap": 3
+  },
+  {
+    "date": "20270706",
+    "summary": "Dad Groaning While Sitting on Couch's Birthday",
+    "desc": "Annual directory reminder: Dad Groaning While Sitting on Couch (Living Room Acoustics).",
+    "gap": 4
+  },
+  {
+    "date": "20270709",
+    "summary": "Guy Who Asks 'Working Hard or Hardly Working?''s Birthday",
+    "desc": "Annual directory reminder: Guy Who Asks 'Working Hard or Hardly Working?' (Water Cooler Clich\u00e9 Institute).",
+    "gap": 3
+  },
+  {
+    "date": "20270713",
+    "summary": "Your Left Earbud (Lost Under Car Seat)'s Birthday",
+    "desc": "Annual directory reminder: Your Left Earbud (Lost Under Car Seat) (Bluetooth Separation Logistics).",
+    "gap": 4
+  },
+  {
+    "date": "20270719",
+    "summary": "Person Who Puts Empty Milk Jug Back in Fridge's Birthday",
+    "desc": "Annual directory reminder: Person Who Puts Empty Milk Jug Back in Fridge (Domestic Betrayal Agency).",
+    "gap": 6
+  },
+  {
+    "date": "20270724",
+    "summary": "The Guy Who Always Says 'I Know a Guy''s Birthday",
+    "desc": "Annual directory reminder: The Guy Who Always Says 'I Know a Guy' (Questionable Sourcing Guild).",
+    "gap": 5
+  },
+  {
+    "date": "20270729",
+    "summary": "Weather App Saying 0% Rain While Pouring's Birthday",
+    "desc": "Annual directory reminder: Weather App Saying 0% Rain While Pouring (Meteorological Gaslighting).",
+    "gap": 5
+  },
+  {
+    "date": "20270802",
+    "summary": "Conference Call: 'Can Everyone See My Screen?''s Birthday",
+    "desc": "Annual directory reminder: Conference Call: 'Can Everyone See My Screen?' (Corporate Virtual Meetings).",
+    "gap": 4
+  },
+  {
+    "date": "20270806",
+    "summary": "Guy Who Brings Acoustic Guitar to Campfire's Birthday",
+    "desc": "Annual directory reminder: Guy Who Brings Acoustic Guitar to Campfire (Uninvited Wonderwall Corp).",
+    "gap": 4
+  },
+  {
+    "date": "20270815",
+    "summary": "Gas Station Sushi Quality Inspector's Birthday",
+    "desc": "Annual directory reminder: Gas Station Sushi Quality Inspector (Digestive Roulette Associates).",
+    "gap": 9
+  },
+  {
+    "date": "20270821",
+    "summary": "The Capybara Emotional Center's Birthday",
+    "desc": "Annual directory reminder: The Capybara Emotional Center (Zen Animal Logistics).",
+    "gap": 6
+  },
+  {
+    "date": "20270827",
+    "summary": "Uber Driver Sharing Wild Conspiracy Theories's Birthday",
+    "desc": "Annual directory reminder: Uber Driver Sharing Wild Conspiracy Theories (Rideshare Debates).",
+    "gap": 6
+  },
+  {
+    "date": "20270831",
+    "summary": "Target Cashier Asking About RedCard's Birthday",
+    "desc": "Annual directory reminder: Target Cashier Asking About RedCard (Cash Register Pitches).",
+    "gap": 4
+  },
+  {
+    "date": "20270906",
+    "summary": "Avocado That Ripened for 4 Minutes's Birthday",
+    "desc": "Annual directory reminder: Avocado That Ripened for 4 Minutes (Produce Timing Hazards).",
+    "gap": 6
+  },
+  {
+    "date": "20270910",
+    "summary": "Dog Who Barks at Literally Nothing's Birthday",
+    "desc": "Annual directory reminder: Dog Who Barks at Literally Nothing (Ghost Detection Division).",
+    "gap": 4
+  },
+  {
+    "date": "20270915",
+    "summary": "Self-Proclaimed Barbecue Master's Birthday",
+    "desc": "Annual directory reminder: Self-Proclaimed Barbecue Master (Backyard Charcoal Syndicate).",
+    "gap": 5
+  },
+  {
+    "date": "20270926",
+    "summary": "Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday",
+    "desc": "Annual directory reminder: Overpriced Coffee Barista (Spelled Name Wrong) (Espresso Sarcasm Guild).",
+    "gap": 11
+  },
+  {
+    "date": "20271002",
+    "summary": "Basement Crawlspace Goblin's Birthday",
+    "desc": "Annual directory reminder: Basement Crawlspace Goblin (Subterranean Creatures LLC).",
+    "gap": 6
+  },
+  {
+    "date": "20271007",
+    "summary": "Friendly Neighborhood Cryptid's Birthday",
+    "desc": "Annual directory reminder: Friendly Neighborhood Cryptid (Appalachian Forest Guild).",
+    "gap": 5
+  },
+  {
+    "date": "20271013",
+    "summary": "Bigfoot's Public Relations Rep's Birthday",
+    "desc": "Annual directory reminder: Bigfoot's Public Relations Rep (Forest PR Associates).",
+    "gap": 6
+  },
+  {
+    "date": "20271020",
+    "summary": "Sleep Paralysis Demon's Birthday",
+    "desc": "Annual directory reminder: Sleep Paralysis Demon (Night Terror Logistics).",
+    "gap": 7
+  },
+  {
+    "date": "20271027",
+    "summary": "The Tooth Fairy (Foreclosure Div)'s Birthday",
+    "desc": "Annual directory reminder: The Tooth Fairy (Foreclosure Div) (Mythical Dental Exchange).",
+    "gap": 7
+  },
+  {
+    "date": "20271031",
+    "summary": "Loch Ness Monster ($3.50 Collector)'s Birthday",
+    "desc": "Annual directory reminder: Loch Ness Monster ($3.50 Collector) (Scottish Waters Inc.).",
+    "gap": 4
+  },
+  {
+    "date": "20271103",
+    "summary": "Local Raccoon Syndicate Local 404's Birthday",
+    "desc": "Annual directory reminder: Local Raccoon Syndicate Local 404 (Dumpster Diving Union).",
+    "gap": 3
+  },
+  {
+    "date": "20271107",
+    "summary": "Ghost in the Guest Bathroom's Birthday",
+    "desc": "Annual directory reminder: Ghost in the Guest Bathroom (Haunted Property Holdings).",
+    "gap": 4
+  },
+  {
+    "date": "20271111",
+    "summary": "Competitive Lawn Mower Racer's Birthday",
+    "desc": "Annual directory reminder: Competitive Lawn Mower Racer (Suburban Speed League).",
+    "gap": 4
+  },
+  {
+    "date": "20271115",
+    "summary": "Emergency Pizza Dispatcher 911's Birthday",
+    "desc": "Annual directory reminder: Emergency Pizza Dispatcher 911 (Rapid Crust Response).",
+    "gap": 4
+  },
+  {
+    "date": "20271124",
+    "summary": "Taco Bell Night Shift Philosopher's Birthday",
+    "desc": "Annual directory reminder: Taco Bell Night Shift Philosopher (Baja Blast R&D).",
+    "gap": 9
+  },
+  {
+    "date": "20271202",
+    "summary": "Emotional Support Burrito's Birthday",
+    "desc": "Annual directory reminder: Emotional Support Burrito (Comfort Food Associates).",
+    "gap": 8
+  },
+  {
+    "date": "20271206",
+    "summary": "Waffle House Parking Lot Referee's Birthday",
+    "desc": "Annual directory reminder: Waffle House Parking Lot Referee (24/7 Combat Sports).",
+    "gap": 4
+  },
+  {
+    "date": "20271212",
+    "summary": "Spicy Ramen Tolerance Coach's Birthday",
+    "desc": "Annual directory reminder: Spicy Ramen Tolerance Coach (Extreme Scoville League).",
+    "gap": 6
+  },
+  {
+    "date": "20271217",
+    "summary": "Emergency Sriracha Dispatch's Birthday",
+    "desc": "Annual directory reminder: Emergency Sriracha Dispatch (Condiment Emergency Response).",
+    "gap": 5
+  },
+  {
+    "date": "20271226",
+    "summary": "Sock Lost in Dryer (Still Alive)'s Birthday",
+    "desc": "Annual directory reminder: Sock Lost in Dryer (Still Alive) (Laundry Bermuda Triangle).",
+    "gap": 9
+  },
+  {
+    "date": "20271231",
+    "summary": "Professional Ceiling Fan Styler's Birthday",
+    "desc": "Annual directory reminder: Professional Ceiling Fan Styler (Interior Aerodynamics).",
+    "gap": 5
+  },
+  {
+    "date": "20280104",
+    "summary": "Chief Executive Vibes Officer's Birthday",
+    "desc": "Annual directory reminder: Chief Executive Vibes Officer (Corporate Nonsense Corp).",
+    "gap": 4
+  },
+  {
+    "date": "20280108",
+    "summary": "Unopened Tupperware from 2021's Birthday",
+    "desc": "Annual directory reminder: Unopened Tupperware from 2021 (Refrigerator Archeology).",
+    "gap": 4
+  },
+  {
+    "date": "20280113",
+    "summary": "Gym Bro Who Doesn't Re-rack Weights's Birthday",
+    "desc": "Annual directory reminder: Gym Bro Who Doesn't Re-rack Weights (Plate Abandonment Society).",
+    "gap": 5
+  },
+  {
+    "date": "20280117",
+    "summary": "Person Typing IN ALL CAPS ON FACEBOOK's Birthday",
+    "desc": "Annual directory reminder: Person Typing IN ALL CAPS ON FACEBOOK (Senior Internet Battalion).",
+    "gap": 4
+  },
+  {
+    "date": "20280122",
+    "summary": "Vending Machine That Stole Your Dollar's Birthday",
+    "desc": "Annual directory reminder: Vending Machine That Stole Your Dollar (Snack Highway Robbery).",
+    "gap": 5
+  },
+  {
+    "date": "20280130",
+    "summary": "Competitive Napper's Birthday",
+    "desc": "Annual directory reminder: Competitive Napper (International Snooze Federation).",
+    "gap": 8
+  },
+  {
+    "date": "20280204",
+    "summary": "Spaghetti Straightener's Birthday",
+    "desc": "Annual directory reminder: Spaghetti Straightener (Pasta Alignment Bureau).",
+    "gap": 5
+  },
+  {
+    "date": "20280208",
+    "summary": "Certified Fortune Cookie Writer's Birthday",
+    "desc": "Annual directory reminder: Certified Fortune Cookie Writer (Vague Destiny Ltd).",
+    "gap": 4
+  },
+  {
+    "date": "20280219",
+    "summary": "Professional Bubble Wrap Popper's Birthday",
+    "desc": "Annual directory reminder: Professional Bubble Wrap Popper (Stress Relief Union).",
+    "gap": 11
+  },
+  {
+    "date": "20280224",
+    "summary": "Elevator Button Double-Presser's Birthday",
+    "desc": "Annual directory reminder: Elevator Button Double-Presser (Impatience Logistics).",
+    "gap": 5
+  },
+  {
+    "date": "20280227",
+    "summary": "Person Who Microwave Fish at Work's Birthday",
+    "desc": "Annual directory reminder: Person Who Microwave Fish at Work (Breakroom Hazard Division).",
+    "gap": 3
+  },
+  {
+    "date": "20280301",
+    "summary": "Sir Bojangles The Third's Birthday",
+    "desc": "Annual directory reminder: Sir Bojangles The Third (Royal Court of Absurdity).",
+    "gap": 3
+  },
+  {
+    "date": "20280304",
+    "summary": "Guy Who Taps You on Left Shoulder and Looks Right's Birthday",
+    "desc": "Annual directory reminder: Guy Who Taps You on Left Shoulder and Looks Right (Middle School Pranksters Guild).",
+    "gap": 3
+  },
+  {
+    "date": "20280310",
+    "summary": "The Over-Polite Automated Call Center Voice's Birthday",
+    "desc": "Annual directory reminder: The Over-Polite Automated Call Center Voice (Robotic Courtesy Systems).",
+    "gap": 6
+  },
+  {
+    "date": "20280317",
+    "summary": "Person Eating Soup in Quiet Office's Birthday",
+    "desc": "Annual directory reminder: Person Eating Soup in Quiet Office (Breakroom Decibel Amplification).",
+    "gap": 7
+  },
+  {
+    "date": "20280322",
+    "summary": "The Ghost of Internet Explorer's Birthday",
+    "desc": "Annual directory reminder: The Ghost of Internet Explorer (Legacy Browser Afterlife).",
+    "gap": 5
+  },
+  {
+    "date": "20280325",
+    "summary": "Self-Appointed Neighborhood HOA Watchdog's Birthday",
+    "desc": "Annual directory reminder: Self-Appointed Neighborhood HOA Watchdog (Suburban Lawn Tape Measurers).",
+    "gap": 3
+  },
+  {
+    "date": "20280330",
+    "summary": "Guy Who Still Uses BlackBerry's Birthday",
+    "desc": "Annual directory reminder: Guy Who Still Uses BlackBerry (Physical QWERTY Nostalgia).",
+    "gap": 5
+  },
+  {
+    "date": "20280410",
+    "summary": "Automatic Door That Refuses to Open's Birthday",
+    "desc": "Annual directory reminder: Automatic Door That Refuses to Open (Sensor Blindspot Dynamics).",
+    "gap": 11
+  },
+  {
+    "date": "20280415",
+    "summary": "AirPods Low Battery Boop (Ear Piercing)'s Birthday",
+    "desc": "Annual directory reminder: AirPods Low Battery Boop (Ear Piercing) (Sudden Cardiac Panic Logistics).",
+    "gap": 5
+  },
+  {
+    "date": "20280425",
+    "summary": "The One Unopened Email from 2017's Birthday",
+    "desc": "Annual directory reminder: The One Unopened Email from 2017 (Inbox Guilt Repository).",
+    "gap": 10
+  },
+  {
+    "date": "20280503",
+    "summary": "GPS Recalculating (Lost in Cornfield)'s Birthday",
+    "desc": "Annual directory reminder: GPS Recalculating (Lost in Cornfield) (Navigation Re-routing Unit).",
+    "gap": 8
+  },
+  {
+    "date": "20280506",
+    "summary": "Person Who Claps When Plane Lands's Birthday",
+    "desc": "Annual directory reminder: Person Who Claps When Plane Lands (Aviation Applause Society).",
+    "gap": 3
+  },
+  {
+    "date": "20280512",
+    "summary": "Guy Who Explains The Joke You Just Made's Birthday",
+    "desc": "Annual directory reminder: Guy Who Explains The Joke You Just Made (Comedy Theft Syndicate).",
+    "gap": 6
+  }
+]
