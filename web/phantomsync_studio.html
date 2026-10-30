@@ -700,6 +700,7 @@
       <div class="stats-bar">
         <div>🚀 <strong>First Strike:</strong> <span id="firstStrikeDate" style="color:#67e8f9;">Loading...</span></div>
         <div>⏱️ <strong>Span:</strong> <span id="campaignSpan">18 Months</span></div>
+        <div>🧠 <strong>Engine:</strong> <span id="engineBadge" style="color:#38bdf8;">Gemini 2.5 Flash</span></div>
       </div>
 
       <div class="timeline-filter-box">
@@ -821,10 +822,14 @@
       if (!data.success || !Array.isArray(data.events)) {
         throw new Error(data.error || "Invalid response from Cloudflare Worker");
       }
-      return data.events.map(ev => ({
-        ...ev,
-        dateObj: new Date(ev.dateObj)
-      }));
+      return {
+        mode: data.mode || "gemini_ai",
+        engine: data.engine || (data.mode === "gemini_ai" ? "Gemini 2.5 Flash" : "Smart Procedural Engine"),
+        events: data.events.map(ev => ({
+          ...ev,
+          dateObj: new Date(ev.dateObj)
+        }))
+      };
     }
 
     // Call Direct Gemini API with Multi-Model Fallback
@@ -851,10 +856,10 @@ ABSOLUTE RULES:
 `;
 
       const candidateModels = [
-        "gemini-1.5-flash",
-        "gemini-1.5-flash-latest",
-        "gemini-1.5-pro",
-        "gemini-pro"
+        "gemini-2.5-flash",
+        "gemini-flash-latest",
+        "gemini-2.5-flash-lite",
+        "gemini-2.5-pro"
       ];
 
       let lastError = null;
@@ -880,10 +885,25 @@ ABSOLUTE RULES:
           }
 
           const data = await response.json();
-          const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          const parts = data?.candidates?.[0]?.content?.parts || [];
+          let rawText = "";
+          for (const p of parts) {
+            if (p.text && !p.thought) {
+              rawText = p.text;
+              break;
+            }
+          }
+          if (!rawText && parts.length > 0) {
+            rawText = parts[parts.length - 1].text || "";
+          }
           if (!rawText) continue;
 
-          const parsed = JSON.parse(rawText);
+          let cleanText = rawText.trim();
+          if (cleanText.startsWith("```")) {
+            cleanText = cleanText.replace(/^```json?\s*/i, "").replace(/\s*```$/, "");
+          }
+
+          const parsed = JSON.parse(cleanText);
           if (!Array.isArray(parsed) || !parsed.length) continue;
 
           // Convert to timeline objects
@@ -919,111 +939,118 @@ ABSOLUTE RULES:
       throw lastError || new Error("All Gemini models failed. Please verify API key permissions in Google AI Studio.");
     }
 
-    // High-IQ Built-in Procedural Generator (Zero "Birthday" Tropes)
+    // High-IQ Built-in Procedural Generator (Zero "Birthday" Tropes, 100% Tailored)
     function generateEnhancedProcedural(name, rawQuirks, count, delayDays) {
-      const quirks = rawQuirks.split(/[,;\n]+/).map(q => q.trim()).filter(Boolean);
-      const getQuirk = (idx) => quirks.length ? quirks[idx % quirks.length] : "unspecified habits";
+      const quirks = (rawQuirks || "unspecified habits")
+        .split(/[,;\n]+/)
+        .map(q => q.trim())
+        .filter(Boolean);
+      const getQuirk = (idx) => quirks[idx % quirks.length];
 
       const today = new Date();
       let currentDate = new Date(today);
       currentDate.setDate(currentDate.getDate() + delayDays);
 
       const templates = [
-        // Financial & Debt Inquiries
         {
-          title: (q) => `📊 Q1 Debt Settlement Hearing regarding ${q}`,
-          memo: (q) => `Accounting Directive: Outstanding obligations concerning '${q}' have accrued $4.12 in statutory delinquency penalties. Settlement hearing scheduled.`,
+          title: (q) => `📊 Q1 Statutory Collections Hearing: ${q}`,
+          memo: (q) => `Auditing Division: Outstanding obligations concerning '${q}' have accrued $14.12 in statutory delinquency penalties. Mandatory settlement conference.`,
           cat: "Financial Audit"
         },
         {
-          title: (q) => `⚖️ Formal Inquiry into ${name}'s ${q}`,
-          memo: (q) => `Collections Protocol: Automated ledger flagged that affairs regarding '${q}' remain open. Wage garnishment proceedings placed on standby.`,
-          cat: "Financial Audit"
-        },
-        // Mechanical & Municipal Citations
-        {
-          title: (q) => `🚗 Municipal Compliance Inspection: ${q}`,
-          memo: (q) => `Acoustic Advisory: Neighborhood complaints filed under City Code 404 regarding '${q}'. Physical decibel testing scheduled at curb.`,
+          title: (q) => `🚗 Municipal Compliance & Decibel Sweep: ${q}`,
+          memo: (q) => `City Code Enforcement: Neighborhood complaints logged under Ordinance 404 regarding sound profiles produced by '${q}'. Physical decibel sweep at curb.`,
           cat: "Municipal Citation"
         },
         {
-          title: (q) => `🔧 Mandatory Calibration of ${name}'s ${q}`,
-          memo: (q) => `Hardware Directive: Vibration sensors exceeded nominal safety limits regarding '${q}'. Re-alignment checklist required.`,
-          cat: "Municipal Citation"
-        },
-        // Biohazard & Sanitary Quarantine
-        {
-          title: (q) => `☣️ Bio-Safety Level 2 Inspection: ${q}`,
-          memo: (q) => `Health Protocol: Swab culture retrieved from '${q}' has evolved basic tool usage. Please submerge unit in boiling solvent immediately.`,
+          title: (q) => `☣️ Bio-Safety Level 2 Quarantine: ${q}`,
+          memo: (q) => `Public Health Notice: Swab culture retrieved from '${q}' has evolved basic motor reflexes. Please submerge unit in boiling solvent immediately.`,
           cat: "Sanitary Protocol"
         },
         {
-          title: (q) => `🧼 Sanitary Intervention regarding ${name}'s ${q}`,
-          memo: (q) => `Public Health Notice: Environmental air quality degraded by 38% due to '${q}'. Quarantine protocols in effect.`,
-          cat: "Sanitary Protocol"
-        },
-        // Telecom & Texting Audits
-        {
-          title: (q) => `📱 Cellular Carrier Communication Audit: '${q}'`,
-          memo: (q) => `Bandwidth Report: Monosyllabic response pattern regarding '${q}' evaluated. Efficiency rating: 99.8%. Politeness rating: 0.02%.`,
+          title: (q) => `📱 Cellular Carrier Communication Review: '${q}'`,
+          memo: (q) => `Carrier Network Directive: Texting velocity regarding '${q}' scored 99.4% monosyllabic. Courtesy retraining course placed on docket.`,
           cat: "Telecom Etiquette"
         },
-        // Surveillance & Reconnaissance
         {
-          title: () => `🔍 Optical Sensor Alignment (FBI Surveillance Team 4)`,
-          memo: () => `System Directive 404-B: Please maintain second-floor window blinds at a 45-degree angle. High-resolution sensors require line of sight.`,
+          title: (q) => `⚖️ County Tax Assessor Formal Audit into ${name}'s ${q}`,
+          memo: (q) => `Asset Assessment: Unregistered domestic inventory concerning '${q}' classified as taxable commercial fixture under Ordinance 44-B.`,
+          cat: "Financial Audit"
+        },
+        {
+          title: (q) => `🔍 Optical Sensor Alignment: Blind Angle Review (${q})`,
+          memo: (q) => `Surveillance Directive 802: Please maintain window blinds at a 45-degree angle. High-resolution telemetry on '${q}' requires line of sight.`,
           cat: "Surveillance Directive"
         },
         {
-          title: () => `🐦 Avian Drone Perch Maintenance (CIA Operative Pigeon 42)`,
-          memo: () => `Avian Status: Breadcrumb ingestion protocol complete. Perch established on overhead utility wire. Do not make direct eye contact.`,
-          cat: "Surveillance Directive"
-        },
-        {
-          title: () => `🎙️ Acoustic Living Room Sound Check (NSA Audio Div)`,
-          memo: () => `Audio Calibration: Living room acoustic profile verified. Please articulate slightly clearer when venting personal grievances to dog.`,
-          cat: "Surveillance Directive"
-        },
-        // Smart Home & IoT Disciplinary Actions
-        {
-          title: () => `🧀 3:14 AM Shredded Cheese Transaction Audit Review`,
-          memo: () => `Fridge Telemetry: Refrigerator door open duration: 42 seconds. Weight sensor recorded heavy sigh before door latch engaged.`,
+          title: (q) => `🧀 3:14 AM Kitchen Telemetry Audit: ${q}`,
+          memo: (q) => `Smart Fridge Log: Door latch disengaged for 58 seconds. Weight sensor recorded heavy existential sigh during '${q}' interaction.`,
           cat: "IoT Disciplinary"
         },
         {
-          title: () => `🚨 Smoke Detector 2:14 AM Battery Chirp Readiness Drill`,
-          memo: () => `Hardware Diagnostic: Battery capacity is at 94%. Single 110-decibel chirp scheduled every 43 seconds to test tenant alertness.`,
+          title: (q) => `🚨 Smoke Detector 2:14 AM Battery Chirp Readiness (${q})`,
+          memo: (q) => `Hardware Protocol: Cell voltage at 96%. Single 115-decibel high-frequency pulse scheduled every 47 seconds to evaluate auditory readiness.`,
           cat: "IoT Disciplinary"
         },
         {
-          title: () => `🤖 Sentient Roomba Bathmat Tassel Entanglement Hearing`,
-          memo: () => `Distress Bulletin: Unit has intentionally driven into high-pile bathroom rug. Spinning in circles until battery exhaustion. Salvage requested.`,
+          title: (q) => `🤖 Autonomous Vacuum Entanglement Arbitration regarding ${q}`,
+          memo: (q) => `Hardware Grievance: Cleaning unit has intentionally driven under furniture and tangled its brushes in '${q}'. Hostage negotiations pending.`,
           cat: "IoT Disciplinary"
         },
         {
-          title: () => `🖨️ Mandatory Color Extortion: Printer Low on Cyan`,
-          memo: () => `Cartridge Compliance: Document contains 100% black text. However, internal aesthetic policy requires 0.002ml sacrificial cyan.`,
+          title: (q) => `🖨️ Mandatory Color Extortion: Cyan Depletion Alert (${q})`,
+          memo: (q) => `Printer Compliance: Document is black text only. However, printing '${q}' documentation requires 0.003ml sacrificial yellow and cyan.`,
           cat: "Hardware Compliance"
         },
         {
-          title: () => `🌿 Lawn Grass Blade Height Measurement (HOA Rule 4-B)`,
-          memo: () => `HOA Violation: Front yard Bermuda turf blade measured at 2.65 inches (limit: 2.50 inches). Fine assessed. Trash cans placed out 12 mins early.`,
+          title: (q) => `🌿 HOA Turf Blade Elevation Citation (${q})`,
+          memo: (q) => `Subdivision Code 14: Lawn turf near '${q}' measured at 2.62 inches (allowable limit: 2.50 inches). Fine assessed to HOA ledger.`,
           cat: "Municipal Citation"
         },
         {
-          title: () => `🥛 Inspection of Empty 2% Milk Carton Left in Fridge`,
-          memo: () => `Domestic Audit: Exactly 3 drops of 2% milk preserved in plastic gallon. Technically not empty. Not responsible for replacing gallon.`,
+          title: (q) => `🥛 Domestic Inventory Review: 3 Drops Left in Carton (${q})`,
+          memo: (q) => `Resource Management: Gallon container preserved with exactly 0.05oz liquid regarding '${q}'. Technically not empty, thus avoiding replacement.`,
           cat: "Domestic Review"
         },
         {
-          title: () => `📶 Scheduled 3:00 AM Wi-Fi Router Disconnection Drill`,
-          memo: () => `Chaos Maintenance: All 4 downstream channels dropped for 11 seconds during online transaction. Power cycling cable required.`,
+          title: (q) => `🐦 Avian Drone Perch Maintenance (CIA Operative Pigeon 42)`,
+          memo: (q) => `Surveillance Log: Breadcrumb ingestion protocol complete. Target observed engaging with '${q}'. Aerial monitoring continues.`,
+          cat: "Surveillance Directive"
+        },
+        {
+          title: (q) => `📶 3:00 AM Router Unsolicited Reboot Drill (${q})`,
+          memo: (q) => `ISP Routine: Downstream connection severed for 19 seconds while loading content related to '${q}'. Router restart required.`,
           cat: "IoT Disciplinary"
         },
         {
-          title: () => `🎵 Unsolicited Campfire Wonderwall Acoustic Performance`,
-          memo: () => `Acoustic Notice: Campfire ambiance detected. G-chord struck without invitation. 'Anyway, here is Wonderwall for the fourth consecutive year.'`,
-          cat: "Social Violation"
+          title: (q) => `🧼 Emergency Dishwasher Filter Decontamination (${q})`,
+          memo: (q) => `Appliance Diagnostic: Filter mesh clogged with archaeological remnants associated with '${q}'. Diagnostic rinse cycle engaged.`,
+          cat: "Sanitary Protocol"
+        },
+        {
+          title: (q) => `🎙️ Acoustic Soundstage Verification: Living Room (${q})`,
+          memo: (q) => `Audio Surveillance Unit: Please speak more clearly when voicing private exasperation regarding '${q}' to the household pet.`,
+          cat: "Surveillance Directive"
+        },
+        {
+          title: (q) => `📦 47 Unbroken Amazon Cardboard Boxes Intervention (${q})`,
+          memo: (q) => `Storage Ordinance: Tower of collapsed shipping boxes associated with '${q}' has achieved structural load-bearing status in garage.`,
+          cat: "Domestic Review"
+        },
+        {
+          title: (q) => `💤 7:00 AM Five-Alarm Snooze Disciplinary Hearing (${q})`,
+          memo: (q) => `Chronobiology Department: iPhone alarm snoozed 6 times consecutively following '${q}'. Circadian rhythm revoked by order of council.`,
+          cat: "Telecom Etiquette"
+        },
+        {
+          title: (q) => `☕ Commercial Beverage Temperature Recalibration: ${q}`,
+          memo: (q) => `Thermodynamic Notice: Beverage consumed at non-optimal temperature regarding '${q}'. Formal advisory logged by beverage monitoring guild.`,
+          cat: "Domestic Review"
+        },
+        {
+          title: (q) => `🔋 3% Battery Low Power Mode Defiance Inquiry (${q})`,
+          memo: (q) => `Battery Health Council: Target device operated at 2% charge for 43 consecutive minutes during '${q}'. Screen brightness dimmed by force.`,
+          cat: "Telecom Etiquette"
         }
       ];
 
@@ -1119,7 +1146,8 @@ ABSOLUTE RULES:
       btn.innerHTML = `<span>🧠 Synthesizing AI Incidents...</span>`;
 
       try {
-        generatedEvents = await generateWithWorker(CLOUDFLARE_WORKER_URL, name, quirks, currentTheme, count, delayDays);
+        const result = await generateWithWorker(CLOUDFLARE_WORKER_URL, name, quirks, currentTheme, count, delayDays);
+        generatedEvents = result.events;
 
         document.getElementById("timelineSection").style.display = "block";
         document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
@@ -1128,6 +1156,15 @@ ABSOLUTE RULES:
         const lastDate = generatedEvents[generatedEvents.length - 1].dateObj;
         const diffMonths = Math.round((lastDate - generatedEvents[0].dateObj) / (1000 * 60 * 60 * 24 * 30));
         document.getElementById("campaignSpan").textContent = `~${diffMonths} Months`;
+
+        const engineEl = document.getElementById("engineBadge");
+        if (result.mode === "gemini_ai") {
+          engineEl.textContent = "🧠 Gemini 2.5 Flash (Live AI)";
+          engineEl.style.color = "#34d399";
+        } else {
+          engineEl.textContent = "⚡ Smart Procedural Engine";
+          engineEl.style.color = "#c4b5fd";
+        }
 
         renderTimeline(generatedEvents);
 
@@ -1142,6 +1179,11 @@ ABSOLUTE RULES:
         document.getElementById("timelineSection").style.display = "block";
         document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
         document.getElementById("firstStrikeDate").textContent = generatedEvents[0].dateStr;
+        
+        const engineEl = document.getElementById("engineBadge");
+        engineEl.textContent = "⚡ Built-in Procedural Engine";
+        engineEl.style.color = "#c4b5fd";
+
         renderTimeline(generatedEvents);
         btn.disabled = false;
         btn.innerHTML = `<span>⚡ Regenerate Phantom Campaign</span>`;
