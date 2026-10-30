@@ -23,12 +23,12 @@ os.makedirs(PRESETS_DIR, exist_ok=True)
 
 
 def create_jessi_contact():
-    """Generates the primary legitimate contact card for Jessi Mitchell."""
+    """Generates the primary legitimate contact card for Jessie Mitchell."""
     lines = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        "N:Mitchell;Jessi;;;",
-        "FN:Jessi Mitchell",
+        "N:Mitchell;Jessie;;;",
+        "FN:Jessie Mitchell",
         "TEL;TYPE=CELL,VOICE:+1-256-822-4733",
         "EMAIL;TYPE=INTERNET,HOME:jessiwayne430@gmail.com",
         "BDAY:1990-04-30",
@@ -101,36 +101,41 @@ def generate_trojan_vcf(count=100):
 
 
 def main():
-    print("🚀 Generating Jessi Mitchell Trojan Contact Packs...")
+    print("🚀 Generating Jessie Mitchell Trojan Contact Packs...")
 
     # 1. Clean Single Contact
     clean_vcf = create_jessi_contact()
-    with open(os.path.join(PRESETS_DIR, "jessi_mitchell_clean.vcf"), "w", encoding="utf-8") as f:
-        f.write(clean_vcf)
+    for name in ["jessie_mitchell_clean.vcf", "jessi_mitchell_clean.vcf"]:
+        with open(os.path.join(PRESETS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(clean_vcf)
 
     # 2. Stealth 10 Pack
-    t10 = generate_trojan_vcf(9) # Jessi + 9 = 10 total
-    with open(os.path.join(PRESETS_DIR, "jessi_mitchell_10.vcf"), "w", encoding="utf-8") as f:
-        f.write(t10)
-    print(f"  ✅ [Stealth 10 Pack] (Jessi + 9 hilarious contacts)")
+    t10 = generate_trojan_vcf(9) # Jessie + 9 = 10 total
+    for name in ["jessie_mitchell_10.vcf", "jessi_mitchell_10.vcf"]:
+        with open(os.path.join(PRESETS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(t10)
+    print(f"  ✅ [Stealth 10 Pack] (Jessie + 9 hilarious contacts)")
 
     # 3. Stealth 25 Pack
-    t25 = generate_trojan_vcf(24) # Jessi + 24 = 25 total
-    with open(os.path.join(PRESETS_DIR, "jessi_mitchell_25.vcf"), "w", encoding="utf-8") as f:
-        f.write(t25)
-    print(f"  ✅ [Stealth 25 Pack] (Jessi + 24 hilarious contacts)")
+    t25 = generate_trojan_vcf(24) # Jessie + 24 = 25 total
+    for name in ["jessie_mitchell_25.vcf", "jessi_mitchell_25.vcf"]:
+        with open(os.path.join(PRESETS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(t25)
+    print(f"  ✅ [Stealth 25 Pack] (Jessie + 24 hilarious contacts)")
 
     # 4. Medium 50 Pack
-    t50 = generate_trojan_vcf(49) # Jessi + 49 = 50 total
-    with open(os.path.join(PRESETS_DIR, "jessi_mitchell_50.vcf"), "w", encoding="utf-8") as f:
-        f.write(t50)
-    print(f"  ✅ [Medium 50 Pack] (Jessi + 49 hilarious contacts)")
+    t50 = generate_trojan_vcf(49) # Jessie + 49 = 50 total
+    for name in ["jessie_mitchell_50.vcf", "jessi_mitchell_50.vcf"]:
+        with open(os.path.join(PRESETS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(t50)
+    print(f"  ✅ [Medium 50 Pack] (Jessie + 49 hilarious contacts)")
 
     # 5. Full 100 Pack (Default)
-    t100 = generate_trojan_vcf(100) # Jessi + 100 = 101 total
-    with open(os.path.join(PRESETS_DIR, "jessi_mitchell.vcf"), "w", encoding="utf-8") as f:
-        f.write(t100)
-    print(f"  ✅ [Full 100 Pack] (Jessi + 100 completely unique handcrafted contacts)")
+    t100 = generate_trojan_vcf(100) # Jessie + 100 = 101 total
+    for name in ["jessie_mitchell.vcf", "jessi_mitchell.vcf"]:
+        with open(os.path.join(PRESETS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(t100)
+    print(f"  ✅ [Full 100 Pack] (Jessie + 100 completely unique handcrafted contacts)")
 
     print("\n✨ All Trojan Horse packs updated successfully!")
 
