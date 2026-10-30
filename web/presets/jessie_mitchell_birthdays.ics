@@ -928,7 +928,7 @@ DTSTART;VALUE=DATE:20270926
 DTEND;VALUE=DATE:20270927
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday
-DESCRIPTION:Cup Labeling: Target name: 'Jessie'. Name written on cup in black sharpie: 'Gjazzy'. Oat milk surcharge: $1.85. Tip jar tapped pointedly.
+DESCRIPTION:Cup Labeling: Customer stated name clearly as 'Alex'. Name written on cup in black sharpie: 'Gjazzy'. Oat milk surcharge: $1.85. Tip jar tapped pointedly.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY

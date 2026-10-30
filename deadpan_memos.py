@@ -134,7 +134,7 @@ DEADPAN_MEMOS = {
     "Self-Proclaimed Barbecue Master": 
         "Culinary Directive: Metal tongs clicked together exactly twice to verify operational readiness. 'If you're lookin', you ain't cookin'.' Meat thermometer confiscated.",
     "Overpriced Coffee Barista (Spelled Name Wrong)": 
-        "Cup Labeling: Target name: 'Jessie'. Name written on cup in black sharpie: 'Gjazzy'. Oat milk surcharge: $1.85. Tip jar tapped pointedly.",
+        "Cup Labeling: Customer stated name clearly as 'Alex'. Name written on cup in black sharpie: 'Gjazzy'. Oat milk surcharge: $1.85. Tip jar tapped pointedly.",
 
     # Mythical & Supernatural
     "Basement Crawlspace Goblin": 
