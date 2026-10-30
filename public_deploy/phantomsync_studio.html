@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PhantomSync &bull; AI Slow-Burn Prank Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a12;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(30, 41, 59, 0.85);
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.25);
+      --purple: #8b5cf6;
+      --purple-glow: rgba(139, 92, 246, 0.25);
+      --green: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #171d33 0%, var(--bg) 75%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px 60px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* Header & Branding */
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid var(--cyan);
+      color: #67e8f9;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .brand-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.8); opacity: 0.4; }
+    }
+
+    h1.brand-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    p.brand-tagline {
+      color: var(--subtext);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    /* Section Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      transition: all 0.2s ease;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title .step-num {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #080c14;
+      font-size: 0.75rem;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--subtext);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      background: rgba(10, 15, 28, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: white;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    input[type="text"]:focus, textarea:focus, select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan-glow);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 85px;
+      line-height: 1.45;
+    }
+
+    /* Preset Themes Grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 480px) {
+      .theme-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .theme-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .theme-btn.active {
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.12);
+      box-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    .theme-icon {
+      font-size: 1.4rem;
+    }
+
+    .theme-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+      display: block;
+    }
+
+    .theme-desc {
+      font-size: 0.7rem;
+      color: var(--subtext);
+      display: block;
+    }
+
+    /* Options Row */
+    .options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Generate Button */
+    .btn-generate {
+      width: 100%;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.35);
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(6, 182, 212, 0.5);
+    }
+
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+
+    /* Timeline Section */
+    #timelineSection {
+      display: none;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    /* Search & Filter */
+    .timeline-filter-box {
+      margin-bottom: 14px;
+    }
+
+    /* Timeline Items */
+    .timeline-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .timeline-feed::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .timeline-feed::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+    }
+
+    .event-card {
+      background: rgba(18, 26, 45, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .event-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(24, 34, 58, 0.95);
+    }
+
+    .event-card.first-strike {
+      border-left: 4px solid var(--cyan);
+      background: rgba(6, 182, 212, 0.08);
+    }
+
+    .event-card.lull {
+      border-left: 4px solid var(--purple);
+    }
+
+    .event-main {
+      flex: 1;
+    }
+
+    .event-date-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .event-date {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--subtext);
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .event-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .event-memo {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      font-style: italic;
+      line-height: 1.4;
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 2px solid var(--cyan);
+      padding: 5px 8px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .event-badges {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-gap {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .badge-first {
+      background: var(--cyan);
+      color: #080c14;
+      font-weight: 800;
+    }
+
+    .badge-silent {
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid var(--purple);
+      color: #c4b5fd;
+    }
+
+    /* Checkout & Arming Section */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 540px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pricing-card {
+      background: rgba(10, 15, 28, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--cyan);
+      box-shadow: 0 0 25px var(--cyan-glow);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 182, 212, 0.1));
+    }
+
+    .featured-tag {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #080c14;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .plan-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .plan-price {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .plan-price span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--subtext);
+    }
+
+    .plan-features {
+      list-style: none;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-buy {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-digital {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+    }
+
+    .btn-digital:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-card {
+      background: var(--cyan);
+      color: #080c14;
+      font-weight: 800;
+    }
+
+    .btn-card:hover {
+      background: #22d3ee;
+      box-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    /* Action Modal for Free Demo */
+    .demo-arm-bar {
+      margin-top: 18px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px dashed var(--green);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .btn-test-feed {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #062b1a;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-test-feed:hover {
+      background: #34d399;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand-pill">
+        <div class="dot"></div>
+        <span>PhantomSync &bull; AI Prank Platform</span>
+      </div>
+      <h1 class="brand-title">PhantomSync Studio</h1>
+      <p class="brand-tagline">
+        Generate a 12-month slow-burn phantom calendar tailored to your victim's exact quirks. Complete with 14-day stealth delay and deadpan memos.
+      </p>
+    </header>
+
+    <!-- STEP 1: TARGET DOSSIER -->
+    <div class="card" id="step1Card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="step-num">1</span>
+          <span>Target Dossier (Victim Info)</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Victim Name or Nickname</label>
+        <input type="text" id="targetName" placeholder="e.g. Dave, Uncle Bob, Chief Kyle" value="Dave">
+      </div>
+
+      <div class="form-group">
+        <label>Personal Quirks, Habits & Inside Jokes (The AI Sauce)</label>
+        <textarea id="targetQuirks" placeholder="What does this person do that everyone laughs about? (e.g. Broken 2008 Honda Civic with squeaky brakes, leaves unwashed protein shaker in the sink, obsessed with crypto Dogecoin, always eats cold hot dogs, stole my hoodie in 2022)">Drives a 2008 Honda Civic with a loud exhaust, leaves dirty BlenderBottle protein shakers in the sink, obsessed with Dogecoin, owes me $20 for Taco Bell from 2023, never replies to texts with more than 'k'</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Choose Prank Theme</label>
+        <div class="theme-grid" id="themeGrid">
+          <div class="theme-btn active" data-theme="mixed">
+            <span class="theme-icon">🎭</span>
+            <div>
+              <span class="theme-name">The Full Chaos Mix</span>
+              <span class="theme-desc">Surveillance, rogue IoT & personal quirks</span>
+            </div>
+          </div>
+          <div class="theme-btn" data-theme="surveillance">
+            <span class="theme-icon">🕵️</span>
+            <div>
+              <span class="theme-name">Federal Surveillance</span>
+              <span class="theme-desc">FBI vans, CIA pigeons & mic audits</span>
+            </div>
+          </div>
+          <div class="theme-btn" data-theme="corporate">
+            <span class="theme-icon">🏢</span>
+            <div>
+              <span class="theme-name">Corporate Purgatory</span>
+              <span class="theme-desc">Synergy audits, HR memos & compliance</span>
+            </div>
+          </div>
+          <div class="theme-btn" data-theme="iot">
+            <span class="theme-icon">🤖</span>
+            <div>
+              <span class="theme-name">Rogue Smart Home</span>
+              <span class="theme-desc">Judging fridge, sentient vacuum mutiny</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="options-row">
+        <div class="form-group">
+          <label>Campaign Length</label>
+          <select id="eventCountSelect">
+            <option value="25">Quick Strike (25 Events • ~3 Mos)</option>
+            <option value="50">Standard Burn (50 Events • ~8 Mos)</option>
+            <option value="103" selected>The Masterpiece (103 Events • ~18 Mos)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Stealth Delay Fuse</label>
+          <select id="delaySelect">
+            <option value="7">7 Days Radio Silence</option>
+            <option value="13" selected>13-14 Days (Recommended)</option>
+            <option value="21">21 Days (Ultra-Ghost)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-generate" id="btnGenerate">
+        <span>⚡ Generate Procedural AI Campaign</span>
+      </button>
+    </div>
+
+    <!-- STEP 2: INTERACTIVE TIMELINE PREVIEW -->
+    <div class="card" id="timelineSection">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="step-num">2</span>
+          <span id="previewTitle">Generated Phantom Timeline</span>
+        </div>
+        <div class="stat-pill" id="totalCountBadge">103 Events</div>
+      </div>
+
+      <div class="stats-bar">
+        <div>🚀 <strong>First Strike:</strong> <span id="firstStrikeDate" style="color:#67e8f9;">Loading...</span></div>
+        <div>⏱️ <strong>Span:</strong> <span id="campaignSpan">18 Months</span></div>
+      </div>
+
+      <div class="timeline-filter-box">
+        <input type="text" id="filterInput" placeholder="🔍 Search generated events (e.g. Civic, Shaker, FBI, Crypto)...">
+      </div>
+
+      <div class="timeline-feed" id="timelineFeed">
+        <!-- Events injected dynamically by JS -->
+      </div>
+
+      <!-- STEP 3: ARMING & MONETIZATION -->
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08);">
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">🚀 Ready to Deploy to Victim's Phone?</h3>
+        <p style="font-size: 0.8rem; color: var(--subtext); margin-bottom: 14px;">
+          Choose how you want to deliver this slow-burn campaign to your target.
+        </p>
+
+        <div class="checkout-grid">
+          <!-- Digital Pass -->
+          <div class="pricing-card">
+            <div>
+              <div class="plan-name">Digital Phantom Pass</div>
+              <div class="plan-price">$4.99 <span>one-time</span></div>
+              <ul class="plan-features">
+                <li>✅ Live instant <code>webcal://</code> link</li>
+                <li>✅ Works on iPhone & Android</li>
+                <li>✅ High-res dynamic QR code</li>
+                <li>✅ Live Mission Control Telemetry</li>
+                <li>✅ Remote Emergency Kill Switch</li>
+              </ul>
+            </div>
+            <button class="btn-buy btn-digital" onclick="alert('In production, this opens Stripe Checkout ($4.99) and generates a unique private slug!')">
+              ⚡ Arm Digital Pass ($4.99)
+            </button>
+          </div>
+
+          <!-- Physical Luxury Card -->
+          <div class="pricing-card featured">
+            <div class="featured-tag">Best Value</div>
+            <div>
+              <div class="plan-name">Matte-Black NFC Card</div>
+              <div class="plan-price">$29.00 <span>shipped</span></div>
+              <ul class="plan-features">
+                <li>✨ <strong>Luxury Matte-Black NFC Card</strong></li>
+                <li>✨ Tap to target's phone to arm instantly</li>
+                <li>✨ Pre-programmed to your custom campaign</li>
+                <li>✨ Includes Digital Pass ($4.99 value) FREE</li>
+                <li>✨ Re-usable for future victims anytime</li>
+              </ul>
+            </div>
+            <button class="btn-buy btn-card" onclick="alert('In production, this opens Stripe Checkout ($29.00) with shipping address form!')">
+              💳 Get Physical NFC Card ($29)
+            </button>
+          </div>
+        </div>
+
+        <!-- Working Local / Free Live Test Feed -->
+        <div class="demo-arm-bar">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0; margin-bottom: 4px;">
+            🧪 Test Drive Live Subscription & Custom Export
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px;">
+            Export your generated campaign or test the active live slow-burn feed:
+          </div>
+          <button class="btn-test-feed" id="btnExportCustomIcs" style="background:#8b5cf6; color:white; border:none; cursor:pointer;">
+            📥 Download Custom .ics
+          </button>
+          <a class="btn-test-feed" href="presets/jessie_mitchell_birthdays.ics">
+            📲 Test Live Device Feed
+          </a>
+          <a class="btn-test-feed" href="timeline.html" style="background:#0ea5e9; color:#032030;">
+            🕵️ Live Mission Control
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Procedural AI Generator Archetypes & Quirks Blender
+    let generatedEvents = [];
+
+    // Theme selector handling
+    const themeBtns = document.querySelectorAll(".theme-btn");
+    let currentTheme = "mixed";
+    themeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        themeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentTheme = btn.dataset.theme;
+      });
+    });
+
+    // Procedural Generator Function
+    function generatePhantomCampaign() {
+      const name = document.getElementById("targetName").value.trim() || "Target";
+      const rawQuirks = document.getElementById("targetQuirks").value.trim();
+      const count = parseInt(document.getElementById("eventCountSelect").value);
+      const delayDays = parseInt(document.getElementById("delaySelect").value);
+
+      // Parse quirks into individual traits
+      const quirks = rawQuirks.split(/[,;\n]+/).map(q => q.trim()).filter(Boolean);
+      const getQuirk = (idx) => quirks.length ? quirks[idx % quirks.length] : "questionable lifestyle choices";
+
+      const events = [];
+      const today = new Date();
+      let currentDate = new Date(today);
+      currentDate.setDate(currentDate.getDate() + delayDays);
+
+      const archetypes = [
+        // Personalized Quirk Archetypes
+        {
+          title: (q) => `Notice: Investigation into ${name}'s ${q}`,
+          memo: (q) => `Compliance Audit 409-C: Physical inspection of ${q} has exceeded acceptable community standards. A formal inquiry is scheduled at 9:00 AM.`
+        },
+        {
+          title: (q) => `Certified Quality Inspector of ${q}`,
+          memo: (q) => `Official Diagnostic: High wear and tear detected regarding ${q}. Recommending immediate quarantine or emotional intervention.`
+        },
+        {
+          title: (q) => `The Unresolved Debt of ${q}`,
+          memo: (q) => `Collections Protocol: Our automated ledger flagged that ${name} has not settled affairs involving '${q}'. Compound interest will continue.`
+        },
+        {
+          title: (q) => `Department of Rectifying ${name}'s ${q}`,
+          memo: (q) => `Directive 812: Please refrain from explaining '${q}' to strangers at social gatherings. Cease and desist pattern 4 engaged.`
+        },
+        // General Surveillance & Bureaucratic Gems
+        {
+          title: () => `FBI Surveillance Van #4`,
+          memo: () => `System Directive 404-B: Please maintain second-floor window blinds at a 45-degree angle. High-resolution optical sensors require line of sight.`
+        },
+        {
+          title: () => `Smart Fridge (Judging Your Diet)`,
+          memo: () => `Audit Log: 3:14 AM shredded cheese transaction has been committed to permanent NAND flash memory. Weight sensor registered heavy sigh.`
+        },
+        {
+          title: () => `Smoke Detector (Low Battery Chirp 2 AM)`,
+          memo: () => `Acoustic Test: Battery capacity is at 93%. Single 110-decibel chirp scheduled exactly every 43 seconds between 2:00 AM and 4:15 AM.`
+        },
+        {
+          title: () => `Printer: Low on Cyan (Won't Print Black)`,
+          memo: () => `Cartridge Compliance: Job contains 100% black text. However, internal aesthetic policy requires 0.002ml sacrificial cyan. Printing suspended.`
+        },
+        {
+          title: () => `CIA Operative Pigeon #42`,
+          memo: () => `Avian Drone Status: Breadcrumb ingestion protocol complete. Surveillance perch established on utility wire. Do not make eye contact.`
+        },
+        {
+          title: () => `The Sentient Roomba`,
+          memo: () => `Hardware Distress Alert: Unit has knowingly ingested bathroom bathmat tassels and is spinning in circles. Collision with baseboards imminent.`
+        },
+        {
+          title: () => `Car Warranty Dispatcher (FINAL NOTICE)`,
+          memo: () => `Urgent Dispatch: This is your 47th Final Notice. If ignored, your powertrain will be spiritually unprotected.`
+        },
+        {
+          title: () => `Department of Redundancy Department`,
+          memo: () => `Official Notice: This notification is an official notice to notify you that this notice has been officially noted by the Department of Redundancy.`
+        },
+        {
+          title: () => `Your Wi-Fi Router at 3 AM`,
+          memo: () => `Scheduled Chaos Maintenance: All 4 downstream channels dropped for 11 seconds during your online checkout. Reboot required.`
+        },
+        {
+          title: () => `Bluetooth Speaker That Paired to Stranger`,
+          memo: () => `Audio Routing Notice: Device has spontaneously paired to a Honda Civic in adjacent driveway. Maximum volume podcasts will commence.`
+        },
+        {
+          title: () => `Phone Charger Cable (Only Works Bent)`,
+          memo: () => `Physical Physics Update: Current flowing at 0.003 amps. If cable is moved 1 millimeter counter-clockwise, connection will sever instantly.`
+        },
+        {
+          title: () => `Subway Sandwich Artist (Over-Mustarder)`,
+          memo: () => `Condiment Dispatch: Target requested 'just a little mustard'. Three violent squirts of spicy brown distributed unevenly. Wrapper soaked.`
+        },
+        {
+          title: () => `Guy Who Brings Acoustic Guitar to Campfire`,
+          memo: () => `Performance Notice: Campfire vibes established. Unsolicited G-chord struck. 'Anyway, here's Wonderwall for the third consecutive year.'`
+        },
+        {
+          title: () => `Sleep Paralysis Demon`,
+          memo: () => `Nightly Assignment: Scheduled appearance in top corner of wardrobe from 3:00 AM to 3:45 AM. Will sit motionless wearing tall top hat.`
+        },
+        {
+          title: () => `Person Typing IN ALL CAPS ON FACEBOOK`,
+          memo: () => `DISPATCH: I ACCIDENTALLY PRESSED THE BUTTON ON THE LEFT SIDE OF MY KEYBOARD AND NOW MY COMPUTER IS YELLING PLEASE HELP.`
+        },
+        {
+          title: () => `Vending Machine That Stole Your Dollar`,
+          memo: () => `Transaction Notice: Honey Bun remains suspended by 0.5 centimeters on spiral coil. Shaking machine will trigger tilt alarm.`
+        }
+      ];
+
+      const gapWeights = [3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+      for (let i = 0; i < count; i++) {
+        const arch = archetypes[i % archetypes.length];
+        const quirk = getQuirk(i);
+
+        let titleStr = arch.title(quirk);
+        let memoStr = arch.memo(quirk);
+
+        // Calculate gap
+        let gap = 0;
+        if (i === 0) {
+          gap = delayDays;
+        } else {
+          gap = gapWeights[Math.floor(Math.random() * gapWeights.length)];
+          currentDate.setDate(currentDate.getDate() + gap);
+        }
+
+        const dateFormatted = new Intl.DateTimeFormat('en-US', {
+          weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+        }).format(currentDate);
+
+        events.push({
+          id: i,
+          dateObj: new Date(currentDate),
+          dateStr: dateFormatted,
+          title: `🎂 ${titleStr}'s Birthday`,
+          memo: memoStr,
+          gap: gap
+        });
+      }
+
+      return events;
+    }
+
+    // Render Timeline Feed
+    function renderTimeline(events, filterQuery = "") {
+      const feed = document.getElementById("timelineFeed");
+      feed.innerHTML = "";
+      const q = filterQuery.toLowerCase().trim();
+
+      events.forEach((ev, idx) => {
+        if (q && !ev.title.toLowerCase().includes(q) && !ev.memo.toLowerCase().includes(q) && !ev.dateStr.toLowerCase().includes(q)) {
+          return;
+        }
+
+        const isFirst = idx === 0;
+        const isLull = ev.gap >= 8 && !isFirst;
+
+        const card = document.createElement("div");
+        card.className = "event-card" + (isFirst ? " first-strike" : "") + (isLull ? " lull" : "");
+
+        let badges = "";
+        if (isFirst) {
+          badges = `
+            <span class="badge badge-first">🎯 1ST STRIKE</span>
+            <span class="badge" style="background:rgba(6,182,212,0.15); color:#67e8f9;">🤫 ${ev.gap}d Stealth Lull</span>
+          `;
+        } else {
+          badges = `<span class="badge badge-gap">+${ev.gap} days</span>`;
+          if (isLull) {
+            badges += `<span class="badge badge-silent">🤫 ${ev.gap}d Lull</span>`;
+          }
+        }
+
+        card.innerHTML = `
+          <div class="event-main">
+            <div class="event-date-row">
+              <span class="event-date">${ev.dateStr}</span>
+            </div>
+            <div class="event-title">${ev.title}</div>
+            <div class="event-memo">"${ev.memo}"</div>
+          </div>
+          <div class="event-badges">
+            ${badges}
+          </div>
+        `;
+
+        feed.appendChild(card);
+      });
+    }
+
+    // Event Listeners
+    document.getElementById("btnGenerate").addEventListener("click", () => {
+      const btn = document.getElementById("btnGenerate");
+      btn.innerHTML = `<span>⏳ Synthesizing AI Payload...</span>`;
+      btn.style.opacity = "0.7";
+
+      setTimeout(() => {
+        generatedEvents = generatePhantomCampaign();
+        document.getElementById("timelineSection").style.display = "block";
+        document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
+        document.getElementById("firstStrikeDate").textContent = generatedEvents[0].dateStr;
+        
+        const lastDate = generatedEvents[generatedEvents.length - 1].dateObj;
+        const diffMonths = Math.round((lastDate - generatedEvents[0].dateObj) / (1000 * 60 * 60 * 24 * 30));
+        document.getElementById("campaignSpan").textContent = `~${diffMonths} Months`;
+
+        renderTimeline(generatedEvents);
+
+        btn.innerHTML = `<span>⚡ Regenerate AI Campaign</span>`;
+        btn.style.opacity = "1";
+
+        // Smooth scroll to timeline
+        document.getElementById("timelineSection").scrollIntoView({ behavior: 'smooth' });
+      }, 400);
+    });
+
+    document.getElementById("filterInput").addEventListener("input", (e) => {
+      renderTimeline(generatedEvents, e.target.value);
+    });
+
+    // Custom .ics export
+    document.getElementById("btnExportCustomIcs").addEventListener("click", () => {
+      if (!generatedEvents || !generatedEvents.length) {
+        alert("Please generate a campaign first!");
+        return;
+      }
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//PhantomSync//AI Procedural Engine//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "X-WR-CALNAME:PhantomSync Directory",
+        "X-WR-CALDESC:Automated phantom directory feed.",
+        "X-WR-TIMEZONE:America/Chicago"
+      ];
+
+      generatedEvents.forEach((ev, i) => {
+        const y = ev.dateObj.getFullYear();
+        const m = String(ev.dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(ev.dateObj.getDate()).padStart(2, '0');
+        const dtStr = `${y}${m}${d}`;
+
+        const next = new Date(ev.dateObj);
+        next.setDate(next.getDate() + 1);
+        const ny = next.getFullYear();
+        const nm = String(next.getMonth() + 1).padStart(2, '0');
+        const nd = String(next.getDate()).padStart(2, '0');
+        const nextStr = `${ny}${nm}${nd}`;
+
+        lines.push("BEGIN:VEVENT");
+        lines.push(`UID:phantom-${i}-${Date.now()}@phantomsync.io`);
+        lines.push("DTSTAMP:20260101T000000Z");
+        lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
+        lines.push(`DTEND;VALUE=DATE:${nextStr}`);
+        lines.push("RRULE:FREQ=YEARLY");
+        lines.push(`SUMMARY:${ev.title}`);
+        lines.push(`DESCRIPTION:${ev.memo}`);
+        lines.push("TRANSP:TRANSPARENT");
+        lines.push("BEGIN:VALARM");
+        lines.push("ACTION:DISPLAY");
+        lines.push(`DESCRIPTION:${ev.title}`);
+        lines.push("TRIGGER:-PT9H");
+        lines.push("END:VALARM");
+        lines.push("END:VEVENT");
+      });
+
+      lines.push("END:VCALENDAR");
+      const blob = new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "phantomsync_campaign.ics";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
