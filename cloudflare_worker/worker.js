@@ -76,6 +76,7 @@ export default {
       } = body;
 
       const apiKey = env.GEMINI_API_KEY;
+      let geminiError = null;
 
       // Try Gemini first if key is present
       if (apiKey) {
@@ -91,14 +92,20 @@ export default {
           return new Response(JSON.stringify({ success: true, mode: "gemini_ai", events }), {
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
           });
-        } catch (geminiError) {
-          console.warn("Gemini generation failed, falling back to procedural:", geminiError.message);
+        } catch (err) {
+          geminiError = err;
+          console.warn("Gemini generation failed, falling back to procedural:", err.message);
         }
       }
 
       // Guaranteed Procedural Fallback (Never fails)
       const events = generateProceduralEvents(name, quirks, count, delayDays);
-      return new Response(JSON.stringify({ success: true, mode: "procedural_fallback", events }), {
+      return new Response(JSON.stringify({ 
+        success: true, 
+        mode: "procedural_fallback", 
+        ai_diagnostic: geminiError ? geminiError.message : "No API key configured",
+        events 
+      }), {
         headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
       });
     }
@@ -115,31 +122,46 @@ export default {
  */
 async function generateEventsWithGemini(apiKey, { name, quirks, theme, count, delayDays }) {
   const prompt = `
-You are an elite satirical comedy writer designing an ultra-stealth slow-burn calendar prank platform called PhantomSync.
+You are an award-winning satirical comedy writer for an ultra-stealth slow-burn calendar prank app called PhantomSync.
 The victim has an automated calendar feed on their iPhone called "Mobile Directory Sync".
-Over the next 12-18 months, their phone will alert them at 9:00 AM with bizarre, highly specific, seemingly official appointments, inspections, hearings, and corporate audits.
+Over the next 12-18 months, their phone will alert them at 9:00 AM with seemingly official calendar appointments, municipal citations, inspections, debt hearings, and corporate audits.
 
 TARGET NAME: ${name}
 TARGET QUIRKS & HABITS: ${quirks}
 THEME: ${theme}
-NUMBER OF EVENTS: ${count}
+GENERATE EXACTLY ${count} UNIQUE, DIVERSE EVENTS.
 
-ABSOLUTE COMEDIC RULES:
-1. NEVER use the word "Birthday" or celebrate anything. Every event MUST look like a seemingly legitimate calendar appointment, mandatory inspection, municipal citation, sanitary protocol, debt hearing, calibration, or corporate audit.
-2. The events must be deeply, hilariously tailored to the target's specific quirks, inside jokes, and daily habits.
-3. The tone must be 100% dry, corporate, clinical, and deadpan.
-4. Output MUST be a valid JSON array of objects with exactly these keys:
-   - "title": Short, authentic-sounding appointment/reminder with a relevant emoji (e.g. "📊 Q1 Taco Bell Debt Collections Hearing ($20.00 + Fees)", "🚗 2008 Honda Civic Exhaust Decibel Recalibration", "☣️ BlenderBottle Biohazard Quarantine & Swab Extraction").
-   - "memo": A dry, ultra-specific corporate/diagnostic description (1-2 sentences) explaining the absurdity as if it is a completely serious municipal or system procedure.
-   - "category": Short category label (e.g. "Financial Audit", "Sanitary Protocol", "Municipal Citation", "Surveillance Directive", "IoT Mutiny", "Telecom Etiquette").
-   - "gap": Recommended days until next event (integer between 3 and 10).
+CRITICAL COMEDIC INSTRUCTIONS:
+1. NEVER use the word "Birthday" or celebrate anything.
+2. EVERY SINGLE EVENT MUST BE COMPLETELY UNIQUE. DO NOT repeat the same phrase, template, or structure.
+3. Extrapolate creatively from their specific quirks across diverse realistic institutions:
+   - Municipal/City Government (Noise citations, parking hearings, zoning board reviews)
+   - Environmental/Public Health (Bio-safety swab audits, kitchen quarantine orders)
+   - Financial/Collections (Arbitration over small debts, compound late fees)
+   - Cellular/ISP Tech Support (Texting efficiency audits, bandwidth disciplinary actions)
+   - Smart Home Appliances (Dishwasher formal grievance, refrigerator calorie judgment, Roomba rescue)
+   - Federal/Surveillance (Blinds angle calibration, pigeon drone perches, acoustic tests)
+4. TONE: 100% deadpan, hyper-specific, clinical, bureaucratic, and straight-faced.
+5. The victim should genuinely question for a second if their phone is actively tracking their habits.
+
+OUTPUT FORMAT: Return a valid JSON array of ${count} objects (no markdown, just valid JSON):
+[
+  {
+    "title": "Short event title with emoji (e.g. '🚗 2008 Honda Civic Exhaust Decibel Recalibration')",
+    "memo": "1-2 dry, official-sounding sentences explaining the procedure/violation.",
+    "category": "e.g. Municipal Citation, Sanitary Protocol, Financial Audit, IoT Mutiny, Telecom Audit",
+    "gap": 5
+  }
+]
 `;
 
   const candidateModels = [
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
+    "gemini-2.5-pro",
+    "gemini-pro-latest",
     "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-pro",
-    "gemini-pro",
   ];
 
   const candidateVersions = ["v1beta", "v1"];
@@ -172,7 +194,12 @@ ABSOLUTE COMEDIC RULES:
         const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!rawText) continue;
 
-        const parsed = JSON.parse(rawText);
+        let cleanText = rawText.trim();
+        if (cleanText.startsWith("```")) {
+          cleanText = cleanText.replace(/^```json?\s*/i, "").replace(/\s*```$/, "");
+        }
+
+        const parsed = JSON.parse(cleanText);
         if (!Array.isArray(parsed) || parsed.length === 0) continue;
 
         const today = new Date();
