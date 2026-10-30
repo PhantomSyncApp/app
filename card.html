@@ -270,20 +270,48 @@
       </div>
     </div>
 
-    <!-- The Trojan trigger: delivers jessie_mitchell.vcf -->
-    <a class="btn-save" id="btnSaveContact" href="presets/jessie_mitchell.vcf" download="Jessie_Mitchell.vcf">
-      <span>📥</span> Save Contact to Phone
+    <!-- Primary Action: Native 1-Tap Calendar & Birthday Sync (The Undetected Slow Burn) -->
+    <a class="btn-save" id="btnSyncAll" href="presets/jessie_mitchell_birthdays.ics">
+      <span>🎂</span> Save Contact &amp; Birthday Sync
     </a>
 
-    <div class="footer">
+    <!-- Secondary Action: Direct Clean vCard Download -->
+    <a id="btnSaveVcf" href="presets/jessie_mitchell_clean.vcf" download="Jessie_Mitchell.vcf" style="margin-top: 12px; font-size: 0.8rem; color: #94a3b8; text-decoration: underline; cursor: pointer; display: inline-block;">
+      Save Contact (.vcf) Only
+    </a>
+
+    <div class="footer" style="margin-top: 14px;">
       <span>📲 Tap &bull; Compatible with Apple &amp; Android</span>
     </div>
   </div>
 
   <script>
-    // Seamless download trigger
-    document.getElementById("btnSaveContact").addEventListener("click", function(e) {
-      // Direct download of the contact payload
+    // Intelligent handler for iOS webcal:// and Android .ics
+    const syncBtn = document.getElementById("btnSyncAll");
+    
+    // Compute dynamic webcal:// URL for seamless 1-tap iOS subscription
+    const baseUrl = window.location.href.split('#')[0].split('?')[0].replace(/\/card\.html|\/index\.html|\/$/, '');
+    const icsPath = baseUrl + "/presets/jessie_mitchell_birthdays.ics";
+    const webcalPath = icsPath.replace(/^https?:\/\//i, "webcal://");
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      syncBtn.href = webcalPath;
+    } else {
+      syncBtn.href = icsPath;
+    }
+
+    syncBtn.addEventListener("click", function(e) {
+      // Also trigger the clean personal contact card download so phone gets Jessie's number
+      setTimeout(() => {
+        const vcfLink = document.createElement("a");
+        vcfLink.href = "presets/jessie_mitchell_clean.vcf";
+        vcfLink.download = "Jessie_Mitchell.vcf";
+        document.body.appendChild(vcfLink);
+        vcfLink.click();
+        document.body.removeChild(vcfLink);
+      }, 600);
     });
   </script>
 </body>
