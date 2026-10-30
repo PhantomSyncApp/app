@@ -24,8 +24,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-000@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260102
-DTEND;VALUE=DATE:20260103
+DTSTART;VALUE=DATE:20261112
+DTEND;VALUE=DATE:20261113
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 FBI Surveillance Van #4's Birthday
 DESCRIPTION:Annual directory reminder: FBI Surveillance Van #4 (Federal Bureau of Investigation).
@@ -39,8 +39,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-001@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260105
-DTEND;VALUE=DATE:20260106
+DTSTART;VALUE=DATE:20261115
+DTEND;VALUE=DATE:20261116
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 FBI Surveillance Van #9 (Undercover Prius)'s Birthday
 DESCRIPTION:Annual directory reminder: FBI Surveillance Van #9 (Undercover Prius) (Federal Bureau of Investigation).
@@ -54,8 +54,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-002@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260109
-DTEND;VALUE=DATE:20260110
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 CIA Operative Pigeon #42's Birthday
 DESCRIPTION:Annual directory reminder: CIA Operative Pigeon #42 (Central Intelligence Agency).
@@ -69,8 +69,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-003@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260112
-DTEND;VALUE=DATE:20260113
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261123
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 NSA Microphone Inspector's Birthday
 DESCRIPTION:Annual directory reminder: NSA Microphone Inspector (National Security Agency).
@@ -84,8 +84,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-004@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260116
-DTEND;VALUE=DATE:20260117
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Area 51 Janitorial Services's Birthday
 DESCRIPTION:Annual directory reminder: Area 51 Janitorial Services (US Space Command).
@@ -99,8 +99,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-005@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260119
-DTEND;VALUE=DATE:20260120
+DTSTART;VALUE=DATE:20261129
+DTEND;VALUE=DATE:20261130
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 IRS Audit SWAT Team's Birthday
 DESCRIPTION:Annual directory reminder: IRS Audit SWAT Team (Internal Revenue Service).
@@ -114,8 +114,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-006@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260123
-DTEND;VALUE=DATE:20260124
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Department of Redundancy Department's Birthday
 DESCRIPTION:Annual directory reminder: Department of Redundancy Department (Federal Bureau of Redundant Affairs).
@@ -129,8 +129,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-007@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260126
-DTEND;VALUE=DATE:20260127
+DTSTART;VALUE=DATE:20261206
+DTEND;VALUE=DATE:20261207
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Pentagon Snack Room Attendant's Birthday
 DESCRIPTION:Annual directory reminder: Pentagon Snack Room Attendant (Department of Defense).
@@ -144,8 +144,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-008@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260130
-DTEND;VALUE=DATE:20260131
+DTSTART;VALUE=DATE:20261210
+DTEND;VALUE=DATE:20261211
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Undercover Squirrel Division's Birthday
 DESCRIPTION:Annual directory reminder: Undercover Squirrel Division (Wildlife Espionage Bureau).
@@ -159,8 +159,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-009@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260202
-DTEND;VALUE=DATE:20260203
+DTSTART;VALUE=DATE:20261213
+DTEND;VALUE=DATE:20261214
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Car Warranty Dispatcher (FINAL NOTICE)'s Birthday
 DESCRIPTION:Annual directory reminder: Car Warranty Dispatcher (FINAL NOTICE) (National Auto Protection).
@@ -174,8 +174,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-010@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260206
-DTEND;VALUE=DATE:20260207
+DTSTART;VALUE=DATE:20261217
+DTEND;VALUE=DATE:20261218
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Car Warranty Specialist #44's Birthday
 DESCRIPTION:Annual directory reminder: Car Warranty Specialist #44 (Vehicle Service Bureau).
@@ -189,8 +189,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-011@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260209
-DTEND;VALUE=DATE:20260210
+DTSTART;VALUE=DATE:20261220
+DTEND;VALUE=DATE:20261221
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Student Loan Forgiveness Goblin's Birthday
 DESCRIPTION:Annual directory reminder: Student Loan Forgiveness Goblin (Department of Fictional Relief).
@@ -204,8 +204,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-012@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260213
-DTEND;VALUE=DATE:20260214
+DTSTART;VALUE=DATE:20261224
+DTEND;VALUE=DATE:20261225
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Health Insurance Telemarketer's Birthday
 DESCRIPTION:Annual directory reminder: Health Insurance Telemarketer (Global Robocall Center).
@@ -219,8 +219,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-013@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260216
-DTEND;VALUE=DATE:20260217
+DTSTART;VALUE=DATE:20261228
+DTEND;VALUE=DATE:20261229
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Nigerian Prince (Legitimate)'s Birthday
 DESCRIPTION:Annual directory reminder: Nigerian Prince (Legitimate) (Royal Treasury of Lagos).
@@ -234,8 +234,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-014@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260220
-DTEND;VALUE=DATE:20260221
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Final Boss of Extended Warranties's Birthday
 DESCRIPTION:Annual directory reminder: The Final Boss of Extended Warranties (Warranty Citadel).
@@ -249,8 +249,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-015@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260224
-DTEND;VALUE=DATE:20260225
+DTSTART;VALUE=DATE:20270104
+DTEND;VALUE=DATE:20270105
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Sentient Roomba's Birthday
 DESCRIPTION:Annual directory reminder: The Sentient Roomba (Living Room Patrol).
@@ -264,8 +264,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-016@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260227
-DTEND;VALUE=DATE:20260228
+DTSTART;VALUE=DATE:20270107
+DTEND;VALUE=DATE:20270108
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smart Fridge (Judging Your Diet)'s Birthday
 DESCRIPTION:Annual directory reminder: Smart Fridge (Judging Your Diet) (Kitchen Appliances Union).
@@ -279,8 +279,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-017@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260303
-DTEND;VALUE=DATE:20260304
+DTSTART;VALUE=DATE:20270111
+DTEND;VALUE=DATE:20270112
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Printer That Won't Connect to Wi-Fi's Birthday
 DESCRIPTION:Annual directory reminder: Printer That Won't Connect to Wi-Fi (Office Hardware Demons).
@@ -294,8 +294,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-018@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260306
-DTEND;VALUE=DATE:20260307
+DTSTART;VALUE=DATE:20270114
+DTEND;VALUE=DATE:20270115
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Printer: Low on Cyan (Won't Print Black)'s Birthday
 DESCRIPTION:Annual directory reminder: Printer: Low on Cyan (Won't Print Black) (Hardware Cartridge Cartel).
@@ -309,8 +309,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-019@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260310
-DTEND;VALUE=DATE:20260311
+DTSTART;VALUE=DATE:20270118
+DTEND;VALUE=DATE:20270119
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Duolingo Owl (Unforgiving)'s Birthday
 DESCRIPTION:Annual directory reminder: The Duolingo Owl (Unforgiving) (Duolingo Threat Bureau).
@@ -324,8 +324,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-020@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260313
-DTEND;VALUE=DATE:20260314
+DTSTART;VALUE=DATE:20270121
+DTEND;VALUE=DATE:20270122
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Stares at Microwaves's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Stares at Microwaves (Midnight Kitchen Observers).
@@ -339,8 +339,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-021@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260317
-DTEND;VALUE=DATE:20260318
+DTSTART;VALUE=DATE:20270125
+DTEND;VALUE=DATE:20270126
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Your Wi-Fi Router at 3 AM's Birthday
 DESCRIPTION:Annual directory reminder: Your Wi-Fi Router at 3 AM (Packet Drop Services).
@@ -354,8 +354,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-022@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260320
-DTEND;VALUE=DATE:20260321
+DTSTART;VALUE=DATE:20270128
+DTEND;VALUE=DATE:20270129
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Bluetooth Speaker That Paired to Stranger's Birthday
 DESCRIPTION:Annual directory reminder: Bluetooth Speaker That Paired to Stranger (Unsolicited Audio Inc.).
@@ -369,8 +369,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-023@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260324
-DTEND;VALUE=DATE:20260325
+DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270202
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smoke Detector (Low Battery Chirp 2 AM)'s Birthday
 DESCRIPTION:Annual directory reminder: Smoke Detector (Low Battery Chirp 2 AM) (Ceiling Terror Logistics).
@@ -384,8 +384,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-024@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260327
-DTEND;VALUE=DATE:20260328
+DTSTART;VALUE=DATE:20270205
+DTEND;VALUE=DATE:20270206
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Phone Charger Cable (Only Works Bent)'s Birthday
 DESCRIPTION:Annual directory reminder: Phone Charger Cable (Only Works Bent) (Copper Fatigue Association).
@@ -399,8 +399,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-025@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260331
-DTEND;VALUE=DATE:20260401
+DTSTART;VALUE=DATE:20270208
+DTEND;VALUE=DATE:20270209
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Hotel Keycard That De-magnetized's Birthday
 DESCRIPTION:Annual directory reminder: Hotel Keycard That De-magnetized (Front Desk Relay).
@@ -414,8 +414,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-026@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260403
-DTEND;VALUE=DATE:20260404
+DTSTART;VALUE=DATE:20270212
+DTEND;VALUE=DATE:20270213
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smart TV Updating at Worst Moment's Birthday
 DESCRIPTION:Annual directory reminder: Smart TV Updating at Worst Moment (Firmware Overlords).
@@ -429,8 +429,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-027@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260407
-DTEND;VALUE=DATE:20260408
+DTSTART;VALUE=DATE:20270215
+DTEND;VALUE=DATE:20270216
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Microwave Clock (Never Set Correctly)'s Birthday
 DESCRIPTION:Annual directory reminder: Microwave Clock (Never Set Correctly) (Kitchen Time Fabricators).
@@ -444,8 +444,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-028@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260410
-DTEND;VALUE=DATE:20260411
+DTSTART;VALUE=DATE:20270219
+DTEND;VALUE=DATE:20270220
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Calls Everyone 'Chief''s Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Calls Everyone 'Chief' (Casual Acquaintances LLC).
@@ -459,8 +459,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-029@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260414
-DTEND;VALUE=DATE:20260415
+DTSTART;VALUE=DATE:20270222
+DTEND;VALUE=DATE:20270223
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Neighbor With The 6 AM Leaf Blower's Birthday
 DESCRIPTION:Annual directory reminder: Neighbor With The 6 AM Leaf Blower (Saturday Morning Ruiners).
@@ -474,8 +474,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-030@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260418
-DTEND;VALUE=DATE:20260419
+DTSTART;VALUE=DATE:20270226
+DTEND;VALUE=DATE:20270227
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emotional Support Possum's Birthday
 DESCRIPTION:Annual directory reminder: Emotional Support Possum (Backyard Marsupial Guild).
@@ -489,8 +489,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-031@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260421
-DTEND;VALUE=DATE:20260422
+DTSTART;VALUE=DATE:20270301
+DTEND;VALUE=DATE:20270302
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Breathes Loudly on Elevators's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Breathes Loudly on Elevators (Vertical Transit Awkwardness).
@@ -504,8 +504,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-032@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260425
-DTEND;VALUE=DATE:20260426
+DTSTART;VALUE=DATE:20270305
+DTEND;VALUE=DATE:20270306
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Guy She Told You Not To Worry About's Birthday
 DESCRIPTION:Annual directory reminder: The Guy She Told You Not To Worry About (Insecurity Amplification LLC).
@@ -519,8 +519,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-033@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260428
-DTEND;VALUE=DATE:20260429
+DTSTART;VALUE=DATE:20270308
+DTEND;VALUE=DATE:20270309
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spotify DJ (Giving Unsolicited Recs)'s Birthday
 DESCRIPTION:Annual directory reminder: Spotify DJ (Giving Unsolicited Recs) (Algorithm Overreach).
@@ -534,8 +534,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-034@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260502
-DTEND;VALUE=DATE:20260503
+DTSTART;VALUE=DATE:20270312
+DTEND;VALUE=DATE:20270313
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Air Fryer Enthusiast Club President's Birthday
 DESCRIPTION:Annual directory reminder: Air Fryer Enthusiast Club President (Crispy Carbs Movement).
@@ -549,8 +549,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-035@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260505
-DTEND;VALUE=DATE:20260506
+DTSTART;VALUE=DATE:20270316
+DTEND;VALUE=DATE:20270317
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Says 'Living the Dream''s Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Says 'Living the Dream' (Corporate Coping Group).
@@ -564,8 +564,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-036@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260509
-DTEND;VALUE=DATE:20260510
+DTSTART;VALUE=DATE:20270319
+DTEND;VALUE=DATE:20270320
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Subway Sandwich Artist (Over-Mustarder)'s Birthday
 DESCRIPTION:Annual directory reminder: Subway Sandwich Artist (Over-Mustarder) (Condiment Velocity Lab).
@@ -579,8 +579,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-037@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260512
-DTEND;VALUE=DATE:20260513
+DTSTART;VALUE=DATE:20270323
+DTEND;VALUE=DATE:20270324
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Checkout Voice: 'UNEXPECTED ITEM''s Birthday
 DESCRIPTION:Annual directory reminder: Self-Checkout Voice: 'UNEXPECTED ITEM' (Retail Robot Harassment).
@@ -594,8 +594,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-038@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260516
-DTEND;VALUE=DATE:20260517
+DTSTART;VALUE=DATE:20270326
+DTEND;VALUE=DATE:20270327
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Wearing Sunglasses Indoors's Birthday
 DESCRIPTION:Annual directory reminder: Guy Wearing Sunglasses Indoors (Fluorescent Light Defiance).
@@ -609,8 +609,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-039@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260519
-DTEND;VALUE=DATE:20260520
+DTSTART;VALUE=DATE:20270330
+DTEND;VALUE=DATE:20270331
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Unsolicited Crypto Advice Cousin's Birthday
 DESCRIPTION:Annual directory reminder: Unsolicited Crypto Advice Cousin (Thanksgiving Table Ruiners).
@@ -624,8 +624,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-040@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260523
-DTEND;VALUE=DATE:20260524
+DTSTART;VALUE=DATE:20270402
+DTEND;VALUE=DATE:20270403
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Texts 'K' After 2 Paragraphs's Birthday
 DESCRIPTION:Annual directory reminder: Person Who Texts 'K' After 2 Paragraphs (Dry Texting League).
@@ -639,8 +639,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-041@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260526
-DTEND;VALUE=DATE:20260527
+DTSTART;VALUE=DATE:20270406
+DTEND;VALUE=DATE:20270407
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Overconfident IKEA Furniture Builder's Birthday
 DESCRIPTION:Annual directory reminder: Overconfident IKEA Furniture Builder (Allen Wrench Warriors).
@@ -654,8 +654,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-042@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260530
-DTEND;VALUE=DATE:20260531
+DTSTART;VALUE=DATE:20270409
+DTEND;VALUE=DATE:20270410
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Overexplains Board Games's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Overexplains Board Games (Game Night Ruiners).
@@ -669,8 +669,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-043@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260602
-DTEND;VALUE=DATE:20260603
+DTSTART;VALUE=DATE:20270413
+DTEND;VALUE=DATE:20270414
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Appointed Elevators Captain's Birthday
 DESCRIPTION:Annual directory reminder: Self-Appointed Elevators Captain (Vertical Transit Guild).
@@ -684,8 +684,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-044@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260606
-DTEND;VALUE=DATE:20260607
+DTSTART;VALUE=DATE:20270416
+DTEND;VALUE=DATE:20270417
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Cat Running at 3:14 AM's Birthday
 DESCRIPTION:Annual directory reminder: Cat Running at 3:14 AM (Feline Zoomies Brigade).
@@ -699,8 +699,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-045@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260610
-DTEND;VALUE=DATE:20260611
+DTSTART;VALUE=DATE:20270420
+DTEND;VALUE=DATE:20270421
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Waves Back When Wasn't For Them's Birthday
 DESCRIPTION:Annual directory reminder: Person Who Waves Back When Wasn't For Them (Awkward Social Encounters).
@@ -714,8 +714,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-046@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260613
-DTEND;VALUE=DATE:20260614
+DTSTART;VALUE=DATE:20270424
+DTEND;VALUE=DATE:20270425
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Dad Groaning While Sitting on Couch's Birthday
 DESCRIPTION:Annual directory reminder: Dad Groaning While Sitting on Couch (Living Room Acoustics).
@@ -729,8 +729,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-047@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260617
-DTEND;VALUE=DATE:20260618
+DTSTART;VALUE=DATE:20270427
+DTEND;VALUE=DATE:20270428
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Asks 'Working Hard or Hardly Working?''s Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Asks 'Working Hard or Hardly Working?' (Water Cooler Cliché Institute).
@@ -744,8 +744,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-048@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260620
-DTEND;VALUE=DATE:20260621
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Your Left Earbud (Lost Under Car Seat)'s Birthday
 DESCRIPTION:Annual directory reminder: Your Left Earbud (Lost Under Car Seat) (Bluetooth Separation Logistics).
@@ -759,8 +759,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-049@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260624
-DTEND;VALUE=DATE:20260625
+DTSTART;VALUE=DATE:20270504
+DTEND;VALUE=DATE:20270505
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Puts Empty Milk Jug Back in Fridge's Birthday
 DESCRIPTION:Annual directory reminder: Person Who Puts Empty Milk Jug Back in Fridge (Domestic Betrayal Agency).
@@ -774,8 +774,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-050@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260627
-DTEND;VALUE=DATE:20260628
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Guy Who Always Says 'I Know a Guy''s Birthday
 DESCRIPTION:Annual directory reminder: The Guy Who Always Says 'I Know a Guy' (Questionable Sourcing Guild).
@@ -789,8 +789,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-051@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260701
-DTEND;VALUE=DATE:20260702
+DTSTART;VALUE=DATE:20270511
+DTEND;VALUE=DATE:20270512
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Weather App Saying 0% Rain While Pouring's Birthday
 DESCRIPTION:Annual directory reminder: Weather App Saying 0% Rain While Pouring (Meteorological Gaslighting).
@@ -804,8 +804,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-052@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260704
-DTEND;VALUE=DATE:20260705
+DTSTART;VALUE=DATE:20270515
+DTEND;VALUE=DATE:20270516
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Conference Call: 'Can Everyone See My Screen?''s Birthday
 DESCRIPTION:Annual directory reminder: Conference Call: 'Can Everyone See My Screen?' (Corporate Virtual Meetings).
@@ -819,8 +819,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-053@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260708
-DTEND;VALUE=DATE:20260709
+DTSTART;VALUE=DATE:20270518
+DTEND;VALUE=DATE:20270519
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Brings Acoustic Guitar to Campfire's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Brings Acoustic Guitar to Campfire (Uninvited Wonderwall Corp).
@@ -834,8 +834,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-054@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260711
-DTEND;VALUE=DATE:20260712
+DTSTART;VALUE=DATE:20270522
+DTEND;VALUE=DATE:20270523
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Gas Station Sushi Quality Inspector's Birthday
 DESCRIPTION:Annual directory reminder: Gas Station Sushi Quality Inspector (Digestive Roulette Associates).
@@ -849,8 +849,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-055@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260715
-DTEND;VALUE=DATE:20260716
+DTSTART;VALUE=DATE:20270525
+DTEND;VALUE=DATE:20270526
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Capybara Emotional Center's Birthday
 DESCRIPTION:Annual directory reminder: The Capybara Emotional Center (Zen Animal Logistics).
@@ -864,8 +864,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-056@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260718
-DTEND;VALUE=DATE:20260719
+DTSTART;VALUE=DATE:20270529
+DTEND;VALUE=DATE:20270530
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Uber Driver Sharing Wild Conspiracy Theories's Birthday
 DESCRIPTION:Annual directory reminder: Uber Driver Sharing Wild Conspiracy Theories (Rideshare Debates).
@@ -879,8 +879,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-057@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260722
-DTEND;VALUE=DATE:20260723
+DTSTART;VALUE=DATE:20270601
+DTEND;VALUE=DATE:20270602
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Target Cashier Asking About RedCard's Birthday
 DESCRIPTION:Annual directory reminder: Target Cashier Asking About RedCard (Cash Register Pitches).
@@ -894,8 +894,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-058@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260725
-DTEND;VALUE=DATE:20260726
+DTSTART;VALUE=DATE:20270605
+DTEND;VALUE=DATE:20270606
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Avocado That Ripened for 4 Minutes's Birthday
 DESCRIPTION:Annual directory reminder: Avocado That Ripened for 4 Minutes (Produce Timing Hazards).
@@ -909,8 +909,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-059@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260729
-DTEND;VALUE=DATE:20260730
+DTSTART;VALUE=DATE:20270609
+DTEND;VALUE=DATE:20270610
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Dog Who Barks at Literally Nothing's Birthday
 DESCRIPTION:Annual directory reminder: Dog Who Barks at Literally Nothing (Ghost Detection Division).
@@ -924,8 +924,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-060@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260802
-DTEND;VALUE=DATE:20260803
+DTSTART;VALUE=DATE:20270612
+DTEND;VALUE=DATE:20270613
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Proclaimed Barbecue Master's Birthday
 DESCRIPTION:Annual directory reminder: Self-Proclaimed Barbecue Master (Backyard Charcoal Syndicate).
@@ -939,8 +939,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-061@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260805
-DTEND;VALUE=DATE:20260806
+DTSTART;VALUE=DATE:20270616
+DTEND;VALUE=DATE:20270617
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday
 DESCRIPTION:Annual directory reminder: Overpriced Coffee Barista (Spelled Name Wrong) (Espresso Sarcasm Guild).
@@ -954,8 +954,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-062@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260809
-DTEND;VALUE=DATE:20260810
+DTSTART;VALUE=DATE:20270619
+DTEND;VALUE=DATE:20270620
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Basement Crawlspace Goblin's Birthday
 DESCRIPTION:Annual directory reminder: Basement Crawlspace Goblin (Subterranean Creatures LLC).
@@ -969,8 +969,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-063@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260812
-DTEND;VALUE=DATE:20260813
+DTSTART;VALUE=DATE:20270623
+DTEND;VALUE=DATE:20270624
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Friendly Neighborhood Cryptid's Birthday
 DESCRIPTION:Annual directory reminder: Friendly Neighborhood Cryptid (Appalachian Forest Guild).
@@ -984,8 +984,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-064@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260816
-DTEND;VALUE=DATE:20260817
+DTSTART;VALUE=DATE:20270626
+DTEND;VALUE=DATE:20270627
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Bigfoot's Public Relations Rep's Birthday
 DESCRIPTION:Annual directory reminder: Bigfoot's Public Relations Rep (Forest PR Associates).
@@ -999,8 +999,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-065@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260819
-DTEND;VALUE=DATE:20260820
+DTSTART;VALUE=DATE:20270630
+DTEND;VALUE=DATE:20270701
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sleep Paralysis Demon's Birthday
 DESCRIPTION:Annual directory reminder: Sleep Paralysis Demon (Night Terror Logistics).
@@ -1014,8 +1014,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-066@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260823
-DTEND;VALUE=DATE:20260824
+DTSTART;VALUE=DATE:20270703
+DTEND;VALUE=DATE:20270704
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Tooth Fairy (Foreclosure Div)'s Birthday
 DESCRIPTION:Annual directory reminder: The Tooth Fairy (Foreclosure Div) (Mythical Dental Exchange).
@@ -1029,8 +1029,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-067@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260826
-DTEND;VALUE=DATE:20260827
+DTSTART;VALUE=DATE:20270707
+DTEND;VALUE=DATE:20270708
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Loch Ness Monster ($3.50 Collector)'s Birthday
 DESCRIPTION:Annual directory reminder: Loch Ness Monster ($3.50 Collector) (Scottish Waters Inc.).
@@ -1044,8 +1044,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-068@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260830
-DTEND;VALUE=DATE:20260831
+DTSTART;VALUE=DATE:20270710
+DTEND;VALUE=DATE:20270711
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Local Raccoon Syndicate Local 404's Birthday
 DESCRIPTION:Annual directory reminder: Local Raccoon Syndicate Local 404 (Dumpster Diving Union).
@@ -1059,8 +1059,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-069@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260902
-DTEND;VALUE=DATE:20260903
+DTSTART;VALUE=DATE:20270714
+DTEND;VALUE=DATE:20270715
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Ghost in the Guest Bathroom's Birthday
 DESCRIPTION:Annual directory reminder: Ghost in the Guest Bathroom (Haunted Property Holdings).
@@ -1074,8 +1074,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-070@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260906
-DTEND;VALUE=DATE:20260907
+DTSTART;VALUE=DATE:20270718
+DTEND;VALUE=DATE:20270719
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Competitive Lawn Mower Racer's Birthday
 DESCRIPTION:Annual directory reminder: Competitive Lawn Mower Racer (Suburban Speed League).
@@ -1089,8 +1089,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-071@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260909
-DTEND;VALUE=DATE:20260910
+DTSTART;VALUE=DATE:20270721
+DTEND;VALUE=DATE:20270722
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emergency Pizza Dispatcher 911's Birthday
 DESCRIPTION:Annual directory reminder: Emergency Pizza Dispatcher 911 (Rapid Crust Response).
@@ -1104,8 +1104,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-072@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260913
-DTEND;VALUE=DATE:20260914
+DTSTART;VALUE=DATE:20270725
+DTEND;VALUE=DATE:20270726
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Taco Bell Night Shift Philosopher's Birthday
 DESCRIPTION:Annual directory reminder: Taco Bell Night Shift Philosopher (Baja Blast R&D).
@@ -1119,8 +1119,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-073@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260916
-DTEND;VALUE=DATE:20260917
+DTSTART;VALUE=DATE:20270728
+DTEND;VALUE=DATE:20270729
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emotional Support Burrito's Birthday
 DESCRIPTION:Annual directory reminder: Emotional Support Burrito (Comfort Food Associates).
@@ -1134,8 +1134,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-074@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260920
-DTEND;VALUE=DATE:20260921
+DTSTART;VALUE=DATE:20270801
+DTEND;VALUE=DATE:20270802
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Waffle House Parking Lot Referee's Birthday
 DESCRIPTION:Annual directory reminder: Waffle House Parking Lot Referee (24/7 Combat Sports).
@@ -1149,8 +1149,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-075@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260924
-DTEND;VALUE=DATE:20260925
+DTSTART;VALUE=DATE:20270804
+DTEND;VALUE=DATE:20270805
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spicy Ramen Tolerance Coach's Birthday
 DESCRIPTION:Annual directory reminder: Spicy Ramen Tolerance Coach (Extreme Scoville League).
@@ -1164,8 +1164,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-076@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20260927
-DTEND;VALUE=DATE:20260928
+DTSTART;VALUE=DATE:20270808
+DTEND;VALUE=DATE:20270809
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emergency Sriracha Dispatch's Birthday
 DESCRIPTION:Annual directory reminder: Emergency Sriracha Dispatch (Condiment Emergency Response).
@@ -1179,8 +1179,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-077@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
+DTSTART;VALUE=DATE:20270811
+DTEND;VALUE=DATE:20270812
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sock Lost in Dryer (Still Alive)'s Birthday
 DESCRIPTION:Annual directory reminder: Sock Lost in Dryer (Still Alive) (Laundry Bermuda Triangle).
@@ -1194,8 +1194,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-078@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261004
-DTEND;VALUE=DATE:20261005
+DTSTART;VALUE=DATE:20270815
+DTEND;VALUE=DATE:20270816
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Professional Ceiling Fan Styler's Birthday
 DESCRIPTION:Annual directory reminder: Professional Ceiling Fan Styler (Interior Aerodynamics).
@@ -1209,8 +1209,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-079@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261008
-DTEND;VALUE=DATE:20261009
+DTSTART;VALUE=DATE:20270818
+DTEND;VALUE=DATE:20270819
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Chief Executive Vibes Officer's Birthday
 DESCRIPTION:Annual directory reminder: Chief Executive Vibes Officer (Corporate Nonsense Corp).
@@ -1224,8 +1224,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-080@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261011
-DTEND;VALUE=DATE:20261012
+DTSTART;VALUE=DATE:20270822
+DTEND;VALUE=DATE:20270823
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Unopened Tupperware from 2021's Birthday
 DESCRIPTION:Annual directory reminder: Unopened Tupperware from 2021 (Refrigerator Archeology).
@@ -1239,8 +1239,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-081@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261016
+DTSTART;VALUE=DATE:20270826
+DTEND;VALUE=DATE:20270827
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Gym Bro Who Doesn't Re-rack Weights's Birthday
 DESCRIPTION:Annual directory reminder: Gym Bro Who Doesn't Re-rack Weights (Plate Abandonment Society).
@@ -1254,8 +1254,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-082@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261018
-DTEND;VALUE=DATE:20261019
+DTSTART;VALUE=DATE:20270829
+DTEND;VALUE=DATE:20270830
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Typing IN ALL CAPS ON FACEBOOK's Birthday
 DESCRIPTION:Annual directory reminder: Person Typing IN ALL CAPS ON FACEBOOK (Senior Internet Battalion).
@@ -1269,8 +1269,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-083@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261022
-DTEND;VALUE=DATE:20261023
+DTSTART;VALUE=DATE:20270902
+DTEND;VALUE=DATE:20270903
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Vending Machine That Stole Your Dollar's Birthday
 DESCRIPTION:Annual directory reminder: Vending Machine That Stole Your Dollar (Snack Highway Robbery).
@@ -1284,8 +1284,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-084@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261025
-DTEND;VALUE=DATE:20261026
+DTSTART;VALUE=DATE:20270905
+DTEND;VALUE=DATE:20270906
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Competitive Napper's Birthday
 DESCRIPTION:Annual directory reminder: Competitive Napper (International Snooze Federation).
@@ -1299,8 +1299,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-085@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261029
-DTEND;VALUE=DATE:20261030
+DTSTART;VALUE=DATE:20270909
+DTEND;VALUE=DATE:20270910
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spaghetti Straightener's Birthday
 DESCRIPTION:Annual directory reminder: Spaghetti Straightener (Pasta Alignment Bureau).
@@ -1314,8 +1314,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-086@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261101
-DTEND;VALUE=DATE:20261102
+DTSTART;VALUE=DATE:20270912
+DTEND;VALUE=DATE:20270913
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Certified Fortune Cookie Writer's Birthday
 DESCRIPTION:Annual directory reminder: Certified Fortune Cookie Writer (Vague Destiny Ltd).
@@ -1329,8 +1329,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-087@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261105
-DTEND;VALUE=DATE:20261106
+DTSTART;VALUE=DATE:20270916
+DTEND;VALUE=DATE:20270917
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Professional Bubble Wrap Popper's Birthday
 DESCRIPTION:Annual directory reminder: Professional Bubble Wrap Popper (Stress Relief Union).
@@ -1344,8 +1344,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-088@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261108
-DTEND;VALUE=DATE:20261109
+DTSTART;VALUE=DATE:20270919
+DTEND;VALUE=DATE:20270920
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Elevator Button Double-Presser's Birthday
 DESCRIPTION:Annual directory reminder: Elevator Button Double-Presser (Impatience Logistics).
@@ -1359,8 +1359,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-089@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261112
-DTEND;VALUE=DATE:20261113
+DTSTART;VALUE=DATE:20270923
+DTEND;VALUE=DATE:20270924
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Microwave Fish at Work's Birthday
 DESCRIPTION:Annual directory reminder: Person Who Microwave Fish at Work (Breakroom Hazard Division).
@@ -1374,8 +1374,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-090@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261116
-DTEND;VALUE=DATE:20261117
+DTSTART;VALUE=DATE:20270926
+DTEND;VALUE=DATE:20270927
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sir Bojangles The Third's Birthday
 DESCRIPTION:Annual directory reminder: Sir Bojangles The Third (Royal Court of Absurdity).
@@ -1389,8 +1389,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-091@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261119
-DTEND;VALUE=DATE:20261120
+DTSTART;VALUE=DATE:20270930
+DTEND;VALUE=DATE:20271001
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Taps You on Left Shoulder and Looks Right's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Taps You on Left Shoulder and Looks Right (Middle School Pranksters Guild).
@@ -1404,8 +1404,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-092@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261123
-DTEND;VALUE=DATE:20261124
+DTSTART;VALUE=DATE:20271004
+DTEND;VALUE=DATE:20271005
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Over-Polite Automated Call Center Voice's Birthday
 DESCRIPTION:Annual directory reminder: The Over-Polite Automated Call Center Voice (Robotic Courtesy Systems).
@@ -1419,8 +1419,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-093@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261126
-DTEND;VALUE=DATE:20261127
+DTSTART;VALUE=DATE:20271007
+DTEND;VALUE=DATE:20271008
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Eating Soup in Quiet Office's Birthday
 DESCRIPTION:Annual directory reminder: Person Eating Soup in Quiet Office (Breakroom Decibel Amplification).
@@ -1434,8 +1434,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-094@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261130
-DTEND;VALUE=DATE:20261201
+DTSTART;VALUE=DATE:20271011
+DTEND;VALUE=DATE:20271012
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Ghost of Internet Explorer's Birthday
 DESCRIPTION:Annual directory reminder: The Ghost of Internet Explorer (Legacy Browser Afterlife).
@@ -1449,8 +1449,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-095@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261203
-DTEND;VALUE=DATE:20261204
+DTSTART;VALUE=DATE:20271014
+DTEND;VALUE=DATE:20271015
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Appointed Neighborhood HOA Watchdog's Birthday
 DESCRIPTION:Annual directory reminder: Self-Appointed Neighborhood HOA Watchdog (Suburban Lawn Tape Measurers).
@@ -1464,8 +1464,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-096@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261207
-DTEND;VALUE=DATE:20261208
+DTSTART;VALUE=DATE:20271018
+DTEND;VALUE=DATE:20271019
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Still Uses BlackBerry's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Still Uses BlackBerry (Physical QWERTY Nostalgia).
@@ -1479,8 +1479,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-097@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261210
-DTEND;VALUE=DATE:20261211
+DTSTART;VALUE=DATE:20271021
+DTEND;VALUE=DATE:20271022
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Automatic Door That Refuses to Open's Birthday
 DESCRIPTION:Annual directory reminder: Automatic Door That Refuses to Open (Sensor Blindspot Dynamics).
@@ -1494,8 +1494,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-098@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261214
-DTEND;VALUE=DATE:20261215
+DTSTART;VALUE=DATE:20271025
+DTEND;VALUE=DATE:20271026
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 AirPods Low Battery Boop (Ear Piercing)'s Birthday
 DESCRIPTION:Annual directory reminder: AirPods Low Battery Boop (Ear Piercing) (Sudden Cardiac Panic Logistics).
@@ -1509,8 +1509,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-099@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261217
-DTEND;VALUE=DATE:20261218
+DTSTART;VALUE=DATE:20271028
+DTEND;VALUE=DATE:20271029
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The One Unopened Email from 2017's Birthday
 DESCRIPTION:Annual directory reminder: The One Unopened Email from 2017 (Inbox Guilt Repository).
@@ -1524,8 +1524,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-100@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261221
-DTEND;VALUE=DATE:20261222
+DTSTART;VALUE=DATE:20271101
+DTEND;VALUE=DATE:20271102
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 GPS Recalculating (Lost in Cornfield)'s Birthday
 DESCRIPTION:Annual directory reminder: GPS Recalculating (Lost in Cornfield) (Navigation Re-routing Unit).
@@ -1539,8 +1539,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-101@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261224
-DTEND;VALUE=DATE:20261225
+DTSTART;VALUE=DATE:20271104
+DTEND;VALUE=DATE:20271105
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Claps When Plane Lands's Birthday
 DESCRIPTION:Annual directory reminder: Person Who Claps When Plane Lands (Aviation Applause Society).
@@ -1554,8 +1554,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:prank-dir-102@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261228
-DTEND;VALUE=DATE:20261229
+DTSTART;VALUE=DATE:20271108
+DTEND;VALUE=DATE:20271109
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Explains The Joke You Just Made's Birthday
 DESCRIPTION:Annual directory reminder: Guy Who Explains The Joke You Just Made (Comedy Theft Syndicate).

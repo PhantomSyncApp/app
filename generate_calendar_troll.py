@@ -1,8 +1,11 @@
 """
 365-Day Undetected Slow-Burn Calendar Generator (.ics)
-Generic system name: "Mobile Directory Sync" (Zero mention of user name or "birthday" in series title).
-Events: All 103 hilarious entities with annual recurring days and 9:00 AM lock-screen alarms.
-Auto-updates subscribed devices via GitHub Pages.
+Delayed Start Edition:
+- First notification starts in ~2 weeks (Thursday, November 12, 2026).
+- Complete radio silence for the next 13 days so the NFC tap is totally forgotten.
+- Events distributed every ~3.5 days thereafter.
+- Jessie Mitchell's real birthday locked on April 30.
+- Anonymous container: "Mobile Directory Sync".
 """
 
 import os
@@ -52,14 +55,14 @@ def generate_ics_calendar():
         "END:VEVENT"
     ])
 
-    # 2. Evenly distribute all funny entities across 365 days
+    # 2. Start the slow-burn prank on November 12, 2026 (~2 weeks from today)
+    start_date = date(2026, 11, 12)
     total_contacts = len(FUNNY_CONTACTS_DATA)
-    start_date = date(2026, 1, 2)
 
     for i, contact in enumerate(FUNNY_CONTACTS_DATA):
         fn, org, title, email = contact
-        day_index = int((i * 364) / total_contacts)
-        bday_date = start_date + timedelta(days=day_index)
+        day_offset = int((i * 365) / total_contacts)
+        bday_date = start_date + timedelta(days=day_offset)
 
         # Skip Jessie's April 30
         if bday_date.month == 4 and bday_date.day in [29, 30]:
@@ -93,7 +96,7 @@ def generate_ics_calendar():
 
 
 def main():
-    print("🚀 Generating Anonymous 'Mobile Directory Sync' Calendar...")
+    print("🚀 Generating 2-Week Delayed Stealth Calendar...")
     ics_content = generate_ics_calendar()
     out_path = os.path.join(PRESETS_DIR, "jessie_mitchell_birthdays.ics")
     with open(out_path, "w", encoding="utf-8") as f:
