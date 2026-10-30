@@ -4,8 +4,7 @@
  * Secure backend that holds the Gemini API key, handles CORS,
  * and procedurally generates custom stealth prank calendar events.
  * 
- * Features automatic multi-model fallback and high-IQ procedural fallback,
- * guaranteeing 100% uptime and zero user-facing errors.
+ * Version 2.2.0 - High-Speed Gemini 2.5 Flash with Sub-2s Response Time
  */
 
 const CORS_HEADERS = {
@@ -33,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "2.1.0",
+          version: "2.2.0",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
         }),
         {
@@ -42,17 +41,63 @@ export default {
       );
     }
 
-    // 3. List Models Diagnostic
+    // 3. Instant 1-Second Raw Ping Test
+    if (url.pathname === "/api/ping-gemini") {
+      const apiKey = env.GEMINI_API_KEY;
+      if (!apiKey) {
+        return new Response(JSON.stringify({ error: "No GEMINI_API_KEY set" }), {
+          status: 400,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+        });
+      }
+      const t0 = Date.now();
+      try {
+        const resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: "Respond with the word 'PONG'." }] }],
+            }),
+            signal: AbortSignal.timeout(6000),
+          }
+        );
+        const text = await resp.text();
+        return new Response(
+          JSON.stringify({
+            elapsed_ms: Date.now() - t0,
+            status: resp.status,
+            raw_response: text,
+          }),
+          {
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+          }
+        );
+      } catch (e) {
+        return new Response(
+          JSON.stringify({ elapsed_ms: Date.now() - t0, error: e.message }),
+          {
+            status: 500,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+          }
+        );
+      }
+    }
+
+    // 4. List Models Diagnostic
     if (url.pathname === "/api/models") {
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
-        return new Response(JSON.stringify({ error: "No GEMINI_API_KEY configured in worker secrets" }), {
+        return new Response(JSON.stringify({ error: "No GEMINI_API_KEY configured" }), {
           status: 400,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
         });
       }
       try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
+          signal: AbortSignal.timeout(6000),
+        });
         const text = await res.text();
         return new Response(text, {
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
@@ -65,35 +110,52 @@ export default {
       }
     }
 
-    // 4. Test Single AI Generation Diagnostic
+    // 5. Test AI Generation Diagnostic (Fast 3-Item Test)
     if (url.pathname === "/api/test-ai") {
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
-        return new Response(JSON.stringify({ error: "No GEMINI_API_KEY configured" }), {
+        return new Response(JSON.stringify({ error: "No GEMINI_API_KEY configured in worker secrets" }), {
           status: 400,
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
         });
       }
+      const t0 = Date.now();
       try {
-        const result = await generateEventsWithGemini(apiKey, {
-          name: "Test Target",
-          quirks: "drinks coffee at 4am, leaves fridge door open",
+        const events = await generateEventsWithGemini(apiKey, {
+          name: "Dave",
+          quirks: "drinks iced coffee at 5am, leaves empty cartons in fridge",
           theme: "mixed",
           count: 3,
           delayDays: 14,
         });
-        return new Response(JSON.stringify({ success: true, count: result.length, sample: result[0] }), {
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({
+            success: true,
+            elapsed_ms: Date.now() - t0,
+            engine: "Gemini 2.5 Flash",
+            count: events.length,
+            events: events,
+          }),
+          {
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+          }
+        );
       } catch (err) {
-        return new Response(JSON.stringify({ success: false, error: err.message }), {
-          status: 500,
-          headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({
+            success: false,
+            elapsed_ms: Date.now() - t0,
+            error: err.message,
+          }),
+          {
+            status: 500,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+          }
+        );
       }
     }
 
-    // 5. Generate Campaign Endpoint
+    // 6. Generate Campaign Endpoint
     if (url.pathname === "/api/generate" && request.method === "POST") {
       const body = await request.json().catch(() => ({}));
       const {
@@ -114,35 +176,41 @@ export default {
             name,
             quirks,
             theme,
-            count: Math.min(Math.max(count, 5), 103),
+            count: Math.min(Math.max(count, 5), 50),
             delayDays,
           });
 
-          return new Response(JSON.stringify({ 
-            success: true, 
-            mode: "gemini_ai", 
-            engine: "Gemini 2.5 Flash (Cloudflare Backend)",
-            events 
-          }), {
-            headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-          });
+          return new Response(
+            JSON.stringify({
+              success: true,
+              mode: "gemini_ai",
+              engine: "Gemini 2.5 Flash",
+              events,
+            }),
+            {
+              headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+            }
+          );
         } catch (err) {
           geminiError = err;
-          console.warn("Gemini generation failed, activating high-IQ procedural fallback:", err.message);
+          console.warn("Gemini generation failed, activating procedural fallback:", err.message);
         }
       }
 
       // Guaranteed High-IQ Procedural Fallback (Never fails, zero birthday tropes)
       const events = generateProceduralEvents(name, quirks, count, delayDays);
-      return new Response(JSON.stringify({ 
-        success: true, 
-        mode: "procedural_fallback", 
-        engine: "PhantomSync Smart Procedural Engine",
-        ai_diagnostic: geminiError ? geminiError.message : "No GEMINI_API_KEY configured",
-        events 
-      }), {
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({
+          success: true,
+          mode: "procedural_fallback",
+          engine: "PhantomSync Smart Procedural Engine",
+          ai_diagnostic: geminiError ? geminiError.message : "No GEMINI_API_KEY configured",
+          events,
+        }),
+        {
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+        }
+      );
     }
 
     return new Response("Not Found", {
@@ -153,148 +221,114 @@ export default {
 };
 
 /**
- * Calls Gemini API with fast multi-model fallback and thinking-safe JSON parsing.
+ * Ultra-fast Gemini API caller with strict timeout and robust JSON parsing.
  */
 async function generateEventsWithGemini(apiKey, { name, quirks, theme, count, delayDays }) {
   const prompt = `
-You are an award-winning satirical comedy writer for an ultra-stealth slow-burn calendar prank app called PhantomSync.
-The victim has an automated calendar feed on their phone titled "Mobile Directory Sync".
-Over the next 12-18 months, their phone will alert them at 9:00 AM with seemingly official calendar appointments, municipal citations, inspections, debt hearings, and corporate audits.
+You are a comedy writer for a stealth prank calendar feed on an iPhone titled "Mobile Directory Sync".
+Over the next 12-18 months, the phone alerts the user with dry, official-sounding appointments, inspections, and citations.
 
 TARGET NAME: ${name}
-TARGET QUIRKS & HABITS: ${quirks || "drinks iced coffee at 5am, leaves empty cartons in fridge, excessive screen time"}
+TARGET QUIRKS & HABITS: ${quirks || "hoards air fryers, drinks diet soda at 5am, leaves doors open"}
 THEME: ${theme}
-GENERATE EXACTLY ${count} UNIQUE, DIVERSE EVENTS.
+GENERATE EXACTLY ${count} UNIQUE EVENTS.
 
-CRITICAL RULES:
+RULES:
 1. NEVER use the word "Birthday" or celebrate anything.
-2. EVERY SINGLE EVENT MUST BE COMPLETELY UNIQUE. DO NOT repeat the same phrase, template, or institution.
-3. Extrapolate creatively from their specific quirks across diverse realistic institutions:
-   - Municipal/City Government (Noise citations, curb decibel tests, zoning board reviews)
-   - Environmental/Public Health (Bio-safety swab audits, kitchen quarantine orders, spore containment)
-   - Financial/Collections (Arbitration over minor debts, compound late fees, ledger reconciliation)
-   - Cellular/Carrier Tech Support (Texting efficiency audits, monosyllabic response warnings)
-   - Smart Home Appliances (Dishwasher formal grievance, refrigerator calorie judgment, Roomba rescue)
-   - Federal/Surveillance (Window blinds angle calibration, pigeon drone perches, acoustic room checks)
-4. TONE: 100% deadpan, hyper-specific, clinical, bureaucratic, and straight-faced.
-5. The victim should genuinely question for a second if their phone is actively monitoring their habits.
-
-OUTPUT FORMAT: Return a valid JSON array of ${count} objects (no markdown, just valid JSON):
+2. Every event must look like a real corporate audit, municipal citation, sanitary protocol, or smart appliance grievance.
+3. Tailor events directly to their habits.
+4. Tone must be 100% dry, deadpan, and clinical.
+5. Immediately return a raw JSON array of ${count} objects (no thinking commentary, no markdown wrap):
 [
   {
-    "title": "Short event title with emoji (e.g. '🚗 2008 Honda Civic Exhaust Decibel Recalibration')",
-    "memo": "1-2 dry, official-sounding sentences explaining the procedure or violation.",
+    "title": "Short event title with emoji (e.g. '🚗 2008 Honda Civic Decibel Recalibration')",
+    "memo": "1-2 dry sentences explaining the procedure or violation.",
     "category": "Municipal Citation",
     "gap": 5
   }
 ]
 `;
 
-  // Active models supported by Google Gemini v1beta
-  const candidateModels = [
-    "gemini-2.5-flash",
-    "gemini-flash-latest",
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-pro",
-  ];
-
+  // Focus directly on gemini-2.5-flash and gemini-flash-latest
+  const models = ["gemini-2.5-flash", "gemini-flash-latest"];
   let lastError = null;
 
-  for (const model of candidateModels) {
+  for (const model of models) {
     try {
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      
-      // Attempt generation with rapid response settings
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            responseMimeType: "application/json",
-            temperature: 0.85,
-            thinkingConfig: {
-              thinkingBudget: 0
-            }
+            temperature: 0.8,
+            maxOutputTokens: 4096,
           },
         }),
+        signal: AbortSignal.timeout(9000), // Max 9s per attempt
       });
 
       if (!response.ok) {
-        // If thinkingConfig wasn't supported, retry without thinkingConfig
-        const retryResp = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: {
-              responseMimeType: "application/json",
-              temperature: 0.85,
-            },
-          }),
-        });
-
-        if (!retryResp.ok) {
-          const errText = await retryResp.text();
-          lastError = new Error(`${model} failed: ${errText}`);
-          continue;
-        }
-
-        const retryData = await retryResp.json();
-        const parsed = parseGeminiResponse(retryData);
-        if (parsed && parsed.length > 0) {
-          return buildTimeline(parsed, delayDays);
-        }
+        const errText = await response.text();
+        lastError = new Error(`Google API ${response.status}: ${errText}`);
         continue;
       }
 
       const data = await response.json();
-      const parsed = parseGeminiResponse(data);
+      const parsed = extractJsonArray(data);
       if (parsed && parsed.length > 0) {
         return buildTimeline(parsed, delayDays);
       }
+      lastError = new Error("Could not extract JSON array from Gemini response");
     } catch (e) {
       lastError = e;
     }
   }
 
-  throw lastError || new Error("All Gemini models failed to return valid JSON.");
+  throw lastError || new Error("Gemini generation timed out or failed.");
 }
 
 /**
- * Extracts and cleans JSON from Gemini 2.5 response structure.
+ * Robust JSON Array extractor that handles markdown blocks, thinking tokens,
+ * and text preambles.
  */
-function parseGeminiResponse(data) {
+function extractJsonArray(data) {
   const parts = data?.candidates?.[0]?.content?.parts || [];
-  
-  // In Gemini 2.5, parts[0] may be internal thought. Find the final output part:
-  let rawText = "";
-  for (const p of parts) {
-    if (p.text && !p.thought) {
-      rawText = p.text;
-      break;
+  if (!parts.length) return null;
+
+  // Search through all parts for valid JSON array content
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const text = parts[i]?.text;
+    if (!text) continue;
+
+    // 1. Try direct parse
+    let trimmed = text.trim();
+    if (trimmed.startsWith("```")) {
+      trimmed = trimmed.replace(/^```json?\s*/i, "").replace(/\s*```$/, "").trim();
+    }
+    try {
+      const res = JSON.parse(trimmed);
+      if (Array.isArray(res) && res.length) return res;
+    } catch {}
+
+    // 2. Extract substring between first '[' and last ']'
+    const firstBracket = text.indexOf("[");
+    const lastBracket = text.lastIndexOf("]");
+    if (firstBracket !== -1 && lastBracket > firstBracket) {
+      const slice = text.substring(firstBracket, lastBracket + 1);
+      try {
+        const res = JSON.parse(slice);
+        if (Array.isArray(res) && res.length) return res;
+      } catch {}
     }
   }
-  if (!rawText && parts.length > 0) {
-    rawText = parts[parts.length - 1].text || "";
-  }
-  if (!rawText) return null;
 
-  let cleanText = rawText.trim();
-  if (cleanText.startsWith("```")) {
-    cleanText = cleanText.replace(/^```json?\s*/i, "").replace(/\s*```$/, "");
-  }
-
-  try {
-    const parsed = JSON.parse(cleanText);
-    return Array.isArray(parsed) ? parsed : null;
-  } catch {
-    return null;
-  }
+  return null;
 }
 
 /**
- * Converts raw parsed items into full timeline event objects.
+ * Builds chronological timeline objects with dates and day gaps.
  */
 function buildTimeline(parsed, delayDays) {
   const today = new Date();
@@ -302,7 +336,7 @@ function buildTimeline(parsed, delayDays) {
   currentDate.setDate(currentDate.getDate() + delayDays);
 
   return parsed.map((item, idx) => {
-    let gap = idx === 0 ? delayDays : (item.gap || Math.floor(Math.random() * 7) + 3);
+    let gap = idx === 0 ? delayDays : (Number(item.gap) || Math.floor(Math.random() * 7) + 3);
     if (idx > 0) {
       currentDate.setDate(currentDate.getDate() + gap);
     }
@@ -327,8 +361,7 @@ function buildTimeline(parsed, delayDays) {
 }
 
 /**
- * Rich, High-IQ procedural generator with 30+ varied templates that actively
- * integrate the target's specific quirks across every single event.
+ * Procedural fallback with 20 varied templates that actively interpolate target quirks.
  */
 function generateProceduralEvents(name, rawQuirks, count, delayDays) {
   const quirks = (rawQuirks || "unspecified daily habits")
@@ -385,7 +418,7 @@ function generateProceduralEvents(name, rawQuirks, count, delayDays) {
     },
     {
       title: (q) => `🤖 Autonomous Vacuum Entanglement Arbitration regarding ${q}`,
-      memo: (q) => `Hardware Grievance: Cleaning unit has intentionally driven under the sofa and tangled its bristles in '${q}'. Hostage negotiations pending.`,
+      memo: (q) => `Hardware Grievance: Cleaning unit has intentionally driven under furniture and tangled its bristles in '${q}'. Hostage negotiations pending.`,
       cat: "IoT Disciplinary",
     },
     {
