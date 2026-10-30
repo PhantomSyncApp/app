@@ -1,10 +1,10 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Jessie Mitchell//Personal Calendar Sync//EN
+PRODID:-//Mobile Directory//System Sync Feed//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Jessie Mitchell • Birthday & Event Sync
-X-WR-CALDESC:Official birthday reminder & personal event roster.
+X-WR-CALNAME:Mobile Directory Sync
+X-WR-CALDESC:Automated directory synchronization feed.
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
 UID:jessie-real-bday@jessiemitchell.sync
@@ -22,13 +22,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-000@cloudsync.events
+UID:prank-dir-000@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260102
 DTEND;VALUE=DATE:20260103
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 FBI Surveillance Van #4's Birthday
-DESCRIPTION:Annual birthday reminder for FBI Surveillance Van #4 (Federal Bureau of Investigation). Send your best regards!
+DESCRIPTION:Annual directory reminder: FBI Surveillance Van #4 (Federal Bureau of Investigation).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -37,13 +37,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-001@cloudsync.events
+UID:prank-dir-001@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260105
 DTEND;VALUE=DATE:20260106
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 FBI Surveillance Van #9 (Undercover Prius)'s Birthday
-DESCRIPTION:Annual birthday reminder for FBI Surveillance Van #9 (Undercover Prius) (Federal Bureau of Investigation). Send your best regards!
+DESCRIPTION:Annual directory reminder: FBI Surveillance Van #9 (Undercover Prius) (Federal Bureau of Investigation).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -52,13 +52,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-002@cloudsync.events
+UID:prank-dir-002@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260109
 DTEND;VALUE=DATE:20260110
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 CIA Operative Pigeon #42's Birthday
-DESCRIPTION:Annual birthday reminder for CIA Operative Pigeon #42 (Central Intelligence Agency). Send your best regards!
+DESCRIPTION:Annual directory reminder: CIA Operative Pigeon #42 (Central Intelligence Agency).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -67,13 +67,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-003@cloudsync.events
+UID:prank-dir-003@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260112
 DTEND;VALUE=DATE:20260113
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 NSA Microphone Inspector's Birthday
-DESCRIPTION:Annual birthday reminder for NSA Microphone Inspector (National Security Agency). Send your best regards!
+DESCRIPTION:Annual directory reminder: NSA Microphone Inspector (National Security Agency).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -82,13 +82,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-004@cloudsync.events
+UID:prank-dir-004@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260116
 DTEND;VALUE=DATE:20260117
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Area 51 Janitorial Services's Birthday
-DESCRIPTION:Annual birthday reminder for Area 51 Janitorial Services (US Space Command). Send your best regards!
+DESCRIPTION:Annual directory reminder: Area 51 Janitorial Services (US Space Command).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -97,13 +97,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-005@cloudsync.events
+UID:prank-dir-005@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260119
 DTEND;VALUE=DATE:20260120
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 IRS Audit SWAT Team's Birthday
-DESCRIPTION:Annual birthday reminder for IRS Audit SWAT Team (Internal Revenue Service). Send your best regards!
+DESCRIPTION:Annual directory reminder: IRS Audit SWAT Team (Internal Revenue Service).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -112,13 +112,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-006@cloudsync.events
+UID:prank-dir-006@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260123
 DTEND;VALUE=DATE:20260124
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Department of Redundancy Department's Birthday
-DESCRIPTION:Annual birthday reminder for Department of Redundancy Department (Federal Bureau of Redundant Affairs). Send your best regards!
+DESCRIPTION:Annual directory reminder: Department of Redundancy Department (Federal Bureau of Redundant Affairs).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -127,13 +127,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-007@cloudsync.events
+UID:prank-dir-007@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260126
 DTEND;VALUE=DATE:20260127
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Pentagon Snack Room Attendant's Birthday
-DESCRIPTION:Annual birthday reminder for Pentagon Snack Room Attendant (Department of Defense). Send your best regards!
+DESCRIPTION:Annual directory reminder: Pentagon Snack Room Attendant (Department of Defense).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -142,13 +142,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-008@cloudsync.events
+UID:prank-dir-008@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260130
 DTEND;VALUE=DATE:20260131
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Undercover Squirrel Division's Birthday
-DESCRIPTION:Annual birthday reminder for Undercover Squirrel Division (Wildlife Espionage Bureau). Send your best regards!
+DESCRIPTION:Annual directory reminder: Undercover Squirrel Division (Wildlife Espionage Bureau).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -157,13 +157,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-009@cloudsync.events
+UID:prank-dir-009@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260202
 DTEND;VALUE=DATE:20260203
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Car Warranty Dispatcher (FINAL NOTICE)'s Birthday
-DESCRIPTION:Annual birthday reminder for Car Warranty Dispatcher (FINAL NOTICE) (National Auto Protection). Send your best regards!
+DESCRIPTION:Annual directory reminder: Car Warranty Dispatcher (FINAL NOTICE) (National Auto Protection).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -172,13 +172,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-010@cloudsync.events
+UID:prank-dir-010@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260206
 DTEND;VALUE=DATE:20260207
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Car Warranty Specialist #44's Birthday
-DESCRIPTION:Annual birthday reminder for Car Warranty Specialist #44 (Vehicle Service Bureau). Send your best regards!
+DESCRIPTION:Annual directory reminder: Car Warranty Specialist #44 (Vehicle Service Bureau).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -187,13 +187,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-011@cloudsync.events
+UID:prank-dir-011@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260209
 DTEND;VALUE=DATE:20260210
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Student Loan Forgiveness Goblin's Birthday
-DESCRIPTION:Annual birthday reminder for Student Loan Forgiveness Goblin (Department of Fictional Relief). Send your best regards!
+DESCRIPTION:Annual directory reminder: Student Loan Forgiveness Goblin (Department of Fictional Relief).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -202,13 +202,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-012@cloudsync.events
+UID:prank-dir-012@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260213
 DTEND;VALUE=DATE:20260214
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Health Insurance Telemarketer's Birthday
-DESCRIPTION:Annual birthday reminder for Health Insurance Telemarketer (Global Robocall Center). Send your best regards!
+DESCRIPTION:Annual directory reminder: Health Insurance Telemarketer (Global Robocall Center).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -217,13 +217,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-013@cloudsync.events
+UID:prank-dir-013@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260216
 DTEND;VALUE=DATE:20260217
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Nigerian Prince (Legitimate)'s Birthday
-DESCRIPTION:Annual birthday reminder for Nigerian Prince (Legitimate) (Royal Treasury of Lagos). Send your best regards!
+DESCRIPTION:Annual directory reminder: Nigerian Prince (Legitimate) (Royal Treasury of Lagos).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -232,13 +232,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-014@cloudsync.events
+UID:prank-dir-014@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260220
 DTEND;VALUE=DATE:20260221
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Final Boss of Extended Warranties's Birthday
-DESCRIPTION:Annual birthday reminder for The Final Boss of Extended Warranties (Warranty Citadel). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Final Boss of Extended Warranties (Warranty Citadel).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -247,13 +247,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-015@cloudsync.events
+UID:prank-dir-015@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260224
 DTEND;VALUE=DATE:20260225
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Sentient Roomba's Birthday
-DESCRIPTION:Annual birthday reminder for The Sentient Roomba (Living Room Patrol). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Sentient Roomba (Living Room Patrol).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -262,13 +262,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-016@cloudsync.events
+UID:prank-dir-016@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260227
 DTEND;VALUE=DATE:20260228
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smart Fridge (Judging Your Diet)'s Birthday
-DESCRIPTION:Annual birthday reminder for Smart Fridge (Judging Your Diet) (Kitchen Appliances Union). Send your best regards!
+DESCRIPTION:Annual directory reminder: Smart Fridge (Judging Your Diet) (Kitchen Appliances Union).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -277,13 +277,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-017@cloudsync.events
+UID:prank-dir-017@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260303
 DTEND;VALUE=DATE:20260304
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Printer That Won't Connect to Wi-Fi's Birthday
-DESCRIPTION:Annual birthday reminder for Printer That Won't Connect to Wi-Fi (Office Hardware Demons). Send your best regards!
+DESCRIPTION:Annual directory reminder: Printer That Won't Connect to Wi-Fi (Office Hardware Demons).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -292,13 +292,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-018@cloudsync.events
+UID:prank-dir-018@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260306
 DTEND;VALUE=DATE:20260307
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Printer: Low on Cyan (Won't Print Black)'s Birthday
-DESCRIPTION:Annual birthday reminder for Printer: Low on Cyan (Won't Print Black) (Hardware Cartridge Cartel). Send your best regards!
+DESCRIPTION:Annual directory reminder: Printer: Low on Cyan (Won't Print Black) (Hardware Cartridge Cartel).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -307,13 +307,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-019@cloudsync.events
+UID:prank-dir-019@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260310
 DTEND;VALUE=DATE:20260311
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Duolingo Owl (Unforgiving)'s Birthday
-DESCRIPTION:Annual birthday reminder for The Duolingo Owl (Unforgiving) (Duolingo Threat Bureau). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Duolingo Owl (Unforgiving) (Duolingo Threat Bureau).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -322,13 +322,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-020@cloudsync.events
+UID:prank-dir-020@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260313
 DTEND;VALUE=DATE:20260314
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Stares at Microwaves's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Stares at Microwaves (Midnight Kitchen Observers). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Stares at Microwaves (Midnight Kitchen Observers).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -337,13 +337,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-021@cloudsync.events
+UID:prank-dir-021@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260317
 DTEND;VALUE=DATE:20260318
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Your Wi-Fi Router at 3 AM's Birthday
-DESCRIPTION:Annual birthday reminder for Your Wi-Fi Router at 3 AM (Packet Drop Services). Send your best regards!
+DESCRIPTION:Annual directory reminder: Your Wi-Fi Router at 3 AM (Packet Drop Services).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -352,13 +352,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-022@cloudsync.events
+UID:prank-dir-022@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260320
 DTEND;VALUE=DATE:20260321
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Bluetooth Speaker That Paired to Stranger's Birthday
-DESCRIPTION:Annual birthday reminder for Bluetooth Speaker That Paired to Stranger (Unsolicited Audio Inc.). Send your best regards!
+DESCRIPTION:Annual directory reminder: Bluetooth Speaker That Paired to Stranger (Unsolicited Audio Inc.).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -367,13 +367,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-023@cloudsync.events
+UID:prank-dir-023@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260324
 DTEND;VALUE=DATE:20260325
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smoke Detector (Low Battery Chirp 2 AM)'s Birthday
-DESCRIPTION:Annual birthday reminder for Smoke Detector (Low Battery Chirp 2 AM) (Ceiling Terror Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Smoke Detector (Low Battery Chirp 2 AM) (Ceiling Terror Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -382,13 +382,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-024@cloudsync.events
+UID:prank-dir-024@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260327
 DTEND;VALUE=DATE:20260328
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Phone Charger Cable (Only Works Bent)'s Birthday
-DESCRIPTION:Annual birthday reminder for Phone Charger Cable (Only Works Bent) (Copper Fatigue Association). Send your best regards!
+DESCRIPTION:Annual directory reminder: Phone Charger Cable (Only Works Bent) (Copper Fatigue Association).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -397,13 +397,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-025@cloudsync.events
+UID:prank-dir-025@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260331
 DTEND;VALUE=DATE:20260401
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Hotel Keycard That De-magnetized's Birthday
-DESCRIPTION:Annual birthday reminder for Hotel Keycard That De-magnetized (Front Desk Relay). Send your best regards!
+DESCRIPTION:Annual directory reminder: Hotel Keycard That De-magnetized (Front Desk Relay).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -412,13 +412,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-026@cloudsync.events
+UID:prank-dir-026@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260403
 DTEND;VALUE=DATE:20260404
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Smart TV Updating at Worst Moment's Birthday
-DESCRIPTION:Annual birthday reminder for Smart TV Updating at Worst Moment (Firmware Overlords). Send your best regards!
+DESCRIPTION:Annual directory reminder: Smart TV Updating at Worst Moment (Firmware Overlords).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -427,13 +427,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-027@cloudsync.events
+UID:prank-dir-027@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260407
 DTEND;VALUE=DATE:20260408
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Microwave Clock (Never Set Correctly)'s Birthday
-DESCRIPTION:Annual birthday reminder for Microwave Clock (Never Set Correctly) (Kitchen Time Fabricators). Send your best regards!
+DESCRIPTION:Annual directory reminder: Microwave Clock (Never Set Correctly) (Kitchen Time Fabricators).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -442,13 +442,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-028@cloudsync.events
+UID:prank-dir-028@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260410
 DTEND;VALUE=DATE:20260411
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Calls Everyone 'Chief''s Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Calls Everyone 'Chief' (Casual Acquaintances LLC). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Calls Everyone 'Chief' (Casual Acquaintances LLC).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -457,13 +457,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-029@cloudsync.events
+UID:prank-dir-029@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260414
 DTEND;VALUE=DATE:20260415
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Neighbor With The 6 AM Leaf Blower's Birthday
-DESCRIPTION:Annual birthday reminder for Neighbor With The 6 AM Leaf Blower (Saturday Morning Ruiners). Send your best regards!
+DESCRIPTION:Annual directory reminder: Neighbor With The 6 AM Leaf Blower (Saturday Morning Ruiners).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -472,13 +472,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-030@cloudsync.events
+UID:prank-dir-030@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260418
 DTEND;VALUE=DATE:20260419
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emotional Support Possum's Birthday
-DESCRIPTION:Annual birthday reminder for Emotional Support Possum (Backyard Marsupial Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: Emotional Support Possum (Backyard Marsupial Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -487,13 +487,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-031@cloudsync.events
+UID:prank-dir-031@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260421
 DTEND;VALUE=DATE:20260422
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Breathes Loudly on Elevators's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Breathes Loudly on Elevators (Vertical Transit Awkwardness). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Breathes Loudly on Elevators (Vertical Transit Awkwardness).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -502,13 +502,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-032@cloudsync.events
+UID:prank-dir-032@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260425
 DTEND;VALUE=DATE:20260426
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Guy She Told You Not To Worry About's Birthday
-DESCRIPTION:Annual birthday reminder for The Guy She Told You Not To Worry About (Insecurity Amplification LLC). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Guy She Told You Not To Worry About (Insecurity Amplification LLC).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -517,13 +517,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-033@cloudsync.events
+UID:prank-dir-033@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260428
 DTEND;VALUE=DATE:20260429
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spotify DJ (Giving Unsolicited Recs)'s Birthday
-DESCRIPTION:Annual birthday reminder for Spotify DJ (Giving Unsolicited Recs) (Algorithm Overreach). Send your best regards!
+DESCRIPTION:Annual directory reminder: Spotify DJ (Giving Unsolicited Recs) (Algorithm Overreach).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -532,13 +532,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-034@cloudsync.events
+UID:prank-dir-034@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260502
 DTEND;VALUE=DATE:20260503
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Air Fryer Enthusiast Club President's Birthday
-DESCRIPTION:Annual birthday reminder for Air Fryer Enthusiast Club President (Crispy Carbs Movement). Send your best regards!
+DESCRIPTION:Annual directory reminder: Air Fryer Enthusiast Club President (Crispy Carbs Movement).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -547,13 +547,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-035@cloudsync.events
+UID:prank-dir-035@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260505
 DTEND;VALUE=DATE:20260506
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Says 'Living the Dream''s Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Says 'Living the Dream' (Corporate Coping Group). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Says 'Living the Dream' (Corporate Coping Group).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -562,13 +562,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-036@cloudsync.events
+UID:prank-dir-036@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260509
 DTEND;VALUE=DATE:20260510
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Subway Sandwich Artist (Over-Mustarder)'s Birthday
-DESCRIPTION:Annual birthday reminder for Subway Sandwich Artist (Over-Mustarder) (Condiment Velocity Lab). Send your best regards!
+DESCRIPTION:Annual directory reminder: Subway Sandwich Artist (Over-Mustarder) (Condiment Velocity Lab).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -577,13 +577,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-037@cloudsync.events
+UID:prank-dir-037@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260512
 DTEND;VALUE=DATE:20260513
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Checkout Voice: 'UNEXPECTED ITEM''s Birthday
-DESCRIPTION:Annual birthday reminder for Self-Checkout Voice: 'UNEXPECTED ITEM' (Retail Robot Harassment). Send your best regards!
+DESCRIPTION:Annual directory reminder: Self-Checkout Voice: 'UNEXPECTED ITEM' (Retail Robot Harassment).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -592,13 +592,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-038@cloudsync.events
+UID:prank-dir-038@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260516
 DTEND;VALUE=DATE:20260517
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Wearing Sunglasses Indoors's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Wearing Sunglasses Indoors (Fluorescent Light Defiance). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Wearing Sunglasses Indoors (Fluorescent Light Defiance).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -607,13 +607,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-039@cloudsync.events
+UID:prank-dir-039@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260519
 DTEND;VALUE=DATE:20260520
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Unsolicited Crypto Advice Cousin's Birthday
-DESCRIPTION:Annual birthday reminder for Unsolicited Crypto Advice Cousin (Thanksgiving Table Ruiners). Send your best regards!
+DESCRIPTION:Annual directory reminder: Unsolicited Crypto Advice Cousin (Thanksgiving Table Ruiners).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -622,13 +622,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-040@cloudsync.events
+UID:prank-dir-040@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260523
 DTEND;VALUE=DATE:20260524
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Texts 'K' After 2 Paragraphs's Birthday
-DESCRIPTION:Annual birthday reminder for Person Who Texts 'K' After 2 Paragraphs (Dry Texting League). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Who Texts 'K' After 2 Paragraphs (Dry Texting League).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -637,13 +637,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-041@cloudsync.events
+UID:prank-dir-041@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260526
 DTEND;VALUE=DATE:20260527
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Overconfident IKEA Furniture Builder's Birthday
-DESCRIPTION:Annual birthday reminder for Overconfident IKEA Furniture Builder (Allen Wrench Warriors). Send your best regards!
+DESCRIPTION:Annual directory reminder: Overconfident IKEA Furniture Builder (Allen Wrench Warriors).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -652,13 +652,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-042@cloudsync.events
+UID:prank-dir-042@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260530
 DTEND;VALUE=DATE:20260531
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Overexplains Board Games's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Overexplains Board Games (Game Night Ruiners). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Overexplains Board Games (Game Night Ruiners).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -667,13 +667,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-043@cloudsync.events
+UID:prank-dir-043@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260602
 DTEND;VALUE=DATE:20260603
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Appointed Elevators Captain's Birthday
-DESCRIPTION:Annual birthday reminder for Self-Appointed Elevators Captain (Vertical Transit Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: Self-Appointed Elevators Captain (Vertical Transit Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -682,13 +682,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-044@cloudsync.events
+UID:prank-dir-044@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260606
 DTEND;VALUE=DATE:20260607
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Cat Running at 3:14 AM's Birthday
-DESCRIPTION:Annual birthday reminder for Cat Running at 3:14 AM (Feline Zoomies Brigade). Send your best regards!
+DESCRIPTION:Annual directory reminder: Cat Running at 3:14 AM (Feline Zoomies Brigade).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -697,13 +697,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-045@cloudsync.events
+UID:prank-dir-045@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260610
 DTEND;VALUE=DATE:20260611
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Waves Back When Wasn't For Them's Birthday
-DESCRIPTION:Annual birthday reminder for Person Who Waves Back When Wasn't For Them (Awkward Social Encounters). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Who Waves Back When Wasn't For Them (Awkward Social Encounters).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -712,13 +712,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-046@cloudsync.events
+UID:prank-dir-046@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260613
 DTEND;VALUE=DATE:20260614
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Dad Groaning While Sitting on Couch's Birthday
-DESCRIPTION:Annual birthday reminder for Dad Groaning While Sitting on Couch (Living Room Acoustics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Dad Groaning While Sitting on Couch (Living Room Acoustics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -727,13 +727,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-047@cloudsync.events
+UID:prank-dir-047@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260617
 DTEND;VALUE=DATE:20260618
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Asks 'Working Hard or Hardly Working?''s Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Asks 'Working Hard or Hardly Working?' (Water Cooler Cliché Institute). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Asks 'Working Hard or Hardly Working?' (Water Cooler Cliché Institute).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -742,13 +742,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-048@cloudsync.events
+UID:prank-dir-048@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260620
 DTEND;VALUE=DATE:20260621
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Your Left Earbud (Lost Under Car Seat)'s Birthday
-DESCRIPTION:Annual birthday reminder for Your Left Earbud (Lost Under Car Seat) (Bluetooth Separation Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Your Left Earbud (Lost Under Car Seat) (Bluetooth Separation Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -757,13 +757,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-049@cloudsync.events
+UID:prank-dir-049@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260624
 DTEND;VALUE=DATE:20260625
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Puts Empty Milk Jug Back in Fridge's Birthday
-DESCRIPTION:Annual birthday reminder for Person Who Puts Empty Milk Jug Back in Fridge (Domestic Betrayal Agency). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Who Puts Empty Milk Jug Back in Fridge (Domestic Betrayal Agency).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -772,13 +772,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-050@cloudsync.events
+UID:prank-dir-050@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260627
 DTEND;VALUE=DATE:20260628
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Guy Who Always Says 'I Know a Guy''s Birthday
-DESCRIPTION:Annual birthday reminder for The Guy Who Always Says 'I Know a Guy' (Questionable Sourcing Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Guy Who Always Says 'I Know a Guy' (Questionable Sourcing Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -787,13 +787,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-051@cloudsync.events
+UID:prank-dir-051@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Weather App Saying 0% Rain While Pouring's Birthday
-DESCRIPTION:Annual birthday reminder for Weather App Saying 0% Rain While Pouring (Meteorological Gaslighting). Send your best regards!
+DESCRIPTION:Annual directory reminder: Weather App Saying 0% Rain While Pouring (Meteorological Gaslighting).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -802,13 +802,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-052@cloudsync.events
+UID:prank-dir-052@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260704
 DTEND;VALUE=DATE:20260705
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Conference Call: 'Can Everyone See My Screen?''s Birthday
-DESCRIPTION:Annual birthday reminder for Conference Call: 'Can Everyone See My Screen?' (Corporate Virtual Meetings). Send your best regards!
+DESCRIPTION:Annual directory reminder: Conference Call: 'Can Everyone See My Screen?' (Corporate Virtual Meetings).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -817,13 +817,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-053@cloudsync.events
+UID:prank-dir-053@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260708
 DTEND;VALUE=DATE:20260709
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Brings Acoustic Guitar to Campfire's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Brings Acoustic Guitar to Campfire (Uninvited Wonderwall Corp). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Brings Acoustic Guitar to Campfire (Uninvited Wonderwall Corp).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -832,13 +832,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-054@cloudsync.events
+UID:prank-dir-054@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260711
 DTEND;VALUE=DATE:20260712
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Gas Station Sushi Quality Inspector's Birthday
-DESCRIPTION:Annual birthday reminder for Gas Station Sushi Quality Inspector (Digestive Roulette Associates). Send your best regards!
+DESCRIPTION:Annual directory reminder: Gas Station Sushi Quality Inspector (Digestive Roulette Associates).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -847,13 +847,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-055@cloudsync.events
+UID:prank-dir-055@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260715
 DTEND;VALUE=DATE:20260716
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Capybara Emotional Center's Birthday
-DESCRIPTION:Annual birthday reminder for The Capybara Emotional Center (Zen Animal Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Capybara Emotional Center (Zen Animal Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -862,13 +862,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-056@cloudsync.events
+UID:prank-dir-056@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260718
 DTEND;VALUE=DATE:20260719
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Uber Driver Sharing Wild Conspiracy Theories's Birthday
-DESCRIPTION:Annual birthday reminder for Uber Driver Sharing Wild Conspiracy Theories (Rideshare Debates). Send your best regards!
+DESCRIPTION:Annual directory reminder: Uber Driver Sharing Wild Conspiracy Theories (Rideshare Debates).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -877,13 +877,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-057@cloudsync.events
+UID:prank-dir-057@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260722
 DTEND;VALUE=DATE:20260723
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Target Cashier Asking About RedCard's Birthday
-DESCRIPTION:Annual birthday reminder for Target Cashier Asking About RedCard (Cash Register Pitches). Send your best regards!
+DESCRIPTION:Annual directory reminder: Target Cashier Asking About RedCard (Cash Register Pitches).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -892,13 +892,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-058@cloudsync.events
+UID:prank-dir-058@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260726
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Avocado That Ripened for 4 Minutes's Birthday
-DESCRIPTION:Annual birthday reminder for Avocado That Ripened for 4 Minutes (Produce Timing Hazards). Send your best regards!
+DESCRIPTION:Annual directory reminder: Avocado That Ripened for 4 Minutes (Produce Timing Hazards).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -907,13 +907,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-059@cloudsync.events
+UID:prank-dir-059@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260729
 DTEND;VALUE=DATE:20260730
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Dog Who Barks at Literally Nothing's Birthday
-DESCRIPTION:Annual birthday reminder for Dog Who Barks at Literally Nothing (Ghost Detection Division). Send your best regards!
+DESCRIPTION:Annual directory reminder: Dog Who Barks at Literally Nothing (Ghost Detection Division).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -922,13 +922,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-060@cloudsync.events
+UID:prank-dir-060@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260802
 DTEND;VALUE=DATE:20260803
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Proclaimed Barbecue Master's Birthday
-DESCRIPTION:Annual birthday reminder for Self-Proclaimed Barbecue Master (Backyard Charcoal Syndicate). Send your best regards!
+DESCRIPTION:Annual directory reminder: Self-Proclaimed Barbecue Master (Backyard Charcoal Syndicate).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -937,13 +937,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-061@cloudsync.events
+UID:prank-dir-061@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260805
 DTEND;VALUE=DATE:20260806
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday
-DESCRIPTION:Annual birthday reminder for Overpriced Coffee Barista (Spelled Name Wrong) (Espresso Sarcasm Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: Overpriced Coffee Barista (Spelled Name Wrong) (Espresso Sarcasm Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -952,13 +952,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-062@cloudsync.events
+UID:prank-dir-062@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260809
 DTEND;VALUE=DATE:20260810
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Basement Crawlspace Goblin's Birthday
-DESCRIPTION:Annual birthday reminder for Basement Crawlspace Goblin (Subterranean Creatures LLC). Send your best regards!
+DESCRIPTION:Annual directory reminder: Basement Crawlspace Goblin (Subterranean Creatures LLC).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -967,13 +967,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-063@cloudsync.events
+UID:prank-dir-063@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260812
 DTEND;VALUE=DATE:20260813
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Friendly Neighborhood Cryptid's Birthday
-DESCRIPTION:Annual birthday reminder for Friendly Neighborhood Cryptid (Appalachian Forest Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: Friendly Neighborhood Cryptid (Appalachian Forest Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -982,13 +982,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-064@cloudsync.events
+UID:prank-dir-064@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260816
 DTEND;VALUE=DATE:20260817
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Bigfoot's Public Relations Rep's Birthday
-DESCRIPTION:Annual birthday reminder for Bigfoot's Public Relations Rep (Forest PR Associates). Send your best regards!
+DESCRIPTION:Annual directory reminder: Bigfoot's Public Relations Rep (Forest PR Associates).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -997,13 +997,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-065@cloudsync.events
+UID:prank-dir-065@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260819
 DTEND;VALUE=DATE:20260820
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sleep Paralysis Demon's Birthday
-DESCRIPTION:Annual birthday reminder for Sleep Paralysis Demon (Night Terror Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Sleep Paralysis Demon (Night Terror Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1012,13 +1012,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-066@cloudsync.events
+UID:prank-dir-066@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260823
 DTEND;VALUE=DATE:20260824
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Tooth Fairy (Foreclosure Div)'s Birthday
-DESCRIPTION:Annual birthday reminder for The Tooth Fairy (Foreclosure Div) (Mythical Dental Exchange). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Tooth Fairy (Foreclosure Div) (Mythical Dental Exchange).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1027,13 +1027,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-067@cloudsync.events
+UID:prank-dir-067@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260826
 DTEND;VALUE=DATE:20260827
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Loch Ness Monster ($3.50 Collector)'s Birthday
-DESCRIPTION:Annual birthday reminder for Loch Ness Monster ($3.50 Collector) (Scottish Waters Inc.). Send your best regards!
+DESCRIPTION:Annual directory reminder: Loch Ness Monster ($3.50 Collector) (Scottish Waters Inc.).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1042,13 +1042,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-068@cloudsync.events
+UID:prank-dir-068@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260830
 DTEND;VALUE=DATE:20260831
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Local Raccoon Syndicate Local 404's Birthday
-DESCRIPTION:Annual birthday reminder for Local Raccoon Syndicate Local 404 (Dumpster Diving Union). Send your best regards!
+DESCRIPTION:Annual directory reminder: Local Raccoon Syndicate Local 404 (Dumpster Diving Union).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1057,13 +1057,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-069@cloudsync.events
+UID:prank-dir-069@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260902
 DTEND;VALUE=DATE:20260903
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Ghost in the Guest Bathroom's Birthday
-DESCRIPTION:Annual birthday reminder for Ghost in the Guest Bathroom (Haunted Property Holdings). Send your best regards!
+DESCRIPTION:Annual directory reminder: Ghost in the Guest Bathroom (Haunted Property Holdings).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1072,13 +1072,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-070@cloudsync.events
+UID:prank-dir-070@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260906
 DTEND;VALUE=DATE:20260907
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Competitive Lawn Mower Racer's Birthday
-DESCRIPTION:Annual birthday reminder for Competitive Lawn Mower Racer (Suburban Speed League). Send your best regards!
+DESCRIPTION:Annual directory reminder: Competitive Lawn Mower Racer (Suburban Speed League).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1087,13 +1087,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-071@cloudsync.events
+UID:prank-dir-071@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emergency Pizza Dispatcher 911's Birthday
-DESCRIPTION:Annual birthday reminder for Emergency Pizza Dispatcher 911 (Rapid Crust Response). Send your best regards!
+DESCRIPTION:Annual directory reminder: Emergency Pizza Dispatcher 911 (Rapid Crust Response).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1102,13 +1102,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-072@cloudsync.events
+UID:prank-dir-072@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260913
 DTEND;VALUE=DATE:20260914
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Taco Bell Night Shift Philosopher's Birthday
-DESCRIPTION:Annual birthday reminder for Taco Bell Night Shift Philosopher (Baja Blast R&D). Send your best regards!
+DESCRIPTION:Annual directory reminder: Taco Bell Night Shift Philosopher (Baja Blast R&D).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1117,13 +1117,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-073@cloudsync.events
+UID:prank-dir-073@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260916
 DTEND;VALUE=DATE:20260917
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emotional Support Burrito's Birthday
-DESCRIPTION:Annual birthday reminder for Emotional Support Burrito (Comfort Food Associates). Send your best regards!
+DESCRIPTION:Annual directory reminder: Emotional Support Burrito (Comfort Food Associates).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1132,13 +1132,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-074@cloudsync.events
+UID:prank-dir-074@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260920
 DTEND;VALUE=DATE:20260921
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Waffle House Parking Lot Referee's Birthday
-DESCRIPTION:Annual birthday reminder for Waffle House Parking Lot Referee (24/7 Combat Sports). Send your best regards!
+DESCRIPTION:Annual directory reminder: Waffle House Parking Lot Referee (24/7 Combat Sports).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1147,13 +1147,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-075@cloudsync.events
+UID:prank-dir-075@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spicy Ramen Tolerance Coach's Birthday
-DESCRIPTION:Annual birthday reminder for Spicy Ramen Tolerance Coach (Extreme Scoville League). Send your best regards!
+DESCRIPTION:Annual directory reminder: Spicy Ramen Tolerance Coach (Extreme Scoville League).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1162,13 +1162,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-076@cloudsync.events
+UID:prank-dir-076@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20260927
 DTEND;VALUE=DATE:20260928
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Emergency Sriracha Dispatch's Birthday
-DESCRIPTION:Annual birthday reminder for Emergency Sriracha Dispatch (Condiment Emergency Response). Send your best regards!
+DESCRIPTION:Annual directory reminder: Emergency Sriracha Dispatch (Condiment Emergency Response).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1177,13 +1177,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-077@cloudsync.events
+UID:prank-dir-077@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sock Lost in Dryer (Still Alive)'s Birthday
-DESCRIPTION:Annual birthday reminder for Sock Lost in Dryer (Still Alive) (Laundry Bermuda Triangle). Send your best regards!
+DESCRIPTION:Annual directory reminder: Sock Lost in Dryer (Still Alive) (Laundry Bermuda Triangle).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1192,13 +1192,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-078@cloudsync.events
+UID:prank-dir-078@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261004
 DTEND;VALUE=DATE:20261005
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Professional Ceiling Fan Styler's Birthday
-DESCRIPTION:Annual birthday reminder for Professional Ceiling Fan Styler (Interior Aerodynamics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Professional Ceiling Fan Styler (Interior Aerodynamics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1207,13 +1207,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-079@cloudsync.events
+UID:prank-dir-079@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261008
 DTEND;VALUE=DATE:20261009
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Chief Executive Vibes Officer's Birthday
-DESCRIPTION:Annual birthday reminder for Chief Executive Vibes Officer (Corporate Nonsense Corp). Send your best regards!
+DESCRIPTION:Annual directory reminder: Chief Executive Vibes Officer (Corporate Nonsense Corp).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1222,13 +1222,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-080@cloudsync.events
+UID:prank-dir-080@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261011
 DTEND;VALUE=DATE:20261012
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Unopened Tupperware from 2021's Birthday
-DESCRIPTION:Annual birthday reminder for Unopened Tupperware from 2021 (Refrigerator Archeology). Send your best regards!
+DESCRIPTION:Annual directory reminder: Unopened Tupperware from 2021 (Refrigerator Archeology).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1237,13 +1237,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-081@cloudsync.events
+UID:prank-dir-081@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261015
 DTEND;VALUE=DATE:20261016
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Gym Bro Who Doesn't Re-rack Weights's Birthday
-DESCRIPTION:Annual birthday reminder for Gym Bro Who Doesn't Re-rack Weights (Plate Abandonment Society). Send your best regards!
+DESCRIPTION:Annual directory reminder: Gym Bro Who Doesn't Re-rack Weights (Plate Abandonment Society).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1252,13 +1252,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-082@cloudsync.events
+UID:prank-dir-082@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261018
 DTEND;VALUE=DATE:20261019
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Typing IN ALL CAPS ON FACEBOOK's Birthday
-DESCRIPTION:Annual birthday reminder for Person Typing IN ALL CAPS ON FACEBOOK (Senior Internet Battalion). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Typing IN ALL CAPS ON FACEBOOK (Senior Internet Battalion).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1267,13 +1267,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-083@cloudsync.events
+UID:prank-dir-083@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261022
 DTEND;VALUE=DATE:20261023
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Vending Machine That Stole Your Dollar's Birthday
-DESCRIPTION:Annual birthday reminder for Vending Machine That Stole Your Dollar (Snack Highway Robbery). Send your best regards!
+DESCRIPTION:Annual directory reminder: Vending Machine That Stole Your Dollar (Snack Highway Robbery).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1282,13 +1282,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-084@cloudsync.events
+UID:prank-dir-084@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261025
 DTEND;VALUE=DATE:20261026
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Competitive Napper's Birthday
-DESCRIPTION:Annual birthday reminder for Competitive Napper (International Snooze Federation). Send your best regards!
+DESCRIPTION:Annual directory reminder: Competitive Napper (International Snooze Federation).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1297,13 +1297,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-085@cloudsync.events
+UID:prank-dir-085@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261029
 DTEND;VALUE=DATE:20261030
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Spaghetti Straightener's Birthday
-DESCRIPTION:Annual birthday reminder for Spaghetti Straightener (Pasta Alignment Bureau). Send your best regards!
+DESCRIPTION:Annual directory reminder: Spaghetti Straightener (Pasta Alignment Bureau).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1312,13 +1312,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-086@cloudsync.events
+UID:prank-dir-086@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Certified Fortune Cookie Writer's Birthday
-DESCRIPTION:Annual birthday reminder for Certified Fortune Cookie Writer (Vague Destiny Ltd). Send your best regards!
+DESCRIPTION:Annual directory reminder: Certified Fortune Cookie Writer (Vague Destiny Ltd).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1327,13 +1327,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-087@cloudsync.events
+UID:prank-dir-087@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261105
 DTEND;VALUE=DATE:20261106
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Professional Bubble Wrap Popper's Birthday
-DESCRIPTION:Annual birthday reminder for Professional Bubble Wrap Popper (Stress Relief Union). Send your best regards!
+DESCRIPTION:Annual directory reminder: Professional Bubble Wrap Popper (Stress Relief Union).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1342,13 +1342,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-088@cloudsync.events
+UID:prank-dir-088@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Elevator Button Double-Presser's Birthday
-DESCRIPTION:Annual birthday reminder for Elevator Button Double-Presser (Impatience Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Elevator Button Double-Presser (Impatience Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1357,13 +1357,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-089@cloudsync.events
+UID:prank-dir-089@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261112
 DTEND;VALUE=DATE:20261113
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Microwave Fish at Work's Birthday
-DESCRIPTION:Annual birthday reminder for Person Who Microwave Fish at Work (Breakroom Hazard Division). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Who Microwave Fish at Work (Breakroom Hazard Division).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1372,13 +1372,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-090@cloudsync.events
+UID:prank-dir-090@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261116
 DTEND;VALUE=DATE:20261117
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Sir Bojangles The Third's Birthday
-DESCRIPTION:Annual birthday reminder for Sir Bojangles The Third (Royal Court of Absurdity). Send your best regards!
+DESCRIPTION:Annual directory reminder: Sir Bojangles The Third (Royal Court of Absurdity).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1387,13 +1387,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-091@cloudsync.events
+UID:prank-dir-091@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261119
 DTEND;VALUE=DATE:20261120
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Taps You on Left Shoulder and Looks Right's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Taps You on Left Shoulder and Looks Right (Middle School Pranksters Guild). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Taps You on Left Shoulder and Looks Right (Middle School Pranksters Guild).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1402,13 +1402,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-092@cloudsync.events
+UID:prank-dir-092@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261123
 DTEND;VALUE=DATE:20261124
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Over-Polite Automated Call Center Voice's Birthday
-DESCRIPTION:Annual birthday reminder for The Over-Polite Automated Call Center Voice (Robotic Courtesy Systems). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Over-Polite Automated Call Center Voice (Robotic Courtesy Systems).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1417,13 +1417,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-093@cloudsync.events
+UID:prank-dir-093@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261126
 DTEND;VALUE=DATE:20261127
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Eating Soup in Quiet Office's Birthday
-DESCRIPTION:Annual birthday reminder for Person Eating Soup in Quiet Office (Breakroom Decibel Amplification). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Eating Soup in Quiet Office (Breakroom Decibel Amplification).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1432,13 +1432,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-094@cloudsync.events
+UID:prank-dir-094@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The Ghost of Internet Explorer's Birthday
-DESCRIPTION:Annual birthday reminder for The Ghost of Internet Explorer (Legacy Browser Afterlife). Send your best regards!
+DESCRIPTION:Annual directory reminder: The Ghost of Internet Explorer (Legacy Browser Afterlife).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1447,13 +1447,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-095@cloudsync.events
+UID:prank-dir-095@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261203
 DTEND;VALUE=DATE:20261204
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Self-Appointed Neighborhood HOA Watchdog's Birthday
-DESCRIPTION:Annual birthday reminder for Self-Appointed Neighborhood HOA Watchdog (Suburban Lawn Tape Measurers). Send your best regards!
+DESCRIPTION:Annual directory reminder: Self-Appointed Neighborhood HOA Watchdog (Suburban Lawn Tape Measurers).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1462,13 +1462,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-096@cloudsync.events
+UID:prank-dir-096@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261207
 DTEND;VALUE=DATE:20261208
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Still Uses BlackBerry's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Still Uses BlackBerry (Physical QWERTY Nostalgia). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Still Uses BlackBerry (Physical QWERTY Nostalgia).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1477,13 +1477,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-097@cloudsync.events
+UID:prank-dir-097@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261210
 DTEND;VALUE=DATE:20261211
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Automatic Door That Refuses to Open's Birthday
-DESCRIPTION:Annual birthday reminder for Automatic Door That Refuses to Open (Sensor Blindspot Dynamics). Send your best regards!
+DESCRIPTION:Annual directory reminder: Automatic Door That Refuses to Open (Sensor Blindspot Dynamics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1492,13 +1492,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-098@cloudsync.events
+UID:prank-dir-098@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261215
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 AirPods Low Battery Boop (Ear Piercing)'s Birthday
-DESCRIPTION:Annual birthday reminder for AirPods Low Battery Boop (Ear Piercing) (Sudden Cardiac Panic Logistics). Send your best regards!
+DESCRIPTION:Annual directory reminder: AirPods Low Battery Boop (Ear Piercing) (Sudden Cardiac Panic Logistics).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1507,13 +1507,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-099@cloudsync.events
+UID:prank-dir-099@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261217
 DTEND;VALUE=DATE:20261218
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 The One Unopened Email from 2017's Birthday
-DESCRIPTION:Annual birthday reminder for The One Unopened Email from 2017 (Inbox Guilt Repository). Send your best regards!
+DESCRIPTION:Annual directory reminder: The One Unopened Email from 2017 (Inbox Guilt Repository).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1522,13 +1522,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-100@cloudsync.events
+UID:prank-dir-100@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261221
 DTEND;VALUE=DATE:20261222
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 GPS Recalculating (Lost in Cornfield)'s Birthday
-DESCRIPTION:Annual birthday reminder for GPS Recalculating (Lost in Cornfield) (Navigation Re-routing Unit). Send your best regards!
+DESCRIPTION:Annual directory reminder: GPS Recalculating (Lost in Cornfield) (Navigation Re-routing Unit).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1537,13 +1537,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-101@cloudsync.events
+UID:prank-dir-101@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261224
 DTEND;VALUE=DATE:20261225
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Person Who Claps When Plane Lands's Birthday
-DESCRIPTION:Annual birthday reminder for Person Who Claps When Plane Lands (Aviation Applause Society). Send your best regards!
+DESCRIPTION:Annual directory reminder: Person Who Claps When Plane Lands (Aviation Applause Society).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -1552,13 +1552,13 @@ TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-bday-102@cloudsync.events
+UID:prank-dir-102@mobiledirectory.sync
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261228
 DTEND;VALUE=DATE:20261229
 RRULE:FREQ=YEARLY
 SUMMARY:🎂 Guy Who Explains The Joke You Just Made's Birthday
-DESCRIPTION:Annual birthday reminder for Guy Who Explains The Joke You Just Made (Comedy Theft Syndicate). Send your best regards!
+DESCRIPTION:Annual directory reminder: Guy Who Explains The Joke You Just Made (Comedy Theft Syndicate).
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
