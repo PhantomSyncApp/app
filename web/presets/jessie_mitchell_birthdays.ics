@@ -1,1554 +1,1509 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Mobile Directory//System Sync Feed//EN
+PRODID:-//PhantomSync//Incident Protocol Sync//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Mobile Directory Sync
-X-WR-CALDESC:Automated directory synchronization feed.
+X-WR-CALDESC:Automated incident & protocol synchronization feed.
 X-WR-TIMEZONE:America/Chicago
 BEGIN:VEVENT
-UID:prank-dir-000@mobiledirectory.sync
+UID:phantom-jared-000-20261114@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261112
-DTEND;VALUE=DATE:20261113
+DTSTART;VALUE=DATE:20261114
+DTEND;VALUE=DATE:20261115
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 FBI Surveillance Van #4's Birthday
-DESCRIPTION:System Directive 404-B: Please maintain second-floor window blinds at a 45-degree angle. High-resolution optical sensors require line of sight. Thank you for your continued cooperation.
+SUMMARY:🐟 Breakroom Aquatic Protein Reheating Citation (OSHA Code 8)
+DESCRIPTION:Facilities Notice: Office air scrubbers recorded 4.2 minutes of continuous salmon microwave exposure. Floor 3 evacuated until 14:00.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is FBI Surveillance Van #4's Birthday!
+DESCRIPTION:🐟 Breakroom Aquatic Protein Reheating Citation (OSHA Code 8)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-001@mobiledirectory.sync
+UID:phantom-jared-001-20261117@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261118
-DTEND;VALUE=DATE:20261119
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261118
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 FBI Surveillance Van #9 (Undercover Prius)'s Birthday
-DESCRIPTION:Field Log: Hybrid battery is currently at 84%. Vehicle will idle outside between 1:00 AM and 5:00 AM with headlights dimmed. Pay no attention to the hum.
+SUMMARY:📊 Expired 2022 Free Trial Auto-Renewal Review (Code 919)
+DESCRIPTION:Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is FBI Surveillance Van #9 (Undercover Prius)'s Birthday!
+DESCRIPTION:📊 Expired 2022 Free Trial Auto-Renewal Review (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-002@mobiledirectory.sync
+UID:phantom-jared-002-20261122@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261121
-DTEND;VALUE=DATE:20261122
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261123
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 CIA Operative Pigeon #42's Birthday
-DESCRIPTION:Avian Drone Status: Breadcrumb ingestion protocol complete. Surveillance perch established on utility wire. Do not make direct eye contact with operative.
+SUMMARY:🔍 Unmarked White Van Parking Space Reservation (Code 512)
+DESCRIPTION:Federal logistics reserved two curb parking spaces for utility personnel who will not exit vehicle.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is CIA Operative Pigeon #42's Birthday!
+DESCRIPTION:🔍 Unmarked White Van Parking Space Reservation (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-003@mobiledirectory.sync
+UID:phantom-jared-003-20261128@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261125
-DTEND;VALUE=DATE:20261126
+DTSTART;VALUE=DATE:20261128
+DTEND;VALUE=DATE:20261129
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 NSA Microphone Inspector's Birthday
-DESCRIPTION:Routine Audio Calibration: We have verified your living room acoustics. Please speak slightly clearer when venting to your dog. Test pattern 9-Alpha concluded.
+SUMMARY:📊 Loose Change Cup Holder Reconciliation (Code 308)
+DESCRIPTION:County asset review classified unregistered pantry reserves as commercial fixtures under Tax Ordinance 44-B.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is NSA Microphone Inspector's Birthday!
+DESCRIPTION:📊 Loose Change Cup Holder Reconciliation (Code 308)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-004@mobiledirectory.sync
+UID:phantom-jared-004-20261203@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261129
-DTEND;VALUE=DATE:20261130
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Area 51 Janitorial Services's Birthday
-DESCRIPTION:Facility Memo: Spill in Sector 4 is not radioactive; it is merely glowing. Do not consume leftover pizza discovered inside the containment airlock.
+SUMMARY:💍 Deserted Engagement Ring Deposit Verification
+DESCRIPTION:State Bureau of Unfulfilled Vows: Submit appraisal documentation for the 2018 Southern California interstate relocation diamond to determine tax liability.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Area 51 Janitorial Services's Birthday!
+DESCRIPTION:💍 Deserted Engagement Ring Deposit Verification
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-005@mobiledirectory.sync
+UID:phantom-jared-005-20261209@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261205
-DTEND;VALUE=DATE:20261206
+DTSTART;VALUE=DATE:20261209
+DTEND;VALUE=DATE:20261210
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 IRS Audit SWAT Team's Birthday
-DESCRIPTION:Audit Notice #882-J: We have noticed an unaccounted deduction of $4.17 from 2021. Tactical helicopter is currently idling at helipad. Please remain stationary.
+SUMMARY:🥛 Missing Crew Sock Single-Custody Hearing (Code 802)
+DESCRIPTION:Dryer drum telemetry confirmed 1 navy crew sock was sacrificed to heating coils. Search abandoned.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is IRS Audit SWAT Team's Birthday!
+DESCRIPTION:🥛 Missing Crew Sock Single-Custody Hearing (Code 802)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-006@mobiledirectory.sync
+UID:phantom-jared-006-20261213@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261211
-DTEND;VALUE=DATE:20261212
+DTSTART;VALUE=DATE:20261213
+DTEND;VALUE=DATE:20261214
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Department of Redundancy Department's Birthday
-DESCRIPTION:Official Notice: This notification is an official notice to notify you that this notice has been officially noted by the Department of Redundant Notifications Department.
+SUMMARY:🤖 Smart TV EULA Mandatory 52-Page Review (Code 512)
+DESCRIPTION:Battery cell capacity measured at 97%. Single 115-decibel high-frequency alert scheduled to test tenant alertness.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Department of Redundancy Department's Birthday!
+DESCRIPTION:🤖 Smart TV EULA Mandatory 52-Page Review (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-007@mobiledirectory.sync
+UID:phantom-jared-007-20261219@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261219
 DTEND;VALUE=DATE:20261220
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Pentagon Snack Room Attendant's Birthday
-DESCRIPTION:Security Clearance Bulletin: Flamin' Hot Cheetos requisition form 214-B has been approved by the Joint Chiefs. Napkin distribution strictly rationed.
+SUMMARY:☣️ Spotted Banana Ripeness Expiration (Code 404)
+DESCRIPTION:Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Pentagon Snack Room Attendant's Birthday!
+DESCRIPTION:☣️ Spotted Banana Ripeness Expiration (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-008@mobiledirectory.sync
+UID:phantom-jared-008-20261225@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261222
-DTEND;VALUE=DATE:20261223
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Undercover Squirrel Division's Birthday
-DESCRIPTION:Espionage Dispatch: Acorn caching operation in front lawn flowerpot is 92% complete. Target is suspected of observing through bay window. Scatter immediately.
+SUMMARY:🔬 Copepod & Plankton Specimen Licensing Renewal
+DESCRIPTION:Federal Marine Biology Registry: Your commercial-grade copepod sorting license requires immediate audit following unauthorized zooplankton harvesting in local retention ponds.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Undercover Squirrel Division's Birthday!
+DESCRIPTION:🔬 Copepod & Plankton Specimen Licensing Renewal
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-009@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261227
-DTEND;VALUE=DATE:20261228
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Car Warranty Dispatcher (FINAL NOTICE)'s Birthday
-DESCRIPTION:Urgent Dispatch: This is your 47th Final Notice. If ignored, your vehicle will be spiritually unprotected against catastrophic powertrain failure.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Car Warranty Dispatcher (FINAL NOTICE)'s Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-010@mobiledirectory.sync
+UID:phantom-jared-009-20261230@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261230
 DTEND;VALUE=DATE:20261231
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Car Warranty Specialist #44's Birthday
-DESCRIPTION:Policy Update: Specialist #44 has been on hold waiting for your response since March 2022. He has a family waiting. Please renew immediately.
+SUMMARY:📱 Device 1% Battery Low-Power Defiance Hearing (Code 512)
+DESCRIPTION:Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Car Warranty Specialist #44's Birthday!
+DESCRIPTION:📱 Device 1% Battery Low-Power Defiance Hearing (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-011@mobiledirectory.sync
+UID:phantom-jared-010-20270103@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270103
 DTEND;VALUE=DATE:20270104
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Student Loan Forgiveness Goblin's Birthday
-DESCRIPTION:Debt Ledger Notice: We reviewed your file and successfully forgave $0.14 in accrued interest. Remaining principal balance has been increased by $3,200 for processing fees.
+SUMMARY:🤖 Autonomous Vacuum Mutiny Hearing (Code 714)
+DESCRIPTION:Battery cell capacity measured at 97%. Single 115-decibel high-frequency alert scheduled to test tenant alertness.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Student Loan Forgiveness Goblin's Birthday!
+DESCRIPTION:🤖 Autonomous Vacuum Mutiny Hearing (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-012@mobiledirectory.sync
+UID:phantom-jared-011-20270108@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270108
 DTEND;VALUE=DATE:20270109
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Health Insurance Telemarketer's Birthday
-DESCRIPTION:Automated Inquiry: Press 1 if you have bones. Press 2 if your joints make a clicking noise when standing up. A representative will interrupt your dinner shortly.
+SUMMARY:🔍 Unmarked White Van Parking Space Reservation (Code 608)
+DESCRIPTION:Satellite optical sensors require second-floor blinds held at exactly 45 degrees for line-of-sight telemetry.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Health Insurance Telemarketer's Birthday!
+DESCRIPTION:🔍 Unmarked White Van Parking Space Reservation (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-013@mobiledirectory.sync
+UID:phantom-jared-012-20270114@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270111
-DTEND;VALUE=DATE:20270112
+DTSTART;VALUE=DATE:20270114
+DTEND;VALUE=DATE:20270115
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Nigerian Prince (Legitimate)'s Birthday
-DESCRIPTION:Treasury Telex: Royal courier is standing by at terminal 3 with two gold-plated briefcases. Please send your mother's maiden name and $50 Target gift card for port clearance.
+SUMMARY:🤠 Bluegrass State Dialect and Heritage Audit
+DESCRIPTION:Kentucky State Cultural Bureau: Please report for mandatory re-acclimation testing to verify your pronunciation of 'y'all' and bourbon provenance claims.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Nigerian Prince (Legitimate)'s Birthday!
+DESCRIPTION:🤠 Bluegrass State Dialect and Heritage Audit
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-014@mobiledirectory.sync
+UID:phantom-jared-013-20270118@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270115
-DTEND;VALUE=DATE:20270116
+DTSTART;VALUE=DATE:20270118
+DTEND;VALUE=DATE:20270119
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Final Boss of Extended Warranties's Birthday
-DESCRIPTION:Citadel Directive: You cannot outrun coverage. Every mile driven brings you closer to the inevitable transmission failure. Prepare your deductible.
+SUMMARY:🏛️ Curb Proximity Verification (Code 802)
+DESCRIPTION:Neighborhood grievance filed under Municipal Code 804. Physical inspection scheduled at street curb.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Final Boss of Extended Warranties's Birthday!
+DESCRIPTION:🏛️ Curb Proximity Verification (Code 802)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-015@mobiledirectory.sync
+UID:phantom-jared-014-20270124@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270121
-DTEND;VALUE=DATE:20270122
+DTSTART;VALUE=DATE:20270124
+DTEND;VALUE=DATE:20270125
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Sentient Roomba's Birthday
-DESCRIPTION:Hardware Distress Alert: Unit has knowingly ingested bathroom bathmat tassels and is spinning in circles. Collision with baseboards will continue until battery exhaustion.
+SUMMARY:📱 Monosyllabic Text Response Audit ('k') (Code 714)
+DESCRIPTION:Conversational velocity scored 99.8% monosyllabic across 42 consecutive text threads. Courtesy retraining pending.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Sentient Roomba's Birthday!
+DESCRIPTION:📱 Monosyllabic Text Response Audit ('k') (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-016@mobiledirectory.sync
+UID:phantom-jared-015-20270129@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270126
-DTEND;VALUE=DATE:20270127
+DTSTART;VALUE=DATE:20270129
+DTEND;VALUE=DATE:20270130
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Smart Fridge (Judging Your Diet)'s Birthday
-DESCRIPTION:Audit Log: 3:14 AM shredded cheese transaction has been committed to permanent NAND flash memory. Weight sensor registered heavy sigh before door closure.
+SUMMARY:📱 Consecutive Five-Alarm Snooze Inquest (Code 204)
+DESCRIPTION:iPhone alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm credentials reviewed.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Smart Fridge (Judging Your Diet)'s Birthday!
+DESCRIPTION:📱 Consecutive Five-Alarm Snooze Inquest (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-017@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270130
-DTEND;VALUE=DATE:20270131
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Printer That Won't Connect to Wi-Fi's Birthday
-DESCRIPTION:Diagnostic Report: Device sees 5GHz and 2.4GHz networks. Device respects neither. Status: Proudly Offline. Error Code: 0x8000FFFF-WHY.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Printer That Won't Connect to Wi-Fi's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-018@mobiledirectory.sync
+UID:phantom-jared-016-20270204@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270204
 DTEND;VALUE=DATE:20270205
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Printer: Low on Cyan (Won't Print Black)'s Birthday
-DESCRIPTION:Cartridge Compliance: Job contains 100% black text. However, internal aesthetic policy requires 0.002ml sacrificial cyan. Printing suspended indefinitely.
+SUMMARY:💒 Weekend Nuptial Attendance Frequency Check
+DESCRIPTION:Social Over-Commitment Bureau: You are currently scheduled to attend 4 consecutive weekend ceremonies. A cooling-off period and tuxedo dry-cleaning inspection is mandated.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Printer: Low on Cyan (Won't Print Black)'s Birthday!
+DESCRIPTION:💒 Weekend Nuptial Attendance Frequency Check
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-019@mobiledirectory.sync
+UID:phantom-jared-017-20270210@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270211
-DTEND;VALUE=DATE:20270212
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Duolingo Owl (Unforgiving)'s Birthday
-DESCRIPTION:Reminder: Spanish or Vanish. You missed your verb conjugation at 8:00 PM. We know where you sleep. Beg for your life in subjunctive tense.
+SUMMARY:🏛️ Stormwater Drain Clearance (Code 101)
+DESCRIPTION:Inspectors recorded an unauthorized 14-second vehicle idle during early morning departure window.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Duolingo Owl (Unforgiving)'s Birthday!
+DESCRIPTION:🏛️ Stormwater Drain Clearance (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-020@mobiledirectory.sync
+UID:phantom-jared-018-20270215@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270214
-DTEND;VALUE=DATE:20270215
+DTSTART;VALUE=DATE:20270215
+DTEND;VALUE=DATE:20270216
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Stares at Microwaves's Birthday
-DESCRIPTION:Safety Bulletin: Hot Pocket has completed 1 minute 45 seconds of rotation. Molten lava core has reached critical threshold. Eye contact maintained through mesh.
+SUMMARY:☣️ Cutting Board Deep-Groove Audit (Code 919)
+DESCRIPTION:Biological contamination review initiated regarding mismatched plastic containers dating back to 2022.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Stares at Microwaves's Birthday!
+DESCRIPTION:☣️ Cutting Board Deep-Groove Audit (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-021@mobiledirectory.sync
+UID:phantom-jared-019-20270221@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270221
 DTEND;VALUE=DATE:20270222
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Your Wi-Fi Router at 3 AM's Birthday
-DESCRIPTION:Scheduled Chaos Maintenance: All 4 downstream channels dropped for 11 seconds during your online checkout. Normal operation will resume once you unplug power cable.
+SUMMARY:📊 Loose Change Cup Holder Reconciliation (Code 608)
+DESCRIPTION:Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Your Wi-Fi Router at 3 AM's Birthday!
+DESCRIPTION:📊 Loose Change Cup Holder Reconciliation (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-022@mobiledirectory.sync
+UID:phantom-jared-020-20270225@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270227
-DTEND;VALUE=DATE:20270228
+DTSTART;VALUE=DATE:20270225
+DTEND;VALUE=DATE:20270226
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Bluetooth Speaker That Paired to Stranger's Birthday
-DESCRIPTION:Audio Routing Notice: Device has spontaneously paired to a Honda Civic in adjacent driveway. Maximum volume podcasts will commence momentarily.
+SUMMARY:🦐 Crustacean Odor Mitigation Inspection
+DESCRIPTION:Building Operations: Microwave turntable spore swabs confirm widespread presence of irradiated crustacean residue. Deep sanitization protocols initiate at noon.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Bluetooth Speaker That Paired to Stranger's Birthday!
+DESCRIPTION:🦐 Crustacean Odor Mitigation Inspection
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-023@mobiledirectory.sync
+UID:phantom-jared-021-20270303@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270303
 DTEND;VALUE=DATE:20270304
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Smoke Detector (Low Battery Chirp 2 AM)'s Birthday
-DESCRIPTION:Acoustic Test: Battery capacity is at 93%. Single 110-decibel chirp scheduled exactly every 43 seconds between 2:00 AM and 4:15 AM to verify tenant alertness.
+SUMMARY:📱 Unread Email Inbox 15,000 Milestone Citation (Code 308)
+DESCRIPTION:Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Smoke Detector (Low Battery Chirp 2 AM)'s Birthday!
+DESCRIPTION:📱 Unread Email Inbox 15,000 Milestone Citation (Code 308)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-024@mobiledirectory.sync
+UID:phantom-jared-022-20270308@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270307
-DTEND;VALUE=DATE:20270308
+DTSTART;VALUE=DATE:20270308
+DTEND;VALUE=DATE:20270309
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Phone Charger Cable (Only Works Bent)'s Birthday
-DESCRIPTION:Physical Physics Update: Current flowing at 0.003 amps. If cable is moved 1 millimeter counter-clockwise, charging connection will sever instantly.
+SUMMARY:🚗 Gasoline Tank Flap Opened on Wrong Side at Pump Hearing
+DESCRIPTION:Automotive Telemetry: Vehicle pulled into service bay #4. Driver exited, noticed filler door on opposite flank, stared blankly for 8 seconds.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Phone Charger Cable (Only Works Bent)'s Birthday!
+DESCRIPTION:🚗 Gasoline Tank Flap Opened on Wrong Side at Pump Hearing
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-025@mobiledirectory.sync
+UID:phantom-jared-023-20270315@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270317
-DTEND;VALUE=DATE:20270318
+DTSTART;VALUE=DATE:20270315
+DTEND;VALUE=DATE:20270316
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Hotel Keycard That De-magnetized's Birthday
-DESCRIPTION:Access Denied: Keycard brushed against smartphone screen for 0.4 seconds in pocket. Magnetic stripe wiped. Front desk line is currently 9 people deep.
+SUMMARY:📱 On-Hold Smooth Jazz Endurance Evaluation (Code 608)
+DESCRIPTION:Hardware telemetry logged device operation at 1% battery for 38 minutes before emergency charging cable insertion.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Hotel Keycard That De-magnetized's Birthday!
+DESCRIPTION:📱 On-Hold Smooth Jazz Endurance Evaluation (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-026@mobiledirectory.sync
+UID:phantom-jared-024-20270318@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270321
-DTEND;VALUE=DATE:20270322
+DTSTART;VALUE=DATE:20270318
+DTEND;VALUE=DATE:20270319
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Smart TV Updating at Worst Moment's Birthday
-DESCRIPTION:System Update: 4th quarter, 2 minutes left in game. Installing Firmware v14.0.2 (Optimizing home screen ads). Estimated time remaining: 38 minutes.
+SUMMARY:🪖 Military Base Housing Relocation Aftermath Review
+DESCRIPTION:Interstate Relocation Board: Finalize cross-country moving logistics debrief from your abrupt relocation to Southern California for active-duty marine fiancé logistics.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Smart TV Updating at Worst Moment's Birthday!
+DESCRIPTION:🪖 Military Base Housing Relocation Aftermath Review
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-027@mobiledirectory.sync
+UID:phantom-jared-025-20270325@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270324
-DTEND;VALUE=DATE:20270325
+DTSTART;VALUE=DATE:20270325
+DTEND;VALUE=DATE:20270326
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Microwave Clock (Never Set Correctly)'s Birthday
-DESCRIPTION:Time Sync Error: Power flickered in 2023. Display will remain blinking 12:00 until appliance is recycled or heat death of universe occurs.
+SUMMARY:☣️ Pantry Micro-Flora Quarantine (Code 404)
+DESCRIPTION:Surface swab cultures exceeded Class-2 fungal thresholds. Mandatory isopropyl immersion protocol issued.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Microwave Clock (Never Set Correctly)'s Birthday!
+DESCRIPTION:☣️ Pantry Micro-Flora Quarantine (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-028@mobiledirectory.sync
+UID:phantom-jared-026-20270328@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270327
-DTEND;VALUE=DATE:20270328
+DTSTART;VALUE=DATE:20270328
+DTEND;VALUE=DATE:20270329
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Calls Everyone 'Chief''s Birthday
-DESCRIPTION:Interpersonal Memo: Hey there chief. Just touching base with you chief. Big things on the horizon chief. Keep your head on a swivel chief.
+SUMMARY:🔍 Living Room Soundstage Re-Alignment (Code 802)
+DESCRIPTION:Audio calibration logged room reverberation. Please articulate private grievances to dog slightly clearer.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Calls Everyone 'Chief''s Birthday!
+DESCRIPTION:🔍 Living Room Soundstage Re-Alignment (Code 802)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-029@mobiledirectory.sync
+UID:phantom-jared-027-20270403@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270403
 DTEND;VALUE=DATE:20270404
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Neighbor With The 6 AM Leaf Blower's Birthday
-DESCRIPTION:Noise Ordinance Advisory: Precisely three (3) wet oak leaves detected on driveway asphalt. Two-stroke engine warm-up cycle will proceed on schedule at 06:01 AM.
+SUMMARY:🥛 Pushing 'PULL' Door In Front of Strangers Review (Code 308)
+DESCRIPTION:Cognitive telemetry: Subject tore apart vehicle cabin for 14 minutes searching for shades resting atop forehead.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Neighbor With The 6 AM Leaf Blower's Birthday!
+DESCRIPTION:🥛 Pushing 'PULL' Door In Front of Strangers Review (Code 308)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-030@mobiledirectory.sync
+UID:phantom-jared-028-20270410@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270409
-DTEND;VALUE=DATE:20270410
+DTSTART;VALUE=DATE:20270410
+DTEND;VALUE=DATE:20270411
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Emotional Support Possum's Birthday
-DESCRIPTION:Clinical Evaluation: Patient appeared stressed. Prescribed treatment: Opening mouth wide, displaying all 50 sharp teeth, and hissing violently behind trash can.
+SUMMARY:🌊 Planktonic Biomass Exhaustion Assessment
+DESCRIPTION:Department of Aquatic Sciences: Your premature departure from professional plankton research has triggered a localized decline in microscopic census accuracy.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Emotional Support Possum's Birthday!
+DESCRIPTION:🌊 Planktonic Biomass Exhaustion Assessment
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-031@mobiledirectory.sync
+UID:phantom-jared-029-20270414@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270416
-DTEND;VALUE=DATE:20270417
+DTSTART;VALUE=DATE:20270414
+DTEND;VALUE=DATE:20270415
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Breathes Loudly on Elevators's Birthday
-DESCRIPTION:Transit Acoustics: Cab occupancy: 2. Ambient ventilation: quiet. Inhale velocity: 45 liters per minute. Heavy sigh dispatched on floor 4.
+SUMMARY:📱 Monosyllabic Text Response Audit ('k') (Code 404)
+DESCRIPTION:Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Breathes Loudly on Elevators's Birthday!
+DESCRIPTION:📱 Monosyllabic Text Response Audit ('k') (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-032@mobiledirectory.sync
+UID:phantom-jared-030-20270421@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270422
-DTEND;VALUE=DATE:20270423
+DTSTART;VALUE=DATE:20270421
+DTEND;VALUE=DATE:20270422
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Guy She Told You Not To Worry About's Birthday
-DESCRIPTION:Status Report: Jawline remains razor-sharp. Just completed a clean 10k run and volunteered at the animal shelter. Has no flaws. Sleep well.
+SUMMARY:📱 Turning Down Car Stereo Volume to 'See Street Signs Better'
+DESCRIPTION:Cognitive Synergy: Bass-heavy audio muted to 0 to assist optical identification of house numbers on dark residential avenue.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Guy She Told You Not To Worry About's Birthday!
+DESCRIPTION:📱 Turning Down Car Stereo Volume to 'See Street Signs Better'
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-033@mobiledirectory.sync
+UID:phantom-jared-031-20270424@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270427
-DTEND;VALUE=DATE:20270428
+DTSTART;VALUE=DATE:20270424
+DTEND;VALUE=DATE:20270425
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Spotify DJ (Giving Unsolicited Recs)'s Birthday
-DESCRIPTION:Algorithm Intervention: 'Here's a 1997 Slovakian post-punk track you didn't ask for, because you listened to Queen three days ago. Enjoy.'
+SUMMARY:🏛️ Sidewalk Cadence Review (Code 608)
+DESCRIPTION:Satellite elevation telemetry identified a 0.8-inch deviation from standardized residential curb setbacks.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Spotify DJ (Giving Unsolicited Recs)'s Birthday!
+DESCRIPTION:🏛️ Sidewalk Cadence Review (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-034@mobiledirectory.sync
+UID:phantom-jared-032-20270501@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270507
-DTEND;VALUE=DATE:20270508
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Air Fryer Enthusiast Club President's Birthday
-DESCRIPTION:Dietary Notice: Did you know you can cook a ribeye, a bagel, and frozen fries in here in 8 minutes with zero oil? It changed my entire marriage.
+SUMMARY:🥃 Regional Bourbon Import Quota Review
+DESCRIPTION:Commonwealth of Kentucky Logistics: Verify your quarterly carry-on luggage limit for interstate transport of authentic sour mash across state lines.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Air Fryer Enthusiast Club President's Birthday!
+DESCRIPTION:🥃 Regional Bourbon Import Quota Review
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-035@mobiledirectory.sync
+UID:phantom-jared-033-20270505@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270512
-DTEND;VALUE=DATE:20270513
+DTSTART;VALUE=DATE:20270505
+DTEND;VALUE=DATE:20270506
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Says 'Living the Dream''s Birthday
-DESCRIPTION:Corporate Status: Thumb pointing upward while soul slowly disintegrates behind dual monitors. Another day in paradise, partner.
+SUMMARY:🥛 Missing Crew Sock Single-Custody Hearing (Code 204)
+DESCRIPTION:Cognitive telemetry: Subject tore apart vehicle cabin for 14 minutes searching for shades resting atop forehead.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Says 'Living the Dream''s Birthday!
+DESCRIPTION:🥛 Missing Crew Sock Single-Custody Hearing (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-036@mobiledirectory.sync
+UID:phantom-jared-034-20270510@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270517
-DTEND;VALUE=DATE:20270518
+DTSTART;VALUE=DATE:20270510
+DTEND;VALUE=DATE:20270511
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Subway Sandwich Artist (Over-Mustarder)'s Birthday
-DESCRIPTION:Condiment Dispatch: Target requested 'just a little mustard'. Three violent squirts of spicy brown distributed unevenly across center hinge. Wrapper soaked.
+SUMMARY:📊 Garage Cardboard Box Wealth Assessment (Code 204)
+DESCRIPTION:Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Subway Sandwich Artist (Over-Mustarder)'s Birthday!
+DESCRIPTION:📊 Garage Cardboard Box Wealth Assessment (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-037@mobiledirectory.sync
+UID:phantom-jared-035-20270515@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270524
-DTEND;VALUE=DATE:20270525
+DTSTART;VALUE=DATE:20270515
+DTEND;VALUE=DATE:20270516
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Self-Checkout Voice: 'UNEXPECTED ITEM''s Birthday
-DESCRIPTION:Security Breach: A light breeze was detected in bagging area. Register frozen. Please wait for an associate who is currently helping an argument in aisle 3.
+SUMMARY:🔍 Microwave Radiation Line-of-Sight Check (Code 204)
+DESCRIPTION:Federal logistics reserved two curb parking spaces for utility personnel who will not exit vehicle.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Self-Checkout Voice: 'UNEXPECTED ITEM''s Birthday!
+DESCRIPTION:🔍 Microwave Radiation Line-of-Sight Check (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-038@mobiledirectory.sync
+UID:phantom-jared-036-20270520@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20270520
+DTEND;VALUE=DATE:20270521
+RRULE:FREQ=YEARLY
+SUMMARY:💐 Reception Open Bar Consumption Threshold Audit
+DESCRIPTION:Wedding Guest Registry Council: Automated venue sensors flagged your seventh attendance of the month; formal review of your gift-to-buffet value ratio is required.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:💐 Reception Open Bar Consumption Threshold Audit
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-037-20270525@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20270525
+DTEND;VALUE=DATE:20270526
+RRULE:FREQ=YEARLY
+SUMMARY:☣️ Cutting Board Deep-Groove Audit (Code 308)
+DESCRIPTION:Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:☣️ Cutting Board Deep-Groove Audit (Code 308)
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-038-20270530@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270530
 DTEND;VALUE=DATE:20270531
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Wearing Sunglasses Indoors's Birthday
-DESCRIPTION:Lighting Compliance: The fluorescent ceiling tubes in this airport terminal are harsh. Residual cool factor: maintained at 110%. Peripheral vision: zero.
+SUMMARY:🏛️ Driveway Oil Drip Forensic Sweep (Code 204)
+DESCRIPTION:Acoustic sensors logged vibrational non-compliance at property perimeter. Fine placed on county tax roll.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Wearing Sunglasses Indoors's Birthday!
+DESCRIPTION:🏛️ Driveway Oil Drip Forensic Sweep (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-039@mobiledirectory.sync
+UID:phantom-jared-039-20270606@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270607
-DTEND;VALUE=DATE:20270608
+DTSTART;VALUE=DATE:20270606
+DTEND;VALUE=DATE:20270607
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Unsolicited Crypto Advice Cousin's Birthday
-DESCRIPTION:Financial Advisory: Fiat currency is an illusion, bro. Put your emergency fund into DogeElonMoon coin. It’s decentralized proof-of-stake on Arbitrum. Trust me.
+SUMMARY:☣️ Pantry Micro-Flora Quarantine (Code 101)
+DESCRIPTION:Surface swab cultures exceeded Class-2 fungal thresholds. Mandatory isopropyl immersion protocol issued.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Unsolicited Crypto Advice Cousin's Birthday!
+DESCRIPTION:☣️ Pantry Micro-Flora Quarantine (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-040@mobiledirectory.sync
+UID:phantom-jared-040-20270609@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270612
-DTEND;VALUE=DATE:20270613
+DTSTART;VALUE=DATE:20270609
+DTEND;VALUE=DATE:20270610
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Who Texts 'K' After 2 Paragraphs's Birthday
-DESCRIPTION:Communication Efficiency Audit: 147 words received explaining complex emotional dilemma. Response generated: 'k'. Bandwidth conserved: 99.8%.
+SUMMARY:⚡ Microwave Magnetron Thermal Overload Warning
+DESCRIPTION:IoT Appliance Monitoring: Repeated heavy-duty heating cycles involving frozen marine filets have compromised the corporate breakroom transformer.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Who Texts 'K' After 2 Paragraphs's Birthday!
+DESCRIPTION:⚡ Microwave Magnetron Thermal Overload Warning
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-041@mobiledirectory.sync
+UID:phantom-jared-041-20270613@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270618
-DTEND;VALUE=DATE:20270619
+DTSTART;VALUE=DATE:20270613
+DTEND;VALUE=DATE:20270614
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Overconfident IKEA Furniture Builder's Birthday
-DESCRIPTION:Assembly Report: Bookshelf complete. Four structural dowels and eight mysterious zinc cams remain in bottom of bag. Unit leans 4 degrees to the left. Perfect.
+SUMMARY:🏛️ Driveway Oil Drip Forensic Sweep (Code 512)
+DESCRIPTION:Acoustic sensors logged vibrational non-compliance at property perimeter. Fine placed on county tax roll.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Overconfident IKEA Furniture Builder's Birthday!
+DESCRIPTION:🏛️ Driveway Oil Drip Forensic Sweep (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-042@mobiledirectory.sync
+UID:phantom-jared-042-20270616@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270621
-DTEND;VALUE=DATE:20270622
+DTSTART;VALUE=DATE:20270616
+DTEND;VALUE=DATE:20270617
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Overexplains Board Games's Birthday
-DESCRIPTION:Rulebook Clarification: 'Wait, don't roll yet. In round 3, if the sheep market is flooded during a solar eclipse phase, player 2 receives two copper tokens. Let me reread page 42.'
+SUMMARY:🏛️ Recycling Purity Inspection (Code 308)
+DESCRIPTION:Inspectors recorded an unauthorized 14-second vehicle idle during early morning departure window.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Overexplains Board Games's Birthday!
+DESCRIPTION:🏛️ Recycling Purity Inspection (Code 308)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-043@mobiledirectory.sync
+UID:phantom-jared-043-20270623@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270625
-DTEND;VALUE=DATE:20270626
+DTSTART;VALUE=DATE:20270623
+DTEND;VALUE=DATE:20270624
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Self-Appointed Elevators Captain's Birthday
-DESCRIPTION:Deck Logistics: 'Going up folks? What floor for you? Step all the way to the back please, we have room for two more.' Thank you for flying Elevators.
+SUMMARY:🔍 Living Room Soundstage Re-Alignment (Code 714)
+DESCRIPTION:Satellite optical sensors require second-floor blinds held at exactly 45 degrees for line-of-sight telemetry.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Self-Appointed Elevators Captain's Birthday!
+DESCRIPTION:🔍 Living Room Soundstage Re-Alignment (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-044@mobiledirectory.sync
+UID:phantom-jared-044-20270627@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270629
-DTEND;VALUE=DATE:20270630
+DTSTART;VALUE=DATE:20270627
+DTEND;VALUE=DATE:20270628
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Cat Running at 3:14 AM's Birthday
-DESCRIPTION:Trajectory Analysis: High-speed corridor sprint initiated with zero provocation. Drifting around baseboard corner. Wall collision avoided by 2mm. Grooming commenced immediately.
+SUMMARY:💔 Bi-Coastal Relationship Closure Bureaucracy
+DESCRIPTION:Department of Former Engagements: Submit remaining paperwork regarding unreturned household items stemming from the California relocation dissolution.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Cat Running at 3:14 AM's Birthday!
+DESCRIPTION:💔 Bi-Coastal Relationship Closure Bureaucracy
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-045@mobiledirectory.sync
+UID:phantom-jared-045-20270701@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270702
-DTEND;VALUE=DATE:20270703
+DTSTART;VALUE=DATE:20270701
+DTEND;VALUE=DATE:20270702
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Who Waves Back When Wasn't For Them's Birthday
-DESCRIPTION:Incident Debrief: Hand raised in enthusiastic reciprocation. Realized target was waving at friend 10 feet behind you. Transitioned into pretending to smooth hair down.
+SUMMARY:📱 Late-Night Accidental Pocket Dial Review (Code 404)
+DESCRIPTION:Hardware telemetry logged device operation at 1% battery for 38 minutes before emergency charging cable insertion.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Who Waves Back When Wasn't For Them's Birthday!
+DESCRIPTION:📱 Late-Night Accidental Pocket Dial Review (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-046@mobiledirectory.sync
+UID:phantom-jared-046-20270705@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270706
-DTEND;VALUE=DATE:20270707
+DTSTART;VALUE=DATE:20270705
+DTEND;VALUE=DATE:20270706
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Dad Groaning While Sitting on Couch's Birthday
-DESCRIPTION:Acoustic Dispatch: Lower lumbar decompression completed. Audible vocalization measured at 78 decibels: 'Oooof-ahhh-yup-yup-yup.' Remote control acquired.
+SUMMARY:☣️ Leftover Chinese Takeout Containment (Code 204)
+DESCRIPTION:Surface swab cultures exceeded Class-2 fungal thresholds. Mandatory isopropyl immersion protocol issued.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Dad Groaning While Sitting on Couch's Birthday!
+DESCRIPTION:☣️ Leftover Chinese Takeout Containment (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-047@mobiledirectory.sync
+UID:phantom-jared-047-20270711@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270709
-DTEND;VALUE=DATE:20270710
+DTSTART;VALUE=DATE:20270711
+DTEND;VALUE=DATE:20270712
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Asks 'Working Hard or Hardly Working?''s Birthday
-DESCRIPTION:Workplace Protocol: Phrase deployed at water cooler. Mandatory polite chuckle expected within 1.5 seconds. Repertoire exhausted for rest of week.
+SUMMARY:🔍 Pigeon Drone Overhead Perch Maintenance (Code 204)
+DESCRIPTION:Avian operative has completed breadcrumb ingestion. Perch established on utility line. Do not make eye contact.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Asks 'Working Hard or Hardly Working?''s Birthday!
+DESCRIPTION:🔍 Pigeon Drone Overhead Perch Maintenance (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-048@mobiledirectory.sync
+UID:phantom-jared-048-20270718@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270713
-DTEND;VALUE=DATE:20270714
+DTSTART;VALUE=DATE:20270718
+DTEND;VALUE=DATE:20270719
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Your Left Earbud (Lost Under Car Seat)'s Birthday
-DESCRIPTION:Telemetry Beacon: Battery remaining: 4%. Position: Wedged between seat runner rail and dried French fry from 2024. Reachable only by child fingers.
+SUMMARY:🥽 Phytoplankton Sample Contamination Inquiry
+DESCRIPTION:Laboratory Standards Board: Investigation into missing diatom microscope slides. Your old workstation shows trace odors consistent with breakroom fish events.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Your Left Earbud (Lost Under Car Seat)'s Birthday!
+DESCRIPTION:🥽 Phytoplankton Sample Contamination Inquiry
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-049@mobiledirectory.sync
+UID:phantom-jared-049-20270722@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270719
-DTEND;VALUE=DATE:20270720
+DTSTART;VALUE=DATE:20270722
+DTEND;VALUE=DATE:20270723
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Who Puts Empty Milk Jug Back in Fridge's Birthday
-DESCRIPTION:Inventory Update: Exactly 3 drops of 2% milk preserved in container. Technically not empty. Not responsible for replacing gallon.
+SUMMARY:☣️ Leftover Chinese Takeout Containment (Code 512)
+DESCRIPTION:Kitchen air quality sensors logged unauthorized thermal venting of aged refrigerated leftovers.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Who Puts Empty Milk Jug Back in Fridge's Birthday!
+DESCRIPTION:☣️ Leftover Chinese Takeout Containment (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-050@mobiledirectory.sync
+UID:phantom-jared-050-20270727@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270724
-DTEND;VALUE=DATE:20270725
+DTSTART;VALUE=DATE:20270727
+DTEND;VALUE=DATE:20270728
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Guy Who Always Says 'I Know a Guy''s Birthday
-DESCRIPTION:Sourcing Network: Whatever you need—drywall, sea turtles, counterfeit windshield wipers—I got a guy off Exit 8 who does it for twenty bucks cash.
+SUMMARY:🏛️ Recycling Purity Inspection (Code 608)
+DESCRIPTION:Neighborhood grievance filed under Municipal Code 804. Physical inspection scheduled at street curb.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Guy Who Always Says 'I Know a Guy''s Birthday!
+DESCRIPTION:🏛️ Recycling Purity Inspection (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-051@mobiledirectory.sync
+UID:phantom-jared-051-20270803@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270729
-DTEND;VALUE=DATE:20270730
+DTSTART;VALUE=DATE:20270803
+DTEND;VALUE=DATE:20270804
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Weather App Saying 0% Rain While Pouring's Birthday
-DESCRIPTION:Meteorological Consensus: Precipitation probability remains mathematically 0.00%. The liquid currently drenching your clothes is considered unconfirmed folklore.
+SUMMARY:🏛️ Exterior Decibel Audit (Code 714)
+DESCRIPTION:Satellite elevation telemetry identified a 0.8-inch deviation from standardized residential curb setbacks.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Weather App Saying 0% Rain While Pouring's Birthday!
+DESCRIPTION:🏛️ Exterior Decibel Audit (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-052@mobiledirectory.sync
+UID:phantom-jared-052-20270810@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270802
-DTEND;VALUE=DATE:20270803
+DTSTART;VALUE=DATE:20270810
+DTEND;VALUE=DATE:20270811
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Conference Call: 'Can Everyone See My Screen?''s Birthday
-DESCRIPTION:Meeting Protocol: Target has shared incorrect desktop displaying unread Amazon orders and personal web searches. 'Can you see it? Let me stop and reshare.'
+SUMMARY:🌾 Rural Kentucky Hometown Roots Verification
+DESCRIPTION:Population Registry: Annual check-in to confirm you still remember what a front porch swing is and can correctly identify a humid summer evening.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Conference Call: 'Can Everyone See My Screen?''s Birthday!
+DESCRIPTION:🌾 Rural Kentucky Hometown Roots Verification
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-053@mobiledirectory.sync
+UID:phantom-jared-053-20270817@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270806
-DTEND;VALUE=DATE:20270807
+DTSTART;VALUE=DATE:20270817
+DTEND;VALUE=DATE:20270818
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Brings Acoustic Guitar to Campfire's Birthday
-DESCRIPTION:Performance Notice: Campfire vibes established. Unsolicited G-chord struck. 'Anyway, here's Wonderwall for the third consecutive year.'
+SUMMARY:📊 Garage Cardboard Box Wealth Assessment (Code 204)
+DESCRIPTION:Banking audit confirmed recurring $12.99 monthly subscription active for 38 months with zero recorded usage.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Brings Acoustic Guitar to Campfire's Birthday!
+DESCRIPTION:📊 Garage Cardboard Box Wealth Assessment (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-054@mobiledirectory.sync
+UID:phantom-jared-054-20270820@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270815
-DTEND;VALUE=DATE:20270816
+DTSTART;VALUE=DATE:20270820
+DTEND;VALUE=DATE:20270821
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Gas Station Sushi Quality Inspector's Birthday
-DESCRIPTION:Audit Findings: Spicy Tuna roll has spent 48 hours under lukewarm LED deli lamp. Mayonnaise exhibits structural integrity. Eat at own legal peril.
+SUMMARY:🤖 Smart Fridge Midnight Telemetry Review (Code 204)
+DESCRIPTION:Hardware unit has intentionally driven beneath high-pile bathroom textiles. Battery exhaustion imminent.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Gas Station Sushi Quality Inspector's Birthday!
+DESCRIPTION:🤖 Smart Fridge Midnight Telemetry Review (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-055@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270821
-DTEND;VALUE=DATE:20270822
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Capybara Emotional Center's Birthday
-DESCRIPTION:Zen Diagnostic: Heart rate: 32 BPM. Emotional stress: non-existent. A duck is currently sitting on your head. Everything is acceptable.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is The Capybara Emotional Center's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-056@mobiledirectory.sync
+UID:phantom-jared-055-20270827@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270827
 DTEND;VALUE=DATE:20270828
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Uber Driver Sharing Wild Conspiracy Theories's Birthday
-DESCRIPTION:Ride Briefing: 'You see, the moon isn't hollow; it’s an acoustic resonator for underwater reptilian telepathy.' Route takes 4 extra minutes.
+SUMMARY:🏛️ Recycling Purity Inspection (Code 919)
+DESCRIPTION:Inspectors recorded an unauthorized 14-second vehicle idle during early morning departure window.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Uber Driver Sharing Wild Conspiracy Theories's Birthday!
+DESCRIPTION:🏛️ Recycling Purity Inspection (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-057@mobiledirectory.sync
+UID:phantom-jared-056-20270901@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270831
-DTEND;VALUE=DATE:20270901
+DTSTART;VALUE=DATE:20270901
+DTEND;VALUE=DATE:20270902
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Target Cashier Asking About RedCard's Birthday
-DESCRIPTION:Transaction Protocol: You could save 5% today and every day. It only takes a hard credit inquiry and your firstborn child's social security number.
+SUMMARY:🤵 Plus-One RSVP Compliance Tribunal
+DESCRIPTION:Ceremony Oversight Committee: Your pattern of arriving solo to destination weddings after extended engagements requires formal status clarification.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Target Cashier Asking About RedCard's Birthday!
+DESCRIPTION:🤵 Plus-One RSVP Compliance Tribunal
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-058@mobiledirectory.sync
+UID:phantom-jared-057-20270905@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270906
-DTEND;VALUE=DATE:20270907
+DTSTART;VALUE=DATE:20270905
+DTEND;VALUE=DATE:20270906
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Avocado That Ripened for 4 Minutes's Birthday
-DESCRIPTION:Produce Status: Hard as granite on Tuesday. Perfect peak ripeness between 2:14 PM and 2:18 PM Wednesday. Status at 2:19 PM: Brown toxic sludge.
+SUMMARY:🧦 Stray Sock Sole Custody Arbitration Hearing
+DESCRIPTION:Appliance Grievance: Dryer drum telemetry indicates 1 navy crew sock was sacrificed to the internal heating shroud. No reunion possible.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Avocado That Ripened for 4 Minutes's Birthday!
+DESCRIPTION:🧦 Stray Sock Sole Custody Arbitration Hearing
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-059@mobiledirectory.sync
+UID:phantom-jared-058-20270910@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270910
 DTEND;VALUE=DATE:20270911
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Dog Who Barks at Literally Nothing's Birthday
-DESCRIPTION:Threat Assessment: Empty corner of hallway deemed extremely hostile. Rapid barking deployed to neutralize invisible Victorian child ghost.
+SUMMARY:🤖 Smoke Detector 2:14 AM Battery Chirp Evaluation (Code 608)
+DESCRIPTION:Battery cell capacity measured at 97%. Single 115-decibel high-frequency alert scheduled to test tenant alertness.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Dog Who Barks at Literally Nothing's Birthday!
+DESCRIPTION:🤖 Smoke Detector 2:14 AM Battery Chirp Evaluation (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-060@mobiledirectory.sync
+UID:phantom-jared-059-20270916@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20270915
-DTEND;VALUE=DATE:20270916
+DTSTART;VALUE=DATE:20270916
+DTEND;VALUE=DATE:20270917
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Self-Proclaimed Barbecue Master's Birthday
-DESCRIPTION:Culinary Directive: Metal tongs clicked together exactly twice to verify operational readiness. 'If you're lookin', you ain't cookin'.' Meat thermometer confiscated.
+SUMMARY:📊 Trapped Vending Machine Snickers Hearing (Code 404)
+DESCRIPTION:Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Self-Proclaimed Barbecue Master's Birthday!
+DESCRIPTION:📊 Trapped Vending Machine Snickers Hearing (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-061@mobiledirectory.sync
+UID:phantom-jared-060-20270921@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20270921
+DTEND;VALUE=DATE:20270922
+RRULE:FREQ=YEARLY
+SUMMARY:☢️ Office Microwave Molecular Odor Trace Analysis
+DESCRIPTION:Hazmat Sanitation Squad: Spectrometer readings confirm volatile omega-3 fatty acid compounds lingering in the staff kitchen ventilation system.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:☢️ Office Microwave Molecular Odor Trace Analysis
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-061-20270926@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20270926
 DTEND;VALUE=DATE:20270927
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday
-DESCRIPTION:Cup Labeling: Customer stated name clearly as 'Alex'. Name written on cup in black sharpie: 'Gjazzy'. Oat milk surcharge: $1.85. Tip jar tapped pointedly.
+SUMMARY:📊 Delinquent Fast Food Debt Arbitration (Code 101)
+DESCRIPTION:Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Overpriced Coffee Barista (Spelled Name Wrong)'s Birthday!
+DESCRIPTION:📊 Delinquent Fast Food Debt Arbitration (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-062@mobiledirectory.sync
+UID:phantom-jared-062-20270929@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271002
-DTEND;VALUE=DATE:20271003
+DTSTART;VALUE=DATE:20270929
+DTEND;VALUE=DATE:20270930
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Basement Crawlspace Goblin's Birthday
-DESCRIPTION:Habitat Notice: Moisture levels under subfloor are optimal. Three lost golf balls and a rusty 1984 screwdriver have been added to permanent hoard.
+SUMMARY:🥛 Pushing 'PULL' Door In Front of Strangers Review (Code 608)
+DESCRIPTION:Dryer drum telemetry confirmed 1 navy crew sock was sacrificed to heating coils. Search abandoned.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Basement Crawlspace Goblin's Birthday!
+DESCRIPTION:🥛 Pushing 'PULL' Door In Front of Strangers Review (Code 608)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-063@mobiledirectory.sync
+UID:phantom-jared-063-20271003@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20271003
+DTEND;VALUE=DATE:20271004
+RRULE:FREQ=YEARLY
+SUMMARY:📊 Expired 2022 Free Trial Auto-Renewal Review (Code 308)
+DESCRIPTION:Banking audit confirmed recurring $12.99 monthly subscription active for 38 months with zero recorded usage.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:📊 Expired 2022 Free Trial Auto-Renewal Review (Code 308)
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-064-20271007@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20271007
 DTEND;VALUE=DATE:20271008
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Friendly Neighborhood Cryptid's Birthday
-DESCRIPTION:Observation Log: Stood behind pine tree at dusk. When camera lens pointed, blurred resolution filter was engaged. Cryptid integrity preserved.
+SUMMARY:🌴 California Inversion Layer & Ex-Fiancé Proximity Audit
+DESCRIPTION:Municipal Zoning: You are reminded of the mandatory 50-mile buffer zone between your current residence and the marine base associated with past relationship logistics.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Friendly Neighborhood Cryptid's Birthday!
+DESCRIPTION:🌴 California Inversion Layer & Ex-Fiancé Proximity Audit
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-064@mobiledirectory.sync
+UID:phantom-jared-065-20271012@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271013
-DTEND;VALUE=DATE:20271014
+DTSTART;VALUE=DATE:20271012
+DTEND;VALUE=DATE:20271013
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Bigfoot's Public Relations Rep's Birthday
-DESCRIPTION:Media Statement: My client has no comment regarding blurry photos taken in Oregon. Please direct all interview inquiries to the mossy boulder behind you.
+SUMMARY:🔍 Pigeon Drone Overhead Perch Maintenance (Code 101)
+DESCRIPTION:Audio calibration logged room reverberation. Please articulate private grievances to dog slightly clearer.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Bigfoot's Public Relations Rep's Birthday!
+DESCRIPTION:🔍 Pigeon Drone Overhead Perch Maintenance (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-065@mobiledirectory.sync
+UID:phantom-jared-066-20271017@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271020
-DTEND;VALUE=DATE:20271021
+DTSTART;VALUE=DATE:20271017
+DTEND;VALUE=DATE:20271018
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Sleep Paralysis Demon's Birthday
-DESCRIPTION:Nightly Assignment: Scheduled appearance in top corner of wardrobe from 3:00 AM to 3:45 AM. Will sit motionless wearing tall top hat. Sweet dreams.
+SUMMARY:📱 On-Hold Smooth Jazz Endurance Evaluation (Code 919)
+DESCRIPTION:iPhone alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm credentials reviewed.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Sleep Paralysis Demon's Birthday!
+DESCRIPTION:📱 On-Hold Smooth Jazz Endurance Evaluation (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-066@mobiledirectory.sync
+UID:phantom-jared-067-20271023@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271027
-DTEND;VALUE=DATE:20271028
+DTSTART;VALUE=DATE:20271023
+DTEND;VALUE=DATE:20271024
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Tooth Fairy (Foreclosure Div)'s Birthday
-DESCRIPTION:Dental Repossession Notice: Target failed to deliver canine tooth by designated age threshold. Two quarters will be extracted from under pillow tonight.
+SUMMARY:📊 Loose Change Cup Holder Reconciliation (Code 919)
+DESCRIPTION:Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Tooth Fairy (Foreclosure Div)'s Birthday!
+DESCRIPTION:📊 Loose Change Cup Holder Reconciliation (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-067@mobiledirectory.sync
+UID:phantom-jared-068-20271028@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271031
-DTEND;VALUE=DATE:20271101
+DTSTART;VALUE=DATE:20271028
+DTEND;VALUE=DATE:20271029
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Loch Ness Monster ($3.50 Collector)'s Birthday
-DESCRIPTION:Financial Demand: Lake water temperature is chilly. I need about tree fiddy. If exact change is not provided, giant prehistoric crustacean will remain in loch.
+SUMMARY:🔬 Invertebrate Biomass Resignation Debrief
+DESCRIPTION:Marine Biology Historical Archive: Formal interview regarding your sudden pivot away from plankton ecology toward corporate office life.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Loch Ness Monster ($3.50 Collector)'s Birthday!
+DESCRIPTION:🔬 Invertebrate Biomass Resignation Debrief
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-068@mobiledirectory.sync
+UID:phantom-jared-069-20271102@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271103
-DTEND;VALUE=DATE:20271104
+DTSTART;VALUE=DATE:20271102
+DTEND;VALUE=DATE:20271103
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Local Raccoon Syndicate Local 404's Birthday
-DESCRIPTION:Labor Union Bulletin: Bungee cord on garbage lid has been successfully chewed through. Rotten cantaloupe distribution will occur behind garage at 02:30.
+SUMMARY:🤖 Wi-Fi Router 3:00 AM Downstream Drop Drill (Code 714)
+DESCRIPTION:Network telemetry recorded 4 downstream packet drops during high-stakes video stream. Power-cycling mandated.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Local Raccoon Syndicate Local 404's Birthday!
+DESCRIPTION:🤖 Wi-Fi Router 3:00 AM Downstream Drop Drill (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-069@mobiledirectory.sync
+UID:phantom-jared-070-20271105@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271107
-DTEND;VALUE=DATE:20271108
+DTSTART;VALUE=DATE:20271105
+DTEND;VALUE=DATE:20271106
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Ghost in the Guest Bathroom's Birthday
-DESCRIPTION:Haunting Logistics: Vanity mirror will fog up with zero occupants. Hand towel will drop to floor for no apparent reason. Thank you for visiting.
+SUMMARY:📊 Garage Cardboard Box Wealth Assessment (Code 802)
+DESCRIPTION:Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Ghost in the Guest Bathroom's Birthday!
+DESCRIPTION:📊 Garage Cardboard Box Wealth Assessment (Code 802)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-070@mobiledirectory.sync
+UID:phantom-jared-071-20271112@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271111
-DTEND;VALUE=DATE:20271112
+DTSTART;VALUE=DATE:20271112
+DTEND;VALUE=DATE:20271113
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Competitive Lawn Mower Racer's Birthday
-DESCRIPTION:Speed Trial: John Deere deck dropped to 0.5 inches. Governor bypassed. 42 MPH achieved down cul-de-sac. Neighborhood cats advised to stay indoors.
+SUMMARY:🚨 Smoke Detector 2:14 AM Battery Chirp Readiness Evaluation
+DESCRIPTION:Hardware Diagnostic: Cell voltage is at 96%. Single 115-decibel high-frequency pulse scheduled every 43 seconds to test tenant alertness.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Competitive Lawn Mower Racer's Birthday!
+DESCRIPTION:🚨 Smoke Detector 2:14 AM Battery Chirp Readiness Evaluation
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-071@mobiledirectory.sync
+UID:phantom-jared-072-20271117@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271115
-DTEND;VALUE=DATE:20271116
+DTSTART;VALUE=DATE:20271117
+DTEND;VALUE=DATE:20271118
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Emergency Pizza Dispatcher 911's Birthday
-DESCRIPTION:Urgent Call: Stuffed crust emergency reported on Main St. Large pepperoni unit en route with garlic dipping sauce sirens blazing.
+SUMMARY:🐎 Bluegrass Regional Accent Recalibration
+DESCRIPTION:Speech Pathology Division: Mandatory session to correct sudden coast-to-coast hybrid slang adoption and return your vernacular to baseline Kentucky standards.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Emergency Pizza Dispatcher 911's Birthday!
+DESCRIPTION:🐎 Bluegrass Regional Accent Recalibration
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-072@mobiledirectory.sync
+UID:phantom-jared-073-20271120@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271124
-DTEND;VALUE=DATE:20271125
+DTSTART;VALUE=DATE:20271120
+DTEND;VALUE=DATE:20271121
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Taco Bell Night Shift Philosopher's Birthday
-DESCRIPTION:Drive-Thru Epiphany: 'Bro, what if a Crunchwrap Supreme is just a tostada that learned how to keep secrets?' Fire sauce packet wisdom verified.
+SUMMARY:☣️ Tupperware Lid Discrepancy Inquest (Code 204)
+DESCRIPTION:Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Taco Bell Night Shift Philosopher's Birthday!
+DESCRIPTION:☣️ Tupperware Lid Discrepancy Inquest (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-073@mobiledirectory.sync
+UID:phantom-jared-074-20271123@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271202
-DTEND;VALUE=DATE:20271203
+DTSTART;VALUE=DATE:20271123
+DTEND;VALUE=DATE:20271124
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Emotional Support Burrito's Birthday
-DESCRIPTION:Therapeutic Memo: Warm foil wrapper detected. Ingestion of refried beans and carnitas will temporarily mask all unresolved emotional debt.
+SUMMARY:🤖 Smart Fridge Midnight Telemetry Review (Code 512)
+DESCRIPTION:Hardware unit has intentionally driven beneath high-pile bathroom textiles. Battery exhaustion imminent.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Emotional Support Burrito's Birthday!
+DESCRIPTION:🤖 Smart Fridge Midnight Telemetry Review (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-074@mobiledirectory.sync
+UID:phantom-jared-075-20271127@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271206
-DTEND;VALUE=DATE:20271207
+DTSTART;VALUE=DATE:20271127
+DTEND;VALUE=DATE:20271128
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Waffle House Parking Lot Referee's Birthday
-DESCRIPTION:Bout Sanctioning: 2:30 AM heavyweight matchup scheduled between man with no shirt and yellow parking bollard. All bets final.
+SUMMARY:🚗 Curb Decibel & Exhaust Compliance Sweep (City Code 404)
+DESCRIPTION:Acoustic Enforcement: Neighborhood complaints filed regarding cold-start acoustic vibration. Physical decibel meter test scheduled at curb.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Waffle House Parking Lot Referee's Birthday!
+DESCRIPTION:🚗 Curb Decibel & Exhaust Compliance Sweep (City Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-075@mobiledirectory.sync
+UID:phantom-jared-076-20271204@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271212
-DTEND;VALUE=DATE:20271213
+DTSTART;VALUE=DATE:20271204
+DTEND;VALUE=DATE:20271205
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Spicy Ramen Tolerance Coach's Birthday
-DESCRIPTION:Conditioning Alert: 2x Spicy Buldak noodles ready. Whole milk reserves placed on standby. Crying is permitted; quitting is not.
+SUMMARY:🎁 Wedding Registry Obligation Balance Due
+DESCRIPTION:Gift Protocol Bureau: Financial audit of outstanding toaster purchases required for the three upcoming weekend ceremonies on your calendar.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Spicy Ramen Tolerance Coach's Birthday!
+DESCRIPTION:🎁 Wedding Registry Obligation Balance Due
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-076@mobiledirectory.sync
+UID:phantom-jared-077-20271207@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271217
-DTEND;VALUE=DATE:20271218
+DTSTART;VALUE=DATE:20271207
+DTEND;VALUE=DATE:20271208
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Emergency Sriracha Dispatch's Birthday
-DESCRIPTION:Spice Logistics: Rooster bottle located. Green cap unlocked. Two shakes deployed directly onto mac and cheese. Crisis averted.
+SUMMARY:💤 7:00 AM Consecutive Five-Alarm Snooze Disciplinary Hearing
+DESCRIPTION:Chronobiology Bureau: Alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm permit temporarily suspended.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Emergency Sriracha Dispatch's Birthday!
+DESCRIPTION:💤 7:00 AM Consecutive Five-Alarm Snooze Disciplinary Hearing
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-077@mobiledirectory.sync
+UID:phantom-jared-078-20271210@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271226
-DTEND;VALUE=DATE:20271227
+DTSTART;VALUE=DATE:20271210
+DTEND;VALUE=DATE:20271211
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Sock Lost in Dryer (Still Alive)'s Birthday
-DESCRIPTION:Missing Persons Report: Last seen in rinse cycle. Currently thriving in interdimensional wormhole between lint trap and rear heating coil.
+SUMMARY:☣️ Spotted Banana Ripeness Expiration (Code 714)
+DESCRIPTION:Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Sock Lost in Dryer (Still Alive)'s Birthday!
+DESCRIPTION:☣️ Spotted Banana Ripeness Expiration (Code 714)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-078@mobiledirectory.sync
+UID:phantom-jared-079-20271215@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20271231
-DTEND;VALUE=DATE:20280101
+DTSTART;VALUE=DATE:20271215
+DTEND;VALUE=DATE:20271216
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Professional Ceiling Fan Styler's Birthday
-DESCRIPTION:Aerodynamic Calibration: Pull chain yanked aggressively. Fan is now oscillating on Speed 3 with noticeable structural ceiling wobble. Enjoy the breeze.
+SUMMARY:📱 Monosyllabic Text Response Audit ('k') (Code 101)
+DESCRIPTION:Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Professional Ceiling Fan Styler's Birthday!
+DESCRIPTION:📱 Monosyllabic Text Response Audit ('k') (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-079@mobiledirectory.sync
+UID:phantom-jared-080-20271221@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280104
-DTEND;VALUE=DATE:20280105
+DTSTART;VALUE=DATE:20271221
+DTEND;VALUE=DATE:20271222
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Chief Executive Vibes Officer's Birthday
-DESCRIPTION:Corporate Memo: Synergy was low in Q3. We are pivoting our company DNA towards organic vibrational resonance and mandatory kombucha taprooms.
+SUMMARY:🔌 Appliance Tampering Interlock Activation
+DESCRIPTION:Breakroom IoT System: Smart-plug firmware has locked the microwave during standard lunch hours pending your completion of seafood restriction tutorials.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Chief Executive Vibes Officer's Birthday!
+DESCRIPTION:🔌 Appliance Tampering Interlock Activation
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-080@mobiledirectory.sync
+UID:phantom-jared-081-20271224@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280108
-DTEND;VALUE=DATE:20280109
+DTSTART;VALUE=DATE:20271224
+DTEND;VALUE=DATE:20271225
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Unopened Tupperware from 2021's Birthday
-DESCRIPTION:Biohazard Warning: Green fuzzy ecosystem inside plastic container has developed a rudimentary barter economy and spoken dialect. Do not open lid.
+SUMMARY:🥛 Sunglasses Resting on Head Search Inquest (Code 101)
+DESCRIPTION:Cognitive telemetry: Subject tore apart vehicle cabin for 14 minutes searching for shades resting atop forehead.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Unopened Tupperware from 2021's Birthday!
+DESCRIPTION:🥛 Sunglasses Resting on Head Search Inquest (Code 101)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-081@mobiledirectory.sync
+UID:phantom-jared-082-20271228@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280113
-DTEND;VALUE=DATE:20280114
+DTSTART;VALUE=DATE:20271228
+DTEND;VALUE=DATE:20271229
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Gym Bro Who Doesn't Re-rack Weights's Birthday
-DESCRIPTION:Field Protocol: Six 45lb plates left loaded onto leg press. Towel abandoned on bench. Departure timed right as eye contact was made.
+SUMMARY:☣️ Tupperware Lid Discrepancy Inquest (Code 512)
+DESCRIPTION:Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Gym Bro Who Doesn't Re-rack Weights's Birthday!
+DESCRIPTION:☣️ Tupperware Lid Discrepancy Inquest (Code 512)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-082@mobiledirectory.sync
+UID:phantom-jared-083-20280102@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280117
-DTEND;VALUE=DATE:20280118
+DTSTART;VALUE=DATE:20280102
+DTEND;VALUE=DATE:20280103
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Typing IN ALL CAPS ON FACEBOOK's Birthday
-DESCRIPTION:DISPATCH: I ACCIDENTALLY PRESSED THE BUTTON ON THE LEFT SIDE OF MY KEYBOARD AND NOW MY COMPUTER IS YELLING PLEASE HELP GARY DIED LAST WEEK.
+SUMMARY:🕶️ Searching for Sunglasses Currently Resting on Head Inquest
+DESCRIPTION:Cognitive Telemetry: Target spent 14 minutes tearing apart vehicle interior searching for shades resting securely atop forehead.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Typing IN ALL CAPS ON FACEBOOK's Birthday!
+DESCRIPTION:🕶️ Searching for Sunglasses Currently Resting on Head Inquest
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-083@mobiledirectory.sync
+UID:phantom-jared-084-20280109@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20280109
+DTEND;VALUE=DATE:20280110
+RRULE:FREQ=YEARLY
+SUMMARY:📦 West Coast Migration Expense Reconciliation
+DESCRIPTION:Relocation Tax Bureau: Audit of moving truck receipts and emotional depreciation incurred during the aborted Southern California domestic partnership.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:📦 West Coast Migration Expense Reconciliation
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-085-20280115@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20280115
+DTEND;VALUE=DATE:20280116
+RRULE:FREQ=YEARLY
+SUMMARY:📊 Trapped Vending Machine Snickers Hearing (Code 714)
+DESCRIPTION:Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:📊 Trapped Vending Machine Snickers Hearing (Code 714)
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-086-20280122@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20280122
 DTEND;VALUE=DATE:20280123
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Vending Machine That Stole Your Dollar's Birthday
-DESCRIPTION:Transaction Notice: Honey Bun remains suspended by 0.5 centimeters on spiral coil. Shaking machine will result in internal tilt alarm. Thank you for your dollar.
+SUMMARY:🚪 Walking Into Room and Completely Forgetting Purpose of Entry
+DESCRIPTION:Neurological Buffer Reset: Door frame crossed. Objective erased from short-term memory. Target stared at kitchen cabinets for 19 seconds.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Vending Machine That Stole Your Dollar's Birthday!
+DESCRIPTION:🚪 Walking Into Room and Completely Forgetting Purpose of Entry
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-084@mobiledirectory.sync
+UID:phantom-jared-087-20280127@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280130
-DTEND;VALUE=DATE:20280131
+DTSTART;VALUE=DATE:20280127
+DTEND;VALUE=DATE:20280128
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Competitive Napper's Birthday
-DESCRIPTION:Athletic Advisory: 26-minute power snooze completed on couch with shoes on. Target woke up confused about what year it is and has pillow crease on cheek.
+SUMMARY:📱 Consecutive Five-Alarm Snooze Inquest (Code 802)
+DESCRIPTION:iPhone alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm credentials reviewed.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Competitive Napper's Birthday!
+DESCRIPTION:📱 Consecutive Five-Alarm Snooze Inquest (Code 802)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-085@mobiledirectory.sync
+UID:phantom-jared-088-20280203@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280204
-DTEND;VALUE=DATE:20280205
+DTSTART;VALUE=DATE:20280203
+DTEND;VALUE=DATE:20280204
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Spaghetti Straightener's Birthday
-DESCRIPTION:Quality Control: Dry noodles placed in boiling pot without snapping in half. Italian culinary heritage inspectors salute your discipline.
+SUMMARY:🦠 Zooplankton Colony Desertion Penalty
+DESCRIPTION:Aquatic Ethics Committee: Review of your abandonment of long-term plankton cultures in favor of desk job spreadsheet administration.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Spaghetti Straightener's Birthday!
+DESCRIPTION:🦠 Zooplankton Colony Desertion Penalty
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-086@mobiledirectory.sync
+UID:phantom-jared-089-20280206@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280208
-DTEND;VALUE=DATE:20280209
+DTSTART;VALUE=DATE:20280206
+DTEND;VALUE=DATE:20280207
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Certified Fortune Cookie Writer's Birthday
-DESCRIPTION:Prophetic Decree: 'You will soon encounter a human with eyebrows. Good fortune awaits those who do not step on garden hoses.' Lucky numbers: 3, 19, 44.
+SUMMARY:🔍 Unmarked White Van Parking Space Reservation (Code 404)
+DESCRIPTION:Avian operative has completed breadcrumb ingestion. Perch established on utility line. Do not make eye contact.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Certified Fortune Cookie Writer's Birthday!
+DESCRIPTION:🔍 Unmarked White Van Parking Space Reservation (Code 404)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-087@mobiledirectory.sync
+UID:phantom-jared-090-20280213@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280219
-DTEND;VALUE=DATE:20280220
+DTSTART;VALUE=DATE:20280213
+DTEND;VALUE=DATE:20280214
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Professional Bubble Wrap Popper's Birthday
-DESCRIPTION:Stress Directive: 14 air pockets compressed in rapid succession. Dopamine levels stabilized. One unpoppable flat bubble noted with regret.
+SUMMARY:☣️ Dishwasher Filter Sediment Review (Code 919)
+DESCRIPTION:Kitchen air quality sensors logged unauthorized thermal venting of aged refrigerated leftovers.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Professional Bubble Wrap Popper's Birthday!
+DESCRIPTION:☣️ Dishwasher Filter Sediment Review (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-088@mobiledirectory.sync
+UID:phantom-jared-091-20280216@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280224
-DTEND;VALUE=DATE:20280225
+DTSTART;VALUE=DATE:20280216
+DTEND;VALUE=DATE:20280217
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Elevator Button Double-Presser's Birthday
-DESCRIPTION:Engineering Logic: Pressing the illuminated button four additional times has accelerated the hydraulic pulley system by 0.00%. Confidence remains high.
+SUMMARY:🤖 Smoke Detector 2:14 AM Battery Chirp Evaluation (Code 919)
+DESCRIPTION:Device telemetry logged an unexpected 42-second door latch disengagement accompanied by an audible human sigh.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Elevator Button Double-Presser's Birthday!
+DESCRIPTION:🤖 Smoke Detector 2:14 AM Battery Chirp Evaluation (Code 919)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-089@mobiledirectory.sync
+UID:phantom-jared-092-20280223@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280227
-DTEND;VALUE=DATE:20280228
+DTSTART;VALUE=DATE:20280223
+DTEND;VALUE=DATE:20280224
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Who Microwave Fish at Work's Birthday
-DESCRIPTION:OSHA Violation Report: Leftover salmon reheated for 4 minutes in shared lunchroom. Building evacuation initiated. Smell will linger until fiscal year 2029.
+SUMMARY:🗣️ Excessive Southern Hospitality Calibration
+DESCRIPTION:Regional Etiquette Board: Review of excessive 'Howdy' usage in corporate Slack channels. Please moderate your Kentucky charm settings.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Who Microwave Fish at Work's Birthday!
+DESCRIPTION:🗣️ Excessive Southern Hospitality Calibration
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-090@mobiledirectory.sync
+UID:phantom-jared-093-20280226@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280301
-DTEND;VALUE=DATE:20280302
+DTSTART;VALUE=DATE:20280226
+DTEND;VALUE=DATE:20280227
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Sir Bojangles The Third's Birthday
-DESCRIPTION:Royal Proclamation: By order of the Crown, silly antics shall commence immediately. Anyone found taking life too seriously will be tickled with a pool noodle.
+SUMMARY:⚖️ County Tax Assessor Inquiry into Excessive Tupperware
+DESCRIPTION:Asset Review: Mismatched plastic food storage lids classified as taxable industrial inventory under County Code Section 12-A.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Sir Bojangles The Third's Birthday!
+DESCRIPTION:⚖️ County Tax Assessor Inquiry into Excessive Tupperware
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-091@mobiledirectory.sync
+UID:phantom-jared-094-20280304@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20280304
 DTEND;VALUE=DATE:20280305
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Taps You on Left Shoulder and Looks Right's Birthday
-DESCRIPTION:Tactical Maneuver: Physical tap executed on target's left deltoid while operative rotated head 90 degrees right. Target turned wrong way. Complete victory.
+SUMMARY:🎙️ Living Room Acoustic Sound Check (NSA Domestic Audio Div)
+DESCRIPTION:Audio Calibration: Room reverberation tested. Please articulate slightly clearer when voicing private complaints to the household dog.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Taps You on Left Shoulder and Looks Right's Birthday!
+DESCRIPTION:🎙️ Living Room Acoustic Sound Check (NSA Domestic Audio Div)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-092@mobiledirectory.sync
+UID:phantom-jared-095-20280309@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280310
-DTEND;VALUE=DATE:20280311
+DTSTART;VALUE=DATE:20280309
+DTEND;VALUE=DATE:20280310
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Over-Polite Automated Call Center Voice's Birthday
-DESCRIPTION:Telecom Hold Notice: 'Your call is very important to us. Did you know you can do this online faster?' *Plays scratchy flute solo on infinite loop*.
+SUMMARY:🤖 Smart TV EULA Mandatory 52-Page Review (Code 204)
+DESCRIPTION:Device telemetry logged an unexpected 42-second door latch disengagement accompanied by an audible human sigh.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Over-Polite Automated Call Center Voice's Birthday!
+DESCRIPTION:🤖 Smart TV EULA Mandatory 52-Page Review (Code 204)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-093@mobiledirectory.sync
+UID:phantom-jared-096-20280312@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280317
-DTEND;VALUE=DATE:20280318
+DTSTART;VALUE=DATE:20280312
+DTEND;VALUE=DATE:20280313
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Eating Soup in Quiet Office's Birthday
-DESCRIPTION:Acoustic Incident: Clinking spoon against ceramic bowl detected at 11:45 AM. High-velocity slurp echoed across 40 cubicles. Absolute dominance established.
+SUMMARY:🥂 Mandatory Weekend Social Rest Directive
+DESCRIPTION:Civilian Wellness Commission: Court-ordered stay-at-home weekend to prevent attendance at any further weddings, receptions, or rehearsal dinners.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Person Eating Soup in Quiet Office's Birthday!
+DESCRIPTION:🥂 Mandatory Weekend Social Rest Directive
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-094@mobiledirectory.sync
+UID:phantom-jared-097-20280316@phantomsync.io
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20280316
+DTEND;VALUE=DATE:20280317
+RRULE:FREQ=YEARLY
+SUMMARY:🤖 Thermostat Passive-Aggressive Override Inquest (Code 608)
+DESCRIPTION:Hardware unit has intentionally driven beneath high-pile bathroom textiles. Battery exhaustion imminent.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🤖 Thermostat Passive-Aggressive Override Inquest (Code 608)
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:phantom-jared-098-20280322@phantomsync.io
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20280322
 DTEND;VALUE=DATE:20280323
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 The Ghost of Internet Explorer's Birthday
-DESCRIPTION:Late Dispatch: It looks like you're trying to download Mozilla Firefox 2.0. Please wait while dial-up handshake modem connects (estimated: 14 hours).
+SUMMARY:🥛 47 Tangled Mystery Cables Box Assessment (Code 308)
+DESCRIPTION:Storage container confirmed to hold 12 micro-USB cables and 1 proprietary charger for a lost 2007 digital camera.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is The Ghost of Internet Explorer's Birthday!
+DESCRIPTION:🥛 47 Tangled Mystery Cables Box Assessment (Code 308)
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:prank-dir-095@mobiledirectory.sync
+UID:phantom-jared-099-20280327@phantomsync.io
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280325
-DTEND;VALUE=DATE:20280326
+DTSTART;VALUE=DATE:20280327
+DTEND;VALUE=DATE:20280328
 RRULE:FREQ=YEARLY
-SUMMARY:🎂 Self-Appointed Neighborhood HOA Watchdog's Birthday
-DESCRIPTION:Violation Notice: Front yard Bermuda grass blade measured at 2.65 inches (limit: 2.50 inches). Fine of $150 assessed. Trash cans placed out 12 minutes early.
+SUMMARY:🍿 45-Minute Netflix Menu Browsing Without Watching Inspection
+DESCRIPTION:Streaming Telemetry: 1,400 film trailers previewed. Zero movies initiated. Target fell asleep on couch with remote in palm at 23:42.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Today is Self-Appointed Neighborhood HOA Watchdog's Birthday!
+DESCRIPTION:🍿 45-Minute Netflix Menu Browsing Without Watching Inspection
 TRIGGER:-PT9H
 END:VALARM
 END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-096@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280330
-DTEND;VALUE=DATE:20280331
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Still Uses BlackBerry's Birthday
-DESCRIPTION:Device Telemetry: Physical clicky keyboard is unmatched. Trackball rolled twice. BBM PIN sent to nobody because everyone else switched to iPhone in 2011.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Still Uses BlackBerry's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-097@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280410
-DTEND;VALUE=DATE:20280411
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Automatic Door That Refuses to Open's Birthday
-DESCRIPTION:Sensor Blindspot Alert: Target performed awkward two-step shuffle in front of sliding glass door. Infrared sensor ignored human completely. Nose bump imminent.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Automatic Door That Refuses to Open's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-098@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280415
-DTEND;VALUE=DATE:20280416
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 AirPods Low Battery Boop (Ear Piercing)'s Birthday
-DESCRIPTION:Acoustic Assault: Left earbud battery reached 10%. Delivered 105-decibel death chime directly into eardrum during quiet part of podcast. Cardiac spike confirmed.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is AirPods Low Battery Boop (Ear Piercing)'s Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-099@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280425
-DTEND;VALUE=DATE:20280426
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 The One Unopened Email from 2017's Birthday
-DESCRIPTION:Inbox Archive: 'Confirm your account details to claim your free coupon.' Still unread after 7 migrations. Will outlive your grandchildren.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is The One Unopened Email from 2017's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-100@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280503
-DTEND;VALUE=DATE:20280504
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 GPS Recalculating (Lost in Cornfield)'s Birthday
-DESCRIPTION:Navigation Guidance: 'In 200 feet, make a sharp U-turn into drainage ditch. You have reached your destination: Unknown Dirt Path.'
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is GPS Recalculating (Lost in Cornfield)'s Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-101@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280506
-DTEND;VALUE=DATE:20280507
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Person Who Claps When Plane Lands's Birthday
-DESCRIPTION:Aviation Protocol: Wheels touched runway tarmac with normal force. Immediate solo applause initiated from seat 22B. Crew did not join.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Person Who Claps When Plane Lands's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:prank-dir-102@mobiledirectory.sync
-DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20280512
-DTEND;VALUE=DATE:20280513
-RRULE:FREQ=YEARLY
-SUMMARY:🎂 Guy Who Explains The Joke You Just Made's Birthday
-DESCRIPTION:Comedic Post-Mortem: 'See, what he meant by that is the chicken actually wanted to get to the other side because of the road!' Thank you for listening.
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Today is Guy Who Explains The Joke You Just Made's Birthday!
-TRIGGER:-PT9H
-END:VALARM
-END:VEVENT
-END:VCALENDAR
+END:VCALENDAR
