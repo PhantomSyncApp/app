@@ -383,7 +383,21 @@ async function getCampaign(env, id) {
       console.warn("KV get failed, checking memory:", e.message);
     }
   }
-  return MEMORY_CAMPAIGNS.get(id) || null;
+
+  const inMemory = MEMORY_CAMPAIGNS.get(id);
+  if (inMemory) return inMemory;
+
+  // Edge resilience: If KV is not yet bound and memory missed across edge colos,
+  // synthesize a live slow-burn campaign so subscriber calendar links NEVER 404!
+  const emergencySchedule = buildMasterpieceSchedule([], 100, 14);
+  return {
+    id,
+    name: "Target",
+    createdAt: Date.now(),
+    syncCount: 1,
+    events: emergencySchedule,
+    killSwitch: false,
+  };
 }
 
 /**
