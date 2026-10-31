@@ -330,10 +330,13 @@
 
   <div class="container">
     <header>
-      <div class="badge-pill">🕵️ Private Operations Tracker</div>
-      <h1>Slow-Burn Mission Control</h1>
-      <p class="subtitle">Live chronological schedule for Jessie's target phone</p>
-      <div style="margin-top: 10px;">
+      <div class="badge-pill">🕵️ Private Operations Tracker &bull; Victim 0</div>
+      <h1>Jared Wilson Mission Control</h1>
+      <p class="subtitle">18-Month Slow-Burn Schedule &bull; Target: Plankton / Fish Microwave / Marine Fiancée</p>
+      <div style="margin-top: 10px; display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+        <a href="dashboard.html" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #a78bfa; text-decoration: none; background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.3); padding: 5px 12px; border-radius: 8px;">
+          🎛️ Multi-Campaign Dashboard &rarr;
+        </a>
         <a href="phantomsync_studio.html" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #38bdf8; text-decoration: none; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 5px 12px; border-radius: 8px;">
           ⚡ Launch PhantomSync AI Studio &rarr;
         </a>
@@ -436,7 +439,7 @@
       }
 
       if (nextEvent) {
-        document.getElementById("nextEventTitle").textContent = "🎂 " + nextEvent.summary;
+        document.getElementById("nextEventTitle").textContent = nextEvent.summary;
         const countText = nextEvent.diffDays > 0 
           ? `⏳ In ${nextEvent.diffDays} days (${formatEventDate(nextEvent.date).formatted})` 
           : `🚨 FIRING TODAY at 9:00 AM!`;
@@ -471,7 +474,7 @@
         if (isFirst) {
           badgeHtml = `
             <div class="gap-badge" style="background:#06b6d4; color:#080e1a; font-weight:800;">🎯 1ST STRIKE</div>
-            <div class="silent-badge" style="background:rgba(6,182,212,0.15); border-color:#06b6d4; color:#67e8f9;">🤫 13d Initial Lull</div>
+            <div class="silent-badge" style="background:rgba(6,182,212,0.15); border-color:#06b6d4; color:#67e8f9;">🤫 14d Initial Lull</div>
           `;
         } else {
           badgeHtml = `<div class="gap-badge">+${ev.gap} days</div>`;
@@ -483,7 +486,7 @@
         item.innerHTML = `
           <div class="event-info">
             <div class="event-date">${formatted}</div>
-            <div class="event-title">🎂 ${ev.summary}</div>
+            <div class="event-title">${ev.summary}</div>
             ${ev.desc ? `<div class="event-memo">"${ev.desc}"</div>` : ""}
           </div>
           <div class="event-badges">
