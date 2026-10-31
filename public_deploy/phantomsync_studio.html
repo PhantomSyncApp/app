@@ -449,6 +449,60 @@
       color: #c4b5fd;
     }
 
+    .event-card.personal-strike {
+      border-left: 4px solid #f43f5e;
+      background: rgba(244, 63, 94, 0.05);
+    }
+
+    .event-card.personal-strike:hover {
+      background: rgba(244, 63, 94, 0.09);
+      border-color: rgba(244, 63, 94, 0.5);
+    }
+
+    .badge-personal {
+      background: rgba(244, 63, 94, 0.2);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.45);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .filter-pills-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .filter-pill-btn.active {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--cyan);
+      color: #67e8f9;
+    }
+
+    .filter-pill-btn.active[data-view="personal"] {
+      background: rgba(244, 63, 94, 0.25);
+      border-color: #f43f5e;
+      color: #fb7185;
+    }
+
     /* Checkout & Arming Section */
     .checkout-grid {
       display: grid;
@@ -700,11 +754,17 @@
       <div class="stats-bar">
         <div>🚀 <strong>First Strike:</strong> <span id="firstStrikeDate" style="color:#67e8f9;">Loading...</span></div>
         <div>⏱️ <strong>Span:</strong> <span id="campaignSpan">18 Months</span></div>
-        <div>🧠 <strong>Engine:</strong> <span id="engineBadge" style="color:#38bdf8;">Gemini 3.8 Flash</span></div>
+        <div>🧠 <strong>Engine:</strong> <span id="engineBadge" style="color:#38bdf8;">Hybrid AI Engine</span></div>
+        <div>🎯 <strong>Intel Strikes:</strong> <span id="personalCountBadge" style="color:#f472b6;">25 Personalized</span></div>
       </div>
 
       <div class="timeline-filter-box">
-        <input type="text" id="filterInput" placeholder="🔍 Search events (e.g. Civic, Shaker, FBI, Taco Bell, Audit)...">
+        <input type="text" id="filterInput" placeholder="🔍 Search events (e.g. Plankton, Microwave, Wedding, California, Audit)...">
+        <div class="filter-pills-row">
+          <button type="button" class="filter-pill-btn active" data-view="all" id="pillFilterAll">🌐 All Events (<span id="pillTotalCount">100</span>)</button>
+          <button type="button" class="filter-pill-btn" data-view="personal" id="pillFilterPersonal">🎯 25 Dossier Strikes</button>
+          <button type="button" class="filter-pill-btn" data-view="library" id="pillFilterLibrary">🏛️ 75 General Incidents</button>
+        </div>
       </div>
 
       <div class="timeline-feed" id="timelineFeed">
@@ -940,10 +1000,14 @@ ABSOLUTE RULES:
 
     // High-IQ Built-in Procedural Generator (Zero "Birthday" Tropes, 100% Tailored)
     function generateEnhancedProcedural(name, rawQuirks, count, delayDays) {
-      const quirks = (rawQuirks || "unspecified habits")
-        .split(/[,;\n]+/)
-        .map(q => q.trim())
-        .filter(Boolean);
+      // Split into distinct lore clauses (sentence endings or semicolons)
+      const clauses = (rawQuirks || "unspecified habits")
+        .replace(/[!?]+/g, ".")
+        .split(/(?:[.;\n]+)/)
+        .map(q => q.trim().replace(/^he is /i, "").replace(/^was /i, "").replace(/^he /i, ""))
+        .filter(q => q.length > 3 && !q.toLowerCase().includes("so much lore"));
+
+      const quirks = clauses.length ? clauses : ["unregistered daily habits"];
       const getQuirk = (idx) => quirks[idx % quirks.length];
 
       const today = new Date();
@@ -1059,6 +1123,7 @@ ABSOLUTE RULES:
       for (let i = 0; i < count; i++) {
         const tmpl = templates[i % templates.length];
         const quirk = getQuirk(i);
+        const isPersonal = (i % 4 === 0);
 
         let gap = i === 0 ? delayDays : gapChoices[Math.floor(Math.random() * gapChoices.length)];
         if (i > 0) {
@@ -1076,12 +1141,16 @@ ABSOLUTE RULES:
           title: tmpl.title(quirk),
           memo: tmpl.memo(quirk),
           category: tmpl.cat,
+          isPersonal: isPersonal,
           gap: gap
         });
       }
 
       return events;
     }
+
+    // View filter state: "all" | "personal" | "library"
+    let currentViewFilter = "all";
 
     // Render Timeline Feed
     function renderTimeline(events, filterQuery = "") {
@@ -1090,6 +1159,13 @@ ABSOLUTE RULES:
       const q = filterQuery.toLowerCase().trim();
 
       events.forEach((ev, idx) => {
+        const isPersonal = Boolean(ev.isPersonal || (idx % 4 === 0));
+
+        // Filter tab checks
+        if (currentViewFilter === "personal" && !isPersonal) return;
+        if (currentViewFilter === "library" && isPersonal) return;
+
+        // Search text check
         if (q && !ev.title.toLowerCase().includes(q) && !ev.memo.toLowerCase().includes(q) && !ev.dateStr.toLowerCase().includes(q) && !ev.category.toLowerCase().includes(q)) {
           return;
         }
@@ -1098,16 +1174,20 @@ ABSOLUTE RULES:
         const isLull = ev.gap >= 8 && !isFirst;
 
         const card = document.createElement("div");
-        card.className = "event-card" + (isFirst ? " first-strike" : "") + (isLull ? " lull" : "");
+        card.className = "event-card" + (isPersonal ? " personal-strike" : "") + (isFirst ? " first-strike" : "") + (isLull ? " lull" : "");
 
         let badges = "";
+        if (isPersonal) {
+          badges += `<span class="badge badge-personal">🎯 DOSSIER INTEL</span>`;
+        }
+
         if (isFirst) {
-          badges = `
+          badges += `
             <span class="badge badge-first">🎯 1ST STRIKE</span>
             <span class="badge" style="background:rgba(6,182,212,0.15); color:#67e8f9;">🤫 ${ev.gap}d Stealth Lull</span>
           `;
         } else {
-          badges = `<span class="badge badge-gap">+${ev.gap} days</span>`;
+          badges += `<span class="badge badge-gap">+${ev.gap} days</span>`;
           if (isLull) {
             badges += `<span class="badge badge-silent">🤫 ${ev.gap}d Lull</span>`;
           }
@@ -1156,9 +1236,18 @@ ABSOLUTE RULES:
         const diffMonths = Math.round((lastDate - generatedEvents[0].dateObj) / (1000 * 60 * 60 * 24 * 30));
         document.getElementById("campaignSpan").textContent = `~${diffMonths} Months`;
 
+        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        document.getElementById("personalCountBadge").textContent = `${personalCount} Dossier Strikes`;
+        const pillPersonal = document.getElementById("pillFilterPersonal");
+        if (pillPersonal) pillPersonal.textContent = `🎯 ${personalCount} Dossier Strikes`;
+        const pillCover = document.getElementById("pillFilterLibrary");
+        if (pillCover) pillCover.textContent = `🏛️ ${generatedEvents.length - personalCount} General Incidents`;
+        const pillTotal = document.getElementById("pillTotalCount");
+        if (pillTotal) pillTotal.textContent = `${generatedEvents.length}`;
+
         const engineEl = document.getElementById("engineBadge");
         if (result.mode === "gemini_ai") {
-          engineEl.textContent = "🧠 Gemini 3.8 Flash (Live AI)";
+          engineEl.textContent = "🧠 Gemini Live AI (Hybrid)";
           engineEl.style.color = "#34d399";
         } else {
           engineEl.textContent = "⚡ Smart Procedural Engine";
@@ -1178,6 +1267,15 @@ ABSOLUTE RULES:
         document.getElementById("timelineSection").style.display = "block";
         document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
         document.getElementById("firstStrikeDate").textContent = generatedEvents[0].dateStr;
+
+        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        document.getElementById("personalCountBadge").textContent = `${personalCount} Dossier Strikes`;
+        const pillPersonal = document.getElementById("pillFilterPersonal");
+        if (pillPersonal) pillPersonal.textContent = `🎯 ${personalCount} Dossier Strikes`;
+        const pillCover = document.getElementById("pillFilterLibrary");
+        if (pillCover) pillCover.textContent = `🏛️ ${generatedEvents.length - personalCount} General Incidents`;
+        const pillTotal = document.getElementById("pillTotalCount");
+        if (pillTotal) pillTotal.textContent = `${generatedEvents.length}`;
         
         const engineEl = document.getElementById("engineBadge");
         engineEl.textContent = "⚡ Built-in Procedural Engine";
@@ -1188,6 +1286,16 @@ ABSOLUTE RULES:
         btn.innerHTML = `<span>⚡ Regenerate Phantom Campaign</span>`;
         document.getElementById("timelineSection").scrollIntoView({ behavior: 'smooth' });
       }
+    });
+
+    // View filter pills (All / 25 Dossier Strikes / 75 General Incidents)
+    document.querySelectorAll(".filter-pill-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-pill-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentViewFilter = btn.dataset.view;
+        renderTimeline(generatedEvents, document.getElementById("filterInput").value);
+      });
     });
 
     // Search filter

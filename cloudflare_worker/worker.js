@@ -134,23 +134,24 @@ GENERATE EXACTLY ${count} UNIQUE, BRILLIANT EVENTS.
 
 CRITICAL COMEDIC RULES:
 1. NEVER use the word "Birthday" or celebrate anything.
-2. DO NOT repeat the user's prompt sentences verbatim. DECONSTRUCT the target's lore into creative, ultra-specific institutional citations:
-   - Workplace/OSHA infractions (breakroom microwave odors, fish reheating penalties, kitchen grievances)
-   - Professional license audits (biological permit renewals, plankton handling lapses, lab compliance)
-   - Social & relationship telemetry (wedding attendee frequency inquiries, tuxedo cummerbund disputes)
-   - Municipal/State jurisdiction disputes (interstate relocation taxes, out-of-state dialect audits)
-   - Smart appliance mutiny (connected appliances lodging formal complaints)
+2. DIVERSITY & BALANCE MANDATE: You MUST identify EVERY distinct hobby, quirk, habit, relationship detail, past job, location, and personality trait mentioned in TARGET BACKSTORY & QUIRKS!
+   - Distribute the ${count} events EVENLY across ALL distinct topics in their lore so NO single topic dominates the list!
+   - If they have 4-6 lore points, create 4-5 distinct, brilliant events for EACH lore point.
+   - For example, cover: workplace & appliance infractions, past relationship & engagement debriefs, scientific & career license audits, relocation & interstate domicile reviews, excessive wedding/social attendance inquiries, and regional dialect/hometown verifications.
+   - Cycle through different topics continuously so every strike targets a different aspect of their life!
 3. Tone: 100% deadpan, official, bureaucratic, straight-faced.
 4. Titles: Include a punchy emoji.
 5. Memos: 1-2 realistic, dry sentences.
-6. Every single event must be completely distinct.
+6. Category: Choose from "Sanitary Protocol", "Municipal Citation", "Financial Audit", "IoT Disciplinary", "Surveillance Directive", "Telecom Etiquette", "Domestic Review", "Corporate Audit", "Social Oversight".
+7. Return a valid JSON array of ${count} objects with "title", "memo", "category", and "isPersonal": true.
 
 Return ONLY a valid JSON array of ${count} objects (no markdown blocks, no text):
 [
   {
     "title": "🐟 Breakroom Aquatic Protein Reheating Citation (OSHA Code 8)",
     "memo": "Facilities Notice: Office air scrubbers recorded 4.2 minutes of continuous salmon microwave exposure. Floor 3 evacuated until 14:00.",
-    "category": "Sanitary Protocol"
+    "category": "Sanitary Protocol",
+    "isPersonal": true
   }
 ]
 `;
@@ -192,7 +193,7 @@ Return ONLY a valid JSON array of ${count} objects (no markdown blocks, no text)
       if (parsed && parsed.length > 0) {
         return {
           modelUsed: model,
-          events: parsed,
+          events: parsed.map(e => ({ ...e, isPersonal: true })),
         };
       }
     } catch (e) {
@@ -284,6 +285,7 @@ function generateProceduralLoreEvents(name, rawQuirks, count) {
       title: tmpl.title(topic),
       memo: tmpl.memo(topic),
       category: tmpl.category,
+      isPersonal: true,
     });
   }
   return results;
@@ -340,6 +342,7 @@ function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
       title: item.title,
       memo: item.memo,
       category: item.category || "Scheduled Protocol",
+      isPersonal: Boolean(item.isPersonal),
       gap: gap,
     };
   });
