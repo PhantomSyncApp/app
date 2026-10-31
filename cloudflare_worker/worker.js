@@ -1,7 +1,7 @@
 /**
  * PhantomSync Cloudflare Worker API
  * 
- * Version 4.1.0 - Trojan Horse Dynamic WebCal + 25 Bespoke AI Strikes + 1,000+ Vault
+ * Version 4.2.0 - Stable RFC-5545 Feeds + Immediate Day 1 Proof + Trojan Shield
  * 
  * Combines 25 live Gemini AI events tailored to the target's exact lore
  * with a massive 1,000+ procedural & curated incident backlog to build
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "4.1.0 (Trojan Horse WebCal + Stripe Checkout + 25 AI Strikes)",
+          version: "4.2.0 (Stable RFC-5545 Feeds + Immediate Day 1 Proof + Trojan Shield)",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
           has_stripe_key: Boolean(env.STRIPE_SECRET_KEY),
           has_kv_storage: Boolean(env.PHANTOM_KV),
