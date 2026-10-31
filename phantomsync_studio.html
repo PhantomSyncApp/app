@@ -288,6 +288,146 @@
       transform: none;
     }
 
+    /* Step 1B: Trojan Horse Bait Customizer & Live Phone Mockup */
+    .decoy-config-container {
+      margin-top: 12px;
+      background: rgba(12, 18, 34, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .decoy-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .decoy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .decoy-field {
+      margin-bottom: 10px;
+    }
+
+    .decoy-field-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--subtext);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .decoy-field input, .decoy-field textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      color: white;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .decoy-field input:focus, .decoy-field textarea:focus {
+      border-color: var(--cyan);
+    }
+
+    .ios-calendar-mockup {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .ios-calendar-mockup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+    }
+
+    .ios-mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.75rem;
+      color: var(--subtext);
+      font-weight: 700;
+    }
+
+    .ios-app-icon {
+      width: 22px;
+      height: 22px;
+      background: #f43f5e;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: white;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .ios-event-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .ios-event-meta {
+      font-size: 0.74rem;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .ios-event-memo {
+      font-size: 0.74rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      font-style: italic;
+      border-left: 2px solid var(--cyan);
+    }
+
+    .ios-mockup-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: #fbbf24;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
     /* Timeline Section */
     #timelineSection {
       display: none;
@@ -855,15 +995,62 @@
           <option value="custom">✍️ Fully Custom Cover Story...</option>
         </select>
 
-        <div id="customDecoyInputs" style="display: none; margin-top: 10px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 12px; border: 1px solid var(--card-border);">
-          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Calendar Feed Name:</div>
-          <input type="text" id="customDecoyCalName" placeholder="e.g. Jack's 30th Birthday Trip Itinerary" style="margin-bottom: 8px;">
-          
-          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Initial Event Title:</div>
-          <input type="text" id="customDecoyTitle" placeholder="e.g. ✈️ Flight Arrival &amp; Check-In" style="margin-bottom: 8px;">
+        <!-- Dynamic Bait Customizer & Live Phone Mockup -->
+        <div class="decoy-config-container">
+          <div style="font-size:0.78rem; font-weight:800; color:#67e8f9; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between;">
+            <span>✏️ Customize Day 1 Bait &bull; Live Target Preview</span>
+            <span style="font-size:0.7rem; color:var(--subtext); font-weight:500;">Updates automatically</span>
+          </div>
 
-          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Event Description:</div>
-          <input type="text" id="customDecoyMemo" placeholder="e.g. Weekend itinerary syncing to device.">
+          <div class="decoy-grid">
+            <!-- Left: Editable Fields -->
+            <div class="decoy-inputs-col">
+              <div class="decoy-field">
+                <span class="decoy-field-label">Calendar Feed Name (In victim's list):</span>
+                <input type="text" id="decoyCalNameInput" placeholder="e.g. Mobile Directory Sync">
+              </div>
+
+              <div class="decoy-field">
+                <span class="decoy-field-label">Day 1 Event Title:</span>
+                <input type="text" id="decoyTitleInput" placeholder="e.g. 📱 Enterprise Directory Verification">
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div class="decoy-field">
+                  <span class="decoy-field-label">Event Date:</span>
+                  <input type="date" id="decoyDateInput">
+                </div>
+                <div class="decoy-field">
+                  <span class="decoy-field-label">Location / Room:</span>
+                  <input type="text" id="decoyLocationInput" placeholder="e.g. System Services">
+                </div>
+              </div>
+
+              <div class="decoy-field" style="margin-bottom:0;">
+                <span class="decoy-field-label">Event Notes / Description:</span>
+                <input type="text" id="decoyMemoInput" placeholder="e.g. Device registered to secure synchronization.">
+              </div>
+            </div>
+
+            <!-- Right: Live Apple Calendar Event Mockup -->
+            <div class="ios-calendar-mockup">
+              <div>
+                <div class="ios-mockup-header">
+                  <div class="ios-app-icon">CAL</div>
+                  <span id="previewDecoyCalName" style="color:#ffffff; font-weight:800;">Mobile Directory Sync</span>
+                  <span style="margin-left:auto; font-size:0.68rem; color:#94a3b8;">Today</span>
+                </div>
+                <div class="ios-event-title" id="previewDecoyTitle">📱 Enterprise Directory Verification (Active)</div>
+                <div class="ios-event-meta" id="previewDecoyMeta">📍 System Services &bull; Nov 14, 2026</div>
+                <div class="ios-event-memo" id="previewDecoyMemo">"Mobile device registered to secure directory synchronization. Routine periodic sync active."</div>
+              </div>
+
+              <div class="ios-mockup-footer">
+                <span>🛡️ 24h Stealth Shield Active</span>
+                <span style="font-weight:500; color:#cbd5e1; font-size:0.68rem; margin-left:auto;">Silently converts to 100 events</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1070,6 +1257,125 @@
 
     // Production Cloudflare Worker Backend URL
     const CLOUDFLARE_WORKER_URL = "https://phantomsync-api.sys-directory.workers.dev";
+
+    // ==========================================
+    // DAY 1 TROJAN HORSE COVER STORY ENGINE
+    // ==========================================
+    const DECOY_PRESETS = {
+      directory: {
+        calName: "Mobile Directory Sync",
+        title: "📱 Enterprise Directory Verification (Active)",
+        location: "System Services",
+        memo: "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
+        offsetDays: 14
+      },
+      babyshower: {
+        calName: "Sophia's Baby Shower & Registry Updates",
+        title: "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)",
+        location: "Oak Ridge Pavilion • Room B",
+        memo: "Venue: Oak Ridge Pavilion. Gift registry items and schedule updates syncing to device.",
+        offsetDays: 14
+      },
+      wedding: {
+        calName: "Miller & Davis Wedding Itinerary",
+        title: "💍 Wedding Rehearsal Dinner & Ceremony",
+        location: "The Grand Estate Ballroom",
+        memo: "Formal wedding weekend itinerary and rehearsal dinner schedule syncing to device.",
+        offsetDays: 21
+      },
+      fantasy: {
+        calName: "2026 Fantasy League Draft & Matchups",
+        title: "🏈 League Draft Party & Week 1 Kickoff",
+        location: "Draft Room Live",
+        memo: "League matchups and waiver wire deadlines syncing. Draft order finalized.",
+        offsetDays: 7
+      },
+      holidays: {
+        calName: "Corporate Holidays & Office Closures",
+        title: "🏢 Corporate Office Closed - Floating Holiday",
+        location: "All Corporate & Regional Offices",
+        memo: "Official company holiday and office closure calendar. Mandatory remote calendar sync.",
+        offsetDays: 30
+      },
+      custom: {
+        calName: "Jack's 30th Birthday Trip Itinerary",
+        title: "✈️ Flight Arrival & Check-In",
+        location: "Terminal 2 / Resort Lobby",
+        memo: "Weekend itinerary and group schedule syncing to device.",
+        offsetDays: 14
+      }
+    };
+
+    function applyDecoyPreset(presetKey) {
+      const p = DECOY_PRESETS[presetKey] || DECOY_PRESETS.directory;
+      const targetDate = new Date(Date.now() + (p.offsetDays || 14) * 86400 * 1000);
+      const dateStr = targetDate.toISOString().slice(0, 10);
+
+      const calEl = document.getElementById("decoyCalNameInput");
+      const titleEl = document.getElementById("decoyTitleInput");
+      const locEl = document.getElementById("decoyLocationInput");
+      const dateEl = document.getElementById("decoyDateInput");
+      const memoEl = document.getElementById("decoyMemoInput");
+
+      if (calEl) calEl.value = p.calName;
+      if (titleEl) titleEl.value = p.title;
+      if (locEl) locEl.value = p.location || "";
+      if (dateEl) dateEl.value = dateStr;
+      if (memoEl) memoEl.value = p.memo;
+
+      updateDecoyPreview();
+
+      if (presetKey === "custom" && calEl) {
+        calEl.focus();
+        calEl.select();
+      }
+    }
+
+    function updateDecoyPreview() {
+      const calName = (document.getElementById("decoyCalNameInput")?.value || "").trim() || "Mobile Directory Sync";
+      const title = (document.getElementById("decoyTitleInput")?.value || "").trim() || "📅 Event Scheduled";
+      const loc = (document.getElementById("decoyLocationInput")?.value || "").trim() || "System Services";
+      const dateVal = document.getElementById("decoyDateInput")?.value;
+      const memo = (document.getElementById("decoyMemoInput")?.value || "").trim() || "Event synchronization active.";
+
+      let formattedDate = "Upcoming";
+      if (dateVal) {
+        try {
+          const parts = dateVal.split('-');
+          const d = new Date(parts[0], parts[1] - 1, parts[2]);
+          formattedDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+        } catch (e) {}
+      }
+
+      const pCal = document.getElementById("previewDecoyCalName");
+      const pTitle = document.getElementById("previewDecoyTitle");
+      const pMeta = document.getElementById("previewDecoyMeta");
+      const pMemo = document.getElementById("previewDecoyMemo");
+
+      if (pCal) pCal.textContent = calName;
+      if (pTitle) pTitle.textContent = title;
+      if (pMeta) pMeta.textContent = `📍 ${loc} • ${formattedDate}`;
+      if (pMemo) pMemo.textContent = `"${memo}"`;
+    }
+
+    // Attach decoy listeners on DOMContentLoaded
+    window.addEventListener("DOMContentLoaded", () => {
+      const decoySelect = document.getElementById("decoyPresetSelect");
+      if (decoySelect) {
+        decoySelect.addEventListener("change", (e) => applyDecoyPreset(e.target.value));
+      }
+
+      ["decoyCalNameInput", "decoyTitleInput", "decoyLocationInput", "decoyDateInput", "decoyMemoInput"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("input", updateDecoyPreview);
+          el.addEventListener("change", updateDecoyPreview);
+        }
+      });
+
+      // Initial populate
+      applyDecoyPreset("directory");
+    });
 
     // Category styling helper
     function getCategoryClass(cat) {
@@ -1593,33 +1899,12 @@ ABSOLUTE RULES:
       const quirks = document.getElementById("targetQuirks").value.trim();
       const delayDays = parseInt(document.getElementById("delaySelect").value);
 
-      // Get Trojan Bait configuration
-      const decoyPreset = document.getElementById("decoyPresetSelect").value;
-      let decoyCalName = "Mobile Directory Sync";
-      let decoyTitle = "📱 Enterprise Directory Verification (Active)";
-      let decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.";
-
-      if (decoyPreset === "babyshower") {
-        decoyCalName = "Sophia's Baby Shower & Registry Updates";
-        decoyTitle = "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)";
-        decoyMemo = "Venue: Oak Ridge Pavilion. Registry items syncing to device.";
-      } else if (decoyPreset === "wedding") {
-        decoyCalName = "Wedding Itinerary & Rehearsal Schedule";
-        decoyTitle = "💍 Wedding Rehearsal Dinner & Ceremony";
-        decoyMemo = "Formal wedding weekend itinerary syncing to device.";
-      } else if (decoyPreset === "fantasy") {
-        decoyCalName = "2026 Fantasy League Draft & Matchups";
-        decoyTitle = "🏈 League Draft Party & Week 1 Kickoff";
-        decoyMemo = "League matchups and waiver wire deadlines syncing.";
-      } else if (decoyPreset === "holidays") {
-        decoyCalName = "Corporate Holidays & Office Closures";
-        decoyTitle = "🎄 Corporate Office Closed - Floating Holiday";
-        decoyMemo = "Official company holiday and office closure calendar.";
-      } else if (decoyPreset === "custom") {
-        decoyCalName = document.getElementById("customDecoyCalName").value.trim() || "Event Schedule Sync";
-        decoyTitle = document.getElementById("customDecoyTitle").value.trim() || "📅 Scheduled Event Verification";
-        decoyMemo = document.getElementById("customDecoyMemo").value.trim() || "Automated event synchronization active.";
-      }
+      // Get customized Trojan Bait configuration directly from inputs
+      const decoyCalName = (document.getElementById("decoyCalNameInput")?.value || "").trim() || "Mobile Directory Sync";
+      const decoyTitle = (document.getElementById("decoyTitleInput")?.value || "").trim() || "📱 Enterprise Directory Verification (Active)";
+      const decoyLocation = (document.getElementById("decoyLocationInput")?.value || "").trim() || "";
+      const decoyDate = document.getElementById("decoyDateInput")?.value || null;
+      const decoyMemo = (document.getElementById("decoyMemoInput")?.value || "").trim() || "Routine periodic sync active.";
 
       const armBtn = plan === "physical_card" ? document.getElementById("btnArmCard") : document.getElementById("btnArmDigital");
       const originalText = armBtn ? armBtn.innerHTML : "";
@@ -1642,7 +1927,9 @@ ABSOLUTE RULES:
             events: generatedEvents,
             decoyCalName,
             decoyTitle,
+            decoyLocation,
             decoyMemo,
+            decoyDate,
           })
         });
 
@@ -1664,6 +1951,9 @@ ABSOLUTE RULES:
             name: name,
             decoyCalName: decoyCalName,
             decoyTitle: decoyTitle,
+            decoyLocation: decoyLocation,
+            decoyMemo: decoyMemo,
+            decoyDate: decoyDate,
             createdAt: Date.now(),
             webcalUrl: campData.webcalUrl,
             httpUrl: campData.httpUrl

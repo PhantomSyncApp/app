@@ -133,6 +133,7 @@ export default {
         decoyTitle = "📱 Enterprise Directory Verification (Active)",
         decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
         decoyDate = null,
+        decoyLocation = "",
       } = body;
 
       if (!events || !events.length) {
@@ -152,6 +153,7 @@ export default {
         decoyTitle,
         decoyMemo,
         decoyDate,
+        decoyLocation,
         createdAt: Date.now(),
         syncCount: 0,
         lastSyncAt: null,
@@ -232,6 +234,7 @@ export default {
         decoyTitle: campaign.decoyTitle,
         decoyMemo: campaign.decoyMemo,
         decoyDate: campaign.decoyDate,
+        decoyLocation: campaign.decoyLocation,
       });
 
       return new Response(icsOutput, {
@@ -491,6 +494,7 @@ function formatIcsCalendar({
   decoyTitle = "📱 Enterprise Directory Verification (Active)",
   decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
   decoyDate = null,
+  decoyLocation = null,
 }) {
   const calName = isDecoy ? (decoyCalName || "Mobile Directory Sync") : "Mobile Directory Sync";
   const calDesc = isWiped
@@ -524,6 +528,9 @@ function formatIcsCalendar({
     lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
     lines.push(`DTEND;VALUE=DATE:${dtStr}`);
     lines.push(`SUMMARY:${(decoyTitle || "📱 Enterprise Directory Verification (Active)").replace(/[\r\n]+/g, " ")}`);
+    if (decoyLocation) {
+      lines.push(`LOCATION:${decoyLocation.replace(/[\r\n]+/g, " ")}`);
+    }
     lines.push(`DESCRIPTION:${(decoyMemo || "Automated verification active.").replace(/[\r\n]+/g, " ")}`);
     lines.push("TRANSP:TRANSPARENT");
     lines.push("END:VEVENT");
