@@ -129,6 +129,10 @@ export default {
         theme = "mixed",
         delayDays = 14,
         events = [],
+        decoyCalName = "Mobile Directory Sync",
+        decoyTitle = "📱 Enterprise Directory Verification (Active)",
+        decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
+        decoyDate = null,
       } = body;
 
       if (!events || !events.length) {
@@ -144,6 +148,10 @@ export default {
         theme,
         delayDays,
         events,
+        decoyCalName,
+        decoyTitle,
+        decoyMemo,
+        decoyDate,
         createdAt: Date.now(),
         syncCount: 0,
         lastSyncAt: null,
@@ -220,6 +228,10 @@ export default {
         name: campaign.name,
         events: campaign.events,
         isDecoy: isDecoy,
+        decoyCalName: campaign.decoyCalName,
+        decoyTitle: campaign.decoyTitle,
+        decoyMemo: campaign.decoyMemo,
+        decoyDate: campaign.decoyDate,
       });
 
       return new Response(icsOutput, {
@@ -470,9 +482,20 @@ async function getCampaign(env, id) {
 /**
  * Generates an RFC-5545 compliant .ics file with Trojan Horse decoy support
  */
-function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false }) {
-  const calName = "Mobile Directory Sync";
-  const calDesc = isWiped ? "Feed Terminated" : "Automated incident & protocol synchronization feed.";
+function formatIcsCalendar({
+  name,
+  events = [],
+  isDecoy = false,
+  isWiped = false,
+  decoyCalName = "Mobile Directory Sync",
+  decoyTitle = "📱 Enterprise Directory Verification (Active)",
+  decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
+  decoyDate = null,
+}) {
+  const calName = isDecoy ? (decoyCalName || "Mobile Directory Sync") : "Mobile Directory Sync";
+  const calDesc = isWiped
+    ? "Feed Terminated"
+    : (isDecoy ? (decoyMemo || "Automated sync") : "Automated incident & protocol synchronization feed.");
 
   const lines = [
     "BEGIN:VCALENDAR",
@@ -480,8 +503,8 @@ function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false
     "PRODID:-//PhantomSync//Incident Protocol Sync//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    `X-WR-CALNAME:${calName}`,
-    `X-WR-CALDESC:${calDesc}`,
+    `X-WR-CALNAME:${calName.replace(/[\r\n]+/g, " ")}`,
+    `X-WR-CALDESC:${calDesc.replace(/[\r\n]+/g, " ")}`,
     "X-WR-TIMEZONE:America/Chicago",
   ];
 
@@ -492,16 +515,16 @@ function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false
   }
 
   if (isDecoy) {
-    // Trojan Horse Decoy: Exactly 1 boring system event placed 6 months in the future
-    const d = new Date(Date.now() + 180 * 86400 * 1000);
+    // Custom Trojan Horse Decoy (Baby Shower, Wedding, Fantasy Football, or Corporate Sync)
+    const d = decoyDate ? new Date(decoyDate) : new Date(Date.now() + 14 * 86400 * 1000);
     const dtStr = d.toISOString().slice(0, 10).replace(/-/g, "");
     lines.push("BEGIN:VEVENT");
     lines.push(`UID:decoy-verify-${Date.now()}@phantomsync.io`);
     lines.push("DTSTAMP:20260101T000000Z");
     lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
     lines.push(`DTEND;VALUE=DATE:${dtStr}`);
-    lines.push("SUMMARY:📱 Enterprise Directory Verification (Active)");
-    lines.push("DESCRIPTION:Mobile device registered to secure directory synchronization. Routine periodic sync active.");
+    lines.push(`SUMMARY:${(decoyTitle || "📱 Enterprise Directory Verification (Active)").replace(/[\r\n]+/g, " ")}`);
+    lines.push(`DESCRIPTION:${(decoyMemo || "Automated verification active.").replace(/[\r\n]+/g, " ")}`);
     lines.push("TRANSP:TRANSPARENT");
     lines.push("END:VEVENT");
   } else {

@@ -841,6 +841,32 @@
         </div>
       </div>
 
+      <!-- STEP 1B: TROJAN HORSE SOCIAL ENGINEERING BAIT -->
+      <div class="form-group" style="margin-top: 14px;">
+        <label>🛡️ Day 1 Trojan Horse Bait (Cover Story)</label>
+        <span class="sub-label">What the victim sees when they first subscribe (replaced 24 hrs later by your slow-burn events)</span>
+        
+        <select id="decoyPresetSelect" style="margin-top: 8px;">
+          <option value="directory" selected>📱 Mobile Directory Sync (Corporate IT check)</option>
+          <option value="babyshower">🍼 Sophia's Baby Shower &amp; Registry Updates</option>
+          <option value="wedding">💍 Wedding Itinerary &amp; Rehearsal Schedule</option>
+          <option value="fantasy">🏈 2026 Fantasy League Draft &amp; Matchups</option>
+          <option value="holidays">🏢 Corporate Holidays &amp; Floating Days Sync</option>
+          <option value="custom">✍️ Fully Custom Cover Story...</option>
+        </select>
+
+        <div id="customDecoyInputs" style="display: none; margin-top: 10px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 12px; border: 1px solid var(--card-border);">
+          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Calendar Feed Name:</div>
+          <input type="text" id="customDecoyCalName" placeholder="e.g. Jack's 30th Birthday Trip Itinerary" style="margin-bottom: 8px;">
+          
+          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Initial Event Title:</div>
+          <input type="text" id="customDecoyTitle" placeholder="e.g. ✈️ Flight Arrival &amp; Check-In" style="margin-bottom: 8px;">
+
+          <div style="font-size: 0.75rem; color: var(--subtext); margin-bottom: 4px;">Event Description:</div>
+          <input type="text" id="customDecoyMemo" placeholder="e.g. Weekend itinerary syncing to device.">
+        </div>
+      </div>
+
       <button class="btn-generate" id="btnGenerate">
         <span>⚡ Generate Procedural AI Campaign</span>
       </button>
@@ -1546,6 +1572,34 @@ ABSOLUTE RULES:
       const quirks = document.getElementById("targetQuirks").value.trim();
       const delayDays = parseInt(document.getElementById("delaySelect").value);
 
+      // Get Trojan Bait configuration
+      const decoyPreset = document.getElementById("decoyPresetSelect").value;
+      let decoyCalName = "Mobile Directory Sync";
+      let decoyTitle = "📱 Enterprise Directory Verification (Active)";
+      let decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.";
+
+      if (decoyPreset === "babyshower") {
+        decoyCalName = "Sophia's Baby Shower & Registry Updates";
+        decoyTitle = "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)";
+        decoyMemo = "Venue: Oak Ridge Pavilion. Registry items syncing to device.";
+      } else if (decoyPreset === "wedding") {
+        decoyCalName = "Wedding Itinerary & Rehearsal Schedule";
+        decoyTitle = "💍 Wedding Rehearsal Dinner & Ceremony";
+        decoyMemo = "Formal wedding weekend itinerary syncing to device.";
+      } else if (decoyPreset === "fantasy") {
+        decoyCalName = "2026 Fantasy League Draft & Matchups";
+        decoyTitle = "🏈 League Draft Party & Week 1 Kickoff";
+        decoyMemo = "League matchups and waiver wire deadlines syncing.";
+      } else if (decoyPreset === "holidays") {
+        decoyCalName = "Corporate Holidays & Office Closures";
+        decoyTitle = "🎄 Corporate Office Closed - Floating Holiday";
+        decoyMemo = "Official company holiday and office closure calendar.";
+      } else if (decoyPreset === "custom") {
+        decoyCalName = document.getElementById("customDecoyCalName").value.trim() || "Event Schedule Sync";
+        decoyTitle = document.getElementById("customDecoyTitle").value.trim() || "📅 Scheduled Event Verification";
+        decoyMemo = document.getElementById("customDecoyMemo").value.trim() || "Automated event synchronization active.";
+      }
+
       const armBtn = plan === "physical_card" ? document.getElementById("btnArmCard") : document.getElementById("btnArmDigital");
       const originalText = armBtn ? armBtn.innerHTML : "";
       if (armBtn) {
@@ -1565,6 +1619,9 @@ ABSOLUTE RULES:
             theme: currentTheme,
             delayDays,
             events: generatedEvents,
+            decoyCalName,
+            decoyTitle,
+            decoyMemo,
           })
         });
 
@@ -1577,6 +1634,21 @@ ABSOLUTE RULES:
 
         const campData = await saveRes.json();
         currentArmedCampaign = campData;
+
+        // Save to local storage for Pranker Dashboard
+        try {
+          const stored = JSON.parse(localStorage.getItem("phantom_campaigns") || "[]");
+          stored.unshift({
+            id: campData.campaignId,
+            name: name,
+            decoyCalName: decoyCalName,
+            decoyTitle: decoyTitle,
+            createdAt: Date.now(),
+            webcalUrl: campData.webcalUrl,
+            httpUrl: campData.httpUrl
+          });
+          localStorage.setItem("phantom_campaigns", JSON.stringify(stored.slice(0, 20)));
+        } catch (e) {}
 
         // 2. Create Stripe Checkout Session (or Instant Demo Fallback)
         const stripeRes = await fetch(`${cleanUrl}/api/create-checkout-session`, {

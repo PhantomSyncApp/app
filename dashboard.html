@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pranker Mission Control &bull; PhantomSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a13;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(255, 255, 255, 0.09);
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.3);
+      --purple: #8b5cf6;
+      --rose: #f43f5e;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #151d38 0%, var(--bg) 75%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 80px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .nav-links a {
+      color: var(--subtext);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-left: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .header-box {
+      margin-bottom: 28px;
+    }
+
+    .header-title {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .header-sub {
+      color: var(--subtext);
+      font-size: 0.9rem;
+    }
+
+    /* Track manual input card */
+    .track-input-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .track-input {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .btn-track {
+      background: var(--cyan);
+      color: #080c14;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-track:hover {
+      background: #22d3ee;
+      box-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    /* Campaign Card */
+    .campaign-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s;
+    }
+
+    .campaign-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .target-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .cid-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--subtext);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .status-decoy {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+
+    .status-live {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .status-killed {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: #fb7185;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 550px) {
+      .telemetry-grid { grid-template-columns: 1fr; }
+    }
+
+    .telem-label {
+      font-size: 0.72rem;
+      color: var(--subtext);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .telem-val {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    /* Actions */
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-action-primary {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.4);
+      color: #67e8f9;
+    }
+
+    .btn-action-primary:hover {
+      background: rgba(6, 182, 212, 0.25);
+    }
+
+    .btn-kill {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #fb7185;
+      margin-left: auto;
+    }
+
+    .btn-kill:hover {
+      background: rgba(244, 63, 94, 0.25);
+    }
+
+    /* Reaction Notes Area */
+    .notes-box {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 14px;
+    }
+
+    .notes-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--subtext);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .notes-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      resize: vertical;
+      min-height: 50px;
+      outline: none;
+    }
+
+    .notes-textarea:focus {
+      border-color: var(--cyan);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--card-bg);
+      border: 1px dashed var(--card-border);
+      border-radius: var(--radius);
+    }
+
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <nav>
+      <a href="index.html" class="brand-logo">
+        <div class="brand-dot"></div>
+        <span>PhantomSync</span>
+      </a>
+      <div class="nav-links">
+        <a href="phantomsync_studio.html">⚡ New Campaign</a>
+        <a href="index.html">Home</a>
+      </div>
+    </nav>
+
+    <div class="header-box">
+      <h1 class="header-title">🕵️ Pranker Mission Control</h1>
+      <p class="header-sub">Track your active slow-burn victims, monitor device telemetry, toggle Trojan decoys, and manage remote kill switches.</p>
+    </div>
+
+    <!-- Manual ID Tracker -->
+    <div class="track-input-card">
+      <input type="text" id="inputTrackCid" class="track-input" placeholder="Paste a Campaign ID to track (e.g. ps_2qo5mu6k)...">
+      <button type="button" id="btnTrackCid" class="btn-track">Track Campaign</button>
+    </div>
+
+    <!-- Campaign Feed Container -->
+    <div id="campaignList">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    const CLOUDFLARE_WORKER_URL = "https://phantomsync-api.jessiewayne430.workers.dev";
+
+    // Load campaigns from local storage or URL query
+    function getStoredCampaigns() {
+      try {
+        return JSON.parse(localStorage.getItem("phantom_campaigns") || "[]");
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredCampaigns(camps) {
+      localStorage.setItem("phantom_campaigns", JSON.stringify(camps.slice(0, 30)));
+    }
+
+    async function fetchCampaignStatus(cid) {
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+      const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/status`);
+      if (!res.ok) return null;
+      return await res.json();
+    }
+
+    async function renderDashboard() {
+      const container = document.getElementById("campaignList");
+      container.innerHTML = "";
+
+      const campaigns = getStoredCampaigns();
+
+      // Check if URL has ?cid=
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlCid = urlParams.get("cid");
+      if (urlCid && !campaigns.some(c => c.id === urlCid)) {
+        campaigns.unshift({ id: urlCid, name: "Target", createdAt: Date.now() });
+        saveStoredCampaigns(campaigns);
+      }
+
+      if (!campaigns.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🎯</div>
+            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:6px;">No Active Campaigns Tracked</h3>
+            <p style="color:var(--subtext); font-size:0.85rem; margin-bottom:18px;">
+              You haven't armed any slow-burn campaigns from this browser yet.
+            </p>
+            <a href="phantomsync_studio.html" class="btn-track" style="text-decoration:none; display:inline-block;">
+              ⚡ Launch a Campaign in Studio
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      for (const camp of campaigns) {
+        const card = document.createElement("div");
+        card.className = "campaign-card";
+        card.id = `card-${camp.id}`;
+
+        card.innerHTML = `
+          <div class="campaign-header">
+            <div>
+              <div class="target-name">${camp.name || "Target"}</div>
+              <div class="cid-pill">ID: ${camp.id}</div>
+            </div>
+            <div id="statusBadge-${camp.id}" class="status-badge status-decoy">
+              ⏳ Fetching Telemetry...
+            </div>
+          </div>
+
+          <div class="telemetry-grid">
+            <div>
+              <div class="telem-label">Subscriber Device</div>
+              <div class="telem-val" id="telemDevice-${camp.id}" style="font-size:0.82rem; color:#38bdf8;">Waiting...</div>
+            </div>
+            <div>
+              <div class="telem-label">Total Sync Checks</div>
+              <div class="telem-val" id="telemSyncs-${camp.id}">0</div>
+            </div>
+            <div>
+              <div class="telem-label">Last Device Check</div>
+              <div class="telem-val" id="telemLastCheck-${camp.id}" style="font-size:0.82rem;">Never</div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-action btn-action-primary" onclick="copyFeedUrl('${camp.id}', this)">
+              📋 Copy WebCal Feed
+            </button>
+            <button class="btn-action" onclick="toggleDecoy('${camp.id}', this)" id="btnToggleDecoy-${camp.id}">
+              ⚡ Bypass Decoy
+            </button>
+            <a class="btn-action" href="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent('webcal://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
+              📱 View QR Code
+            </a>
+            <button class="btn-action btn-kill" onclick="engageKillSwitch('${camp.id}', this)">
+              🚨 Kill Switch
+            </button>
+          </div>
+
+          <div class="notes-box">
+            <div class="notes-label">
+              <span>📝 Victim Reaction Notes</span>
+              <span id="savedIndicator-${camp.id}" style="color:#10b981; display:none;">Autosaved</span>
+            </div>
+            <textarea class="notes-textarea" placeholder="Log Jared's funny reactions, text messages, or questions here..." oninput="saveReactionNote('${camp.id}', this.value)">${getReactionNote(camp.id)}</textarea>
+          </div>
+        `;
+
+        container.appendChild(card);
+        updateCardTelemetry(camp.id);
+      }
+    }
+
+    async function updateCardTelemetry(cid) {
+      const data = await fetchCampaignStatus(cid);
+      if (!data || !data.success) return;
+
+      const badge = document.getElementById(`statusBadge-${cid}`);
+      const telemDevice = document.getElementById(`telemDevice-${cid}`);
+      const telemSyncs = document.getElementById(`telemSyncs-${cid}`);
+      const telemLast = document.getElementById(`telemLastCheck-${cid}`);
+      const toggleBtn = document.getElementById(`btnToggleDecoy-${cid}`);
+
+      telemSyncs.textContent = data.syncCount;
+
+      if (data.killSwitch) {
+        badge.className = "status-badge status-killed";
+        badge.innerHTML = "🚨 Feed Terminated (Kill Switch)";
+      } else if (data.isDecoy) {
+        badge.className = "status-badge status-decoy";
+        badge.innerHTML = `🛡️ ${data.trojanPhase || 'Decoy Active'}`;
+      } else {
+        badge.className = "status-badge status-live";
+        badge.innerHTML = "⚡ 100-Event Payload Armed";
+      }
+
+      if (data.syncCount > 0) {
+        telemDevice.textContent = data.lastUserAgent ? data.lastUserAgent.split(' ')[0] : "Apple Calendar";
+        telemLast.textContent = new Date(data.lastSyncAt).toLocaleTimeString();
+      } else {
+        telemDevice.textContent = "Waiting for initial tap...";
+      }
+
+      if (toggleBtn) {
+        toggleBtn.textContent = data.isDecoy ? "⚡ Bypass Decoy" : "🛡️ Re-enable Decoy";
+      }
+    }
+
+    async function toggleDecoy(cid, btnEl) {
+      btnEl.disabled = true;
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+      try {
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/toggle-decoy`, { method: "POST" });
+        const data = await res.json();
+        if (data.success) {
+          updateCardTelemetry(cid);
+        }
+      } catch (e) {
+        alert("Toggle error: " + e.message);
+      } finally {
+        btnEl.disabled = false;
+      }
+    }
+
+    async function engageKillSwitch(cid, btnEl) {
+      if (!confirm("Are you sure you want to engage the Emergency Kill Switch? This will wipe all events from the victim's phone immediately!")) {
+        return;
+      }
+      btnEl.disabled = true;
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+      try {
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/kill-switch`, { method: "POST" });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          updateCardTelemetry(cid);
+        }
+      } catch (e) {
+        alert("Kill switch error: " + e.message);
+      } finally {
+        btnEl.disabled = false;
+      }
+    }
+
+    function copyFeedUrl(cid, btnEl) {
+      const url = `webcal://${new URL(CLOUDFLARE_WORKER_URL).host}/cal/${cid}.ics`;
+      navigator.clipboard.writeText(url).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied Feed!";
+        setTimeout(() => btnEl.textContent = old, 2000);
+      });
+    }
+
+    function getReactionNote(cid) {
+      return localStorage.getItem(`note_${cid}`) || "";
+    }
+
+    function saveReactionNote(cid, text) {
+      localStorage.setItem(`note_${cid}`, text);
+      const ind = document.getElementById(`savedIndicator-${cid}`);
+      if (ind) {
+        ind.style.display = "inline";
+        clearTimeout(ind._timer);
+        ind._timer = setTimeout(() => ind.style.display = "none", 1500);
+      }
+    }
+
+    // Track manually
+    document.getElementById("btnTrackCid").addEventListener("click", () => {
+      const input = document.getElementById("inputTrackCid").value.trim();
+      if (!input) return;
+      const clean = input.replace(/^ps_/, "");
+      const fullCid = clean.startsWith("ps_") ? clean : `ps_${clean}`;
+
+      const camps = getStoredCampaigns();
+      if (!camps.some(c => c.id === fullCid)) {
+        camps.unshift({ id: fullCid, name: "Tracked Target", createdAt: Date.now() });
+        saveStoredCampaigns(camps);
+      }
+      document.getElementById("inputTrackCid").value = "";
+      renderDashboard();
+    });
+
+    renderDashboard();
+  </script>
+</body>
+</html>
