@@ -1701,7 +1701,7 @@ ABSOLUTE RULES:
     });
 
     // Toggle Bypass Decoy (Force 100 Events)
-    document.getElementById("btnToggleForceLive").addEventListener("click", function() {
+    document.getElementById("btnToggleForceLive").addEventListener("click", async function() {
       isForceLiveActive = !isForceLiveActive;
       const banner = document.getElementById("trojanStatusCard");
       const title = document.getElementById("trojanPhaseTitle");
@@ -1714,7 +1714,7 @@ ABSOLUTE RULES:
         banner.style.borderColor = "#10b981";
         title.textContent = "⚡ Test Mode Active: Full 100-Event Payload Exposed";
         title.style.color = "#34d399";
-        desc.innerHTML = "Anyone subscribing with this URL will immediately receive all 100 events for testing.";
+        desc.innerHTML = "Server-side bypass engaged! All 100 events will now be served to any device refreshing this calendar. <em>(On your iPhone, open Calendar > tap Calendars at bottom > pull down to refresh!)</em>";
       } else {
         this.textContent = "⚡ Bypass Decoy (Force 100 Events)";
         banner.className = "trojan-status-card decoy-active";
@@ -1727,6 +1727,14 @@ ABSOLUTE RULES:
 
       if (currentArmedCampaign) {
         updateMissionUrls(currentArmedCampaign.webcalUrl, currentArmedCampaign.httpUrl);
+
+        // Tell Cloudflare Worker to permanently toggle forceLive for this campaign
+        try {
+          const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+          await fetch(`${cleanUrl}/api/campaigns/${currentArmedCampaign.campaignId}/toggle-decoy`, { method: "POST" });
+        } catch (e) {
+          console.warn("Toggle decoy server notify:", e);
+        }
       }
     });
 

