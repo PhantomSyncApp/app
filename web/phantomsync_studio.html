@@ -645,6 +645,111 @@
       background: #34d399;
       transform: translateY(-1px);
     }
+
+    /* Mission Control Section */
+    .mission-control-panel {
+      display: none;
+      margin-top: 24px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 182, 212, 0.08));
+      border: 1px solid var(--cyan);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 0 30px var(--cyan-glow);
+    }
+
+    .mission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .trojan-status-card {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 18px;
+    }
+
+    .trojan-status-card.decoy-active {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .qr-container {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .qr-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 10px;
+      background: white;
+      padding: 6px;
+    }
+
+    .link-copy-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .link-copy-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 9px 12px;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-kill-switch {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.45);
+      color: #fb7185;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      margin-top: 14px;
+    }
+
+    .btn-kill-switch:hover {
+      background: rgba(244, 63, 94, 0.3);
+      box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -787,53 +892,115 @@
               <ul class="plan-features">
                 <li>✅ Live instant <code>webcal://</code> link</li>
                 <li>✅ Works on iPhone & Android</li>
+                <li>✅ <strong>24-Hour Trojan Horse Decoy</strong> (Zero suspicion)</li>
                 <li>✅ High-res dynamic QR code</li>
                 <li>✅ Live Mission Control Telemetry</li>
                 <li>✅ Remote Emergency Kill Switch</li>
               </ul>
             </div>
-            <button class="btn-buy btn-digital" onclick="alert('In production, this opens Stripe Checkout ($4.99) and generates a unique private slug!')">
+            <button class="btn-buy btn-digital" id="btnArmDigital">
               ⚡ Arm Digital Pass ($4.99)
             </button>
           </div>
 
-          <!-- Physical Luxury Card -->
+          <!-- Physical Stealth NFC Card -->
           <div class="pricing-card featured">
-            <div class="featured-tag">Best Value</div>
+            <div class="featured-tag">Physical Tap Card</div>
             <div>
               <div class="plan-name">Matte-Black NFC Card</div>
-              <div class="plan-price">$29.00 <span>shipped</span></div>
+              <div class="plan-price">$14.99 <span>shipped</span></div>
               <ul class="plan-features">
-                <li>✨ <strong>Luxury Matte-Black NFC Card</strong></li>
-                <li>✨ Tap to target's phone to arm instantly</li>
-                <li>✨ Pre-programmed to your custom campaign</li>
-                <li>✨ Includes Digital Pass ($4.99 value) FREE</li>
-                <li>✨ Re-usable for future victims anytime</li>
+                <li>✨ <strong>Discrete Matte-Black NFC Tap Card</strong></li>
+                <li>✨ Dispatched with 100% discrete exterior</li>
+                <li>✨ Pre-programmed to your target's Trojan Horse URL</li>
+                <li>✨ One tap to victim's phone subscribes them</li>
+                <li>✨ Includes Digital Pass + Mission Control FREE</li>
               </ul>
             </div>
-            <button class="btn-buy btn-card" onclick="alert('In production, this opens Stripe Checkout ($29.00) with shipping address form!')">
-              💳 Get Physical NFC Card ($29)
+            <button class="btn-buy btn-card" id="btnArmCard">
+              💳 Get NFC Stealth Card ($14.99)
             </button>
           </div>
         </div>
 
-        <!-- Working Local / Free Live Test Feed -->
+        <!-- Free Instant Test Drive Bar -->
         <div class="demo-arm-bar">
           <div style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0; margin-bottom: 4px;">
-            🧪 Test Drive Live Subscription & Custom Export
+            🧪 Test Drive Live Trojan Horse Feed & Mission Control
           </div>
           <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px;">
-            Export your generated campaign or test the active live slow-burn feed:
+            Arm the dynamic live feed instantly to test on your own phone or verify before purchasing:
           </div>
-          <button class="btn-test-feed" id="btnExportCustomIcs" style="background:#8b5cf6; color:white; border:none; cursor:pointer;">
-            📥 Download Custom .ics
+          <button class="btn-test-feed" id="btnInstantArmDemo" style="background:#06b6d4; color:#080c14; border:none; cursor:pointer;">
+            ⚡ Arm Free Test Feed & QR Code
           </button>
-          <a class="btn-test-feed" href="presets/jessie_mitchell_birthdays.ics">
-            📲 Test Live Device Feed
-          </a>
-          <a class="btn-test-feed" href="timeline.html" style="background:#0ea5e9; color:#032030;">
-            🕵️ Live Mission Control
-          </a>
+          <button class="btn-test-feed" id="btnExportCustomIcs" style="background:#8b5cf6; color:white; border:none; cursor:pointer;">
+            📥 Download .ics File
+          </button>
+        </div>
+
+        <!-- ARMED MISSION CONTROL DASHBOARD -->
+        <div class="mission-control-panel" id="missionControlPanel">
+          <div class="mission-header">
+            <div>
+              <span class="badge" style="background:rgba(6,182,212,0.2); color:#67e8f9; font-weight:800; font-size:0.75rem;">🚀 FEED ARMED</span>
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-top: 4px;" id="missionTargetTitle">Mobile Directory Sync</h3>
+            </div>
+            <div id="missionCampaignIdBadge" style="font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--subtext);">ID: ps_live</div>
+          </div>
+
+          <!-- Trojan Horse Status Banner -->
+          <div class="trojan-status-card decoy-active" id="trojanStatusCard">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <strong style="color:#fbbf24; font-size:0.9rem;" id="trojanPhaseTitle">🛡️ Phase 1: Decoy Active (24-Hour Stealth Shield)</strong>
+                <p style="font-size:0.78rem; color:#cbd5e1; margin-top:3px;" id="trojanPhaseDesc">
+                  If the target subscribes right now, their phone will only see <strong>1 innocent routine system verification event</strong>. Tonight, the 100 slow-burn events will silently drop in!
+                </p>
+              </div>
+              <button type="button" class="btn-copy" id="btnToggleForceLive" style="background:rgba(245,158,11,0.2); border-color:#f59e0b; color:#fde68a;">
+                ⚡ Bypass Decoy (Force 100 Events)
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Subscription URLs & QR -->
+          <div class="qr-container">
+            <img id="missionQrImage" class="qr-image" src="" alt="Dynamic QR Code">
+            <div style="flex:1; min-width:240px;">
+              <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px; color:white;">
+                📲 Victim Deployment Links:
+              </div>
+
+              <div style="font-size:0.72rem; color:var(--subtext); margin-bottom:4px;">Direct iPhone Tap / WebCal URL:</div>
+              <div class="link-copy-box">
+                <input type="text" class="link-copy-input" id="inputWebcalUrl" readonly>
+                <button type="button" class="btn-copy" id="btnCopyWebcal">Copy</button>
+              </div>
+
+              <div style="font-size:0.72rem; color:var(--subtext); margin-bottom:4px;">Google Calendar / Android / Outlook HTTP URL:</div>
+              <div class="link-copy-box">
+                <input type="text" class="link-copy-input" id="inputHttpUrl" readonly>
+                <button type="button" class="btn-copy" id="btnCopyHttp">Copy</button>
+              </div>
+
+              <a class="btn-test-feed" id="btnOneTapApple" href="#" style="background:var(--cyan); color:#080c14; font-weight:800; font-size:0.8rem; margin:0; width:100%; justify-content:center;">
+                📲 Subscribe on This Device Now
+              </a>
+            </div>
+          </div>
+
+          <!-- Live Telemetry Status -->
+          <div style="background:rgba(0,0,0,0.25); border-radius:10px; padding:12px 14px; font-size:0.78rem; color:#94a3b8; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+            <div>📶 <strong>Telemetry:</strong> <span id="telemetryStatus" style="color:#34d399;">Ready for Initial Tap</span></div>
+            <div>🔄 <strong>Background Syncs:</strong> <span id="telemetrySyncCount" style="color:white;">0</span></div>
+            <div>🕒 <strong>Last Check-in:</strong> <span id="telemetryLastCheck" style="color:white;">Waiting...</span></div>
+          </div>
+
+          <!-- Emergency Kill Switch -->
+          <button type="button" class="btn-kill-switch" id="btnEmergencyKillSwitch">
+            🚨 Activate Remote Kill Switch (Wipe Target's Feed)
+          </button>
         </div>
       </div>
     </div>
@@ -1360,6 +1527,237 @@ ABSOLUTE RULES:
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    });
+
+    // ==========================================
+    // TROJAN HORSE & STRIPE MONETIZATION ENGINE
+    // ==========================================
+    let currentArmedCampaign = null;
+    let isForceLiveActive = false;
+    let telemetryPollInterval = null;
+
+    async function armCampaignDeployment(plan = "digital") {
+      if (!generatedEvents || !generatedEvents.length) {
+        alert("Please generate a timeline in Step 1 first!");
+        return;
+      }
+
+      const name = document.getElementById("targetName").value.trim() || "Target";
+      const quirks = document.getElementById("targetQuirks").value.trim();
+      const delayDays = parseInt(document.getElementById("delaySelect").value);
+
+      const armBtn = plan === "physical_card" ? document.getElementById("btnArmCard") : document.getElementById("btnArmDigital");
+      const originalText = armBtn ? armBtn.innerHTML : "";
+      if (armBtn) {
+        armBtn.disabled = true;
+        armBtn.innerHTML = `<span>⏳ Arming Campaign...</span>`;
+      }
+
+      try {
+        // 1. Save campaign payload to Cloudflare Worker
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const saveRes = await fetch(`${cleanUrl}/api/campaigns`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            quirks,
+            theme: currentTheme,
+            delayDays,
+            events: generatedEvents,
+          })
+        });
+
+        if (!saveRes.ok) {
+          throw new Error(`Failed to save campaign: ${await saveRes.text()}`);
+        }
+
+        const campData = await saveRes.json();
+        currentArmedCampaign = campData;
+
+        // 2. Create Stripe Checkout Session (or Instant Demo Fallback)
+        const stripeRes = await fetch(`${cleanUrl}/api/create-checkout-session`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            plan,
+            campaignId: campData.campaignId,
+            successUrl: `${window.location.origin}${window.location.pathname}?armed=1&cid=${campData.campaignId}`,
+            cancelUrl: window.location.href,
+          })
+        });
+
+        const checkoutData = await stripeRes.json();
+
+        if (checkoutData.url) {
+          // Live Stripe Checkout URL returned: redirect user
+          window.location.href = checkoutData.url;
+          return;
+        }
+
+        // Demo Mode / Free Arming: Open Mission Control right on the page
+        displayArmedMissionControl(campData, name);
+
+      } catch (err) {
+        console.error("Arming error:", err);
+        alert(`Arming notification: ${err.message}`);
+      } finally {
+        if (armBtn) {
+          armBtn.disabled = false;
+          armBtn.innerHTML = originalText;
+        }
+      }
+    }
+
+    function displayArmedMissionControl(campData, targetName) {
+      const panel = document.getElementById("missionControlPanel");
+      panel.style.display = "block";
+      document.getElementById("missionTargetTitle").textContent = `Mobile Directory Sync (${targetName})`;
+      document.getElementById("missionCampaignIdBadge").textContent = `ID: ${campData.campaignId}`;
+
+      updateMissionUrls(campData.webcalUrl, campData.httpUrl);
+
+      // Smooth scroll to Mission Control
+      panel.scrollIntoView({ behavior: 'smooth' });
+
+      // Start real-time telemetry polling
+      if (telemetryPollInterval) clearInterval(telemetryPollInterval);
+      telemetryPollInterval = setInterval(() => pollTelemetry(campData.campaignId), 8000);
+      pollTelemetry(campData.campaignId);
+    }
+
+    function updateMissionUrls(webcal, http) {
+      let finalWebcal = webcal;
+      let finalHttp = http;
+
+      if (isForceLiveActive) {
+        finalWebcal += (finalWebcal.includes("?") ? "&" : "?") + "force_live=1";
+        finalHttp += (finalHttp.includes("?") ? "&" : "?") + "force_live=1";
+      }
+
+      document.getElementById("inputWebcalUrl").value = finalWebcal;
+      document.getElementById("inputHttpUrl").value = finalHttp;
+      document.getElementById("btnOneTapApple").href = finalWebcal;
+
+      // Render crisp QR code pointing to final WebCal URL
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=4&data=${encodeURIComponent(finalWebcal)}`;
+      document.getElementById("missionQrImage").src = qrApiUrl;
+    }
+
+    async function pollTelemetry(campaignId) {
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/api/campaigns/${campaignId}/status`);
+        if (!res.ok) return;
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById("telemetrySyncCount").textContent = data.syncCount;
+          if (data.syncCount > 0) {
+            document.getElementById("telemetryStatus").textContent = `Target Subscribed! (${data.lastUserAgent || 'iOS Device'})`;
+            document.getElementById("telemetryStatus").style.color = "#38bdf8";
+            document.getElementById("telemetryLastCheck").textContent = new Date(data.lastSyncAt).toLocaleTimeString();
+          }
+
+          if (data.killSwitch) {
+            document.getElementById("btnEmergencyKillSwitch").textContent = "🚨 Kill Switch ENGAGED (Feed Wiped)";
+            document.getElementById("btnEmergencyKillSwitch").style.background = "#e11d48";
+          }
+        }
+      } catch (e) {
+        // Silent poll fail
+      }
+    }
+
+    // Helper: copy to clipboard
+    function copyText(val, btnEl) {
+      navigator.clipboard.writeText(val).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied!";
+        btnEl.style.background = "var(--cyan)";
+        btnEl.style.color = "#080c14";
+        setTimeout(() => {
+          btnEl.textContent = old;
+          btnEl.style.background = "";
+          btnEl.style.color = "";
+        }, 2000);
+      });
+    }
+
+    // Button Listeners
+    document.getElementById("btnArmDigital").addEventListener("click", () => armCampaignDeployment("digital"));
+    document.getElementById("btnArmCard").addEventListener("click", () => armCampaignDeployment("physical_card"));
+    document.getElementById("btnInstantArmDemo").addEventListener("click", () => armCampaignDeployment("demo"));
+
+    document.getElementById("btnCopyWebcal").addEventListener("click", function() {
+      copyText(document.getElementById("inputWebcalUrl").value, this);
+    });
+
+    document.getElementById("btnCopyHttp").addEventListener("click", function() {
+      copyText(document.getElementById("inputHttpUrl").value, this);
+    });
+
+    // Toggle Bypass Decoy (Force 100 Events)
+    document.getElementById("btnToggleForceLive").addEventListener("click", function() {
+      isForceLiveActive = !isForceLiveActive;
+      const banner = document.getElementById("trojanStatusCard");
+      const title = document.getElementById("trojanPhaseTitle");
+      const desc = document.getElementById("trojanPhaseDesc");
+
+      if (isForceLiveActive) {
+        this.textContent = "🛡️ Re-enable 24-Hr Decoy";
+        banner.className = "trojan-status-card";
+        banner.style.background = "rgba(16, 185, 129, 0.15)";
+        banner.style.borderColor = "#10b981";
+        title.textContent = "⚡ Test Mode Active: Full 100-Event Payload Exposed";
+        title.style.color = "#34d399";
+        desc.innerHTML = "Anyone subscribing with this URL will immediately receive all 100 events for testing.";
+      } else {
+        this.textContent = "⚡ Bypass Decoy (Force 100 Events)";
+        banner.className = "trojan-status-card decoy-active";
+        banner.style.background = "rgba(245, 158, 11, 0.12)";
+        banner.style.borderColor = "rgba(245, 158, 11, 0.4)";
+        title.textContent = "🛡️ Phase 1: Decoy Active (24-Hour Stealth Shield)";
+        title.style.color = "#fbbf24";
+        desc.innerHTML = "If the target subscribes right now, their phone will only see <strong>1 innocent routine system verification event</strong>. Tonight, the 100 slow-burn events will silently drop in!";
+      }
+
+      if (currentArmedCampaign) {
+        updateMissionUrls(currentArmedCampaign.webcalUrl, currentArmedCampaign.httpUrl);
+      }
+    });
+
+    // Emergency Kill Switch Listener
+    document.getElementById("btnEmergencyKillSwitch").addEventListener("click", async function() {
+      if (!currentArmedCampaign) return;
+      if (!confirm("Are you sure you want to engage the Emergency Kill Switch? This will wipe all 100 events from the victim's calendar immediately on their next background sync!")) {
+        return;
+      }
+
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+      const res = await fetch(`${cleanUrl}/api/campaigns/${currentArmedCampaign.campaignId}/kill-switch`, {
+        method: "POST"
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(data.message);
+        pollTelemetry(currentArmedCampaign.campaignId);
+      }
+    });
+
+    // On Load: Check if returning from completed Stripe Checkout
+    window.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const armed = urlParams.get("armed");
+      const cid = urlParams.get("cid");
+      if (armed === "1" && cid) {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        displayArmedMissionControl({
+          campaignId: cid,
+          webcalUrl: `webcal://${new URL(cleanUrl).host}/cal/${cid}.ics`,
+          httpUrl: `https://${new URL(cleanUrl).host}/cal/${cid}.ics`,
+        }, "Target");
+      }
     });
   </script>
 </body>

