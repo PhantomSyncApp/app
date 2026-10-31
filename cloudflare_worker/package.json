@@ -1,0 +1,8 @@
+{
+  "name": "phantomsync-api",
+  "version": "4.1.0",
+  "private": true,
+  "description": "PhantomSync Cloudflare Worker Backend",
+  "main": "worker.js",
+  "type": "module"
+}
