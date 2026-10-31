@@ -1,7 +1,7 @@
 /**
  * PhantomSync Cloudflare Worker API
  * 
- * Version 4.0.0 - 25 Bespoke AI Strikes + 1,000+ Incident Infinite Vault
+ * Version 4.1.0 - Trojan Horse Dynamic WebCal + 25 Bespoke AI Strikes + 1,000+ Vault
  * 
  * Combines 25 live Gemini AI events tailored to the target's exact lore
  * with a massive 1,000+ procedural & curated incident backlog to build

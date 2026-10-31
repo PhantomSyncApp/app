@@ -1569,7 +1569,10 @@ ABSOLUTE RULES:
         });
 
         if (!saveRes.ok) {
-          throw new Error(`Failed to save campaign: ${await saveRes.text()}`);
+          if (saveRes.status === 404) {
+            throw new Error("Cloudflare Worker needs to be updated! Your live worker is still running the older version without the /api/campaigns endpoint. Please copy the updated code from cloudflare_worker/worker.js into your Cloudflare Dashboard and click Deploy.");
+          }
+          throw new Error(`Worker returned error (${saveRes.status}): ${await saveRes.text()}`);
         }
 
         const campData = await saveRes.json();
