@@ -47,20 +47,30 @@ class PrankRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 
     def do_GET(self):
-        # Default route redirects to web studio
+        # Default route redirects to storefront
         if self.path == "/" or self.path == "":
             self.send_response(302)
-            self.send_header("Location", "/web/index.html")
+            self.send_header("Location", "/index.html")
+            self.end_headers()
+            return
+        elif self.path in ["/studio", "/studio.html"]:
+            self.send_response(302)
+            self.send_header("Location", "/phantomsync_studio.html")
+            self.end_headers()
+            return
+        elif self.path in ["/dashboard", "/dashboard.html"]:
+            self.send_response(302)
+            self.send_header("Location", "/dashboard.html")
             self.end_headers()
             return
         elif self.path in ["/prank", "/prank.html"]:
             self.send_response(302)
-            self.send_header("Location", "/web/prank.html")
+            self.send_header("Location", "/prank.html")
             self.end_headers()
             return
         elif self.path in ["/card", "/card.html", "/jessi", "/contact"]:
             self.send_response(302)
-            self.send_header("Location", "/web/card.html")
+            self.send_header("Location", "/card.html")
             self.end_headers()
             return
         return super().do_GET()
