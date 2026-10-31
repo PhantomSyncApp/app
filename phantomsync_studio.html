@@ -700,7 +700,7 @@
       <div class="stats-bar">
         <div>🚀 <strong>First Strike:</strong> <span id="firstStrikeDate" style="color:#67e8f9;">Loading...</span></div>
         <div>⏱️ <strong>Span:</strong> <span id="campaignSpan">18 Months</span></div>
-        <div>🧠 <strong>Engine:</strong> <span id="engineBadge" style="color:#38bdf8;">Gemini 2.5 Flash</span></div>
+        <div>🧠 <strong>Engine:</strong> <span id="engineBadge" style="color:#38bdf8;">Gemini 3.8 Flash</span></div>
       </div>
 
       <div class="timeline-filter-box">
@@ -856,10 +856,9 @@ ABSOLUTE RULES:
 `;
 
       const candidateModels = [
-        "gemini-2.5-flash",
-        "gemini-flash-latest",
-        "gemini-2.5-flash-lite",
-        "gemini-2.5-pro"
+        "gemini-3.8-flash",
+        "gemini-3.8-flash-lite",
+        "gemini-flash-latest"
       ];
 
       let lastError = null;
@@ -1159,7 +1158,7 @@ ABSOLUTE RULES:
 
         const engineEl = document.getElementById("engineBadge");
         if (result.mode === "gemini_ai") {
-          engineEl.textContent = "🧠 Gemini 2.5 Flash (Live AI)";
+          engineEl.textContent = "🧠 Gemini 3.8 Flash (Live AI)";
           engineEl.style.color = "#34d399";
         } else {
           engineEl.textContent = "⚡ Smart Procedural Engine";

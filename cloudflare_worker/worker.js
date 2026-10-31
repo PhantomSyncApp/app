@@ -53,12 +53,12 @@ export default {
       const t0 = Date.now();
       try {
         const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              contents: [{ parts: [{ text: "Respond with the word 'PONG'." }] }],
+              contents: [{ parts: [{ text: "Respond with the single word: PONG" }] }],
             }),
             signal: AbortSignal.timeout(6000),
           }
@@ -132,7 +132,7 @@ export default {
           JSON.stringify({
             success: true,
             elapsed_ms: Date.now() - t0,
-            engine: "Gemini 2.5 Flash",
+            engine: "Gemini 3.8 Flash",
             count: events.length,
             events: events,
           }),
@@ -184,7 +184,7 @@ export default {
             JSON.stringify({
               success: true,
               mode: "gemini_ai",
-              engine: "Gemini 2.5 Flash",
+              engine: "Gemini 3.8 Flash",
               events,
             }),
             {
@@ -249,8 +249,8 @@ RULES:
 ]
 `;
 
-  // Focus directly on gemini-2.5-flash and gemini-flash-latest
-  const models = ["gemini-2.5-flash", "gemini-flash-latest"];
+  // Target Google's active Gemini 3.8 models
+  const models = ["gemini-3.8-flash", "gemini-3.8-flash-lite", "gemini-flash-latest"];
   let lastError = null;
 
   for (const model of models) {
