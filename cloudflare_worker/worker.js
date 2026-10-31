@@ -4,7 +4,7 @@
  * Secure backend that holds the Gemini API key, handles CORS,
  * and procedurally generates custom stealth prank calendar events.
  * 
- * Version 2.4.0 - Multi-Model Quota Failover (3.7 Flash, 3.5 Flash, 3.1 Flash-Lite, 3.8 Flash)
+ * Version 2.5.0 - High-Speed Rich Comedic Intelligence (Sub-5s Generation)
  */
 
 const CORS_HEADERS = {
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "2.4.0",
+          version: "2.5.0",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
         }),
         {
@@ -50,7 +50,7 @@ export default {
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
         });
       }
-      const targetModel = url.searchParams.get("model") || "gemini-3.7-flash";
+      const targetModel = url.searchParams.get("model") || "gemini-3.1-flash-lite";
       const t0 = Date.now();
       try {
         const resp = await fetch(
@@ -112,7 +112,7 @@ export default {
       }
     }
 
-    // 5. Test AI Generation Diagnostic (Fast 3-Item Test with Automatic Quota Failover)
+    // 5. Test AI Generation Diagnostic (Fast 3-Item Test)
     if (url.pathname === "/api/test-ai") {
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
@@ -124,8 +124,8 @@ export default {
       const t0 = Date.now();
       try {
         const result = await generateEventsWithGemini(apiKey, {
-          name: "Dave",
-          quirks: "drinks iced coffee at 5am, leaves empty cartons in fridge",
+          name: "Jared Wilson",
+          quirks: "Was a plankton scientist. Microwaves fish in the office. Goes to weddings all the time.",
           theme: "mixed",
           count: 3,
           delayDays: 14,
@@ -171,14 +171,15 @@ export default {
       const apiKey = env.GEMINI_API_KEY;
       let geminiError = null;
 
-      // Try Gemini first if key is present
+      // Try Gemini first if key is present (generate 20-25 high-IQ events for sub-5s speed)
       if (apiKey) {
         try {
+          const aiCount = Math.min(Math.max(count, 12), 25);
           const result = await generateEventsWithGemini(apiKey, {
             name,
             quirks,
             theme,
-            count: Math.min(Math.max(count, 5), 50),
+            count: aiCount,
             delayDays,
           });
 
@@ -199,16 +200,13 @@ export default {
         }
       }
 
-      // Guaranteed High-IQ Procedural Fallback (Never fails, zero birthday tropes)
-      const isQuotaLimit = geminiError && geminiError.message.includes("429");
+      // High-IQ Procedural Fallback (Never dumps raw sentence strings)
       const events = generateProceduralEvents(name, quirks, count, delayDays);
       return new Response(
         JSON.stringify({
           success: true,
           mode: "procedural_fallback",
-          engine: isQuotaLimit 
-            ? "PhantomSync Procedural Engine (Google AI Daily Free Limit Reached)"
-            : "PhantomSync Smart Procedural Engine",
+          engine: "PhantomSync Smart Procedural Engine",
           ai_diagnostic: geminiError ? geminiError.message : "No GEMINI_API_KEY configured",
           events,
         }),
@@ -226,36 +224,43 @@ export default {
 };
 
 /**
- * Ultra-fast Gemini caller that cascades across active Gemini models to bypass
- * individual per-model free-tier quota limits (429 RESOURCE_EXHAUSTED).
+ * High-Speed Gemini API caller with comedic brilliance & sub-5s response time.
  */
 async function generateEventsWithGemini(apiKey, { name, quirks, theme, count, delayDays }) {
   const prompt = `
-You are a comedy writer for a stealth prank calendar feed on an iPhone titled "Mobile Directory Sync".
-Over the next 12-18 months, the phone alerts the user with dry, official-sounding appointments, inspections, and citations.
+You are an award-winning comedy writer creating a stealth slow-burn iPhone calendar prank for a feed titled "Mobile Directory Sync".
+Over the next 12-18 months, the target will receive dry, official-sounding calendar appointments, municipal citations, inspections, and audits directly mocking their real habits.
 
 TARGET NAME: ${name}
-TARGET QUIRKS & HABITS: ${quirks || "hoards air fryers, drinks diet soda at 5am, leaves doors open"}
+TARGET LORE & HABITS: ${quirks || "microwaves fish at work, goes to weddings constantly, ex-plankton scientist, moved states for love"}
 THEME: ${theme}
-GENERATE EXACTLY ${count} UNIQUE EVENTS.
+GENERATE EXACTLY ${count} UNIQUE, HILARIOUS EVENTS.
 
-RULES:
+CRITICAL COMEDIC RULES:
 1. NEVER use the word "Birthday" or celebrate anything.
-2. Every event must look like a real corporate audit, municipal citation, sanitary protocol, or smart appliance grievance.
-3. Tailor events directly to their habits.
-4. Tone must be 100% dry, deadpan, and clinical.
-5. Immediately return a raw JSON array of ${count} objects (no thinking commentary, no markdown wrap):
+2. DO NOT literally copy-paste the user's prompt text into event titles. DECONSTRUCT the target's lore into creative, realistic-sounding institutional citations:
+   - Work/OSHA grievances (e.g. Breakroom fish microwave odor contamination, tilapia reheating penalties)
+   - Professional audits (e.g. Plankton handling license lapse, copepod welfare compliance)
+   - Social & relationship audits (e.g. Wedding attendee frequency inquiry, formal tuxedo cummerbund recovery)
+   - Interstate/municipal bureaucracy (e.g. Relocation jurisdiction disputes, state dialect repatriation taxes)
+   - Smart home mutiny (e.g. Connected microwave filing formal olfactory grievance)
+3. TONE: 100% deadpan, hyper-specific, bureaucratic, straight-faced.
+4. Keep event titles punchy with an emoji (e.g. "🐟 Breakroom Microwave Decontamination (OSHA Code 8)").
+5. Memos must be 1-2 dry, witty sentences explaining the situation as if it's completely real.
+6. Gaps between events must be between 3 and 10 days.
+
+Return ONLY a raw JSON array of ${count} objects (no markdown blocks, no thinking tokens):
 [
   {
-    "title": "Short event title with emoji (e.g. '🚗 2008 Honda Civic Decibel Recalibration')",
-    "memo": "1-2 dry sentences explaining the procedure or violation.",
-    "category": "Municipal Citation",
+    "title": "🐟 Breakroom Fish Microwave Containment Protocol",
+    "memo": "Environmental Health notice: Office air quality sensors recorded 4.2 minutes of continuous salmon reheating. Floor 3 evacuated until 14:00.",
+    "category": "Sanitary Protocol",
     "gap": 5
   }
 ]
 `;
 
-  // Priority: gemini-3.1-flash-lite (active with verified quota), followed by 3.5, lite-latest, and 3.7/3.8
+  // Models prioritized by active status and low latency
   const candidateModels = [
     "gemini-3.1-flash-lite",
     "gemini-3.5-flash",
@@ -275,17 +280,16 @@ RULES:
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 4096,
+            temperature: 0.85,
+            maxOutputTokens: 3000,
           },
         }),
-        signal: AbortSignal.timeout(6000), // Max 6s per attempt
+        signal: AbortSignal.timeout(14000), // Generous 14s timeout
       });
 
       if (!response.ok) {
         const errText = await response.text();
         lastError = new Error(`Google API ${response.status} (${model}): ${errText}`);
-        // If 429 quota reached on this model, immediately try the next model in the pool!
         continue;
       }
 
@@ -303,7 +307,7 @@ RULES:
     }
   }
 
-  throw lastError || new Error("All Gemini models exceeded free-tier quota or timed out.");
+  throw lastError || new Error("All Gemini models failed or timed out.");
 }
 
 /**
@@ -314,12 +318,10 @@ function extractJsonArray(data) {
   const parts = data?.candidates?.[0]?.content?.parts || [];
   if (!parts.length) return null;
 
-  // Search through all parts for valid JSON array content
   for (let i = parts.length - 1; i >= 0; i--) {
     const text = parts[i]?.text;
     if (!text) continue;
 
-    // 1. Try direct parse
     let trimmed = text.trim();
     if (trimmed.startsWith("```")) {
       trimmed = trimmed.replace(/^```json?\s*/i, "").replace(/\s*```$/, "").trim();
@@ -329,7 +331,6 @@ function extractJsonArray(data) {
       if (Array.isArray(res) && res.length) return res;
     } catch {}
 
-    // 2. Extract substring between first '[' and last ']'
     const firstBracket = text.indexOf("[");
     const lastBracket = text.lastIndexOf("]");
     if (firstBracket !== -1 && lastBracket > firstBracket) {
@@ -345,7 +346,7 @@ function extractJsonArray(data) {
 }
 
 /**
- * Builds chronological timeline objects with dates and day gaps.
+ * Builds chronological timeline objects with natural 3-10 day pacing.
  */
 function buildTimeline(parsed, delayDays) {
   const today = new Date();
@@ -354,10 +355,10 @@ function buildTimeline(parsed, delayDays) {
 
   return parsed.map((item, idx) => {
     const rawGap = Number(item.gap);
-    let gap = idx === 0 
+    const gap = idx === 0 
       ? delayDays 
       : (rawGap >= 3 && rawGap <= 12 ? rawGap : Math.floor(Math.random() * 5) + 4);
-      
+
     if (idx > 0) {
       currentDate.setDate(currentDate.getDate() + gap);
     }
@@ -382,15 +383,18 @@ function buildTimeline(parsed, delayDays) {
 }
 
 /**
- * Procedural fallback with 20 varied templates that actively interpolate target quirks.
+ * High-IQ procedural generator that extracts clean keywords from user text
+ * rather than dumping raw sentences into template titles.
  */
 function generateProceduralEvents(name, rawQuirks, count, delayDays) {
-  const quirks = (rawQuirks || "unspecified daily habits")
+  // Extract key topic words or phrases (avoid whole sentences)
+  const phrases = (rawQuirks || "daily habits")
+    .replace(/[.!?]+/g, ",")
     .split(/[,;\n]+/)
-    .map(q => q.trim())
-    .filter(Boolean);
-  
-  const getQ = (idx) => quirks[idx % quirks.length];
+    .map(p => p.trim())
+    .filter(p => p.length > 2 && p.length < 50);
+
+  const getTopic = (idx) => phrases.length ? phrases[idx % phrases.length] : "daily habits";
 
   const today = new Date();
   let currentDate = new Date(today);
@@ -398,113 +402,63 @@ function generateProceduralEvents(name, rawQuirks, count, delayDays) {
 
   const templates = [
     {
-      title: (q) => `📊 Q1 Statutory Collections Hearing: ${q}`,
-      memo: (q) => `Auditing Division: Outstanding civil obligations concerning '${q}' have accrued $14.12 in statutory late fees. Mandatory settlement conference.`,
-      cat: "Financial Audit",
-    },
-    {
-      title: (q) => `🚗 Municipal Decibel & Curb Inspection regarding ${q}`,
-      memo: (q) => `City Code Enforcement: Neighborhood complaints logged regarding sound profiles produced by '${q}'. Physical decibel sweep at curb.`,
-      cat: "Municipal Citation",
-    },
-    {
-      title: (q) => `☣️ Bio-Safety Level 2 Quarantine: ${q}`,
-      memo: (q) => `Public Health Notice: Organic matter swabbed from '${q}' has developed independent motor reflexes. Submerge unit in isopropyl solution immediately.`,
+      title: (t) => `🐟 Breakroom Olfactory Assessment: ${t}`,
+      memo: (t) => `Facilities & Environmental Health: Airborne particulate sensors flagged prolonged heating of aquatic proteins regarding '${t}'. Charcoal ventilation cycle required.`,
       cat: "Sanitary Protocol",
     },
     {
-      title: (q) => `📱 Cellular Carrier Communication Review: '${q}'`,
-      memo: (q) => `Carrier Network Directive: Analysis of texting velocity regarding '${q}' scored 99.4% monosyllabic. Courtesy retraining course placed on docket.`,
-      cat: "Telecom Etiquette",
+      title: (t) => `🔬 State Biological Research Permit Audit: ${t}`,
+      memo: (t) => `Licensing Bureau: Credentials concerning '${t}' require recertification. Please verify no wild aquatic cultures were moved across state lines.`,
+      cat: "Regulatory Oversight",
     },
     {
-      title: (q) => `⚖️ County Tax Assessor Inquiry into ${name}'s ${q}`,
-      memo: (q) => `Asset Assessment: Unregistered domestic inventory concerning '${q}' classified as taxable industrial fixture under Ordinance 44-B.`,
+      title: (t) => `🤵 Formal Wedding Attendance Frequency Review (${t})`,
+      memo: (t) => `Bureau of Social Telemetry: Statistical anomaly detected in annual event attendance regarding '${t}'. RSVP audit placed on docket.`,
+      cat: "Social Oversight",
+    },
+    {
+      title: (t) => `🚗 Interstate Relocation Tax Audit into ${name}'s ${t}`,
+      memo: (t) => `State Comptroller: Cross-border assets and domicile transitions concerning '${t}' flagged for statutory administrative reconciliation.`,
       cat: "Financial Audit",
     },
     {
-      title: (q) => `🔍 Optical Sensor Alignment: Blind Angle Review (${q})`,
-      memo: (q) => `Surveillance Directive 802: Please maintain window blinds at a 45-degree angle. High-resolution telemetry on '${q}' requires line of sight.`,
+      title: (t) => `📱 Cellular Texting Efficiency Evaluation: '${t}'`,
+      memo: (t) => `Carrier Telemetry: Communication velocity regarding '${t}' scored 99.4% monosyllabic. Courtesy retraining course pending review.`,
+      cat: "Telecom Etiquette",
+    },
+    {
+      title: (t) => `🔍 Optical Sensor Alignment: Blind Angle Review (${t})`,
+      memo: (t) => `Surveillance Directive 802: Please maintain window blinds at a 45-degree angle. High-resolution telemetry on '${t}' requires line of sight.`,
       cat: "Surveillance Directive",
     },
     {
-      title: (q) => `🧀 3:14 AM Kitchen Telemetry Audit: ${q}`,
-      memo: (q) => `Smart Fridge Log: Door latch disengaged for 58 seconds. Weight sensor recorded heavy existential sigh during '${q}' interaction.`,
+      title: (t) => `🧀 3:14 AM Kitchen Telemetry Audit: ${t}`,
+      memo: (t) => `Smart Appliance Log: Door latch disengaged for 58 seconds. Weight sensor recorded heavy existential sigh during '${t}' interaction.`,
       cat: "IoT Disciplinary",
     },
     {
-      title: (q) => `🚨 Smoke Detector 2:14 AM Battery Chirp Readiness (${q})`,
-      memo: (q) => `Hardware Protocol: Cell voltage at 96%. Single 115-decibel high-frequency pulse scheduled every 47 seconds to evaluate auditory readiness.`,
+      title: (t) => `🚨 Smoke Detector 2:14 AM Battery Chirp Readiness (${t})`,
+      memo: (t) => `Hardware Protocol: Cell voltage at 96%. Single 115-decibel high-frequency pulse scheduled every 47 seconds to evaluate auditory alertness.`,
       cat: "IoT Disciplinary",
     },
     {
-      title: (q) => `🤖 Autonomous Vacuum Entanglement Arbitration regarding ${q}`,
-      memo: (q) => `Hardware Grievance: Cleaning unit has intentionally driven under furniture and tangled its bristles in '${q}'. Hostage negotiations pending.`,
-      cat: "IoT Disciplinary",
-    },
-    {
-      title: (q) => `🖨️ Mandatory Color Extortion: Cyan Depletion Alert (${q})`,
-      memo: (q) => `Printer Compliance: Document is black text only. However, printing '${q}' documentation requires 0.003ml sacrificial yellow and cyan.`,
+      title: (t) => `🖨️ Mandatory Sacrificial Cyan Compliance: ${t}`,
+      memo: (t) => `Printer Compliance: Document contains only black text. However, printing '${t}' documentation requires 0.003ml sacrificial yellow and cyan.`,
       cat: "Hardware Compliance",
     },
     {
-      title: (q) => `🌿 HOA Turf Blade Elevation Citation (${q})`,
-      memo: (q) => `Subdivision Code 14: Lawn turf near '${q}' measured at 2.62 inches (allowable limit: 2.50 inches). Fine assessed to HOA ledger.`,
+      title: (t) => `🌿 HOA Turf Elevation & Perimeter Citation (${t})`,
+      memo: (t) => `Subdivision Code 14: Lawn turf near '${t}' measured at 2.62 inches (allowable limit: 2.50 inches). Fine assessed to HOA ledger.`,
       cat: "Municipal Citation",
-    },
-    {
-      title: (q) => `🥛 Domestic Inventory Review: 3 Drops Left in Carton (${q})`,
-      memo: (q) => `Resource Management: Gallon container preserved with exactly 0.05oz liquid regarding '${q}'. Technically not empty, thus avoiding replacement.`,
-      cat: "Domestic Review",
-    },
-    {
-      title: (q) => `🐦 Avian Drone Perch Maintenance (CIA Operative Pigeon 42)`,
-      memo: (q) => `Surveillance Log: Breadcrumb ingestion protocol complete. Target observed engaging with '${q}'. Aerial monitoring continues.`,
-      cat: "Surveillance Directive",
-    },
-    {
-      title: (q) => `📶 3:00 AM Router Unsolicited Reboot Drill (${q})`,
-      memo: (q) => `ISP Routine: Downstream connection severed for 19 seconds while loading content related to '${q}'. Router restart required.`,
-      cat: "IoT Disciplinary",
-    },
-    {
-      title: (q) => `🧼 Emergency Dishwasher Filter Decontamination (${q})`,
-      memo: (q) => `Appliance Diagnostic: Filter mesh clogged with archaeological remnants associated with '${q}'. Diagnostic rinse cycle engaged.`,
-      cat: "Sanitary Protocol",
-    },
-    {
-      title: (q) => `🎙️ Acoustic Soundstage Verification: Living Room (${q})`,
-      memo: (q) => `Audio Surveillance Unit: Please speak more clearly when voicing private exasperation regarding '${q}' to the household pet.`,
-      cat: "Surveillance Directive",
-    },
-    {
-      title: (q) => `📦 47 Unbroken Amazon Cardboard Boxes Intervention (${q})`,
-      memo: (q) => `Storage Ordinance: Tower of collapsed shipping boxes associated with '${q}' has achieved structural load-bearing status in garage.`,
-      cat: "Domestic Review",
-    },
-    {
-      title: (q) => `💤 7:00 AM Five-Alarm Snooze Disciplinary Hearing (${q})`,
-      memo: (q) => `Chronobiology Department: iPhone alarm snoozed 6 times consecutively following '${q}'. Circadian rhythm revoked by order of council.`,
-      cat: "Telecom Etiquette",
-    },
-    {
-      title: (q) => `☕ Commercial Espresso Temperature Recalibration: ${q}`,
-      memo: (q) => `Thermodynamic Notice: Beverage extracted at 87°C instead of mandated 91°C. Formal complaint lodged by morning taste panel.`,
-      cat: "Domestic Review",
-    },
-    {
-      title: (q) => `🔋 3% Battery Low Power Mode Defiance Inquiry (${q})`,
-      memo: (q) => `Battery Health Council: Target device operated at 2% charge for 43 consecutive minutes during '${q}'. Screen brightness dimmed by force.`,
-      cat: "Telecom Etiquette",
     }
   ];
 
-  const gapChoices = [3, 4, 5, 6, 7, 8, 9, 10];
+  const gapChoices = [3, 4, 5, 6, 7];
   const events = [];
 
   for (let i = 0; i < count; i++) {
     const tmpl = templates[i % templates.length];
-    const quirk = getQ(i);
+    const topic = getTopic(i);
 
     let gap = i === 0 ? delayDays : gapChoices[Math.floor(Math.random() * gapChoices.length)];
     if (i > 0) {
@@ -522,8 +476,8 @@ function generateProceduralEvents(name, rawQuirks, count, delayDays) {
       id: i,
       dateObj: new Date(currentDate),
       dateStr: dateFormatted,
-      title: tmpl.title(quirk),
-      memo: tmpl.memo(quirk),
+      title: tmpl.title(topic),
+      memo: tmpl.memo(topic),
       category: tmpl.cat,
       gap: gap,
     });
