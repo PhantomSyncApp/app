@@ -255,12 +255,12 @@ RULES:
 ]
 `;
 
-  // Cascade across multiple models: Google's free-tier rate limit (20 req/day) is PER MODEL!
+  // Priority: gemini-3.1-flash-lite (active with verified quota), followed by 3.5, lite-latest, and 3.7/3.8
   const candidateModels = [
-    "gemini-3.7-flash",
-    "gemini-3.5-flash",
     "gemini-3.1-flash-lite",
+    "gemini-3.5-flash",
     "gemini-flash-lite-latest",
+    "gemini-3.7-flash",
     "gemini-3.8-flash",
   ];
 
@@ -353,7 +353,11 @@ function buildTimeline(parsed, delayDays) {
   currentDate.setDate(currentDate.getDate() + delayDays);
 
   return parsed.map((item, idx) => {
-    let gap = idx === 0 ? delayDays : (Number(item.gap) || Math.floor(Math.random() * 7) + 3);
+    const rawGap = Number(item.gap);
+    let gap = idx === 0 
+      ? delayDays 
+      : (rawGap >= 3 && rawGap <= 12 ? rawGap : Math.floor(Math.random() * 5) + 4);
+      
     if (idx > 0) {
       currentDate.setDate(currentDate.getDate() + gap);
     }
