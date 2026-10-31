@@ -596,19 +596,42 @@
     }
 
     // Track manually
-    document.getElementById("btnTrackCid").addEventListener("click", () => {
+    async function trackEnteredCampaign() {
       const input = document.getElementById("inputTrackCid").value.trim();
       if (!input) return;
+
+      // Extract ps_xxxxxxxx whether the user pasted the raw ID, webcal://, or https:// URL
+      const match = input.match(/ps_[a-zA-Z0-9_-]+/i);
       const clean = input.replace(/^ps_/, "");
-      const fullCid = clean.startsWith("ps_") ? clean : `ps_${clean}`;
+      const fullCid = match ? match[0] : (clean.startsWith("ps_") ? clean : `ps_${clean}`);
 
       const camps = getStoredCampaigns();
-      if (!camps.some(c => c.id === fullCid)) {
-        camps.unshift({ id: fullCid, name: "Tracked Target", createdAt: Date.now() });
+      let camp = camps.find(c => c.id === fullCid);
+      if (!camp) {
+        camp = { id: fullCid, name: "Tracking...", createdAt: Date.now() };
+        camps.unshift(camp);
         saveStoredCampaigns(camps);
       }
       document.getElementById("inputTrackCid").value = "";
       renderDashboard();
+
+      // Background fetch real target name from edge API
+      try {
+        const status = await fetchCampaignStatus(fullCid);
+        if (status && status.name && status.name !== "Target") {
+          camp.name = status.name;
+          saveStoredCampaigns(camps);
+          renderDashboard();
+        }
+      } catch (e) {}
+    }
+
+    document.getElementById("btnTrackCid").addEventListener("click", trackEnteredCampaign);
+    document.getElementById("inputTrackCid").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        trackEnteredCampaign();
+      }
     });
 
     renderDashboard();
