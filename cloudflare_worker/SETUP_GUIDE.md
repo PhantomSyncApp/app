@@ -33,7 +33,7 @@ This Cloudflare Worker is your secure backend that holds your Google Gemini API 
 
 ### Step 4: Plug it into PhantomSync Studio!
 1. Copy your worker's live public URL (e.g. `https://phantomsync-api.your-subdomain.workers.dev`).
-2. Open **[PhantomSync Studio](https://dynofusion.github.io/Card/phantomsync_studio.html)**.
+2. Open **[PhantomSync Studio](https://phantomsyncapp.github.io/app/phantomsync_studio.html)**.
 3. Click **⚙️ Backend & AI Settings**.
 4. Paste your Worker URL into **Cloudflare Worker URL**.
 
