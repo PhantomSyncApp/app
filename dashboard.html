@@ -450,12 +450,18 @@
             <button class="btn-action btn-action-primary" onclick="copyFeedUrl('${camp.id}', this)">
               📋 Copy WebCal Feed
             </button>
+            <a class="btn-action" href="https://calendar.google.com/calendar/render?cid=${encodeURIComponent('https://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
+              🤖 Google Cal
+            </a>
             <button class="btn-action" onclick="toggleDecoy('${camp.id}', this)" id="btnToggleDecoy-${camp.id}">
               ⚡ Bypass Decoy
             </button>
             <a class="btn-action" href="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent('webcal://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
               📱 View QR Code
             </a>
+            <button class="btn-action" onclick="copyDashboardUrl('${camp.id}', this)">
+              🔗 Copy Mission Link
+            </button>
             <button class="btn-action btn-kill" onclick="engageKillSwitch('${camp.id}', this)">
               🚨 Kill Switch
             </button>
@@ -551,6 +557,15 @@
       navigator.clipboard.writeText(url).then(() => {
         const old = btnEl.textContent;
         btnEl.textContent = "Copied Feed!";
+        setTimeout(() => btnEl.textContent = old, 2000);
+      });
+    }
+
+    function copyDashboardUrl(cid, btnEl) {
+      const url = `${window.location.origin}${window.location.pathname}?cid=${cid}`;
+      navigator.clipboard.writeText(url).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied Link!";
         setTimeout(() => btnEl.textContent = old, 2000);
       });
     }

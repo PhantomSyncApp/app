@@ -1010,8 +1010,29 @@
                 <button type="button" class="btn-copy" id="btnCopyHttp">Copy</button>
               </div>
 
-              <a class="btn-test-feed" id="btnOneTapApple" href="#" style="background:var(--cyan); color:#080c14; font-weight:800; font-size:0.8rem; margin:0; width:100%; justify-content:center;">
-                📲 Subscribe on This Device Now
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <a class="btn-test-feed" id="btnOneTapApple" href="#" style="background:var(--cyan); color:#080c14; font-weight:800; font-size:0.8rem; margin:0; flex:1; justify-content:center;">
+                  🍏 Apple 1-Tap
+                </a>
+                <a class="btn-test-feed" id="btnOneTapGoogle" href="#" target="_blank" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:white; font-weight:800; font-size:0.8rem; margin:0; flex:1; justify-content:center;">
+                  🤖 Google 1-Tap
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secret Pranker Dashboard URL -->
+          <div style="margin-top:14px; padding:12px 14px; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <div style="font-size:0.82rem; font-weight:800; color:#c4b5fd;">🔒 Your Private Mission Control Link:</div>
+              <div style="font-size:0.72rem; color:#94a3b8;">Save this link to monitor this target, view sync counts, or hit the kill switch anytime.</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn-copy" id="btnCopyDashboardLink" style="background:var(--purple); color:white; border:none; padding:6px 14px; font-weight:700; font-size:0.75rem;">
+                📋 Copy Private Link
+              </button>
+              <a id="btnOpenDashboard" href="#" target="_blank" class="btn-copy" style="background:rgba(255,255,255,0.1); color:white; text-decoration:none; padding:6px 14px; font-weight:700; font-size:0.75rem;">
+                🖥️ Open Dashboard
               </a>
             </div>
           </div>
@@ -1713,6 +1734,24 @@ ABSOLUTE RULES:
       document.getElementById("inputWebcalUrl").value = finalWebcal;
       document.getElementById("inputHttpUrl").value = finalHttp;
       document.getElementById("btnOneTapApple").href = finalWebcal;
+
+      // Google Calendar 1-Tap Subscription
+      const btnOneTapGoogle = document.getElementById("btnOneTapGoogle");
+      if (btnOneTapGoogle) {
+        btnOneTapGoogle.href = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(finalHttp)}`;
+      }
+
+      // Private Dashboard URL
+      if (currentArmedCampaign && currentArmedCampaign.campaignId) {
+        const dashUrl = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}dashboard.html?cid=${currentArmedCampaign.campaignId}`;
+        const btnOpenDash = document.getElementById("btnOpenDashboard");
+        if (btnOpenDash) btnOpenDash.href = dashUrl;
+
+        const btnCopyDash = document.getElementById("btnCopyDashboardLink");
+        if (btnCopyDash) {
+          btnCopyDash.onclick = () => copyText(dashUrl, btnCopyDash);
+        }
+      }
 
       // Render crisp QR code pointing to final WebCal URL
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=4&data=${encodeURIComponent(finalWebcal)}`;
