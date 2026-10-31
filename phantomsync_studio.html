@@ -1201,9 +1201,21 @@
                 <a class="btn-test-feed" id="btnOneTapApple" href="#" style="background:var(--cyan); color:#080c14; font-weight:800; font-size:0.8rem; margin:0; flex:1; justify-content:center;">
                   🍏 Apple 1-Tap
                 </a>
-                <a class="btn-test-feed" id="btnOneTapGoogle" href="#" target="_blank" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:white; font-weight:800; font-size:0.8rem; margin:0; flex:1; justify-content:center;">
+                <a class="btn-test-feed" id="btnOneTapGoogle" href="#" target="_blank" style="background:#10b981; color:#080c14; font-weight:800; font-size:0.8rem; margin:0; flex:1; justify-content:center;">
                   🤖 Google 1-Tap
                 </a>
+              </div>
+
+              <!-- Android / Google Calendar Helper -->
+              <div style="margin-top:8px;">
+                <button type="button" id="toggleAndroidHelp" style="background:transparent; border:none; color:#38bdf8; font-size:0.75rem; text-decoration:underline; cursor:pointer; padding:2px 0;">
+                  🤖 How to subscribe on Android / Google Calendar (Click for steps)
+                </button>
+                <div id="androidHelpBox" style="display:none; margin-top:6px; background:rgba(0,0,0,0.4); border-radius:10px; padding:10px 12px; font-size:0.75rem; color:#cbd5e1; line-height:1.45; border-left:2px solid #10b981;">
+                  <strong>Option 1 (Auto-Sync Web):</strong> Tap <strong>Google 1-Tap</strong> above. When Google Calendar opens in your browser, tap <strong>"Add"</strong>. It will sync automatically to the Google Calendar app on your Android phone.<br><br>
+                  <strong>Option 2 (Direct .ICS Import):</strong> Copy the HTTP URL above, paste it into Chrome on Android to download the <code>.ics</code> file, then tap the download notification and choose <strong>"Open with Google Calendar" &rarr; "Add all"</strong>.<br><br>
+                  <strong>Option 3 (Manual From URL):</strong> On <a href="https://calendar.google.com" target="_blank" style="color:#67e8f9;">calendar.google.com</a>, click <strong>+</strong> next to <em>Other calendars</em> &rarr; <strong>From URL</strong> &rarr; paste the link.
+                </div>
               </div>
             </div>
           </div>
@@ -2028,7 +2040,16 @@ ABSOLUTE RULES:
       // Google Calendar 1-Tap Subscription
       const btnOneTapGoogle = document.getElementById("btnOneTapGoogle");
       if (btnOneTapGoogle) {
-        btnOneTapGoogle.href = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(finalHttp)}`;
+        btnOneTapGoogle.href = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(finalWebcal)}`;
+      }
+
+      // Android help toggle
+      const btnHelp = document.getElementById("toggleAndroidHelp");
+      const boxHelp = document.getElementById("androidHelpBox");
+      if (btnHelp && boxHelp) {
+        btnHelp.onclick = () => {
+          boxHelp.style.display = boxHelp.style.display === "block" ? "none" : "block";
+        };
       }
 
       // Private Dashboard URL

@@ -461,7 +461,7 @@
             <button class="btn-action btn-action-primary" onclick="copyFeedUrl('${camp.id}', this)">
               📋 Copy WebCal Feed
             </button>
-            <a class="btn-action" href="https://calendar.google.com/calendar/render?cid=${encodeURIComponent('https://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
+            <a class="btn-action" href="https://calendar.google.com/calendar/render?cid=${encodeURIComponent('webcal://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
               🤖 Google Cal
             </a>
             <button class="btn-action" onclick="toggleDecoy('${camp.id}', this)" id="btnToggleDecoy-${camp.id}">
