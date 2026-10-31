@@ -227,6 +227,7 @@ export default {
       await saveCampaign(env, campaign);
 
       const icsOutput = formatIcsCalendar({
+        campaignId: campaign.id,
         name: campaign.name,
         events: campaign.events,
         isDecoy: isDecoy,
@@ -256,7 +257,9 @@ export default {
         return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
       }
 
+      const forceLive = Boolean(campaign.forceLive);
       const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
+      const isDecoy = !forceLive && (hoursElapsed < 24);
       return new Response(
         JSON.stringify({
           success: true,
@@ -264,8 +267,9 @@ export default {
           name: campaign.name,
           createdAt: campaign.createdAt,
           hoursElapsed: Math.round(hoursElapsed * 10) / 10,
-          trojanPhase: hoursElapsed < 24 ? "Phase 1: Decoy Active (1 Event)" : "Phase 2: Full Payload Deployed (100 Events)",
-          isDecoy: hoursElapsed < 24,
+          trojanPhase: isDecoy ? "Phase 1: Decoy Active (1 Event)" : "Phase 2: Full Payload Deployed (100 Events)",
+          isDecoy: isDecoy,
+          forceLive: forceLive,
           syncCount: campaign.syncCount || 0,
           lastSyncAt: campaign.lastSyncAt,
           lastUserAgent: campaign.lastUserAgent,
@@ -486,6 +490,7 @@ async function getCampaign(env, id) {
  * Generates an RFC-5545 compliant .ics file with Trojan Horse decoy support
  */
 function formatIcsCalendar({
+  campaignId = "ps_live",
   name,
   events = [],
   isDecoy = false,
@@ -520,13 +525,17 @@ function formatIcsCalendar({
 
   if (isDecoy) {
     // Custom Trojan Horse Decoy (Baby Shower, Wedding, Fantasy Football, or Corporate Sync)
-    const d = decoyDate ? new Date(decoyDate) : new Date(Date.now() + 14 * 86400 * 1000);
+    // If user provided a specific decoyDate, use it; otherwise default to TODAY so it appears on phone immediately!
+    const d = decoyDate ? new Date(decoyDate) : new Date();
     const dtStr = d.toISOString().slice(0, 10).replace(/-/g, "");
+    const nextD = new Date(d.getTime() + 86400 * 1000);
+    const nextDtStr = nextD.toISOString().slice(0, 10).replace(/-/g, "");
+
     lines.push("BEGIN:VEVENT");
-    lines.push(`UID:decoy-verify-${Date.now()}@phantomsync.io`);
+    lines.push(`UID:decoy-${campaignId || 'ps'}@phantomsync.io`);
     lines.push("DTSTAMP:20260101T000000Z");
     lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
-    lines.push(`DTEND;VALUE=DATE:${dtStr}`);
+    lines.push(`DTEND;VALUE=DATE:${nextDtStr}`);
     lines.push(`SUMMARY:${(decoyTitle || "📱 Enterprise Directory Verification (Active)").replace(/[\r\n]+/g, " ")}`);
     if (decoyLocation) {
       lines.push(`LOCATION:${decoyLocation.replace(/[\r\n]+/g, " ")}`);
@@ -535,7 +544,24 @@ function formatIcsCalendar({
     lines.push("TRANSP:TRANSPARENT");
     lines.push("END:VEVENT");
   } else {
-    // Full 100-event slow-burn schedule
+    // Full payload mode
+    // 1. Initial Day 1 active confirmation event on TODAY's date so subscriber sees immediate proof the feed is active:
+    const today = new Date();
+    const todayStr = today.toISOString().slice(0, 10).replace(/-/g, "");
+    const tomorrow = new Date(today.getTime() + 86400 * 1000);
+    const tomorrowStr = tomorrow.toISOString().slice(0, 10).replace(/-/g, "");
+
+    lines.push("BEGIN:VEVENT");
+    lines.push(`UID:status-${campaignId || 'live'}-init@phantomsync.io`);
+    lines.push("DTSTAMP:20260101T000000Z");
+    lines.push(`DTSTART;VALUE=DATE:${todayStr}`);
+    lines.push(`DTEND;VALUE=DATE:${tomorrowStr}`);
+    lines.push("SUMMARY:📱 Mobile Directory Sync Verified");
+    lines.push("DESCRIPTION:Mobile device registered. Secure synchronization cycle verified active.");
+    lines.push("TRANSP:TRANSPARENT");
+    lines.push("END:VEVENT");
+
+    // 2. Slow-burn schedule (starting 14 days out)
     events.forEach((ev, idx) => {
       const dt = new Date(ev.dateObj || Date.now());
       const dtStr = dt.toISOString().slice(0, 10).replace(/-/g, "");
@@ -546,11 +572,10 @@ function formatIcsCalendar({
       const cleanMemo = (ev.memo || "").replace(/[\r\n]+/g, " ");
 
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:phantom-${idx}-${Date.now()}@phantomsync.io`);
+      lines.push(`UID:phantom-${campaignId || 'ps'}-${idx}@phantomsync.io`);
       lines.push("DTSTAMP:20260101T000000Z");
       lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
       lines.push(`DTEND;VALUE=DATE:${nextStr}`);
-      lines.push("RRULE:FREQ=YEARLY");
       lines.push(`SUMMARY:${cleanTitle}`);
       lines.push(`DESCRIPTION:${cleanMemo}`);
       lines.push("TRANSP:TRANSPARENT");

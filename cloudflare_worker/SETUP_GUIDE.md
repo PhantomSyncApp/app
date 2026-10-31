@@ -31,6 +31,17 @@ This Cloudflare Worker is your secure backend that holds your Google Gemini API 
 
 ---
 
+### Step 3B: Enable Free KV Storage (Critical for iPhone & Google Sync)
+1. On Cloudflare's left sidebar, click **Storage & Databases** &rarr; **KV**.
+2. Click **Create a Namespace** &rarr; Name it: `PHANTOM_KV` &rarr; click **Add**.
+3. Go back to **Workers & Pages** &rarr; click `phantomsync-api` &rarr; **Settings** &rarr; **Bindings** (or **Variables**).
+4. Scroll to **KV Namespace Bindings** &rarr; click **Add**:
+   * **Variable name:** `PHANTOM_KV`
+   * **KV namespace:** Select `PHANTOM_KV`
+5. Click **Save and Deploy**.
+
+---
+
 ### Step 4: Plug it into PhantomSync Studio!
 1. Copy your worker's live public URL (e.g. `https://phantomsync-api.your-subdomain.workers.dev`).
 2. Open **[PhantomSync Studio](https://phantomsyncapp.github.io/app/phantomsync_studio.html)**.
