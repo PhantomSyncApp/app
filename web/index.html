@@ -2,1159 +2,588 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NFC Prank Contact Studio & Tag Writer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PhantomSync &bull; The 18-Month Slow-Burn Calendar Prank Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #090d16;
-      --card-bg: rgba(18, 26, 43, 0.85);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.4);
-      --accent-cyan: #06b6d4;
-      --accent-red: #ef4444;
-      --accent-green: #22c55e;
-      --accent-amber: #f59e0b;
-      --text-main: #f8fafc;
-      --text-dim: #94a3b8;
-      --radius: 16px;
+      --bg: #070a13;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(255, 255, 255, 0.09);
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.3);
+      --purple: #8b5cf6;
+      --purple-glow: rgba(139, 92, 246, 0.3);
+      --pink: #f43f5e;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --radius: 20px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background: radial-gradient(circle at 15% 15%, #161b2e 0%, var(--bg-dark) 100%);
-      color: var(--text-main);
+      background: radial-gradient(circle at 50% 0%, #151d38 0%, var(--bg) 70%);
+      color: var(--text);
       min-height: 100vh;
-      padding: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 28px;
-      max-width: 800px;
-    }
-
-    .badge-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid var(--accent);
-      color: #a5b4fc;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 4px 12px;
-      border-radius: 999px;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
-
-    p.subtitle {
-      color: var(--text-dim);
-      font-size: 1rem;
-      line-height: 1.5;
+      padding: 24px 16px 80px 16px;
+      overflow-x: hidden;
     }
 
     .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      max-width: 1200px;
       width: 100%;
+      max-width: 840px;
     }
 
-    @media (max-width: 960px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
+    /* Top Nav */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 12px 0 36px 0;
     }
 
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border-color);
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .nav-cta {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #67e8f9;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+      background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 2.1rem; }
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--subtext);
+      max-width: 620px;
+      margin: 0 auto 30px auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, var(--cyan), #0284c7);
+      color: #04101d;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      transition: all 0.2s;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px var(--cyan-glow);
+    }
+
+    .btn-hero-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Live Lockscreen Demo */
+    .lockscreen-demo {
+      background: rgba(10, 15, 28, 0.85);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
       padding: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    h2 {
-      font-size: 1.25rem;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Presets Pills */
-    .preset-selector {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .preset-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .preset-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .preset-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-      box-shadow: 0 0 14px var(--accent-glow);
-    }
-
-    /* Form Fields */
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 5px;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      background: rgba(10, 15, 25, 0.7);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: white;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      transition: border-color 0.2s;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
-
-    /* Actions */
-    .action-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      color: white;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border-color);
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid var(--accent-red);
-      color: #fca5a5;
-    }
-
-    .btn-nfc {
-      grid-column: span 2;
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: white;
-      font-size: 1rem;
-      padding: 14px;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-    }
-
-    .btn-nfc:hover {
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-      transform: translateY(-1px);
-    }
-
-    /* Phone Mockup Preview */
-    .preview-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .device-switcher {
-      display: flex;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-    }
-
-    .device-tab {
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-dim);
-      border-radius: 999px;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      transition: all 0.2s;
-    }
-
-    .device-tab.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-    }
-
-    /* iOS Contact Card Shell */
-    .phone-mockup {
-      width: 320px;
-      background: #1c1c1e;
-      border-radius: 40px;
-      border: 6px solid #2c2c2e;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      margin: 40px 0;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
       position: relative;
     }
 
-    .phone-island {
-      width: 90px;
-      height: 24px;
-      background: #000;
-      border-radius: 12px;
-      margin: 10px auto 14px auto;
+    .lockscreen-header {
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    .phone-content {
-      padding: 0 20px 24px 20px;
+    .lockscreen-time {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1;
+    }
+
+    .lockscreen-date {
+      font-size: 0.9rem;
+      color: var(--subtext);
+      margin-top: 4px;
+    }
+
+    .notif-stack {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto;
     }
 
-    .phone-avatar {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: #3a3a3c;
-      overflow: hidden;
-      margin-bottom: 12px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
+    .apple-notif {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 14px 16px;
+      animation: notifSlide 0.5s ease;
+    }
+
+    .notif-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .notif-top span:first-child {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #38bdf8;
+    }
+
+    .notif-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .notif-body {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    /* 3-Step Grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 50px 0;
+    }
+
+    @media (max-width: 700px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .step-num-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid var(--cyan);
+      color: #67e8f9;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      margin-bottom: 14px;
+      font-size: 0.9rem;
     }
 
-    .phone-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: white;
     }
 
-    .phone-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-      line-height: 1.2;
-    }
-
-    .phone-org {
+    .step-desc {
       font-size: 0.85rem;
-      color: #8e8e93;
-      margin-bottom: 16px;
+      color: var(--subtext);
+      line-height: 1.55;
     }
 
-    .phone-actions {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      margin-bottom: 16px;
+    /* Pricing Section */
+    .pricing-section {
+      margin: 50px 0;
     }
 
-    .phone-action-btn {
-      flex: 1;
-      background: #2c2c2e;
-      border-radius: 10px;
-      padding: 8px;
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 650px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      color: #0a84ff;
-      font-size: 0.75rem;
-      font-weight: 600;
+      justify-content: space-between;
+      position: relative;
     }
 
-    .phone-details-card {
-      background: #2c2c2e;
-      border-radius: 12px;
-      width: 100%;
-      text-align: left;
-      padding: 12px;
-      font-size: 0.8rem;
+    .price-card.featured {
+      border-color: var(--cyan);
+      box-shadow: 0 0 35px var(--cyan-glow);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 182, 212, 0.12));
     }
 
-    .phone-detail-row {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .phone-detail-row:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .phone-detail-label {
+    .card-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #080c14;
       font-size: 0.7rem;
-      color: #8e8e93;
+      font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      padding: 4px 12px;
+      border-radius: 999px;
     }
 
-    .phone-detail-val {
-      color: #0a84ff;
-      word-break: break-all;
+    .tier-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 6px;
     }
 
-    .phone-detail-val.text-white {
-      color: #e5e5ea;
-    }
-
-    /* NFC Guide Box */
-    .guide-box {
-      margin-top: 28px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius);
-      padding: 24px;
-      max-width: 1200px;
-      width: 100%;
-    }
-
-    .guide-tabs {
-      display: flex;
-      gap: 12px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 12px;
+    .tier-price {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: white;
       margin-bottom: 16px;
     }
 
-    .guide-tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-dim);
-      font-size: 0.95rem;
+    .tier-price span {
+      font-size: 0.9rem;
       font-weight: 600;
+      color: var(--subtext);
+    }
+
+    .tier-features {
+      list-style: none;
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .tier-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-tier {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
       cursor: pointer;
-      padding: 6px 12px;
-      border-radius: 8px;
+      border: none;
       transition: all 0.2s;
     }
 
-    .guide-tab-btn.active {
+    .btn-digital {
+      background: rgba(255, 255, 255, 0.08);
       color: white;
-      background: rgba(99, 102, 241, 0.2);
-      border: 1px solid var(--accent);
     }
 
-    .guide-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-      font-size: 0.9rem;
-      line-height: 1.5;
+    .btn-digital:hover {
+      background: rgba(255, 255, 255, 0.16);
     }
 
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      font-weight: 700;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
+    .btn-nfc {
+      background: var(--cyan);
+      color: #080c14;
     }
 
-    .alert-box {
-      background: rgba(245, 158, 11, 0.12);
-      border-left: 4px solid var(--accent-amber);
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      color: #fde68a;
-      margin-top: 14px;
+    .btn-nfc:hover {
+      background: #22d3ee;
+      box-shadow: 0 0 20px var(--cyan-glow);
     }
 
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #1e293b;
-      border: 1px solid var(--accent-green);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      display: none;
-      align-items: center;
-      gap: 10px;
-      z-index: 100;
-      animation: slideIn 0.3s ease;
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 24px;
+      margin-top: 60px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--subtext);
     }
 
-    @keyframes slideIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    footer a {
+      color: #67e8f9;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="badge-tag">🏷️ Contact Payload & NFC Tag Suite</div>
-    <h1>NFC Prank Contact Studio</h1>
-    <p class="subtitle">
-      Generate viral prank contact files (.vcf), craft deceptive NFC payloads, and program NTAG213/215 stickers or Flipper Zero in seconds.
-    </p>
-  </header>
-
   <div class="container">
-    <!-- Left Column: Generator Form -->
-    <div class="card">
-      <h2>⚡ Select Preset or Customize</h2>
+    <nav>
+      <a href="index.html" class="brand-logo">
+        <div class="brand-dot"></div>
+        <span>PhantomSync</span>
+      </a>
+      <a href="phantomsync_studio.html" class="nav-cta">Open Studio &rarr;</a>
+    </nav>
 
-      <div class="preset-selector" id="presetPills">
-        <button class="preset-btn active" data-preset="fbi">🕵️ FBI Wiretap</button>
-        <button class="preset-btn" data-preset="car_warranty">🚗 Auto Warranty</button>
-        <button class="preset-btn" data-preset="rickroll">🕺 Rick Astley</button>
-        <button class="preset-btn" data-preset="clown">🎈 The Clown</button>
-        <button class="preset-btn" data-preset="irs_audit">⚖️ IRS Audit</button>
-        <button class="preset-btn" data-preset="pizza_emergency">🍕 Pizza 911</button>
-        <button class="preset-btn" data-preset="alien_contact">👽 Area 51</button>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-pill">⚡ Anonymous Slow-Burn Hardware &amp; Digital Protocols</div>
+      <h1 class="hero-title">The 18-Month Psychological Slow-Burn Calendar Prank</h1>
+      <p class="hero-sub">
+        Secretly subscribe your friends, coworkers, or rivals to an automated calendar feed disguised as legitimate municipal citations, corporate compliance audits, and smart appliance grievances. 100% deadpan realism. Zero birthday tropes.
+      </p>
+      <div class="hero-buttons">
+        <a href="phantomsync_studio.html" class="btn-hero-primary">⚡ Build a Target Dossier Now</a>
+        <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
+      </div>
+    </section>
+
+    <!-- LIVE LOCKSCREEN DEMO -->
+    <div class="lockscreen-demo">
+      <div class="lockscreen-header">
+        <div class="lockscreen-time">9:00</div>
+        <div class="lockscreen-date">Friday, November 13 &bull; Lock Screen Simulation</div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>First Name / Title</label>
-          <input type="text" id="firstName" value="Special Agent FBI">
-        </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" id="lastName" value="Surveillance Van #404">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Full Display Name (FN)</label>
-        <input type="text" id="displayName" value="Special Agent FBI Surveillance Van #404">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Organization (ORG)</label>
-          <input type="text" id="orgName" value="Federal Bureau of Investigation">
-        </div>
-        <div class="form-group">
-          <label>Job Title</label>
-          <input type="text" id="jobTitle" value="Senior Wiretap & Surveillance Operative">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Phone Number (TEL)</label>
-          <input type="text" id="phoneNumber" value="+1-800-225-5324">
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="text" id="emailAddr" value="active.wiretap@fbi.gov">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Website Link (URL)</label>
-        <input type="text" id="websiteUrl" value="https://www.fbi.gov">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group" style="grid-column: span 2;">
-          <label>Custom Photo / Meme Avatar (Optional)</label>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="file" id="customAvatarInput" accept="image/*" style="padding: 6px;">
-            <button class="btn btn-secondary" id="btnResetAvatar" style="padding: 8px 12px; font-size: 0.75rem; white-space: nowrap;">Reset to Preset</button>
+      <div class="notif-stack">
+        <!-- Notification 1 -->
+        <div class="apple-notif">
+          <div class="notif-top">
+            <span>📅 Mobile Directory Sync</span>
+            <span>Now</span>
           </div>
+          <div class="notif-title">🐟 Breakroom Aquatic Protein Reheating Citation (OSHA Code 8)</div>
+          <div class="notif-body">Facilities Notice: Office air scrubbers recorded 4.2 minutes of continuous salmon microwave exposure. Floor 3 evacuated until 14:00.</div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Prank Note / Warning Message</label>
-        <textarea id="noteText">🚨 CLASSIFIED NOTICE: This mobile device has been paired with Department of Justice Field Wiretap Unit 404. All audio, location pings, and browser cookies are currently transmitting to HQ. DO NOT DELETE THIS CONTACT.</textarea>
-      </div>
-
-      <div class="action-grid">
-        <button class="btn btn-primary" id="btnDownloadVcf">
-          📥 Download .VCF (Full)
-        </button>
-        <button class="btn btn-secondary" id="btnDownloadCompact">
-          ⚡ Compact .VCF (&lt;250B)
-        </button>
-        <button class="btn btn-secondary" id="btnDownloadFlipper">
-          🐬 Flipper Zero (.nfc)
-        </button>
-        <button class="btn btn-secondary" id="btnCopyPayload">
-          📋 Copy vCard Text
-        </button>
-        <button class="btn btn-nfc" id="btnWriteNfc">
-          🏷️ Tap To Write Tag (Web NFC)
-        </button>
-        <a class="btn btn-danger" id="btnTestLanding" href="prank.html?preset=fbi" target="_blank" style="grid-column: span 2;">
-          🚨 Open Live Tap-Simulation Landing Page ➔
-        </a>
-      </div>
-
-      <!-- Multi-Contact Overload Section -->
-      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color);">
-        <h3 style="font-size: 1rem; color: #f43f5e; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-          💣 Multi-Contact Overload Packs (With Birthdays)
-        </h3>
-        <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px; line-height: 1.4;">
-          Loads 50 to 200 funny fake contacts at once. Every contact includes an annual birthday (<code>BDAY</code>) distributed across all 12 months, triggering native calendar notifications every few days!
-        </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px;">
-          <a class="btn btn-secondary" href="/presets/prank_pack_50.vcf" download style="font-size: 0.8rem; padding: 10px 6px; text-align: center;">
-            📦 50 Pack (159KB)
-          </a>
-          <a class="btn btn-secondary" href="/presets/prank_pack_100.vcf" download style="font-size: 0.8rem; padding: 10px 6px; text-align: center; border-color: #f43f5e; color: #fda4af;">
-            🔥 100 Pack (320KB)
-          </a>
-          <a class="btn btn-secondary" href="/presets/prank_pack_200.vcf" download style="font-size: 0.8rem; padding: 10px 6px; text-align: center;">
-            💀 200 Pack (640KB)
-          </a>
+        <!-- Notification 2 -->
+        <div class="apple-notif">
+          <div class="notif-top">
+            <span>📅 Mobile Directory Sync</span>
+            <span>4d ago</span>
+          </div>
+          <div class="notif-title">🤵 Mandatory Wedding Guest Tax Review (IRS Code 404)</div>
+          <div class="notif-body">Auditing Bureau: Please provide documentation for your 14th consecutive weekend guest appearance. Frequency suggests professional wedding crashing.</div>
         </div>
-        <a class="btn btn-secondary" href="prank.html?pack=100" target="_blank" style="width: 100%; border-color: rgba(244, 63, 94, 0.4); color: #fda4af;">
-          🚀 Preview 100-Contact NFC Landing Page ➔
-        </a>
+
+        <!-- Notification 3 -->
+        <div class="apple-notif">
+          <div class="notif-top">
+            <span>📅 Mobile Directory Sync</span>
+            <span>9d ago</span>
+          </div>
+          <div class="notif-title">🧀 3:14 AM Kitchen Telemetry Audit (IoT Protocol)</div>
+          <div class="notif-body">Smart Fridge Log: Door latch disengaged for 58 seconds. Weight sensor recorded heavy existential sigh during cheese slice extraction.</div>
+        </div>
       </div>
     </div>
 
-    <!-- Right Column: Live Mockup -->
-    <div class="card preview-container">
-      <h2>📱 Live Phone Tap Preview</h2>
-
-      <div class="device-switcher">
-        <button class="device-tab active" data-mock="ios">Apple iOS</button>
-        <button class="device-tab" data-mock="android">Android</button>
+    <!-- 3-STEP PROTOCOL -->
+    <section id="how-it-works">
+      <div style="text-align:center; margin-bottom: 24px;">
+        <h2 style="font-size: 1.8rem; font-weight: 800;">The 3-Step Stealth Protocol</h2>
+        <p style="color: var(--subtext); font-size: 0.9rem; margin-top: 4px;">Engineered to be completely untraceable back to you.</p>
       </div>
 
-      <div class="phone-mockup" id="phoneMockup">
-        <div class="phone-island"></div>
-        <div class="phone-content">
-          <div class="phone-avatar" id="mockAvatar">
-            🕵️
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num-badge">1</div>
+          <div class="step-title">Weaponize Their Lore</div>
+          <div class="step-desc">
+            Enter your target's embarrassing quirks, dietary habits, workplace grievances, or relationship history into our Gemini AI engine. It synthesizes 25 hyper-targeted strikes + 75 institutional cover incidents.
           </div>
-          <div class="phone-name" id="mockName">Special Agent FBI Surveillance Van #404</div>
-          <div class="phone-org" id="mockOrg">Federal Bureau of Investigation</div>
+        </div>
 
-          <div class="phone-actions">
-            <div class="phone-action-btn">
-              <span>💬</span>
-              <span>message</span>
-            </div>
-            <div class="phone-action-btn">
-              <span>📞</span>
-              <span>call</span>
-            </div>
-            <div class="phone-action-btn">
-              <span>🎥</span>
-              <span>FaceTime</span>
-            </div>
-            <div class="phone-action-btn">
-              <span>✉️</span>
-              <span>mail</span>
-            </div>
+        <div class="step-card">
+          <div class="step-num-badge">2</div>
+          <div class="step-title">The Trojan Horse Tap</div>
+          <div class="step-desc">
+            Send them a link or tap their phone with our discrete matte-black NFC card. When they tap on Day 1, their phone displays only <strong>1 innocent routine system check event</strong>. Zero suspicion.
           </div>
+        </div>
 
-          <div class="phone-details-card">
-            <div class="phone-detail-row">
-              <div class="phone-detail-label">mobile</div>
-              <div class="phone-detail-val" id="mockPhone">+1-800-225-5324</div>
-            </div>
-            <div class="phone-detail-row">
-              <div class="phone-detail-label">work email</div>
-              <div class="phone-detail-val" id="mockEmail">active.wiretap@fbi.gov</div>
-            </div>
-            <div class="phone-detail-row">
-              <div class="phone-detail-label">website</div>
-              <div class="phone-detail-val" id="mockUrl">https://www.fbi.gov</div>
-            </div>
-            <div class="phone-detail-row">
-              <div class="phone-detail-label">notes</div>
-              <div class="phone-detail-val text-white" id="mockNote" style="font-size: 0.72rem; line-height: 1.3;">
-                🚨 CLASSIFIED NOTICE: This mobile device has been paired with Department of Justice Field Wiretap Unit 404...
-              </div>
-            </div>
+        <div class="step-card">
+          <div class="step-num-badge">3</div>
+          <div class="step-title">The Silent Midnight Drop</div>
+          <div class="step-desc">
+            That night while they sleep, their phone silently pulls down the full 100-event payload in the background. After a 14-day stealth delay lull, the slow burn begins across the next 18 months.
           </div>
         </div>
       </div>
+    </section>
 
-      <div style="margin-top: 16px; font-size: 0.8rem; color: var(--text-dim); text-align: center;">
-        When scanned, phones prompt: <strong>"Add Contact"</strong> or <strong>"New Contact"</strong>.
+    <!-- PRICING TIERS -->
+    <section class="pricing-section">
+      <div style="text-align:center;">
+        <h2 style="font-size: 1.8rem; font-weight: 800;">Choose Your Delivery Vector</h2>
+        <p style="color: var(--subtext); font-size: 0.9rem; margin-top: 4px;">Instant digital delivery or custom-programmed physical NFC tap hardware.</p>
       </div>
-    </div>
+
+      <div class="pricing-grid">
+        <!-- Digital Tier -->
+        <div class="price-card">
+          <div>
+            <div class="tier-name">Digital Phantom Pass</div>
+            <div class="tier-price">$4.99 <span>one-time</span></div>
+            <ul class="tier-features">
+              <li>✅ Live instant <code>webcal://</code> link</li>
+              <li>✅ 1-Click Apple &amp; Google Calendar sync</li>
+              <li>✅ 24-Hour Trojan Horse Decoy Shield</li>
+              <li>✅ High-Res Dynamic QR Code</li>
+              <li>✅ Live Mission Control Telemetry</li>
+              <li>✅ Remote Emergency Kill Switch</li>
+            </ul>
+          </div>
+          <a href="phantomsync_studio.html" class="btn-tier btn-digital">Build Digital Pass ($4.99)</a>
+        </div>
+
+        <!-- Physical NFC Tier -->
+        <div class="price-card featured">
+          <div class="card-badge">Most Popular</div>
+          <div>
+            <div class="tier-name">Matte-Black NFC Stealth Card</div>
+            <div class="tier-price">$14.99 <span>free shipping</span></div>
+            <ul class="tier-features">
+              <li>✨ <strong>Discrete Matte-Black PVC NFC Card</strong></li>
+              <li>✨ Dispatched in plain black envelope with 0 exterior branding</li>
+              <li>✨ Pre-programmed to your target's private Trojan link</li>
+              <li>✨ One tap to victim's phone subscribes them instantly</li>
+              <li>✨ Includes Digital Pass + Mission Control FREE</li>
+              <li>✨ Re-usable for future victims anytime</li>
+            </ul>
+          </div>
+          <a href="phantomsync_studio.html" class="btn-tier btn-nfc">Order NFC Card ($14.99)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2026 PhantomSync Labs &bull; Engineered for harmless, high-IQ slow-burn entertainment.</p>
+      <p style="margin-top: 8px;">
+        <a href="phantomsync_studio.html">Campaign Studio</a> &bull; 
+        <a href="card.html">Personal Contact Card</a> &bull; 
+        <a href="https://github.com/DynoFusion/Card" target="_blank">Open Source Infrastructure</a>
+      </p>
+    </footer>
   </div>
 
-  <!-- Bottom: Step by Step NFC Flashing Guide -->
-  <div class="guide-box">
-    <h2>📖 NFC Tag Writing Guide & Secrets</h2>
-    <div class="guide-tabs">
-      <button class="guide-tab-btn active" data-tab="iphone">Universal Method (iPhone + Android)</button>
-      <button class="guide-tab-btn" data-tab="raw">Raw NDEF vCard (Android Direct)</button>
-      <button class="guide-tab-btn" data-tab="flipper">Flipper Zero Setup</button>
-      <button class="guide-tab-btn" data-tab="public">🌐 Public Hosting (Anywhere)</button>
-    </div>
-
-    <div id="tab-iphone" class="tab-content">
-      <div class="guide-step">
-        <div class="step-number">1</div>
-        <div>
-          <strong>The iPhone NFC Constraint:</strong> iOS background NFC reading <em>does NOT</em> open raw <code>text/vcard</code> MIME tags without a 3rd party app. However, iOS <strong>instantly triggers</strong> when scanning a <strong>URL</strong> pointing to a hosted <code>.vcf</code> file or the landing page!
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">2</div>
-        <div>
-          <strong>Download "NFC Tools" (Free):</strong> Install <em>NFC Tools</em> from the iOS App Store or Google Play Store.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">3</div>
-        <div>
-          <strong>Write URL Record:</strong> Tap <strong>Write</strong> &rarr; <strong>Add a record</strong> &rarr; <strong>URL / URI</strong>. Paste your hosted prank landing page link (e.g. <code>http://your-server/prank.html?preset=fbi</code> or a direct <code>.vcf</code> link).
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">4</div>
-        <div>
-          <strong>Burn Tag:</strong> Tap <strong>Write / [Tag size] Bytes</strong> and tap your NTAG213/215/216 sticker against the top edge of your iPhone or center-back of Android.
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-raw" class="tab-content" style="display: none;">
-      <div class="guide-step">
-        <div class="step-number">1</div>
-        <div>
-          <strong>Tag Memory Limits:</strong> Standard <strong>NTAG213</strong> tags only hold <strong>144 bytes</strong>! <strong>NTAG215</strong> holds <strong>504 bytes</strong>. Base64 contact photos are ~10KB-20KB, so they will overflow small tags!
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">2</div>
-        <div>
-          <strong>Use Compact .VCF:</strong> Click the <strong>⚡ Compact .VCF</strong> button above. It strips large images and trims notes down to under 250 bytes so it fits comfortably on NTAG215 or NTAG216 tags.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">3</div>
-        <div>
-          <strong>In NFC Tools:</strong> Choose <strong>Write</strong> &rarr; <strong>Add a record</strong> &rarr; <strong>Contact</strong> (or <strong>Custom NDEF Record / MIME type: text/vcard</strong>) and paste the compact payload.
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-flipper" class="tab-content" style="display: none;">
-      <div class="guide-step">
-        <div class="step-number">1</div>
-        <div>
-          <strong>Download .nfc File:</strong> Click <strong>🐬 Flipper Zero (.nfc)</strong> to download the pre-compiled NTAG215 dump file.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">2</div>
-        <div>
-          <strong>Transfer to Flipper Zero:</strong> Connect your Flipper Zero via USB or mobile app (qFlipper), and drop the <code>.nfc</code> file into <code>SD Card / nfc /</code>.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">3</div>
-        <div>
-          <strong>Emulate:</strong> On your Flipper Zero, navigate to <strong>NFC</strong> &rarr; <strong>Saved</strong> &rarr; select the prank file &rarr; <strong>Emulate</strong>. Tap it against any phone!
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-public" class="tab-content" style="display: none;">
-      <div class="guide-step">
-        <div class="step-number">1</div>
-        <div>
-          <strong>Pranking in the Wild (Outside Wi-Fi):</strong> When victims scan your NFC tag at school, office, coffee shops, or outdoors, their phone uses cellular data. They need a public <code>https://</code> URL.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">2</div>
-        <div>
-          <strong>Free GitHub Pages (1-Minute):</strong> Push this repository to GitHub, go to <strong>Settings</strong> &rarr; <strong>Pages</strong> &rarr; Branch: <strong>main</strong>, folder: <strong>/ (root)</strong>. Your URL will be: <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/web/prank.html?preset=fbi</code>.
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="step-number">3</div>
-        <div>
-          <strong>Or Drag & Drop to Cloudflare / Netlify:</strong> Simply drag the <code>web/</code> and <code>presets/</code> folders into <em>Netlify Drop</em> or <em>Cloudflare Pages</em> for an instant free HTTPS link with zero setup.
-        </div>
-      </div>
-    </div>
-
-    <div class="alert-box">
-      💡 <strong>Pro-Tip:</strong> For the ultimate prank, hide the NFC sticker under a desk, inside a coffee coaster, behind an ID badge lanyard, or under a laptop corner!
-    </div>
-  </div>
-
-  <div class="toast" id="toastMsg">✅ Action completed!</div>
-
-  <script>
-    // Presets database
-    const PRESETS = {
-      fbi: {
-        firstName: "Special Agent FBI",
-        lastName: "Surveillance Van #404",
-        displayName: "Special Agent FBI Surveillance Van #404",
-        org: "Federal Bureau of Investigation",
-        title: "Senior Wiretap & Surveillance Operative",
-        phone: "+1-800-225-5324",
-        email: "active.wiretap@fbi.gov",
-        url: "https://www.fbi.gov",
-        note: "🚨 CLASSIFIED NOTICE: This mobile device has been paired with Department of Justice Field Wiretap Unit 404. All audio, location pings, and browser cookies are currently transmitting to HQ. DO NOT DELETE THIS CONTACT.",
-        emoji: "🕵️",
-        avatarBg: "#0f172a"
-      },
-      car_warranty: {
-        firstName: "FINAL NOTICE: Auto",
-        lastName: "Warranty Department",
-        displayName: "FINAL NOTICE: Auto Warranty Department",
-        org: "National Vehicle Protection Bureau",
-        title: "Senior Policy Expiration Supervisor",
-        phone: "+1-888-555-0199",
-        email: "urgent.finalnotice@warranty-bureau.com",
-        url: "https://en.wikipedia.org/wiki/Vehicle_service_contract",
-        note: "⚠️ URGENT AUTOMOTIVE NOTICE: This is our FINAL ATTEMPT to contact you regarding your vehicle's expired factory warranty. If you do not save this contact immediately, roadside assistance and engine replacement coverage will be permanently forfeited.",
-        emoji: "🚗",
-        avatarBg: "#dc2626"
-      },
-      rickroll: {
-        firstName: "Rick",
-        lastName: "Astley",
-        displayName: "Rick Astley (Official)",
-        org: "Never Gonna Give You Up Worldwide",
-        title: "Chief Executive Groove Officer",
-        phone: "+1-248-434-5508",
-        email: "rick@nevergonna.giveyouup.com",
-        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        note: "🕺 You've been NFC-Rickrolled! You know the rules and so do I. A full commitment's what I'm thinking of! You wouldn't get this from any other guy. Call the phone number above for live vocal proof! 🎶",
-        emoji: "🕺",
-        avatarBg: "#4f46e5"
-      },
-      clown: {
-        firstName: "Bojangles",
-        lastName: "The Friendly Clown",
-        displayName: "Bojangles The Friendly Clown",
-        org: "Midnight Closet Entertainment Co.",
-        title: "Director of 3 AM Window Peeking",
-        phone: "+1-666-555-0133",
-        email: "under.your.bed@circusnightmare.com",
-        url: "https://en.wikipedia.org/wiki/Coulrophobia",
-        note: "🎈 Hello my sweet friend! I saw you tap this tag! I'm standing right outside your front porch right now! Don't look behind your bedroom curtains tonight! Honk honk! 🤡🎈",
-        emoji: "🤡",
-        avatarBg: "#1e293b"
-      },
-      irs_audit: {
-        firstName: "IRS Delinquent",
-        lastName: "Tax Enforcement Officer",
-        displayName: "IRS Delinquent Tax Enforcement Officer",
-        org: "Internal Revenue Service",
-        title: "Special Case Manager #9042",
-        phone: "+1-800-829-1040",
-        email: "seizure-notice@irs.gov",
-        url: "https://www.irs.gov",
-        note: "⚖️ NOTICE CP-504 INTENT TO SEIZE: An unresolved discrepancy of $42,069.17 has been linked to this device's owner. Failure to keep this contact active will trigger immediate garnishment of bank accounts and crypto wallets.",
-        emoji: "⚖️",
-        avatarBg: "#064e3b"
-      },
-      pizza_emergency: {
-        firstName: "Emergency Pizza",
-        lastName: "Dispatch 911",
-        displayName: "Emergency Pizza Dispatch 911 🍕",
-        org: "Rapid Dough & Cheese Relief Agency",
-        title: "Senior Crust Paramedic",
-        phone: "+1-800-555-PIZZA",
-        email: "extra-cheese@crust-dispatch.org",
-        url: "https://en.wikipedia.org/wiki/Pizza",
-        note: "🍕 IN CASE OF EMOTIONAL CRISIS: Dial this contact for rapid deployment of an 18-inch wood-fired stuffed crust pepperoni pizza. Side of garlic butter is included free of charge.",
-        emoji: "🍕",
-        avatarBg: "#b45309"
-      },
-      alien_contact: {
-        firstName: "Commander",
-        lastName: "Xylar-9",
-        displayName: "Commander Xylar-9 (Area 51 Liaison)",
-        org: "Galactic Federation Observation Council",
-        title: "Chief Earthling Specimen Evaluator",
-        phone: "+1-555-ET-PHONE",
-        email: "mothership@alpha-centauri.space",
-        url: "https://en.wikipedia.org/wiki/Extraterrestrial_life",
-        note: "🛸 GREETINGS HUMAN: Your species' free trial of Planet Earth has officially expired. Maintain this contact saved on your communicator to receive beam extraction coordinates.",
-        emoji: "👽",
-        avatarBg: "#0f172a"
-      }
-    };
-
-    let activePreset = "fbi";
-
-    // Form Elements
-    const elFirst = document.getElementById("firstName");
-    const elLast = document.getElementById("lastName");
-    const elDisplay = document.getElementById("displayName");
-    const elOrg = document.getElementById("orgName");
-    const elTitle = document.getElementById("jobTitle");
-    const elPhone = document.getElementById("phoneNumber");
-    const elEmail = document.getElementById("emailAddr");
-    const elUrl = document.getElementById("websiteUrl");
-    const elNote = document.getElementById("noteText");
-
-    // Mock Elements
-    const mockAvatar = document.getElementById("mockAvatar");
-    const mockName = document.getElementById("mockName");
-    const mockOrg = document.getElementById("mockOrg");
-    const mockPhone = document.getElementById("mockPhone");
-    const mockEmail = document.getElementById("mockEmail");
-    const mockUrl = document.getElementById("mockUrl");
-    const mockNote = document.getElementById("mockNote");
-    const btnTestLanding = document.getElementById("btnTestLanding");
-
-    function updateMockup() {
-      mockName.textContent = elDisplay.value || (elFirst.value + " " + elLast.value);
-      mockOrg.textContent = elOrg.value;
-      mockPhone.textContent = elPhone.value;
-      mockEmail.textContent = elEmail.value;
-      mockUrl.textContent = elUrl.value;
-      mockNote.textContent = elNote.value;
-      btnTestLanding.href = `prank.html?preset=${activePreset}`;
-    }
-
-    // Attach listeners
-    [elFirst, elLast, elDisplay, elOrg, elTitle, elPhone, elEmail, elUrl, elNote].forEach(el => {
-      el.addEventListener("input", updateMockup);
-    });
-
-    // Preset Selection
-    document.querySelectorAll(".preset-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const key = btn.dataset.preset;
-        activePreset = key;
-        const p = PRESETS[key];
-        if (p) {
-          elFirst.value = p.firstName;
-          elLast.value = p.lastName;
-          elDisplay.value = p.displayName;
-          elOrg.value = p.org;
-          elTitle.value = p.title;
-          elPhone.value = p.phone;
-          elEmail.value = p.email;
-          elUrl.value = p.url;
-          elNote.value = p.note;
-          mockAvatar.textContent = p.emoji;
-          mockAvatar.style.background = p.avatarBg;
-          updateMockup();
-        }
-      });
-    });
-
-    // Device Mockup Switcher
-    document.querySelectorAll(".device-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".device-tab").forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        const mock = document.getElementById("phoneMockup");
-        if (tab.dataset.mock === "android") {
-          mock.style.borderRadius = "24px";
-          mock.style.background = "#121316";
-        } else {
-          mock.style.borderRadius = "40px";
-          mock.style.background = "#1c1c1e";
-        }
-      });
-    });
-
-    // Guide Tabs
-    document.querySelectorAll(".guide-tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".guide-tab-btn").forEach(b => b.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
-        btn.classList.add("active");
-        document.getElementById(`tab-${btn.dataset.tab}`).style.display = "block";
-      });
-    });
-
-    function showToast(text) {
-      const toast = document.getElementById("toastMsg");
-      toast.textContent = text;
-      toast.style.display = "flex";
-      setTimeout(() => { toast.style.display = "none"; }, 3000);
-    }
-
-    let customPhotoB64 = null;
-    const customAvatarInput = document.getElementById("customAvatarInput");
-    const btnResetAvatar = document.getElementById("btnResetAvatar");
-
-    if (customAvatarInput) {
-      customAvatarInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext("2d");
-            const minSide = Math.min(img.width, img.height);
-            const sx = (img.width - minSide) / 2;
-            const sy = (img.height - minSide) / 2;
-            ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, 256, 256);
-            const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
-            customPhotoB64 = dataUrl.split(",")[1];
-            mockAvatar.innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
-            showToast("🖼️ Custom photo processed & embedded!");
-          };
-          img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    if (btnResetAvatar) {
-      btnResetAvatar.addEventListener("click", () => {
-        customPhotoB64 = null;
-        if (customAvatarInput) customAvatarInput.value = "";
-        const p = PRESETS[activePreset];
-        if (p) {
-          mockAvatar.textContent = p.emoji;
-          mockAvatar.style.background = p.avatarBg;
-        }
-        showToast("Avatar reset to preset default.");
-      });
-    }
-
-    // Build raw vCard string
-    function buildVcard(compact = false) {
-      const note = compact ? (elNote.value.substring(0, 50) + "...") : elNote.value;
-      let v = [
-        "BEGIN:VCARD",
-        "VERSION:3.0",
-        `N:${elLast.value};${elFirst.value};;;`,
-        `FN:${elDisplay.value}`,
-        `ORG:${elOrg.value}`,
-        `TITLE:${elTitle.value}`,
-        `TEL;TYPE=CELL,VOICE:${elPhone.value}`,
-        `EMAIL;TYPE=INTERNET,WORK:${elEmail.value}`,
-        `URL:${elUrl.value}`,
-        `NOTE:${note}`
-      ];
-      if (!compact && customPhotoB64) {
-        v.push(`PHOTO;TYPE=JPEG;ENCODING=b:${customPhotoB64}`);
-      }
-      v.push("END:VCARD\r\n");
-      return v.join("\r\n");
-    }
-
-    function triggerDownload(filename, content, mime = "text/vcard") {
-      const blob = new Blob([content], { type: mime });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    document.getElementById("btnDownloadVcf").addEventListener("click", () => {
-      // If user uploaded a custom photo, always generate live vCard with custom photo
-      if (customPhotoB64) {
-        triggerDownload(`${activePreset}_custom.vcf`, buildVcard(false));
-        showToast("✅ Generated custom .VCF with your uploaded photo!");
-        return;
-      }
-      // Otherwise fetch pre-generated full .vcf or fallback to generated
-      fetch(`/presets/${activePreset}_full.vcf`)
-        .then(res => {
-          if (res.ok) return res.blob();
-          throw new Error();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `${activePreset}_prank.vcf`;
-          document.body.appendChild(a);
-          a.click();
-          URL.revokeObjectURL(url);
-          showToast("✅ Full .VCF with embedded badge downloaded!");
-        })
-        .catch(() => {
-          triggerDownload(`${activePreset}_prank.vcf`, buildVcard(false));
-          showToast("✅ Generated & downloaded .VCF!");
-        });
-    });
-
-    document.getElementById("btnDownloadCompact").addEventListener("click", () => {
-      const compactText = buildVcard(true);
-      triggerDownload(`${activePreset}_compact.vcf`, compactText);
-      showToast(`⚡ Compact .VCF (${compactText.length} bytes) downloaded!`);
-    });
-
-    document.getElementById("btnDownloadFlipper").addEventListener("click", () => {
-      fetch(`/flipper/${activePreset}.nfc`)
-        .then(res => {
-          if (res.ok) return res.blob();
-          throw new Error();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `${activePreset}.nfc`;
-          document.body.appendChild(a);
-          a.click();
-          URL.revokeObjectURL(url);
-          showToast("🐬 Flipper Zero .nfc ready!");
-        })
-        .catch(() => {
-          showToast("⚠️ Run 'python generate_pranks.py' to produce .nfc files!");
-        });
-    });
-
-    document.getElementById("btnCopyPayload").addEventListener("click", () => {
-      const text = buildVcard(false);
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("📋 vCard text copied to clipboard!");
-      });
-    });
-
-    // Web NFC Tag Writer
-    document.getElementById("btnWriteNfc").addEventListener("click", async () => {
-      if (!("NDEFReader" in window)) {
-        alert("Web NFC is not supported on this browser or platform.\\n\\nWeb NFC requires Google Chrome on Android (with NFC enabled in settings).\\n\\nFor iPhones or PCs, use the 'NFC Tools' free mobile app and copy/write the URL or .vcf payload.");
-        return;
-      }
-
-      try {
-        const ndef = new NDEFReader();
-        await ndef.write({
-          records: [
-            {
-              recordType: "url",
-              data: window.location.origin + `/prank.html?preset=${activePreset}`
-            }
-          ]
-        });
-        showToast("🎉 NFC Tag Written Successfully!");
-      } catch (err) {
-        alert("NFC Write Error: " + err.message + "\\nMake sure NFC is turned on and tap your tag firmly.");
-      }
-    });
-  </script>
 </body>
 </html>

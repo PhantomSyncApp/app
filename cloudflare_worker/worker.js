@@ -153,6 +153,20 @@ export default {
 
       await saveCampaign(env, campaign);
 
+      // Optional real-time notification to owner via Discord Webhook
+      if (env && env.DISCORD_WEBHOOK_URL && ctx && ctx.waitUntil) {
+        ctx.waitUntil(sendDiscordNotification(env.DISCORD_WEBHOOK_URL, {
+          title: `🎯 New Campaign Armed: ${name}`,
+          description: `Campaign ID: \`${campaignId}\`\nQuirks: "${(quirks || 'none').slice(0, 120)}..."`,
+          color: 0x06b6d4,
+          fields: [
+            { name: "Events", value: `${events.length}`, inline: true },
+            { name: "Delay", value: `${delayDays}d`, inline: true },
+            { name: "Feed", value: `webcal://${host}/cal/${campaignId}.ics`, inline: false }
+          ]
+        }));
+      }
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -258,6 +272,20 @@ export default {
       campaign.killSwitch = !campaign.killSwitch;
       await saveCampaign(env, campaign);
 
+      // Optional real-time notification to owner via Discord Webhook
+      if (env && env.DISCORD_WEBHOOK_URL && ctx && ctx.waitUntil) {
+        ctx.waitUntil(sendDiscordNotification(env.DISCORD_WEBHOOK_URL, {
+          title: `🎯 New Campaign Armed: ${name}`,
+          description: `Campaign ID: \`${campaignId}\`\nQuirks: "${(quirks || 'none').slice(0, 120)}..."`,
+          color: 0x06b6d4,
+          fields: [
+            { name: "Events", value: `${events.length}`, inline: true },
+            { name: "Delay", value: `${delayDays}d`, inline: true },
+            { name: "Feed", value: `webcal://${host}/cal/${campaignId}.ics`, inline: false }
+          ]
+        }));
+      }
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -282,6 +310,20 @@ export default {
 
       campaign.forceLive = !Boolean(campaign.forceLive);
       await saveCampaign(env, campaign);
+
+      // Optional real-time notification to owner via Discord Webhook
+      if (env && env.DISCORD_WEBHOOK_URL && ctx && ctx.waitUntil) {
+        ctx.waitUntil(sendDiscordNotification(env.DISCORD_WEBHOOK_URL, {
+          title: `🎯 New Campaign Armed: ${name}`,
+          description: `Campaign ID: \`${campaignId}\`\nQuirks: "${(quirks || 'none').slice(0, 120)}..."`,
+          color: 0x06b6d4,
+          fields: [
+            { name: "Events", value: `${events.length}`, inline: true },
+            { name: "Delay", value: `${delayDays}d`, inline: true },
+            { name: "Feed", value: `webcal://${host}/cal/${campaignId}.ics`, inline: false }
+          ]
+        }));
+      }
 
       return new Response(
         JSON.stringify({
@@ -493,6 +535,34 @@ function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false
 
   lines.push("END:VCALENDAR");
   return lines.join("\r\n");
+}
+
+/**
+ * Optional Dispatch Alert via Discord Webhook
+ */
+async function sendDiscordNotification(webhookUrl, messageData) {
+  if (!webhookUrl) return;
+  try {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: "PhantomSync Mission Dispatch",
+        embeds: [
+          {
+            title: messageData.title || "🚀 PhantomSync Telemetry Event",
+            description: messageData.description || "",
+            color: messageData.color || 0x06b6d4,
+            fields: messageData.fields || [],
+            footer: { text: "PhantomSync Cloudflare Edge Alert" },
+            timestamp: new Date().toISOString(),
+          }
+        ]
+      })
+    });
+  } catch (err) {
+    console.warn("Discord webhook notification error:", err.message);
+  }
 }
 
 /**
