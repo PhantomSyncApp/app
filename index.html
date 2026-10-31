@@ -254,6 +254,56 @@
       line-height: 1.45;
     }
 
+    /* Device Compatibility Banner */
+    .compatibility-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 32px 0 10px 0;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+
+    @media (max-width: 760px) {
+      .compatibility-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .compat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compat-icon {
+      font-size: 1.4rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .compat-item strong {
+      display: block;
+      font-size: 0.82rem;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .compat-item span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--subtext);
+      line-height: 1.35;
+    }
+
     /* 3-Step Grid */
     .steps-grid {
       display: grid;
@@ -495,6 +545,31 @@
       </div>
     </div>
 
+    <!-- DEVICE COMPATIBILITY BAR -->
+    <div class="compatibility-bar">
+      <div class="compat-item">
+        <div class="compat-icon">🍏</div>
+        <div>
+          <strong>Optimized for iPhone (iOS 15–18+)</strong>
+          <span>Native 1-tap stealth webcal:// injection. No logins or apps needed.</span>
+        </div>
+      </div>
+      <div class="compat-item">
+        <div class="compat-icon">🤖</div>
+        <div>
+          <strong>Google Calendar &amp; Android</strong>
+          <span>1-click cloud sync or direct .ics invite download support.</span>
+        </div>
+      </div>
+      <div class="compat-item">
+        <div class="compat-icon">🔒</div>
+        <div>
+          <strong>100% Anonymous Delivery</strong>
+          <span>Zero sender tracking. Private unlinked Mission Control links.</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 3-STEP PROTOCOL -->
     <section id="how-it-works">
       <div style="text-align:center; margin-bottom: 24px;">
@@ -515,7 +590,7 @@
           <div class="step-num-badge">2</div>
           <div class="step-title">The Trojan Horse Tap</div>
           <div class="step-desc">
-            Send them a link or tap their phone with our discrete matte-black NFC card. When they tap on Day 1, their phone displays only <strong>1 innocent routine system check event</strong>. Zero suspicion.
+            Send them a link, scan a QR code, or tap their phone with our discrete matte-black NFC card. <strong>On iPhone</strong>, iOS triggers an instant native 1-tap subscription. <strong>On Google Calendar</strong>, they can add via cloud sync or direct .ics invite. On Day 1, their phone displays only <strong>1 innocent routine verification event</strong>. Zero suspicion.
           </div>
         </div>
 
@@ -543,12 +618,12 @@
             <div class="tier-name">Digital Phantom Pass</div>
             <div class="tier-price">$4.99 <span>one-time</span></div>
             <ul class="tier-features">
-              <li>✅ Live instant <code>webcal://</code> link</li>
-              <li>✅ 1-Click Apple &amp; Google Calendar sync</li>
-              <li>✅ 24-Hour Trojan Horse Decoy Shield</li>
-              <li>✅ High-Res Dynamic QR Code</li>
-              <li>✅ Live Mission Control Telemetry</li>
-              <li>✅ Remote Emergency Kill Switch</li>
+              <li>🍏 <strong>Native 1-Tap iPhone Subscription (iOS 15–18+)</strong></li>
+              <li>🤖 Google Calendar cloud sync &amp; Android .ICS support</li>
+              <li>🛡️ 24-Hour Trojan Horse Decoy Shield</li>
+              <li>📱 High-Res Dynamic QR Code</li>
+              <li>📶 Live Mission Control Telemetry</li>
+              <li>🚨 Remote Emergency Kill Switch</li>
             </ul>
           </div>
           <a href="phantomsync_studio.html" class="btn-tier btn-digital">Build Digital Pass ($4.99)</a>
@@ -562,9 +637,10 @@
             <div class="tier-price">$14.99 <span>free shipping</span></div>
             <ul class="tier-features">
               <li>✨ <strong>Discrete Matte-Black PVC NFC Card</strong></li>
+              <li>🍏 <strong>1-Tap native tap-to-subscribe on iPhones</strong></li>
+              <li>🤖 Universal NFC tap compatible across all devices</li>
               <li>✨ Dispatched in plain black envelope with 0 exterior branding</li>
               <li>✨ Pre-programmed to your target's private Trojan link</li>
-              <li>✨ One tap to victim's phone subscribes them instantly</li>
               <li>✨ Includes Digital Pass + Mission Control FREE</li>
               <li>✨ Re-usable for future victims anytime</li>
             </ul>
