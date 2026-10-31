@@ -456,10 +456,6 @@ function formatIcsCalendar({ name, events = [], isDecoy = false, isWiped = false
   return lines.join("\r\n");
 }
 
-    return new Response("Not Found", { status: 404, headers: CORS_HEADERS });
-  },
-};
-
 /**
  * Calls Gemini for 25 hyper-tailored events from lore.
  */
