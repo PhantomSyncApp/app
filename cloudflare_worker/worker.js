@@ -4,7 +4,7 @@
  * Secure backend that holds the Gemini API key, handles CORS,
  * and procedurally generates custom stealth prank calendar events.
  * 
- * Version 2.2.0 - High-Speed Gemini 2.5 Flash with Sub-2s Response Time
+ * Version 2.4.0 - Multi-Model Quota Failover (3.7 Flash, 3.5 Flash, 3.1 Flash-Lite, 3.8 Flash)
  */
 
 const CORS_HEADERS = {
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "2.2.0",
+          version: "2.4.0",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
         }),
         {
@@ -41,7 +41,7 @@ export default {
       );
     }
 
-    // 3. Instant 1-Second Raw Ping Test
+    // 3. Instant 1-Second Raw Ping Test (Accepts ?model= parameter)
     if (url.pathname === "/api/ping-gemini") {
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
@@ -50,10 +50,11 @@ export default {
           headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
         });
       }
+      const targetModel = url.searchParams.get("model") || "gemini-3.7-flash";
       const t0 = Date.now();
       try {
         const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -66,6 +67,7 @@ export default {
         const text = await resp.text();
         return new Response(
           JSON.stringify({
+            model: targetModel,
             elapsed_ms: Date.now() - t0,
             status: resp.status,
             raw_response: text,
@@ -76,7 +78,7 @@ export default {
         );
       } catch (e) {
         return new Response(
-          JSON.stringify({ elapsed_ms: Date.now() - t0, error: e.message }),
+          JSON.stringify({ model: targetModel, elapsed_ms: Date.now() - t0, error: e.message }),
           {
             status: 500,
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
@@ -110,7 +112,7 @@ export default {
       }
     }
 
-    // 5. Test AI Generation Diagnostic (Fast 3-Item Test)
+    // 5. Test AI Generation Diagnostic (Fast 3-Item Test with Automatic Quota Failover)
     if (url.pathname === "/api/test-ai") {
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
@@ -121,7 +123,7 @@ export default {
       }
       const t0 = Date.now();
       try {
-        const events = await generateEventsWithGemini(apiKey, {
+        const result = await generateEventsWithGemini(apiKey, {
           name: "Dave",
           quirks: "drinks iced coffee at 5am, leaves empty cartons in fridge",
           theme: "mixed",
@@ -132,9 +134,9 @@ export default {
           JSON.stringify({
             success: true,
             elapsed_ms: Date.now() - t0,
-            engine: "Gemini 3.8 Flash",
-            count: events.length,
-            events: events,
+            model_used: result.modelUsed,
+            count: result.events.length,
+            events: result.events,
           }),
           {
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
@@ -172,7 +174,7 @@ export default {
       // Try Gemini first if key is present
       if (apiKey) {
         try {
-          const events = await generateEventsWithGemini(apiKey, {
+          const result = await generateEventsWithGemini(apiKey, {
             name,
             quirks,
             theme,
@@ -184,8 +186,8 @@ export default {
             JSON.stringify({
               success: true,
               mode: "gemini_ai",
-              engine: "Gemini 3.8 Flash",
-              events,
+              engine: `Google Gemini (${result.modelUsed})`,
+              events: result.events,
             }),
             {
               headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
@@ -198,12 +200,15 @@ export default {
       }
 
       // Guaranteed High-IQ Procedural Fallback (Never fails, zero birthday tropes)
+      const isQuotaLimit = geminiError && geminiError.message.includes("429");
       const events = generateProceduralEvents(name, quirks, count, delayDays);
       return new Response(
         JSON.stringify({
           success: true,
           mode: "procedural_fallback",
-          engine: "PhantomSync Smart Procedural Engine",
+          engine: isQuotaLimit 
+            ? "PhantomSync Procedural Engine (Google AI Daily Free Limit Reached)"
+            : "PhantomSync Smart Procedural Engine",
           ai_diagnostic: geminiError ? geminiError.message : "No GEMINI_API_KEY configured",
           events,
         }),
@@ -221,7 +226,8 @@ export default {
 };
 
 /**
- * Ultra-fast Gemini API caller with strict timeout and robust JSON parsing.
+ * Ultra-fast Gemini caller that cascades across active Gemini models to bypass
+ * individual per-model free-tier quota limits (429 RESOURCE_EXHAUSTED).
  */
 async function generateEventsWithGemini(apiKey, { name, quirks, theme, count, delayDays }) {
   const prompt = `
@@ -249,11 +255,18 @@ RULES:
 ]
 `;
 
-  // Target Google's active Gemini 3.8 models
-  const models = ["gemini-3.8-flash", "gemini-3.8-flash-lite", "gemini-flash-latest"];
+  // Cascade across multiple models: Google's free-tier rate limit (20 req/day) is PER MODEL!
+  const candidateModels = [
+    "gemini-3.7-flash",
+    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-flash-lite-latest",
+    "gemini-3.8-flash",
+  ];
+
   let lastError = null;
 
-  for (const model of models) {
+  for (const model of candidateModels) {
     try {
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
       const response = await fetch(endpoint, {
@@ -266,27 +279,31 @@ RULES:
             maxOutputTokens: 4096,
           },
         }),
-        signal: AbortSignal.timeout(9000), // Max 9s per attempt
+        signal: AbortSignal.timeout(6000), // Max 6s per attempt
       });
 
       if (!response.ok) {
         const errText = await response.text();
-        lastError = new Error(`Google API ${response.status}: ${errText}`);
+        lastError = new Error(`Google API ${response.status} (${model}): ${errText}`);
+        // If 429 quota reached on this model, immediately try the next model in the pool!
         continue;
       }
 
       const data = await response.json();
       const parsed = extractJsonArray(data);
       if (parsed && parsed.length > 0) {
-        return buildTimeline(parsed, delayDays);
+        return {
+          modelUsed: model,
+          events: buildTimeline(parsed, delayDays),
+        };
       }
-      lastError = new Error("Could not extract JSON array from Gemini response");
+      lastError = new Error(`Could not extract JSON array from ${model}`);
     } catch (e) {
       lastError = e;
     }
   }
 
-  throw lastError || new Error("Gemini generation timed out or failed.");
+  throw lastError || new Error("All Gemini models exceeded free-tier quota or timed out.");
 }
 
 /**
