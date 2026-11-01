@@ -263,6 +263,48 @@ export default {
       });
     }
 
+    // Fetch Full Campaign Details & Schedule: GET /api/campaigns/:id
+    const campaignMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)$/);
+    if (campaignMatch && request.method === "GET") {
+      const campaignId = campaignMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Campaign not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      const forceLive = Boolean(campaign.forceLive);
+      const hoursElapsed = (Date.now() - (campaign.createdAt || Date.now())) / (1000 * 60 * 60);
+      const isDecoy = !forceLive && (hoursElapsed < 24);
+      const dripDays = campaign.dripDays !== undefined ? Number(campaign.dripDays) : 14;
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          name: campaign.name,
+          quirks: campaign.quirks,
+          theme: campaign.theme,
+          delayDays: campaign.delayDays,
+          dripDays: dripDays,
+          createdAt: campaign.createdAt,
+          hoursElapsed: Math.round(hoursElapsed * 10) / 10,
+          isDecoy: isDecoy,
+          forceLive: forceLive,
+          killSwitch: Boolean(campaign.killSwitch),
+          syncCount: campaign.syncCount || 0,
+          lastSyncAt: campaign.lastSyncAt,
+          lastUserAgent: campaign.lastUserAgent,
+          decoyCalName: campaign.decoyCalName,
+          decoyTitle: campaign.decoyTitle,
+          decoyMemo: campaign.decoyMemo,
+          decoyDate: campaign.decoyDate,
+          decoyLocation: campaign.decoyLocation,
+          events: campaign.events || [],
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
     // Campaign Status & Telemetry: /api/campaigns/:id/status
     const statusMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/status$/);
     if (statusMatch && request.method === "GET") {

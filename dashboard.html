@@ -481,15 +481,35 @@
             <button class="btn-action" onclick="toggleDecoy('${camp.id}', this)" id="btnToggleDecoy-${camp.id}">
               ⚡ Bypass Decoy
             </button>
+            <button class="btn-action" style="background:rgba(6,182,212,0.18); border-color:var(--cyan); color:#67e8f9; font-weight:700;" onclick="toggleStrikesDrawer('${camp.id}', this)" id="btnViewStrikes-${camp.id}">
+              📅 View All Strikes
+            </button>
             <a class="btn-action" href="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent('webcal://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
-              📱 View QR Code
+              📱 QR Code
             </a>
             <button class="btn-action" onclick="copyDashboardUrl('${camp.id}', this)">
-              🔗 Copy Mission Link
+              🔗 Link
             </button>
             <button class="btn-action btn-kill" onclick="engageKillSwitch('${camp.id}', this)">
               🚨 Kill Switch
             </button>
+            <button class="btn-action" style="color:#f87171; border-color:rgba(239,68,68,0.3); background:rgba(239,68,68,0.06);" onclick="untrackCampaign('${camp.id}')" title="Remove from your dashboard">
+              🗑️ Untrack
+            </button>
+          </div>
+
+          <!-- Expandable Strikes Schedule Drawer -->
+          <div id="strikesDrawer-${camp.id}" style="display:none; margin-top:14px; background:rgba(0,0,0,0.5); border:1px solid rgba(6,182,212,0.3); border-radius:12px; padding:14px; max-height:480px; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+              <div style="font-size:0.85rem; font-weight:800; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+                <span>📅 Scheduled Strikes Timeline</span>
+                <span id="strikeDrawerCount-${camp.id}" style="font-size:0.7rem; background:rgba(6,182,212,0.2); padding:2px 8px; border-radius:999px; color:#67e8f9;">Loading...</span>
+              </div>
+              <input type="text" id="strikeDrawerSearch-${camp.id}" placeholder="🔍 Search this target's strikes..." style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.75rem; padding:6px 12px; border-radius:6px; min-width:180px;" oninput="filterDrawerStrikes('${camp.id}', this.value)">
+            </div>
+            <div id="strikeDrawerList-${camp.id}">
+              <div style="text-align:center; padding:20px; color:#94a3b8; font-size:0.8rem;">Loading campaign schedule from edge KV...</div>
+            </div>
           </div>
 
           <div class="notes-box">
@@ -607,6 +627,119 @@
       } finally {
         btnEl.disabled = false;
       }
+    }
+
+    // Global cache for campaign events
+    const CAMPAIGN_EVENTS_CACHE = {};
+
+    async function toggleStrikesDrawer(cid, btnEl) {
+      const drawer = document.getElementById(`strikesDrawer-${cid}`);
+      if (!drawer) return;
+
+      if (drawer.style.display === "block") {
+        drawer.style.display = "none";
+        btnEl.textContent = "📅 View All Strikes";
+        return;
+      }
+
+      drawer.style.display = "block";
+      btnEl.textContent = "✕ Close Strikes";
+
+      if (!CAMPAIGN_EVENTS_CACHE[cid]) {
+        await loadAndRenderDrawerStrikes(cid);
+      } else {
+        renderDrawerStrikes(cid, CAMPAIGN_EVENTS_CACHE[cid]);
+      }
+    }
+
+    async function loadAndRenderDrawerStrikes(cid) {
+      const listEl = document.getElementById(`strikeDrawerList-${cid}`);
+      const countBadge = document.getElementById(`strikeDrawerCount-${cid}`);
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+
+      try {
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        CAMPAIGN_EVENTS_CACHE[cid] = data;
+        renderDrawerStrikes(cid, data);
+      } catch (err) {
+        if (listEl) {
+          listEl.innerHTML = `<div style="text-align:center; padding:16px; color:#f87171; font-size:0.8rem;">Could not load strikes from edge: ${err.message}</div>`;
+        }
+      }
+    }
+
+    function renderDrawerStrikes(cid, data, searchQuery = "") {
+      const listEl = document.getElementById(`strikeDrawerList-${cid}`);
+      const countBadge = document.getElementById(`strikeDrawerCount-${cid}`);
+      if (!listEl) return;
+
+      const events = data.events || [];
+      const dripDays = data.dripDays !== undefined ? Number(data.dripDays) : 14;
+      const isDecoy = Boolean(data.isDecoy);
+      const now = Date.now();
+      const maxFutureTime = dripDays > 0 ? now + (dripDays * 86400 * 1000) : Infinity;
+
+      const q = (searchQuery || "").toLowerCase().trim();
+      const filtered = events.filter(ev => {
+        if (!q) return true;
+        return (ev.title || "").toLowerCase().includes(q) ||
+               (ev.memo || "").toLowerCase().includes(q) ||
+               (ev.dateStr || "").toLowerCase().includes(q) ||
+               (ev.category || "").toLowerCase().includes(q);
+      });
+
+      if (countBadge) {
+        countBadge.textContent = `${events.length} Total Strikes`;
+      }
+
+      if (!filtered.length) {
+        listEl.innerHTML = `<div style="text-align:center; padding:18px; color:#94a3b8; font-size:0.8rem;">No strikes match "${searchQuery}".</div>`;
+        return;
+      }
+
+      let html = "";
+      filtered.forEach((ev, idx) => {
+        const eventTime = new Date(ev.dateObj || Date.now()).getTime();
+        const isLive = !isDecoy && (dripDays === 0 || eventTime <= maxFutureTime);
+
+        html += `
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:10px 12px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                <span style="font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:#94a3b8; font-weight:700;">${ev.dateStr || 'Upcoming'}</span>
+                <span style="font-size:0.65rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; color:#cbd5e1;">${ev.category || 'Strike'}</span>
+                ${ev.isPersonal ? '<span style="font-size:0.65rem; background:rgba(244,63,94,0.15); color:#fb7185; padding:2px 6px; border-radius:4px; font-weight:700;">🎯 DOSSIER</span>' : ''}
+              </div>
+              <div style="font-size:0.85rem; font-weight:700; color:#f1f5f9;">${ev.title}</div>
+              <div style="font-size:0.75rem; color:#94a3b8; margin-top:2px; font-style:italic;">"${ev.memo || ''}"</div>
+            </div>
+            <div>
+              ${isLive
+                ? '<span style="font-size:0.65rem; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399; padding:3px 8px; border-radius:6px; white-space:nowrap;">🟢 LIVE ON PHONE</span>'
+                : '<span style="font-size:0.65rem; font-weight:700; background:rgba(148,163,184,0.1); border:1px solid rgba(148,163,184,0.2); color:#94a3b8; padding:3px 8px; border-radius:6px; white-space:nowrap;">⏳ STEALTH QUEUE</span>'}
+            </div>
+          </div>
+        `;
+      });
+
+      listEl.innerHTML = html;
+    }
+
+    function filterDrawerStrikes(cid, query) {
+      if (CAMPAIGN_EVENTS_CACHE[cid]) {
+        renderDrawerStrikes(cid, CAMPAIGN_EVENTS_CACHE[cid], query);
+      }
+    }
+
+    function untrackCampaign(cid) {
+      if (!confirm("Remove this campaign from your dashboard? (This won't delete the live feed on their phone, it just cleans it from this browser view).")) return;
+      let camps = getStoredCampaigns();
+      camps = camps.filter(c => c.id !== cid);
+      saveStoredCampaigns(camps);
+      renderDashboard();
     }
 
     function copyFeedUrl(cid, btnEl) {
