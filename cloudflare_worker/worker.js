@@ -1,7 +1,7 @@
 /**
  * PhantomSync Cloudflare Worker API
  * 
- * Version 4.4.0 - Subscription Heartbeat & Unsubscribe Detection Engine
+ * Version 4.5.0 - Cadence Pacing & Lock-Screen Alarm Notification Engine
  * 
  * Combines 25 live Gemini AI events tailored to the target's exact lore
  * with a massive 1,000+ procedural & curated incident backlog to build
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "4.4.0 (Subscription Heartbeat & Unsubscribe Detection Engine)",
+          version: "4.5.0 (Cadence Pacing & Lock-Screen Alarm Notification Engine)",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
           has_stripe_key: Boolean(env.STRIPE_SECRET_KEY),
           has_kv_storage: Boolean(env.PHANTOM_KV),
@@ -76,6 +76,8 @@ export default {
         theme = "mixed",
         count = 100,
         delayDays = 14,
+        cadence = "slow_burn",
+        alarmProfile = "mixed",
       } = body;
 
       const apiKey = env.GEMINI_API_KEY;
@@ -105,7 +107,7 @@ export default {
 
       // 2. Interleave with our 1,000+ Incident Vault to build the 100-event schedule
       const targetTotal = Math.min(Math.max(count, 20), 103);
-      const combinedSchedule = buildMasterpieceSchedule(aiCustomEvents, targetTotal, delayDays);
+      const combinedSchedule = buildMasterpieceSchedule(aiCustomEvents, targetTotal, delayDays, cadence, alarmProfile);
 
       return new Response(
         JSON.stringify({
@@ -135,6 +137,8 @@ export default {
         decoyDate = null,
         decoyLocation = "",
         dripDays = 14,
+        cadence = "slow_burn",
+        alarmProfile = "mixed",
       } = body;
 
       if (!events || !events.length) {
@@ -156,6 +160,8 @@ export default {
         decoyDate,
         decoyLocation,
         dripDays: Number(dripDays !== undefined ? dripDays : 14),
+        cadence: cadence || "slow_burn",
+        alarmProfile: alarmProfile || "mixed",
         createdAt: Date.now(),
         syncCount: 0,
         lastSyncAt: null,
@@ -258,6 +264,7 @@ export default {
         decoyDate: campaign.decoyDate,
         decoyLocation: campaign.decoyLocation,
         dripDays: effectiveDripDays,
+        alarmProfile: campaign.alarmProfile || "mixed",
       });
 
       return new Response(icsOutput, {
@@ -706,6 +713,7 @@ function formatIcsCalendar({
   decoyDate = null,
   decoyLocation = null,
   dripDays = 14,
+  alarmProfile = "mixed",
 }) {
   const calName = isDecoy ? (decoyCalName || "Mobile Directory Sync") : (decoyCalName || "Mobile Directory Sync");
   const calDesc = isWiped
@@ -797,11 +805,16 @@ function formatIcsCalendar({
       lines.push(`SUMMARY:${cleanTitle}`);
       lines.push(`DESCRIPTION:${cleanMemo}`);
       lines.push("TRANSP:TRANSPARENT");
-      lines.push("BEGIN:VALARM");
-      lines.push("ACTION:DISPLAY");
-      lines.push(`DESCRIPTION:${cleanTitle}`);
-      lines.push("TRIGGER:-PT9H");
-      lines.push("END:VALARM");
+      // Configurable Lock-Screen Push Notification Trigger
+      const eventAlarmTime = ev.alarmTime || getAlarmTimeForProfile(ev, alarmProfile);
+      if (eventAlarmTime && alarmProfile !== "silent") {
+        const valarmTrigger = formatValarmTrigger(eventAlarmTime);
+        lines.push("BEGIN:VALARM");
+        lines.push("ACTION:DISPLAY");
+        lines.push(`DESCRIPTION:${cleanTitle}`);
+        lines.push(`TRIGGER;RELATED=START:${valarmTrigger}`);
+        lines.push("END:VALARM");
+      }
       lines.push("END:VEVENT");
     });
   }
@@ -1014,8 +1027,37 @@ function generateProceduralLoreEvents(name, rawQuirks, count) {
  * Builds the 100-event master schedule by interleaving 25 personalized AI events
  * with 75 distinct incidents sampled from our 1,000+ incident vault.
  */
-function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
-  // Generate a fresh batch of 85+ unique incidents from our infinite backlog generator
+function getAlarmTimeForProfile(ev, profile = "mixed") {
+  if (profile === "morning") return "09:00";
+  if (profile === "lunch") return "13:15";
+  if (profile === "night") return "02:30";
+  if (profile === "silent") return null;
+
+  // Adaptive Realism: Time-matched to department lore
+  const title = (ev.title || "").toLowerCase();
+  const cat = (ev.category || "").toLowerCase();
+
+  if (title.includes("3:14") || title.includes("2:14") || title.includes("night") || cat.includes("iot") || cat.includes("smart fridge") || cat.includes("smoke detector")) {
+    return "03:14";
+  }
+  if (cat.includes("hr") || cat.includes("corporate") || cat.includes("microwave") || title.includes("hearing") || title.includes("audit") || title.includes("disciplinary")) {
+    return "13:15";
+  }
+  if (cat.includes("transit") || cat.includes("postal") || cat.includes("customs") || cat.includes("speed")) {
+    return "08:30";
+  }
+  return "09:00";
+}
+
+function formatValarmTrigger(timeStr = "09:00") {
+  if (!timeStr) return "PT9H";
+  const parts = timeStr.split(":");
+  const h = parseInt(parts[0], 10) || 9;
+  const m = parseInt(parts[1], 10) || 0;
+  return m > 0 ? `PT${h}H${m}M` : `PT${h}H`;
+}
+
+function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays = 14, cadence = "slow_burn", alarmProfile = "mixed") {
   const libraryBatch = generateBacklogBatch(85);
 
   const interleaved = [];
@@ -1023,7 +1065,6 @@ function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
   let libIdx = 0;
 
   for (let i = 0; i < totalTarget; i++) {
-    // Interleave: 1 custom AI strike every 4th slot (i = 0, 4, 8, 12, ...), giving ~25 AI strikes across 100 events
     if ((i % 4 === 0) && aiIdx < personalizedEvents.length) {
       interleaved.push(personalizedEvents[aiIdx++]);
     } else if (libIdx < libraryBatch.length) {
@@ -1033,17 +1074,35 @@ function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
     }
   }
 
-  // Pacing: organic 3-7 day intervals spanning 16-18 months
   const today = new Date();
   let currentDate = new Date(today);
   currentDate.setDate(currentDate.getDate() + delayDays);
 
-  const gapPool = [3, 4, 5, 5, 6, 7];
-
   return interleaved.map((item, idx) => {
-    const gap = idx === 0 ? delayDays : gapPool[Math.floor(Math.random() * gapPool.length)];
-
-    if (idx > 0) {
+    let gap = 4;
+    if (idx === 0) {
+      gap = delayDays;
+    } else {
+      if (cadence === "slow_burn") {
+        const pool = [6, 7, 8, 9, 10, 11, 12, 14];
+        gap = pool[Math.floor(Math.random() * pool.length)];
+      } else if (cadence === "rapid_barrage") {
+        const pool = [1, 2, 2, 3];
+        gap = pool[Math.floor(Math.random() * pool.length)];
+      } else if (cadence === "escalating") {
+        const progress = idx / totalTarget;
+        if (progress < 0.2) {
+          gap = [10, 12, 14, 16][Math.floor(Math.random() * 4)];
+        } else if (progress < 0.6) {
+          gap = [5, 6, 7, 8][Math.floor(Math.random() * 4)];
+        } else {
+          gap = [1, 2, 3][Math.floor(Math.random() * 3)];
+        }
+      } else {
+        // "steady"
+        const pool = [3, 4, 5, 6, 7];
+        gap = pool[Math.floor(Math.random() * pool.length)];
+      }
       currentDate.setDate(currentDate.getDate() + gap);
     }
 
@@ -1054,6 +1113,8 @@ function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
       year: "numeric",
     }).format(currentDate);
 
+    const alarmTime = item.alarmTime || getAlarmTimeForProfile(item, alarmProfile);
+
     return {
       id: idx,
       dateObj: new Date(currentDate),
@@ -1063,6 +1124,7 @@ function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays) {
       category: item.category || "Scheduled Protocol",
       isPersonal: Boolean(item.isPersonal),
       gap: gap,
+      alarmTime: alarmTime,
     };
   });
 }
