@@ -585,7 +585,9 @@ function parseSubscriberDevice(ua = "") {
 function computeSubscriptionHealth(campaign) {
   const syncCount = Number(campaign.syncCount || 0);
   const now = Date.now();
-  const lastSyncTime = campaign.lastSyncAt ? new Date(campaign.lastSyncAt).getTime() : 0;
+  const lastSyncTime = campaign.lastSyncAt
+    ? new Date(campaign.lastSyncAt).getTime()
+    : (syncCount > 0 ? (campaign.createdAt || 0) : 0);
   const hoursSinceLastSync = lastSyncTime > 0 ? (now - lastSyncTime) / (1000 * 60 * 60) : Infinity;
 
   let state = "WAITING";
@@ -595,7 +597,7 @@ function computeSubscriptionHealth(campaign) {
 
   if (campaign.killSwitch) {
     state = "KILLED";
-    badgeText = "🚨 Feed Terminated (Kill Switch)";
+    badgeText = "🛑 Feed Terminated (Kill Switch)";
     badgeColor = "#ef4444";
     explanation = "Feed was wiped by pranker remote kill switch.";
   } else if (syncCount === 0) {
@@ -631,6 +633,9 @@ function computeSubscriptionHealth(campaign) {
 }
 
 function formatHoursAgo(hours) {
+  if (hours === null || hours === undefined || !isFinite(hours)) {
+    return "several days ago";
+  }
   if (hours < 1) {
     const mins = Math.max(1, Math.round(hours * 60));
     return `${mins}m ago`;

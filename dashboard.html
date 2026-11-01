@@ -766,6 +766,9 @@
     }
 
     function formatHoursAgo(hours) {
+      if (hours === null || hours === undefined || !isFinite(hours)) {
+        return "recently";
+      }
       if (hours < 1) {
         const mins = Math.max(1, Math.round(hours * 60));
         return `${mins}m ago`;
