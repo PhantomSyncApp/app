@@ -557,6 +557,7 @@ export default {
  * Subscription Heartbeat & Device Detection Helpers
  */
 function parseSubscriberDevice(ua = "") {
+  if (!ua || typeof ua !== "string") return "Waiting for Device...";
   const s = ua.toLowerCase();
   if (s.includes("dataaccessd") || (s.includes("ios") && s.includes("calendar")) || s.includes("mobilecal")) {
     return "Apple iPhone (Native iOS Calendar)";
