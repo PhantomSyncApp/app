@@ -434,7 +434,10 @@
         card.innerHTML = `
           <div class="campaign-header">
             <div>
-              <div class="target-name">${camp.name || "Target"}</div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="target-name" id="targetName-${camp.id}">${camp.name || "Target"}</div>
+                <button type="button" onclick="renameCampaign('${camp.id}')" style="background:transparent; border:none; color:#64748b; cursor:pointer; font-size:0.8rem; padding:2px;" title="Rename Target">✏️</button>
+              </div>
               <div class="cid-pill">ID: ${camp.id}</div>
             </div>
             <div id="statusBadge-${camp.id}" class="status-badge status-decoy">
@@ -442,7 +445,7 @@
             </div>
           </div>
 
-          <div class="telemetry-grid">
+          <div class="telemetry-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
             <div>
               <div class="telem-label">Subscriber Device</div>
               <div class="telem-val" id="telemDevice-${camp.id}" style="font-size:0.82rem; color:#38bdf8;">Waiting...</div>
@@ -454,6 +457,10 @@
             <div>
               <div class="telem-label">Last Device Check</div>
               <div class="telem-val" id="telemLastCheck-${camp.id}" style="font-size:0.82rem;">Never</div>
+            </div>
+            <div>
+              <div class="telem-label">Next Target Strike</div>
+              <div class="telem-val" id="telemNextStrike-${camp.id}" style="font-size:0.82rem; color:#fde047;">Calculating...</div>
             </div>
           </div>
 
@@ -483,6 +490,9 @@
             </button>
             <button class="btn-action" style="background:rgba(6,182,212,0.18); border-color:var(--cyan); color:#67e8f9; font-weight:700;" onclick="toggleStrikesDrawer('${camp.id}', this)" id="btnViewStrikes-${camp.id}">
               📅 View All Strikes
+            </button>
+            <button class="btn-action" onclick="downloadCampaignIcs('${camp.id}', this)">
+              📥 Download .ICS
             </button>
             <a class="btn-action" href="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent('webcal://' + new URL(CLOUDFLARE_WORKER_URL).host + '/cal/' + camp.id + '.ics')}" target="_blank">
               📱 QR Code
@@ -560,6 +570,21 @@
         toggleBtn.textContent = data.isDecoy ? "⚡ Bypass Decoy" : "🛡️ Re-enable Decoy";
       }
 
+      // Update Next Strike Countdown
+      const nextStrikeEl = document.getElementById(`telemNextStrike-${cid}`);
+      if (nextStrikeEl) {
+        if (data.killSwitch) {
+          nextStrikeEl.textContent = "Wiped";
+          nextStrikeEl.style.color = "#ef4444";
+        } else if (data.isDecoy) {
+          nextStrikeEl.textContent = "Decoy Active";
+          nextStrikeEl.style.color = "#fbbf24";
+        } else {
+          // Find next event from edge
+          fetchCampaignDetailsForCountdown(cid, nextStrikeEl);
+        }
+      }
+
       // Update Drip Horizon Summary
       const dripSummary = document.getElementById(`dripSummary-${cid}`);
       if (dripSummary && data.dripDays !== undefined) {
@@ -626,6 +651,43 @@
         alert("Kill switch error: " + e.message);
       } finally {
         btnEl.disabled = false;
+      }
+    }
+
+    async function fetchCampaignDetailsForCountdown(cid, targetEl) {
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        let details = CAMPAIGN_EVENTS_CACHE[cid];
+        if (!details) {
+          const res = await fetch(`${cleanUrl}/api/campaigns/${cid}`);
+          if (res.ok) {
+            details = await res.json();
+            CAMPAIGN_EVENTS_CACHE[cid] = details;
+          }
+        }
+        if (!details || !details.events || !details.events.length) {
+          targetEl.textContent = "None Scheduled";
+          return;
+        }
+
+        const now = Date.now();
+        const upcoming = details.events
+          .map(e => ({ ...e, time: new Date(e.dateObj || now).getTime() }))
+          .filter(e => e.time >= now - 86400000)
+          .sort((a, b) => a.time - b.time);
+
+        if (upcoming.length > 0) {
+          const next = upcoming[0];
+          const diffDays = Math.max(0, Math.round((next.time - now) / 86400000));
+          const timeLabel = diffDays === 0 ? "Today" : (diffDays === 1 ? "Tomorrow" : `in ${diffDays}d`);
+          targetEl.textContent = `${timeLabel} (${next.dateStr.split(",")[0] || 'Soon'})`;
+          targetEl.title = next.title;
+          targetEl.style.color = "#34d399";
+        } else {
+          targetEl.textContent = "Completed";
+        }
+      } catch (e) {
+        targetEl.textContent = "Active";
       }
     }
 
@@ -731,6 +793,47 @@
     function filterDrawerStrikes(cid, query) {
       if (CAMPAIGN_EVENTS_CACHE[cid]) {
         renderDrawerStrikes(cid, CAMPAIGN_EVENTS_CACHE[cid], query);
+      }
+    }
+
+    function renameCampaign(cid) {
+      const camps = getStoredCampaigns();
+      const camp = camps.find(c => c.id === cid);
+      if (!camp) return;
+
+      const newName = prompt("Enter a nickname or name for this target:", camp.name || "Target");
+      if (newName && newName.trim()) {
+        camp.name = newName.trim();
+        saveStoredCampaigns(camps);
+        renderDashboard();
+      }
+    }
+
+    async function downloadCampaignIcs(cid, btnEl) {
+      const oldText = btnEl.textContent;
+      btnEl.textContent = "⏳ Downloading...";
+      btnEl.disabled = true;
+
+      try {
+        const url = `https://${new URL(CLOUDFLARE_WORKER_URL).host}/cal/${cid}.ics?all=1`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Could not fetch calendar file");
+        const blob = await res.blob();
+        const dlUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = dlUrl;
+        a.download = `phantomsync-${cid}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(dlUrl);
+        btnEl.textContent = "✓ Downloaded!";
+      } catch (e) {
+        alert("Download error: " + e.message);
+        btnEl.textContent = oldText;
+      } finally {
+        btnEl.disabled = false;
+        setTimeout(() => { btnEl.textContent = oldText; }, 2000);
       }
     }
 
