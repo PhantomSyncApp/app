@@ -643,6 +643,36 @@
       color: #fb7185;
     }
 
+    /* Preset Prank Packs Buttons */
+    .btn-preset-pack {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px 8px;
+      color: #f1f5f9;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .btn-preset-pack:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: #06b6d4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+    }
+    .btn-preset-pack .pack-icon {
+      font-size: 1.3rem;
+    }
+    .btn-preset-pack .pack-name {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
     /* Strike Card Action Buttons */
     .btn-event-action {
       background: rgba(255, 255, 255, 0.06);
@@ -948,6 +978,42 @@
       <div style="background:rgba(6, 182, 212, 0.08); border:1px solid rgba(6, 182, 212, 0.25); border-radius:10px; padding:8px 12px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:0.75rem;">
         <span style="color:#67e8f9; font-weight:700;">🍏 Optimized for iPhone (1-Tap Stealth Injection)</span>
         <span style="color:var(--subtext);">Also supports Google Calendar cloud sync &amp; Android .ics</span>
+      </div>
+
+      <!-- 1-CLICK PRESET PRANK PACKS -->
+      <div class="form-group" style="margin-bottom: 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label style="margin:0; font-size:0.85rem; font-weight:800; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+            ⚡ Quick Themed Prank Packs (1-Click Autofill)
+          </label>
+          <span style="font-size:0.7rem; color:var(--subtext);">Pick a theme or customize below</span>
+        </div>
+        <div class="preset-packs-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('hoa')">
+            <span class="pack-icon">🏡</span>
+            <span class="pack-name">Strict HOA Board</span>
+          </button>
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('smarthome')">
+            <span class="pack-icon">🤖</span>
+            <span class="pack-name">Smart Home Revolt</span>
+          </button>
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('fastfood')">
+            <span class="pack-icon">🍕</span>
+            <span class="pack-name">Fast Food Debt</span>
+          </button>
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('corporate')">
+            <span class="pack-icon">🏢</span>
+            <span class="pack-name">HR Purgatory</span>
+          </button>
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('surveillance')">
+            <span class="pack-icon">🕵️</span>
+            <span class="pack-name">Avian Drones</span>
+          </button>
+          <button type="button" class="btn-preset-pack" onclick="applyPrankPack('raccoon')">
+            <span class="pack-icon">🦝</span>
+            <span class="pack-name">Raccoon Syndicate</span>
+          </button>
+        </div>
       </div>
 
       <div class="form-group">
@@ -1380,6 +1446,83 @@
     // State
     let generatedEvents = [];
     let currentTheme = "mixed";
+
+    // ==========================================
+    // PRESET PRANK PACKS (1-CLICK AUTOFILL)
+    // ==========================================
+    const PRANK_PACKS = {
+      hoa: {
+        theme: "municipal",
+        decoy: "trash",
+        quirks: "Left trash cans out 20 minutes past sunset, lawn grass exceeded 2.5 inches, unapproved garden gnome, sprinkler hitting neighbor's driveway.",
+        label: "🏡 The Overly Strict HOA Board"
+      },
+      smarthome: {
+        theme: "smarthome",
+        decoy: "directory",
+        quirks: "Smart fridge judging midnight cheese raids, Roomba stuck under couch spinning in circles, air fryer existential crisis, microwave left with 0:01 on timer.",
+        label: "🤖 Sentient Smart Home Mutiny"
+      },
+      fastfood: {
+        theme: "fastfood",
+        decoy: "delivery",
+        quirks: "Owes $20 for Taco Bell from 2024, hoards 47 hot sauce packets in glovebox, takes 15 minutes to order in drive-thru, McFlurry machine witness testimony.",
+        label: "🍕 Fast Food Collections & Sauce Warranties"
+      },
+      corporate: {
+        theme: "corporate",
+        decoy: "holidays",
+        quirks: "Microwaved salmon in breakroom, said 'Per my last email', cameras off during all-hands meetings, aggressive reply-all chain sender.",
+        label: "🏢 Corporate & HR Purgatory"
+      },
+      surveillance: {
+        theme: "surveillance",
+        decoy: "directory",
+        quirks: "Window blinds held at illegal 45 degree angle, talks to dog in private, pigeon on powerline watching kitchen window, suspicious toaster frequency.",
+        label: "🕵️ Avian Drone & Federal Surveillance"
+      },
+      raccoon: {
+        theme: "mixed",
+        decoy: "trash",
+        quirks: "Trash can lid unsecured on Tuesday nights, left cat food on back porch, 3:00 AM roof tap dance, raccoon mob territory dispute.",
+        label: "🦝 Neighborhood Raccoon Syndicate"
+      }
+    };
+
+    function applyPrankPack(packKey) {
+      const pack = PRANK_PACKS[packKey];
+      if (!pack) return;
+
+      const quirksInput = document.getElementById("targetQuirks");
+      if (quirksInput) quirksInput.value = pack.quirks;
+
+      // Select matching theme button
+      const themeBtns = document.querySelectorAll(".theme-btn");
+      themeBtns.forEach(btn => {
+        if (btn.dataset.theme === pack.theme) {
+          themeBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentTheme = pack.theme;
+        }
+      });
+
+      // Select matching Trojan Decoy
+      const decoySelect = document.getElementById("decoyPresetSelect");
+      if (decoySelect && pack.decoy) {
+        decoySelect.value = pack.decoy;
+        applyDecoyPreset(pack.decoy);
+      }
+
+      // Flash quirks box for visual confirmation
+      if (quirksInput) {
+        quirksInput.style.borderColor = "#06b6d4";
+        quirksInput.style.boxShadow = "0 0 15px rgba(6, 182, 212, 0.4)";
+        setTimeout(() => {
+          quirksInput.style.borderColor = "";
+          quirksInput.style.boxShadow = "";
+        }, 800);
+      }
+    }
 
     // Theme selector handling
     const themeBtns = document.querySelectorAll(".theme-btn");

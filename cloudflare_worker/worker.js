@@ -1285,5 +1285,155 @@ const CURATED_VAULT = [
     title: "🚗 Parallel Parking Attempt Aborted: Driving to Another State",
     memo: "Traffic Maneuver: Reverse gear engaged. Car bumped curb at 2 MPH. Driver immediately drove 4 blocks away to find pull-in spot.",
     category: "Municipal Citation",
+  },
+  {
+    title: "💦 Sprinkler Head Aimed 4° Onto Neighbor's Driveway Citation",
+    memo: "HOA Irrigation Enforcement: Zone 3 oscillating nozzle is irrigating 18 square inches of adjacent driveway concrete. Water waste penalty assessed.",
+    category: "Municipal Citation",
+  },
+  {
+    title: "🗑️ Trash Can Retrieved 38 Minutes After Sunset Inquest",
+    memo: "HOA Covenant 7-D: Curbside receptacle remained visible past astronomical sunset. Streetscape aesthetic harmony compromised.",
+    category: "Municipal Citation",
+  },
+  {
+    title: "🦩 Decorative Lawn Flamingo Latitude & Longitude Calibration",
+    memo: "HOA Aesthetic Board: Ornamental plastic bird exceeds permissible lawn saturation threshold. Alignment off-true north by 14 degrees.",
+    category: "Municipal Citation",
+  },
+  {
+    title: "🎐 Unlicensed Windchime Acoustic Resonance Hearing (Section 8-C)",
+    memo: "Zoning Advisory: Aluminum chime frequency detected during peaceful residential hours. Unsanctioned harmonic emissions on wind gust.",
+    category: "Municipal Citation",
+  },
+  {
+    title: "🦝 Raccoon Syndicate Trash Bin Latch Extortion Summit",
+    memo: "Wildlife Directorate: Local masked urban wildlife consortium demands unlatched recycling lid on Tuesday evenings in exchange for porch amnesty.",
+    category: "Domestic Review",
+  },
+  {
+    title: "⏱️ Microwave Left With 0:01 Remaining on Digital Timer Tribunal",
+    memo: "Kitchen Telemetry: Digital clock functionality disabled because previous user did not press 'Clear'. The whole kitchen is held hostage.",
+    category: "IoT Disciplinary",
+  },
+  {
+    title: "🍟 Air Fryer Deep-State Crispiness Discrepancy Investigation",
+    memo: "Culinary Diagnostics: Leftover fries emerged 14% soggier than promised by convective heat vortex marketing claims. Review pending.",
+    category: "IoT Disciplinary",
+  },
+  {
+    title: "🌡️ Smart Thermostat Remote Temperature War: 68° vs 71° Armistice",
+    memo: "HVAC Telemetry: Temperature changed 9 times in 4 hours from two competing mobile devices. Dual-zone armistice hearing scheduled.",
+    category: "IoT Disciplinary",
+  },
+  {
+    title: "🧼 Dishwasher Pod Dissolution Failure & Slime Residue Hearing",
+    memo: "Appliance Directive: Detergent pod failed to burst. Unmelted gelatinous pouch found fused to coffee mug handle at cycle completion.",
+    category: "Sanitary Protocol",
+  },
+  {
+    title: "🐟 Reheating Salmon in Breakroom Microwave Disciplinary Hearing",
+    memo: "Corporate Facilities Notice: Seafood thermal event detected on 4th floor. Entire ventilation shaft compromised for 6 business hours.",
+    category: "Corporate Audit",
+  },
+  {
+    title: "📧 Unsolicited Reply-All 'Thanks!' Email Chain Investigation",
+    memo: "IT Governance: Company-wide distribution list burdened with 14 unnecessary 'Thank you!' acknowledgments. Productivity loss calculated at $42,000.",
+    category: "Corporate Audit",
+  },
+  {
+    title: "📷 Camera-Off 'Bandwidth Issues' During 9:00 AM All-Hands Audit",
+    memo: "Corporate HR Review: Avatar displayed while microphone was muted. Keystroke telemetry indicates target was simultaneously frying bacon.",
+    category: "Corporate Audit",
+  },
+  {
+    title: "💬 Passive-Aggressive 'Per My Last Email' Decibel Calibration",
+    memo: "Workplace Civility Bureau: Communication measured at maximum corporate hostility. Document attachments were already highlighted in yellow.",
+    category: "Corporate Audit",
+  },
+  {
+    title: "🚪 Pushing Door Clearly Marked 'PULL' Public Dignity Inquest",
+    memo: "Kinesthetic Telemetry: Body weight leaned forward into fixed brass handle. Recoil impact recorded. Quick glance around to check if anyone noticed.",
+    category: "Social Violation",
+  },
+  {
+    title: "✈️ Saying 'You Too!' to Flight Attendant Who Said 'Have a Nice Flight'",
+    memo: "Social Etiquette Trauma: Target wished flight crew a safe vacation while crew remained in aircraft galley. 4 hours of internal cringe recorded.",
+    category: "Social Violation",
+  },
+  {
+    title: "⌚ Checking Watch for Time, Then Immediately Forgetting What Time It Was",
+    memo: "Cognitive Memory Fault: Wrist rotated, dial observed for 2.1 seconds. Brain recorded zero temporal information. Second check required.",
+    category: "Domestic Review",
+  },
+  {
+    title: "📱 Pretending to Type Urgently on Phone While Waiting in Public",
+    memo: "Social Defense Telemetry: Rapid thumb movement simulated on home screen to avoid appearing idle while waiting in coffee shop lobby.",
+    category: "Social Violation",
+  },
+  {
+    title: "🧊 Staring Blankly Into Open Refrigerator for 90 Seconds",
+    memo: "Appliance Telemetry: Ambient cold air dumped onto kitchen floor. Target stared directly at jar of mayonnaise expecting dinner to manifest.",
+    category: "Domestic Review",
+  },
+  {
+    title: "📝 Typing 4-Paragraph Angry Text, Deleting Everything, and Sending 'Ok'",
+    memo: "Emotional Telemetry: 340 characters of righteous fury typed over 7 minutes. Highlighted and backspaced. Single lowercase 'ok' dispatched.",
+    category: "Telecom Etiquette",
+  },
+  {
+    title: "👋 Waving Back at Someone Waving to the Person Directly Behind You",
+    memo: "Public Humiliation Incident: Arm raised in enthusiastic greeting. Eye contact was with stranger 10 feet to the rear. Hand smoothed hair down to save face.",
+    category: "Social Violation",
+  },
+  {
+    title: "🧺 Leaving Wet Laundry in Washing Machine Overnight (Mildew Odor Trial)",
+    memo: "Appliance Violation: Damp cotton load fermented for 14 hours in sealed drum. Must re-run entire cycle with extra detergent and personal shame.",
+    category: "Domestic Review",
+  },
+  {
+    title: "📑 47 Browser Tabs Open: 'I Will Definitely Read These Later' Commission",
+    memo: "Digital Hoarding Directive: Memory consumption at 94%. Tab titled 'Best Stretches for Posture 2023' has remained unread for 11 months.",
+    category: "IoT Disciplinary",
+  },
+  {
+    title: "⚠️ Car Tire Pressure Warning Light Ignored for 6 Consecutive Months",
+    memo: "Automotive Maintenance: Dashboard amber horseshoe icon classified as permanent interior ambient lighting by driver.",
+    category: "Municipal Citation",
+  },
+  {
+    title: "📦 Refusing to Discard Empty Amazon Box Because 'It Is a Great Box'",
+    memo: "Domestic Storage Inquiry: Pristine double-corrugated shipping carton saved behind water heater 'just in case we need to ship something big'.",
+    category: "Domestic Review",
+  },
+  {
+    title: "🧮 Opening Phone Calculator App to Verify 7 + 8 Just to Be 100% Sure",
+    memo: "Mathematical Trust Audit: Adult human with college degree required digital arithmetic verification before committing to answer.",
+    category: "Domestic Review",
+  },
+  {
+    title: "🛗 Staring at Closed Elevator Doors After Forgetting to Press Floor Button",
+    memo: "Vertical Transit Telemetry: Car remained stationary at lobby level for 45 seconds while passengers admired each other's shoes in silence.",
+    category: "Corporate Audit",
+  },
+  {
+    title: "🛒 Abandoning Shopping Cart in Aisle After Seeing Acquaintance",
+    memo: "Evasive Maneuver: High school classmate spotted near canned goods. Target made sharp 90-degree pivot into greeting cards to avoid small talk.",
+    category: "Social Violation",
+  },
+  {
+    title: "🥗 Buying Organic Spinach and Watching It Liquefy in the Crisper Drawer",
+    memo: "Agricultural Telemetry: $6.49 fresh leafy greens converted into dark green slime puddle in crisper drawer over 9 days of neglected good intentions.",
+    category: "Domestic Review",
+  },
+  {
+    title: "🔋 Lying in Bed at 1% Battery Playing a High-Stakes Game of Chicken",
+    memo: "Power Management: Target refused to reach 14 inches to retrieve bedside charging cord until screen went completely pitch black.",
+    category: "IoT Disciplinary",
+  },
+  {
+    title: "🍕 Leaving Unattended Pizza Box on Kitchen Counter for 36 Hours",
+    memo: "Food Safety Directive: 1 cold pepperoni slice preserved at room temperature under cardboard roof. Classified as acceptable breakfast.",
+    category: "Sanitary Protocol",
   }
 ];
