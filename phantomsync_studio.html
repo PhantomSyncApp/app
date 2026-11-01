@@ -643,6 +643,36 @@
       color: #fb7185;
     }
 
+    /* Strike Card Action Buttons */
+    .btn-event-action {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-event-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+    .btn-event-delete:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #f87171;
+    }
+    .btn-event-edit:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: #06b6d4;
+      color: #67e8f9;
+    }
+
     /* Checkout & Arming Section */
     .checkout-grid {
       display: grid;
@@ -1098,7 +1128,12 @@
       </div>
 
       <div class="timeline-filter-box">
-        <input type="text" id="filterInput" placeholder="🔍 Search events (e.g. Plankton, Microwave, Wedding, California, Audit)...">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <input type="text" id="filterInput" style="flex:1; min-width:200px;" placeholder="🔍 Search events (e.g. Plankton, Microwave, Wedding, California, Audit)...">
+          <button type="button" id="btnAddCustomStrike" style="background:var(--cyan); color:#080c14; font-weight:800; font-size:0.82rem; padding:10px 16px; border:none; border-radius:10px; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:6px;">
+            ➕ Add Custom Strike
+          </button>
+        </div>
         <div class="filter-pills-row">
           <button type="button" class="filter-pill-btn active" data-view="all" id="pillFilterAll">🌐 All Events (<span id="pillTotalCount">100</span>)</button>
           <button type="button" class="filter-pill-btn" data-view="personal" id="pillFilterPersonal">🎯 25 Dossier Strikes</button>
@@ -1289,6 +1324,54 @@
             🚨 Activate Remote Kill Switch (Wipe Target's Feed)
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT / ADD STRIKE MODAL -->
+  <div id="strikeModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); z-index:9999; justify-content:center; align-items:center; padding:16px;">
+    <div style="background:#0f172a; border:1px solid rgba(6,182,212,0.4); border-radius:16px; width:100%; max-width:520px; padding:24px; box-shadow:0 20px 40px rgba(0,0,0,0.85); box-sizing:border-box;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 id="strikeModalTitle" style="font-size:1.15rem; font-weight:800; color:white; margin:0; display:flex; align-items:center; gap:8px;">
+          ✏️ Edit Strike
+        </h3>
+        <button type="button" onclick="closeStrikeModal()" style="background:transparent; border:none; color:#94a3b8; font-size:1.3rem; cursor:pointer; padding:0 4px;">✕</button>
+      </div>
+
+      <input type="hidden" id="modalStrikeIndex" value="-1">
+
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Date:</label>
+        <input type="date" id="modalStrikeDate" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.88rem; box-sizing:border-box;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Strike Title (In victim's calendar):</label>
+        <input type="text" id="modalStrikeTitle" placeholder="e.g. Incident: Microwave Fish Audit" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.88rem; box-sizing:border-box;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Event Memo / Description:</label>
+        <textarea id="modalStrikeMemo" rows="3" placeholder="e.g. Mandatory breakroom audit following incident report." style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.85rem; line-height:1.4; resize:vertical; box-sizing:border-box;"></textarea>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div>
+          <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Category:</label>
+          <input type="text" id="modalStrikeCategory" placeholder="e.g. Corporate Audit" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.85rem; box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Intel Type:</label>
+          <select id="modalStrikeIsPersonal" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.85rem; box-sizing:border-box;">
+            <option value="1">🎯 Personal Dossier Strike</option>
+            <option value="0">🏛️ General Protocol Strike</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" onclick="closeStrikeModal()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer;">Cancel</button>
+        <button type="button" id="btnSaveStrikeModal" style="background:var(--cyan); color:#080c14; padding:10px 20px; border-radius:8px; font-weight:800; border:none; cursor:pointer;">Save Strike</button>
       </div>
     </div>
   </div>
@@ -1815,8 +1898,18 @@ ABSOLUTE RULES:
             <div class="event-title">${ev.title}</div>
             <div class="event-memo">"${ev.memo}"</div>
           </div>
-          <div class="event-badges">
-            ${badges}
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+            <div class="event-badges">
+              ${badges}
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="btn-event-action btn-event-edit" onclick="openEditStrikeModal(${idx})" title="Edit Strike">
+                ✏️ Edit
+              </button>
+              <button type="button" class="btn-event-action btn-event-delete" onclick="deleteStrike(${idx})" title="Delete Strike">
+                🗑️
+              </button>
+            </div>
           </div>
         `;
 
@@ -1912,6 +2005,171 @@ ABSOLUTE RULES:
     // Search filter
     document.getElementById("filterInput").addEventListener("input", (e) => {
       renderTimeline(generatedEvents, e.target.value);
+    });
+
+    // ==========================================
+    // STRIKE EDITOR & CUSTOMIZER (ITEM #1)
+    // ==========================================
+    function recalculateScheduleDates() {
+      // Sort chronologically
+      generatedEvents.sort((a, b) => new Date(a.dateObj).getTime() - new Date(b.dateObj).getTime());
+
+      const today = new Date();
+      generatedEvents.forEach((ev, i) => {
+        const cur = new Date(ev.dateObj);
+        if (i === 0) {
+          const diffDays = Math.round((cur.getTime() - today.getTime()) / (86400 * 1000));
+          ev.gap = Math.max(diffDays, 0);
+        } else {
+          const prev = new Date(generatedEvents[i - 1].dateObj);
+          const diffDays = Math.round((cur.getTime() - prev.getTime()) / (86400 * 1000));
+          ev.gap = Math.max(diffDays, 1);
+        }
+        ev.dateStr = new Intl.DateTimeFormat("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }).format(cur);
+      });
+
+      // Update counters
+      const totalCount = generatedEvents.length;
+      const countEl = document.getElementById("totalCountBadge");
+      const pillCount = document.getElementById("pillTotalCount");
+      const strikeEl = document.getElementById("firstStrikeDate");
+      const intelEl = document.getElementById("personalCountBadge");
+
+      if (countEl) countEl.textContent = `${totalCount} Events`;
+      if (pillCount) pillCount.textContent = totalCount;
+      if (strikeEl && generatedEvents.length > 0) {
+        strikeEl.textContent = generatedEvents[0].dateStr;
+      }
+      if (intelEl) {
+        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        intelEl.textContent = `${personalCount} Dossier Strikes`;
+      }
+    }
+
+    function openEditStrikeModal(idx) {
+      const modal = document.getElementById("strikeModal");
+      const titleEl = document.getElementById("strikeModalTitle");
+      const idxInput = document.getElementById("modalStrikeIndex");
+      const dateInput = document.getElementById("modalStrikeDate");
+      const titleInput = document.getElementById("modalStrikeTitle");
+      const memoInput = document.getElementById("modalStrikeMemo");
+      const catInput = document.getElementById("modalStrikeCategory");
+      const typeSelect = document.getElementById("modalStrikeIsPersonal");
+
+      if (idx >= 0 && idx < generatedEvents.length) {
+        const ev = generatedEvents[idx];
+        titleEl.textContent = "✏️ Edit Strike";
+        idxInput.value = idx;
+
+        const d = new Date(ev.dateObj);
+        dateInput.value = d.toISOString().slice(0, 10);
+        titleInput.value = ev.title;
+        memoInput.value = ev.memo;
+        catInput.value = ev.category || "Scheduled Protocol";
+        typeSelect.value = ev.isPersonal ? "1" : "0";
+      } else {
+        titleEl.textContent = "➕ Add Custom Strike";
+        idxInput.value = -1;
+
+        const defaultDate = new Date();
+        defaultDate.setDate(defaultDate.getDate() + 14);
+        dateInput.value = defaultDate.toISOString().slice(0, 10);
+        titleInput.value = "";
+        memoInput.value = "";
+        catInput.value = "Personal Strike";
+        typeSelect.value = "1";
+      }
+
+      modal.style.display = "flex";
+      titleInput.focus();
+    }
+
+    function closeStrikeModal() {
+      document.getElementById("strikeModal").style.display = "none";
+    }
+
+    function saveStrikeModal() {
+      const idx = parseInt(document.getElementById("modalStrikeIndex").value, 10);
+      const dateVal = document.getElementById("modalStrikeDate").value;
+      const titleVal = document.getElementById("modalStrikeTitle").value.trim();
+      const memoVal = document.getElementById("modalStrikeMemo").value.trim();
+      const catVal = document.getElementById("modalStrikeCategory").value.trim() || "Scheduled Strike";
+      const isPersonal = document.getElementById("modalStrikeIsPersonal").value === "1";
+
+      if (!titleVal) {
+        alert("Please enter a strike title!");
+        return;
+      }
+      if (!dateVal) {
+        alert("Please select a date for this strike!");
+        return;
+      }
+
+      const parts = dateVal.split("-");
+      const dateObj = new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0);
+
+      if (idx >= 0 && idx < generatedEvents.length) {
+        generatedEvents[idx].title = titleVal;
+        generatedEvents[idx].memo = memoVal;
+        generatedEvents[idx].category = catVal;
+        generatedEvents[idx].dateObj = dateObj;
+        generatedEvents[idx].isPersonal = isPersonal;
+      } else {
+        generatedEvents.push({
+          id: generatedEvents.length,
+          title: titleVal,
+          memo: memoVal,
+          category: catVal,
+          dateObj: dateObj,
+          isPersonal: isPersonal,
+          gap: 4
+        });
+      }
+
+      closeStrikeModal();
+      recalculateScheduleDates();
+      renderTimeline(generatedEvents, document.getElementById("filterInput").value);
+    }
+
+    function deleteStrike(idx) {
+      if (idx < 0 || idx >= generatedEvents.length) return;
+      const title = generatedEvents[idx].title;
+      if (!confirm(`Delete "${title}" from the calendar?`)) return;
+
+      generatedEvents.splice(idx, 1);
+      recalculateScheduleDates();
+      renderTimeline(generatedEvents, document.getElementById("filterInput").value);
+    }
+
+    // Modal event listeners
+    window.addEventListener("DOMContentLoaded", () => {
+      const btnAdd = document.getElementById("btnAddCustomStrike");
+      if (btnAdd) {
+        btnAdd.addEventListener("click", () => openEditStrikeModal(-1));
+      }
+
+      const btnSave = document.getElementById("btnSaveStrikeModal");
+      if (btnSave) {
+        btnSave.addEventListener("click", saveStrikeModal);
+      }
+
+      const modal = document.getElementById("strikeModal");
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target.id === "strikeModal") closeStrikeModal();
+        });
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && modal.style.display === "flex") {
+          closeStrikeModal();
+        }
+      });
     });
 
     // Custom .ics export
