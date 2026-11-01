@@ -2574,10 +2574,20 @@ ABSOLUTE RULES:
 
         if (data.success) {
           document.getElementById("telemetrySyncCount").textContent = data.syncCount;
-          if (data.syncCount > 0) {
-            document.getElementById("telemetryStatus").textContent = `Target Subscribed! (${data.lastUserAgent || 'iOS Device'})`;
-            document.getElementById("telemetryStatus").style.color = "#38bdf8";
-            document.getElementById("telemetryLastCheck").textContent = new Date(data.lastSyncAt).toLocaleTimeString();
+          const sub = data.subscription;
+          const statusEl = document.getElementById("telemetryStatus");
+          const lastEl = document.getElementById("telemetryLastCheck");
+
+          if (sub) {
+            statusEl.textContent = `${sub.badgeText} • ${sub.deviceType}`;
+            statusEl.style.color = sub.badgeColor;
+          } else if (data.syncCount > 0) {
+            statusEl.textContent = `Target Subscribed! (${data.lastUserAgent || 'iOS Device'})`;
+            statusEl.style.color = "#38bdf8";
+          }
+
+          if (data.lastSyncAt) {
+            lastEl.textContent = new Date(data.lastSyncAt).toLocaleTimeString();
           }
 
           if (data.killSwitch) {

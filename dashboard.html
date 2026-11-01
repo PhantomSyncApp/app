@@ -438,12 +438,20 @@
                 <div class="target-name" id="targetName-${camp.id}">${camp.name || "Target"}</div>
                 <button type="button" onclick="renameCampaign('${camp.id}')" style="background:transparent; border:none; color:#64748b; cursor:pointer; font-size:0.8rem; padding:2px;" title="Rename Target">✏️</button>
               </div>
-              <div class="cid-pill">ID: ${camp.id}</div>
+              <div style="display:flex; align-items:center; gap:6px; margin-top:4px; flex-wrap:wrap;">
+                <div class="cid-pill">ID: ${camp.id}</div>
+                <div id="heartbeatBadge-${camp.id}" style="font-size:0.7rem; font-weight:800; padding:2px 8px; border-radius:999px; background:rgba(255,255,255,0.08); color:#94a3b8; display:inline-flex; align-items:center; gap:4px;">
+                  ⚪ Checking Connection...
+                </div>
+              </div>
             </div>
             <div id="statusBadge-${camp.id}" class="status-badge status-decoy">
               ⏳ Fetching Telemetry...
             </div>
           </div>
+
+          <!-- Live Subscription Heartbeat Alert Banner -->
+          <div id="subAlert-${camp.id}" style="display:none; margin-bottom:12px; padding:10px 14px; border-radius:10px; font-size:0.78rem; font-weight:600; line-height:1.45;"></div>
 
           <div class="telemetry-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
             <div>
@@ -559,11 +567,77 @@
         badge.innerHTML = "⚡ 100-Event Payload Armed";
       }
 
-      if (data.syncCount > 0) {
-        telemDevice.textContent = data.lastUserAgent ? data.lastUserAgent.split(' ')[0] : "Apple Calendar";
-        telemLast.textContent = new Date(data.lastSyncAt).toLocaleTimeString();
-      } else {
-        telemDevice.textContent = "Waiting for initial tap...";
+      // Subscription Heartbeat & Unsubscribe Evaluation
+      const sub = data.subscription;
+      const hb = document.getElementById(`heartbeatBadge-${cid}`);
+      const alertEl = document.getElementById(`subAlert-${cid}`);
+
+      if (hb && sub) {
+        hb.textContent = sub.badgeText;
+        hb.style.color = sub.badgeColor;
+
+        if (sub.state === "ACTIVE") {
+          hb.style.background = "rgba(16, 185, 129, 0.15)";
+          hb.style.border = "1px solid rgba(16, 185, 129, 0.4)";
+          if (alertEl) {
+            alertEl.style.display = "block";
+            alertEl.style.background = "rgba(16, 185, 129, 0.1)";
+            alertEl.style.border = "1px solid rgba(16, 185, 129, 0.35)";
+            alertEl.style.color = "#a7f3d0";
+            alertEl.innerHTML = `🟢 <strong>Target Actively Subscribed:</strong> Phone synced ${sub.hoursSinceLastSync !== null ? formatHoursAgo(sub.hoursSinceLastSync) : 'recently'} via ${sub.deviceType}. Routine background sync is active.`;
+          }
+        } else if (sub.state === "UNSUBSCRIBED") {
+          hb.style.background = "rgba(239, 68, 68, 0.15)";
+          hb.style.border = "1px solid rgba(239, 68, 68, 0.4)";
+          if (alertEl) {
+            alertEl.style.display = "block";
+            alertEl.style.background = "rgba(239, 68, 68, 0.12)";
+            alertEl.style.border = "1px solid rgba(239, 68, 68, 0.35)";
+            alertEl.style.color = "#fca5a5";
+            alertEl.innerHTML = `⚠️ <strong>Suspected Unsubscribed:</strong> Target's phone has not connected in over ${Math.round(sub.hoursSinceLastSync || 48)} hours. They likely deleted the calendar from their phone or turned off background sync.`;
+          }
+        } else if (sub.state === "IDLE") {
+          hb.style.background = "rgba(245, 158, 11, 0.15)";
+          hb.style.border = "1px solid rgba(245, 158, 11, 0.4)";
+          if (alertEl) {
+            alertEl.style.display = "block";
+            alertEl.style.background = "rgba(245, 158, 11, 0.1)";
+            alertEl.style.border = "1px solid rgba(245, 158, 11, 0.3)";
+            alertEl.style.color = "#fde68a";
+            alertEl.innerHTML = `🟡 <strong>Sync Delayed:</strong> Last checked in ${sub.hoursSinceLastSync !== null ? formatHoursAgo(sub.hoursSinceLastSync) : '1-2 days ago'}. Phone may be on low-power mode or waiting for Wi-Fi.`;
+          }
+        } else {
+          // WAITING
+          hb.style.background = "rgba(255, 255, 255, 0.08)";
+          hb.style.border = "1px solid rgba(255, 255, 255, 0.15)";
+          if (alertEl) {
+            alertEl.style.display = "block";
+            alertEl.style.background = "rgba(6, 182, 212, 0.08)";
+            alertEl.style.border = "1px solid rgba(6, 182, 212, 0.25)";
+            alertEl.style.color = "#a5f3fc";
+            alertEl.innerHTML = `📲 <strong>Waiting for Target:</strong> Target has not subscribed to this calendar yet. Send them the invite text to get them connected!`;
+          }
+        }
+      }
+
+      if (telemDevice) {
+        if (sub && sub.deviceType && sub.deviceType !== "Unknown Device") {
+          telemDevice.textContent = sub.deviceType;
+        } else if (data.syncCount > 0) {
+          telemDevice.textContent = data.lastUserAgent ? data.lastUserAgent.split(' ')[0] : "Apple Calendar";
+        } else {
+          telemDevice.textContent = "Waiting for initial tap...";
+        }
+      }
+
+      if (telemLast) {
+        if (data.lastSyncAt) {
+          const lastDate = new Date(data.lastSyncAt);
+          telemLast.textContent = `${lastDate.toLocaleDateString([], {month:'short', day:'numeric'})} ${lastDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+          telemLast.title = lastDate.toISOString();
+        } else {
+          telemLast.textContent = "Never";
+        }
       }
 
       if (toggleBtn) {
@@ -689,6 +763,18 @@
       } catch (e) {
         targetEl.textContent = "Active";
       }
+    }
+
+    function formatHoursAgo(hours) {
+      if (hours < 1) {
+        const mins = Math.max(1, Math.round(hours * 60));
+        return `${mins}m ago`;
+      }
+      if (hours < 24) {
+        return `${Math.round(hours)}h ago`;
+      }
+      const days = Math.round(hours / 24);
+      return `${days}d ago`;
     }
 
     // Global cache for campaign events

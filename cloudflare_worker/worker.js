@@ -1,7 +1,7 @@
 /**
  * PhantomSync Cloudflare Worker API
  * 
- * Version 4.3.0 - Rolling Drip Horizon + High-Converting Decoys + Stealth Drip Engine
+ * Version 4.4.0 - Subscription Heartbeat & Unsubscribe Detection Engine
  * 
  * Combines 25 live Gemini AI events tailored to the target's exact lore
  * with a massive 1,000+ procedural & curated incident backlog to build
@@ -32,7 +32,7 @@ export default {
         JSON.stringify({
           status: "online",
           service: "PhantomSync AI Backend",
-          version: "4.3.0 (Rolling Drip Horizon + High-Converting Decoys + Stealth Drip Engine)",
+          version: "4.4.0 (Subscription Heartbeat & Unsubscribe Detection Engine)",
           has_gemini_key: Boolean(env.GEMINI_API_KEY),
           has_stripe_key: Boolean(env.STRIPE_SECRET_KEY),
           has_kv_storage: Boolean(env.PHANTOM_KV),
@@ -234,10 +234,17 @@ export default {
         effectiveDripDays = Number(paramDrip);
       }
 
-      // Record subscriber telemetry
+      // Record subscriber telemetry & device detection
+      const rawUserAgent = request.headers.get("user-agent") || "Unknown Device";
+      const detectedDevice = parseSubscriberDevice(rawUserAgent);
+
       campaign.syncCount = (campaign.syncCount || 0) + 1;
       campaign.lastSyncAt = new Date().toISOString();
-      campaign.lastUserAgent = request.headers.get("user-agent") || "Unknown Device";
+      campaign.lastUserAgent = rawUserAgent;
+      campaign.deviceType = detectedDevice;
+      if (!campaign.firstSubscribedAt) {
+        campaign.firstSubscribedAt = campaign.lastSyncAt;
+      }
       await saveCampaign(env, campaign);
 
       const icsOutput = formatIcsCalendar({
@@ -277,6 +284,8 @@ export default {
       const isDecoy = !forceLive && (hoursElapsed < 24);
       const dripDays = campaign.dripDays !== undefined ? Number(campaign.dripDays) : 14;
 
+      const health = computeSubscriptionHealth(campaign);
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -294,6 +303,8 @@ export default {
           syncCount: campaign.syncCount || 0,
           lastSyncAt: campaign.lastSyncAt,
           lastUserAgent: campaign.lastUserAgent,
+          deviceType: health.deviceType,
+          subscription: health,
           decoyCalName: campaign.decoyCalName,
           decoyTitle: campaign.decoyTitle,
           decoyMemo: campaign.decoyMemo,
@@ -333,6 +344,8 @@ export default {
         }
       });
 
+      const health = computeSubscriptionHealth(campaign);
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -350,6 +363,8 @@ export default {
           syncCount: campaign.syncCount || 0,
           lastSyncAt: campaign.lastSyncAt,
           lastUserAgent: campaign.lastUserAgent,
+          deviceType: health.deviceType,
+          subscription: health,
           killSwitch: Boolean(campaign.killSwitch),
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
@@ -537,6 +552,95 @@ export default {
     return new Response("Not Found", { status: 404, headers: CORS_HEADERS });
   },
 };
+
+/**
+ * Subscription Heartbeat & Device Detection Helpers
+ */
+function parseSubscriberDevice(ua = "") {
+  const s = ua.toLowerCase();
+  if (s.includes("dataaccessd") || (s.includes("ios") && s.includes("calendar")) || s.includes("mobilecal")) {
+    return "Apple iPhone (Native iOS Calendar)";
+  }
+  if (s.includes("maccalendar") || (s.includes("mac os") && s.includes("calendar"))) {
+    return "Apple Mac (CalendarDaemon)";
+  }
+  if (s.includes("google-calendar-importer") || s.includes("google-http-java-client")) {
+    return "Google Calendar Cloud Sync";
+  }
+  if (s.includes("outlook") || s.includes("microsoft")) {
+    return "Microsoft Outlook";
+  }
+  if (s.includes("cfnetwork") || s.includes("darwin")) {
+    return "Apple iOS Device (CFNetwork)";
+  }
+  if (s.includes("android")) {
+    return "Android Calendar Device";
+  }
+  if (s.includes("mozilla") || s.includes("chrome") || s.includes("safari")) {
+    return "Web Browser (Direct Fetch / Preview)";
+  }
+  return ua ? ua.slice(0, 45) : "Unknown Device";
+}
+
+function computeSubscriptionHealth(campaign) {
+  const syncCount = Number(campaign.syncCount || 0);
+  const now = Date.now();
+  const lastSyncTime = campaign.lastSyncAt ? new Date(campaign.lastSyncAt).getTime() : 0;
+  const hoursSinceLastSync = lastSyncTime > 0 ? (now - lastSyncTime) / (1000 * 60 * 60) : Infinity;
+
+  let state = "WAITING";
+  let badgeText = "⚪ Waiting for Initial Tap";
+  let badgeColor = "#94a3b8";
+  let explanation = "Target hasn't tapped or subscribed to the feed yet.";
+
+  if (campaign.killSwitch) {
+    state = "KILLED";
+    badgeText = "🚨 Feed Terminated (Kill Switch)";
+    badgeColor = "#ef4444";
+    explanation = "Feed was wiped by pranker remote kill switch.";
+  } else if (syncCount === 0) {
+    state = "WAITING";
+    badgeText = "⚪ Waiting for Target to Subscribe";
+    badgeColor = "#94a3b8";
+    explanation = "Target has not opened or subscribed to this calendar yet.";
+  } else if (hoursSinceLastSync <= 36) {
+    state = "ACTIVE";
+    badgeText = "🟢 Subscribed & Actively Syncing";
+    badgeColor = "#10b981";
+    explanation = `Device checked in ${formatHoursAgo(hoursSinceLastSync)}. Sync is fully operational.`;
+  } else if (hoursSinceLastSync <= 72) {
+    state = "IDLE";
+    badgeText = "🟡 Idle (Sync Delayed)";
+    badgeColor = "#f59e0b";
+    explanation = `Last check was ${formatHoursAgo(hoursSinceLastSync)}. Phone may be on Wi-Fi delay or low-power mode.`;
+  } else {
+    state = "UNSUBSCRIBED";
+    badgeText = "⚠️ Suspected Unsubscribed (No sync in 48h+)";
+    badgeColor = "#f87171";
+    explanation = `No background checks in ${formatHoursAgo(hoursSinceLastSync)}. Target likely deleted the calendar or disabled feed.`;
+  }
+
+  return {
+    state,
+    badgeText,
+    badgeColor,
+    explanation,
+    hoursSinceLastSync: lastSyncTime > 0 ? Math.round(hoursSinceLastSync * 10) / 10 : null,
+    deviceType: campaign.deviceType || parseSubscriberDevice(campaign.lastUserAgent),
+  };
+}
+
+function formatHoursAgo(hours) {
+  if (hours < 1) {
+    const mins = Math.max(1, Math.round(hours * 60));
+    return `${mins}m ago`;
+  }
+  if (hours < 24) {
+    return `${Math.round(hours)}h ago`;
+  }
+  const days = Math.round(hours / 24);
+  return `${days}d ago`;
+}
 
 /**
  * Storage helpers (Cloudflare KV with in-memory fallback)
