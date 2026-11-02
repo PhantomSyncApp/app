@@ -356,16 +356,7 @@
       <button type="button" id="btnTrackCid" class="btn-track">Track Campaign</button>
     </div>
 
-    <!-- Victim 0 (Jared) Banner -->
-    <div style="background:rgba(6,182,212,0.1); border:1px solid rgba(6,182,212,0.25); border-radius:14px; padding:12px 18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-      <div>
-        <div style="font-size:0.85rem; font-weight:800; color:#38bdf8;">🎯 Victim 0 (Jared Wilson) Live Prototype</div>
-        <div style="font-size:0.75rem; color:#94a3b8;">100 bespoke strikes (Plankton, Microwave Fish, Marine Fiancée) syncing to Jared's iPhone.</div>
-      </div>
-      <a href="timeline.html" style="text-decoration:none; background:var(--cyan); color:#080c14; font-weight:800; font-size:0.75rem; padding:6px 14px; border-radius:8px;">
-        👁️ View Jared's Timeline &rarr;
-      </a>
-    </div>
+
 
     <!-- Campaign Feed Container -->
     <div id="campaignList">
@@ -376,12 +367,33 @@
   <script>
     const CLOUDFLARE_WORKER_URL = "https://phantomsync-api.sys-directory.workers.dev";
 
-    // Load campaigns from local storage or URL query
+    const VICTIM_0_DEFAULT = {
+      id: "c_demo_victim_0",
+      name: "Jared Wilson (Victim 0)",
+      decoyCalName: "Mobile Directory Sync",
+      decoyTitle: "📱 Enterprise Directory Verification",
+      createdAt: 1730000000000
+    };
+
+    // Load campaigns from local storage or URL query (Jared Wilson / Victim 0 seeded by default)
     function getStoredCampaigns() {
       try {
-        return JSON.parse(localStorage.getItem("phantom_campaigns") || "[]");
+        const raw = localStorage.getItem("phantom_campaigns");
+        const untracked = JSON.parse(localStorage.getItem("phantom_untracked") || "[]");
+        let list = raw !== null ? JSON.parse(raw) : null;
+
+        if (list === null) {
+          // First visit: Seed Jared Wilson (Victim 0) by default
+          list = [VICTIM_0_DEFAULT];
+          saveStoredCampaigns(list);
+        } else if (!untracked.includes("c_demo_victim_0") && !list.some(c => c.id === "c_demo_victim_0")) {
+          // If not explicitly untracked, keep Jared present
+          list.unshift(VICTIM_0_DEFAULT);
+          saveStoredCampaigns(list);
+        }
+        return list;
       } catch (e) {
-        return [];
+        return [VICTIM_0_DEFAULT];
       }
     }
 
@@ -406,7 +418,8 @@
       const urlParams = new URLSearchParams(window.location.search);
       const urlCid = urlParams.get("cid");
       if (urlCid && !campaigns.some(c => c.id === urlCid)) {
-        campaigns.unshift({ id: urlCid, name: "Target", createdAt: Date.now() });
+        const name = urlCid === "c_demo_victim_0" ? "Jared Wilson (Victim 0)" : "Target";
+        campaigns.unshift({ id: urlCid, name: name, createdAt: Date.now() });
         saveStoredCampaigns(campaigns);
       }
 
@@ -547,6 +560,18 @@
 
         container.appendChild(card);
         updateCardTelemetry(camp.id);
+      }
+
+      // Auto-scroll and highlight target card if ?cid= is in the URL
+      if (urlCid) {
+        setTimeout(() => {
+          const card = document.getElementById(`card-${urlCid}`);
+          if (card) {
+            card.scrollIntoView({ behavior: 'smooth' });
+            card.style.outline = "2px solid #38bdf8";
+            card.style.boxShadow = "0 0 35px rgba(56,189,248,0.35)";
+          }
+        }, 150);
       }
     }
 
@@ -933,10 +958,19 @@
     }
 
     function untrackCampaign(cid) {
-      if (!confirm("Remove this campaign from your dashboard? (This won't delete the live feed on their phone, it just cleans it from this browser view).")) return;
-      let camps = getStoredCampaigns();
-      camps = camps.filter(c => c.id !== cid);
+      if (!confirm("Remove this target from your dashboard? (The live calendar feed will continue running on their phone until killed).")) return;
+      let camps = getStoredCampaigns().filter(c => c.id !== cid);
       saveStoredCampaigns(camps);
+
+      // Save to untracked blacklist so it is not auto-seeded again
+      try {
+        const untracked = JSON.parse(localStorage.getItem("phantom_untracked") || "[]");
+        if (!untracked.includes(cid)) {
+          untracked.push(cid);
+          localStorage.setItem("phantom_untracked", JSON.stringify(untracked));
+        }
+      } catch (e) {}
+
       renderDashboard();
     }
 
@@ -985,20 +1019,35 @@
       }
     }
 
-    // Track manually
+    // Track manually (Supports ps_..., c_demo_victim_0, or typing "Jared")
     async function trackEnteredCampaign() {
       const input = document.getElementById("inputTrackCid").value.trim();
       if (!input) return;
 
-      // Extract ps_xxxxxxxx whether the user pasted the raw ID, webcal://, or https:// URL
-      const match = input.match(/ps_[a-zA-Z0-9_-]+/i);
-      const clean = input.replace(/^ps_/, "");
-      const fullCid = match ? match[0] : (clean.startsWith("ps_") ? clean : `ps_${clean}`);
+      let fullCid = input;
+      let defaultName = "Target";
+
+      if (input.toLowerCase().includes("jared") || input.toLowerCase().includes("victim 0") || input.toLowerCase().includes("victim_0")) {
+        fullCid = "c_demo_victim_0";
+        defaultName = "Jared Wilson (Victim 0)";
+      } else {
+        const match = input.match(/(?:ps_|c_)[a-zA-Z0-9_-]+/i);
+        const clean = input.replace(/^(?:ps_|c_)/, "");
+        fullCid = match ? match[0] : (clean.startsWith("ps_") || clean.startsWith("c_") ? clean : `ps_${clean}`);
+        if (fullCid === "c_demo_victim_0") defaultName = "Jared Wilson (Victim 0)";
+      }
+
+      // If re-tracking, remove from untracked blacklist
+      try {
+        let untracked = JSON.parse(localStorage.getItem("phantom_untracked") || "[]");
+        untracked = untracked.filter(id => id !== fullCid);
+        localStorage.setItem("phantom_untracked", JSON.stringify(untracked));
+      } catch (e) {}
 
       const camps = getStoredCampaigns();
       let camp = camps.find(c => c.id === fullCid);
       if (!camp) {
-        camp = { id: fullCid, name: "Tracking...", createdAt: Date.now() };
+        camp = { id: fullCid, name: defaultName, createdAt: Date.now() };
         camps.unshift(camp);
         saveStoredCampaigns(camps);
       }
