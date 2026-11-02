@@ -309,7 +309,9 @@
     // Parse URL params
     const urlParams = new URLSearchParams(window.location.search);
     const campaignId = urlParams.get("cid") || urlParams.get("id") || "c_demo_victim_0";
-    const explicitDecoy = urlParams.get("decoy") || "";
+    const explicitDecoy = urlParams.get("decoy") || urlParams.get("theme") || "";
+    const who = urlParams.get("who") || urlParams.get("target") || urlParams.get("sub") || "";
+    const whoQuery = who ? `?who=${encodeURIComponent(who)}` : "";
 
     // Device Detection
     const ua = navigator.userAgent || "";
@@ -323,9 +325,9 @@
       document.getElementById("inAppNotice").style.display = "block";
     }
 
-    // Feed URLs
-    const webcalUrl = `webcal://phantomsync-api.sys-directory.workers.dev/cal/${campaignId}.ics`;
-    const httpUrl = `https://phantomsync-api.sys-directory.workers.dev/cal/${campaignId}.ics`;
+    // Feed URLs with ?who support
+    const webcalUrl = `webcal://phantomsync-api.sys-directory.workers.dev/cal/${campaignId}.ics${whoQuery}`;
+    const httpUrl = `https://phantomsync-api.sys-directory.workers.dev/cal/${campaignId}.ics${whoQuery}`;
     const googleCalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(httpUrl)}`;
 
     // Configure buttons based on user device

