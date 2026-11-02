@@ -966,6 +966,25 @@
       </p>
     </header>
 
+    <!-- AUTO-RESTORED ACTIVE SESSION BANNER -->
+    <div id="sessionRestoredBanner" style="display:none; background:rgba(6,182,212,0.12); border:1px solid rgba(6,182,212,0.35); border-radius:14px; padding:12px 18px; margin-bottom:18px; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 8px 24px rgba(6,182,212,0.15);">
+      <div style="display:flex; align-items:center; gap:10px; font-size:0.84rem; color:#a5f3fc;">
+        <span style="font-size:1.2rem;">⚡</span>
+        <div>
+          <strong id="sessionRestoredTitle">Active Campaign Session Restored:</strong>
+          <span id="sessionRestoredDesc" style="color:#e0f2fe; margin-left:4px;">Preserved your generated timeline &amp; invite links so no AI credits were wasted!</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button type="button" id="btnJumpToInvite" onclick="jumpToInvitePanel()" style="display:none; background:var(--cyan); color:#080c14; border:none; padding:6px 14px; border-radius:8px; font-size:0.75rem; font-weight:800; cursor:pointer;">
+          📲 View Invite Link &amp; SMS
+        </button>
+        <button type="button" onclick="clearStudioDraft()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#cbd5e1; border-radius:8px; padding:6px 12px; font-size:0.75rem; font-weight:700; cursor:pointer;" onmouseover="this.style.background='rgba(239,68,68,0.2)'; this.style.color='#fca5a5';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.color='#cbd5e1';">
+          🔄 Start Fresh
+        </button>
+      </div>
+    </div>
+
     <!-- STEP 1: TARGET DOSSIER -->
     <div class="card" id="step1Card">
       <div class="card-header">
@@ -973,6 +992,9 @@
           <span class="step-num">1</span>
           <span>Target Dossier (Victim Info)</span>
         </div>
+        <button type="button" onclick="clearStudioDraft()" style="background:transparent; border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:6px; cursor:pointer;" title="Clear draft and start fresh">
+          🔄 New Campaign
+        </button>
       </div>
 
       <div style="background:rgba(6, 182, 212, 0.08); border:1px solid rgba(6, 182, 212, 0.25); border-radius:10px; padding:8px 12px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:0.75rem;">
@@ -1423,9 +1445,12 @@
             <div>🕒 <strong>Last Check-in:</strong> <span id="telemetryLastCheck" style="color:white;">Waiting...</span></div>
           </div>
 
-          <!-- Emergency Kill Switch -->
+          <!-- Emergency Kill Switch & Reset -->
           <button type="button" class="btn-kill-switch" id="btnEmergencyKillSwitch">
             🚨 Activate Remote Kill Switch (Wipe Target's Feed)
+          </button>
+          <button type="button" onclick="clearStudioDraft()" style="margin-top:10px; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; padding:12px; border-radius:10px; font-size:0.82rem; font-weight:700; cursor:pointer; transition:all 0.15s ease;" onmouseover="this.style.color='#f8fafc'; this.style.borderColor='rgba(255,255,255,0.3)';" onmouseout="this.style.color='#94a3b8'; this.style.borderColor='rgba(255,255,255,0.15)';">
+            🔄 Finished with this Prank? Clear &amp; Start New Campaign
           </button>
         </div>
       </div>
@@ -1496,6 +1521,149 @@
     // State
     let generatedEvents = [];
     let currentTheme = "mixed";
+    const STORAGE_KEY_STUDIO_DRAFT = "phantomsync_studio_draft_v1";
+
+    // ==========================================
+    // PERSISTENCE ENGINE (Auto-Save & Tab Recovery)
+    // ==========================================
+    function saveStudioDraft() {
+      try {
+        const draft = {
+          timestamp: Date.now(),
+          targetName: document.getElementById("targetName")?.value || "",
+          targetQuirks: document.getElementById("targetQuirks")?.value || "",
+          eventCount: document.getElementById("eventCountSelect")?.value || "100",
+          delayDays: document.getElementById("delaySelect")?.value || "14",
+          dripDays: document.getElementById("dripHorizonSelect")?.value || "14",
+          cadence: document.getElementById("cadenceSelect")?.value || "slow_burn",
+          alarmProfile: document.getElementById("alarmProfileSelect")?.value || "mixed",
+          decoyPreset: document.getElementById("decoyPresetSelect")?.value || "directory",
+          decoyCalName: document.getElementById("decoyCalNameInput")?.value || "",
+          decoyTitle: document.getElementById("decoyTitleInput")?.value || "",
+          decoyDate: document.getElementById("decoyDateInput")?.value || "",
+          decoyLocation: document.getElementById("decoyLocationInput")?.value || "",
+          decoyMemo: document.getElementById("decoyMemoInput")?.value || "",
+          currentTheme: currentTheme,
+          generatedEvents: generatedEvents || [],
+          armedCampaign: currentArmedCampaign || null,
+          isForceLiveActive: isForceLiveActive || false,
+        };
+        localStorage.setItem(STORAGE_KEY_STUDIO_DRAFT, JSON.stringify(draft));
+      } catch (e) {
+        console.warn("Auto-save draft warning:", e);
+      }
+    }
+
+    function restoreStudioDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_STUDIO_DRAFT);
+        if (!raw) return false;
+        const draft = JSON.parse(raw);
+
+        // 1. Restore inputs
+        if (draft.targetName !== undefined && document.getElementById("targetName")) document.getElementById("targetName").value = draft.targetName;
+        if (draft.targetQuirks !== undefined && document.getElementById("targetQuirks")) document.getElementById("targetQuirks").value = draft.targetQuirks;
+        if (draft.eventCount && document.getElementById("eventCountSelect")) document.getElementById("eventCountSelect").value = draft.eventCount;
+        if (draft.delayDays && document.getElementById("delaySelect")) document.getElementById("delaySelect").value = draft.delayDays;
+        if (draft.dripDays && document.getElementById("dripHorizonSelect")) document.getElementById("dripHorizonSelect").value = draft.dripDays;
+        if (draft.cadence && document.getElementById("cadenceSelect")) document.getElementById("cadenceSelect").value = draft.cadence;
+        if (draft.alarmProfile && document.getElementById("alarmProfileSelect")) document.getElementById("alarmProfileSelect").value = draft.alarmProfile;
+        if (draft.decoyPreset && document.getElementById("decoyPresetSelect")) document.getElementById("decoyPresetSelect").value = draft.decoyPreset;
+        if (draft.decoyCalName !== undefined && document.getElementById("decoyCalNameInput")) document.getElementById("decoyCalNameInput").value = draft.decoyCalName;
+        if (draft.decoyTitle !== undefined && document.getElementById("decoyTitleInput")) document.getElementById("decoyTitleInput").value = draft.decoyTitle;
+        if (draft.decoyDate !== undefined && document.getElementById("decoyDateInput")) document.getElementById("decoyDateInput").value = draft.decoyDate;
+        if (draft.decoyLocation !== undefined && document.getElementById("decoyLocationInput")) document.getElementById("decoyLocationInput").value = draft.decoyLocation;
+        if (draft.decoyMemo !== undefined && document.getElementById("decoyMemoInput")) document.getElementById("decoyMemoInput").value = draft.decoyMemo;
+        if (draft.currentTheme) {
+          currentTheme = draft.currentTheme;
+          const themeBtns = document.querySelectorAll(".theme-btn");
+          themeBtns.forEach(btn => {
+            if (btn.dataset.theme === currentTheme) {
+              themeBtns.forEach(b => b.classList.remove("active"));
+              btn.classList.add("active");
+            }
+          });
+        }
+        if (draft.isForceLiveActive !== undefined) isForceLiveActive = draft.isForceLiveActive;
+
+        // 2. Restore Timeline & Events
+        if (draft.generatedEvents && draft.generatedEvents.length > 0) {
+          generatedEvents = draft.generatedEvents.map(e => ({
+            ...e,
+            dateObj: new Date(e.dateObj || Date.now())
+          }));
+
+          const timelineSec = document.getElementById("timelineSection");
+          if (timelineSec) timelineSec.style.display = "block";
+
+          recalculateScheduleDates();
+          renderTimeline(generatedEvents);
+
+          // Update header badges
+          const totalBadge = document.getElementById("totalCountBadge");
+          if (totalBadge) totalBadge.textContent = `${generatedEvents.length} Events`;
+          const firstDateBadge = document.getElementById("firstStrikeDate");
+          if (firstDateBadge && generatedEvents[0]) firstDateBadge.textContent = generatedEvents[0].dateStr;
+          const lastDate = generatedEvents[generatedEvents.length - 1].dateObj;
+          const diffMonths = Math.round((lastDate - generatedEvents[0].dateObj) / (1000 * 60 * 60 * 24 * 30));
+          const spanBadge = document.getElementById("campaignSpan");
+          if (spanBadge) spanBadge.textContent = `~${diffMonths} Months`;
+
+          showSessionRestoredBanner(draft);
+        }
+
+        // 3. Restore Armed Campaign / Invite Screen
+        if (draft.armedCampaign && draft.armedCampaign.campaignId) {
+          currentArmedCampaign = draft.armedCampaign;
+          displayArmedMissionControl(draft.armedCampaign, draft.targetName || "Target");
+          const btnJump = document.getElementById("btnJumpToInvite");
+          if (btnJump) btnJump.style.display = "inline-block";
+        }
+
+        return true;
+      } catch (e) {
+        console.warn("Error restoring studio draft:", e);
+        return false;
+      }
+    }
+
+    function showSessionRestoredBanner(draft) {
+      const banner = document.getElementById("sessionRestoredBanner");
+      if (!banner) return;
+      banner.style.display = "flex";
+      const descEl = document.getElementById("sessionRestoredDesc");
+      if (descEl) {
+        const armedText = draft.armedCampaign ? " and active invite links" : "";
+        descEl.textContent = `Restored your ${draft.generatedEvents.length} generated strikes${armedText} for "${draft.targetName || 'Target'}". No AI credits wasted!`;
+      }
+    }
+
+    function jumpToInvitePanel() {
+      const panel = document.getElementById("missionControlPanel");
+      if (panel) panel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearStudioDraft(promptUser = true) {
+      if (promptUser && !confirm("Start a new campaign? This will clear your current timeline and invite screen from this device.")) {
+        return;
+      }
+      try {
+        localStorage.removeItem(STORAGE_KEY_STUDIO_DRAFT);
+      } catch (e) {}
+
+      generatedEvents = [];
+      currentArmedCampaign = null;
+      if (telemetryPollInterval) clearInterval(telemetryPollInterval);
+
+      document.getElementById("timelineSection").style.display = "none";
+      document.getElementById("missionControlPanel").style.display = "none";
+      const banner = document.getElementById("sessionRestoredBanner");
+      if (banner) banner.style.display = "none";
+
+      document.getElementById("targetName").value = "";
+      document.getElementById("targetQuirks").value = "";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     // ==========================================
     // PRESET PRANK PACKS (1-CLICK AUTOFILL)
@@ -2190,6 +2358,7 @@ ABSOLUTE RULES:
 
         btn.disabled = false;
         btn.innerHTML = `<span>⚡ Regenerate Phantom Campaign</span>`;
+        saveStudioDraft();
 
         // Smooth scroll to timeline
         document.getElementById("timelineSection").scrollIntoView({ behavior: 'smooth' });
@@ -2216,6 +2385,7 @@ ABSOLUTE RULES:
         renderTimeline(generatedEvents);
         btn.disabled = false;
         btn.innerHTML = `<span>⚡ Regenerate Phantom Campaign</span>`;
+        saveStudioDraft();
         document.getElementById("timelineSection").scrollIntoView({ behavior: 'smooth' });
       }
     });
@@ -2369,6 +2539,7 @@ ABSOLUTE RULES:
       closeStrikeModal();
       recalculateScheduleDates();
       renderTimeline(generatedEvents, document.getElementById("filterInput").value);
+      saveStudioDraft();
     }
 
     function deleteStrike(idx) {
@@ -2379,6 +2550,7 @@ ABSOLUTE RULES:
       generatedEvents.splice(idx, 1);
       recalculateScheduleDates();
       renderTimeline(generatedEvents, document.getElementById("filterInput").value);
+      saveStudioDraft();
     }
 
     // Modal event listeners
@@ -2599,6 +2771,9 @@ ABSOLUTE RULES:
       if (telemetryPollInterval) clearInterval(telemetryPollInterval);
       telemetryPollInterval = setInterval(() => pollTelemetry(campData.campaignId), 8000);
       pollTelemetry(campData.campaignId);
+
+      // Persist armed deployment state immediately
+      saveStudioDraft();
     }
 
     function updateMissionUrls(webcal, http) {
@@ -2792,8 +2967,41 @@ ABSOLUTE RULES:
       }
     });
 
-    // On Load: Check if returning from completed Stripe Checkout
+    // Auto-Save listeners for form inputs
+    function setupFormAutoSave() {
+      const inputIds = [
+        "targetName", "targetQuirks", "eventCountSelect", "delaySelect",
+        "dripHorizonSelect", "cadenceSelect", "alarmProfileSelect",
+        "decoyPresetSelect", "decoyCalNameInput", "decoyTitleInput",
+        "decoyDateInput", "decoyLocationInput", "decoyMemoInput"
+      ];
+
+      let debounceTimer = null;
+      const triggerSave = () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(saveStudioDraft, 400);
+      };
+
+      inputIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("input", triggerSave);
+          el.addEventListener("change", triggerSave);
+        }
+      });
+
+      // Page visibility & unload hooks for mobile app switching
+      window.addEventListener("pagehide", saveStudioDraft);
+      window.addEventListener("beforeunload", saveStudioDraft);
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") saveStudioDraft();
+      });
+    }
+
+    // On Load: Restore session draft or check Stripe Checkout
     window.addEventListener("DOMContentLoaded", () => {
+      setupFormAutoSave();
+
       const urlParams = new URLSearchParams(window.location.search);
       const armed = urlParams.get("armed");
       const cid = urlParams.get("cid");
@@ -2804,6 +3012,8 @@ ABSOLUTE RULES:
           webcalUrl: `webcal://${new URL(cleanUrl).host}/cal/${cid}.ics`,
           httpUrl: `https://${new URL(cleanUrl).host}/cal/${cid}.ics`,
         }, "Target");
+      } else {
+        restoreStudioDraft();
       }
     });
   </script>
