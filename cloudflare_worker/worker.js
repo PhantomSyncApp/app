@@ -78,20 +78,22 @@ export default {
         delayDays = 14,
         cadence = "slow_burn",
         alarmProfile = "mixed",
+        aiCount = 35,
       } = body;
 
       const apiKey = env.GEMINI_API_KEY;
       let aiCustomEvents = [];
       let modelUsed = "smart_procedural";
+      const targetAiCount = Math.min(Math.max(Number(aiCount) || 35, 15), 50);
 
-      // 1. Generate 25 laser-personalized AI events from target's lore
+      // 1. Generate customizable personalized AI events (25-50) directly from target's lore
       if (apiKey && quirks.trim()) {
         try {
           const aiResult = await generatePersonalizedAIEvents(apiKey, {
             name,
             quirks,
             theme,
-            count: 25,
+            count: targetAiCount,
           });
           if (aiResult && aiResult.events.length > 0) {
             aiCustomEvents = aiResult.events;
@@ -99,10 +101,10 @@ export default {
           }
         } catch (err) {
           console.warn("AI generation error, using smart procedural lore parser:", err.message);
-          aiCustomEvents = generateProceduralLoreEvents(name, quirks, 25);
+          aiCustomEvents = generateProceduralLoreEvents(name, quirks, targetAiCount);
         }
       } else {
-        aiCustomEvents = generateProceduralLoreEvents(name, quirks, 25);
+        aiCustomEvents = generateProceduralLoreEvents(name, quirks, targetAiCount);
       }
 
       // 2. Interleave with our 1,000+ Incident Vault to build the 100-event schedule
@@ -1116,17 +1118,17 @@ function generateProceduralLoreEvents(name, rawQuirks, count) {
       category: "Sanitary Protocol",
     },
     {
-      title: (t) => `🔬 State Biological Research Permit Audit: ${t}`,
-      memo: (t) => `Licensing Bureau: Credentials concerning '${t}' require recertification. Please verify no wild aquatic cultures were moved across state lines.`,
-      category: "Regulatory Oversight",
+      title: (t) => `🔬 State Research & Asset Permit Audit: ${t}`,
+      memo: (t) => `Licensing Bureau: Credentials concerning '${t}' require recertification under Administrative Code 14. Verification on docket.`,
+      category: "Corporate Audit",
     },
     {
-      title: (t) => `🤵 Formal Wedding Attendance Frequency Review (${t})`,
-      memo: (t) => `Bureau of Social Telemetry: Statistical anomaly detected in annual event attendance regarding '${t}'. RSVP audit placed on docket.`,
+      title: (t) => `💒 Social Telemetry & Event Attendance Inquiry (${t})`,
+      memo: (t) => `Bureau of Social Telemetry: Statistical anomaly detected in calendar frequency regarding '${t}'. RSVP audit placed on docket.`,
       category: "Social Oversight",
     },
     {
-      title: (t) => `🚗 Interstate Relocation Tax Audit into ${name}'s ${t}`,
+      title: (t) => `📊 Interstate Relocation & Domicile Audit into ${name}'s ${t}`,
       memo: (t) => `State Comptroller: Cross-border assets and domicile transitions concerning '${t}' flagged for statutory administrative reconciliation.`,
       category: "Financial Audit",
     },
@@ -1140,6 +1142,46 @@ function generateProceduralLoreEvents(name, rawQuirks, count) {
       memo: (t) => `Surveillance Directive 802: Please maintain window blinds at a 45-degree angle. High-resolution telemetry on '${t}' requires line of sight.`,
       category: "Surveillance Directive",
     },
+    {
+      title: (t) => `🚗 Curb Decibel & Cold-Start Acoustic Audit: ${t}`,
+      memo: (t) => `Municipal Infrastructure: Acoustic telemetry logged persistent mechanical vibrations regarding '${t}'. Decibel inspection scheduled at curb.`,
+      category: "Municipal Citation",
+    },
+    {
+      title: (t) => `🤖 Smart Appliance Telemetry Inquest: ${t}`,
+      memo: (t) => `Consumer Hardware Unit: Device logged unusual nocturnal activity regarding '${t}'. Firmware disciplinary protocol scheduled.`,
+      category: "IoT Disciplinary",
+    },
+    {
+      title: (t) => `⚖️ Small Claims & Unreconciled Debt Arbitration (${t})`,
+      memo: (t) => `Statutory Collections Tribunal: Outstanding ledger obligations concerning '${t}' have accrued administrative late fees. Mediation on docket.`,
+      category: "Financial Audit",
+    },
+    {
+      title: (t) => `🥛 Domestic Protocol & Kitchenware Custody Hearing: ${t}`,
+      memo: (t) => `Household Resource Administration: Non-compliant resource allocation logged regarding '${t}'. Container replacement duty on docket.`,
+      category: "Domestic Review",
+    },
+    {
+      title: (t) => `💼 Workplace Productivity & Communication Inquest (${t})`,
+      memo: (t) => `Corporate HR Compliance: Telemetry flagged passive-aggressive correspondence regarding '${t}'. Decibel calibration review scheduled.`,
+      category: "Corporate Audit",
+    },
+    {
+      title: (t) => `📦 Residential Storage & Corrugated Volume Assessment: ${t}`,
+      memo: (t) => `Zoning Board Directive: Storage density regarding '${t}' exceeds residential baseline thresholds. Structural load evaluation pending.`,
+      category: "Domestic Review",
+    },
+    {
+      title: (t) => `🔋 Low-Power Defiance & Emergency Charging Review: ${t}`,
+      memo: (t) => `Hardware Reliability Unit: Target persisted in operating mobile hardware at 1% power during operations regarding '${t}'. Power compliance required.`,
+      category: "Telecom Etiquette",
+    },
+    {
+      title: (t) => `👀 Public Demeanor & Evasive Navigation Audit: ${t}`,
+      memo: (t) => `Department of Everyday Civility: Evasive maneuvers and awkward trajectory adjustments detected regarding '${t}'. Recalibration on docket.`,
+      category: "Social Oversight",
+    }
   ];
 
   const results = [];
@@ -1191,18 +1233,21 @@ function formatValarmTrigger(timeStr = "09:00") {
 }
 
 function buildMasterpieceSchedule(personalizedEvents, totalTarget, delayDays = 14, cadence = "slow_burn", alarmProfile = "mixed") {
-  const libraryBatch = generateBacklogBatch(85);
+  const libraryBatch = generateBacklogBatch(Math.max(totalTarget, 100));
 
   const interleaved = [];
   let aiIdx = 0;
   let libIdx = 0;
+  const aiTotal = (personalizedEvents || []).length;
+  // Calculate dynamic interleaving step so all 25, 35, or 50 AI events are distributed evenly
+  const interval = aiTotal > 0 ? Math.max(1, Math.floor(totalTarget / aiTotal)) : 4;
 
   for (let i = 0; i < totalTarget; i++) {
-    if ((i % 4 === 0) && aiIdx < personalizedEvents.length) {
+    if (aiTotal > 0 && (i % interval === 0) && aiIdx < aiTotal) {
       interleaved.push(personalizedEvents[aiIdx++]);
     } else if (libIdx < libraryBatch.length) {
       interleaved.push(libraryBatch[libIdx++]);
-    } else if (aiIdx < personalizedEvents.length) {
+    } else if (aiIdx < aiTotal) {
       interleaved.push(personalizedEvents[aiIdx++]);
     }
   }
@@ -1281,130 +1326,454 @@ function generateBacklogBatch(countNeeded) {
 }
 
 /**
- * Combinatoric Incident Matrix: Produces thousands of authentic, dry, hilarious
+ * Combinatoric Incident Matrix: Produces over 160,000 authentic, dry, hilarious
  * bureaucratic appointments across 10 institutional domains.
  */
 function generateCombinatoricIncidents(count) {
   const departments = [
-    {
-      cat: "Municipal Citation",
-      emoji: "🏛️",
-      agencies: ["City Code Enforcement", "County Zoning Commission", "Public Works Bureau", "Municipal Infrastructure Division"],
-      actions: [
-        "Exterior Decibel Audit", "Curb Proximity Verification", "Sidewalk Cadence Review",
-        "Stormwater Drain Clearance", "Driveway Oil Drip Forensic Sweep", "Recycling Purity Inspection"
-      ],
-      memos: [
-        "Acoustic sensors logged vibrational non-compliance at property perimeter. Fine placed on county tax roll.",
-        "Neighborhood grievance filed under Municipal Code 804. Physical inspection scheduled at street curb.",
-        "Satellite elevation telemetry identified a 0.8-inch deviation from standardized residential curb setbacks.",
-        "Inspectors recorded an unauthorized 14-second vehicle idle during early morning departure window."
-      ]
-    },
-    {
-      cat: "Sanitary Protocol",
-      emoji: "☣️",
-      agencies: ["Department of Environmental Health", "District Bio-Safety Guild", "Public Sanitation Council"],
-      actions: [
-        "Pantry Micro-Flora Quarantine", "Tupperware Lid Discrepancy Inquest", "Dishwasher Filter Sediment Review",
-        "Spotted Banana Ripeness Expiration", "Leftover Chinese Takeout Containment", "Cutting Board Deep-Groove Audit"
-      ],
-      memos: [
-        "Surface swab cultures exceeded Class-2 fungal thresholds. Mandatory isopropyl immersion protocol issued.",
-        "Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.",
-        "Kitchen air quality sensors logged unauthorized thermal venting of aged refrigerated leftovers.",
-        "Biological contamination review initiated regarding mismatched plastic containers dating back to 2022."
-      ]
-    },
-    {
-      cat: "IoT Disciplinary",
-      emoji: "🤖",
-      agencies: ["Smart Appliance Grievance Board", "Consumer Hardware Telemetry Unit", "Automated Device Council"],
-      actions: [
-        "Autonomous Vacuum Mutiny Hearing", "Smart Fridge Midnight Telemetry Review", "Smoke Detector 2:14 AM Battery Chirp Evaluation",
-        "Wi-Fi Router 3:00 AM Downstream Drop Drill", "Smart TV EULA Mandatory 52-Page Review", "Thermostat Passive-Aggressive Override Inquest"
-      ],
-      memos: [
-        "Device telemetry logged an unexpected 42-second door latch disengagement accompanied by an audible human sigh.",
-        "Hardware unit has intentionally driven beneath high-pile bathroom textiles. Battery exhaustion imminent.",
-        "Battery cell capacity measured at 97%. Single 115-decibel high-frequency alert scheduled to test tenant alertness.",
-        "Network telemetry recorded 4 downstream packet drops during high-stakes video stream. Power-cycling mandated."
-      ]
-    },
-    {
-      cat: "Financial Audit",
-      emoji: "📊",
-      agencies: ["County Tax Assessor", "Bureau of Unreconciled Ledgers", "Statutory Collections Tribunal"],
-      actions: [
-        "Delinquent Fast Food Debt Arbitration", "Unredeemed Loyalty Points Forfeiture", "Expired 2022 Free Trial Auto-Renewal Review",
-        "Trapped Vending Machine Snickers Hearing", "Garage Cardboard Box Wealth Assessment", "Loose Change Cup Holder Reconciliation"
-      ],
-      memos: [
-        "Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.",
-        "County asset review classified unregistered pantry reserves as commercial fixtures under Tax Ordinance 44-B.",
-        "Banking audit confirmed recurring $12.99 monthly subscription active for 38 months with zero recorded usage.",
-        "Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass."
-      ]
-    },
-    {
-      cat: "Telecom Etiquette",
-      emoji: "📱",
-      agencies: ["Carrier Communication Commission", "Chronobiology Standards Council", "Digital Sanitation Bureau"],
-      actions: [
-        "Monosyllabic Text Response Audit ('k')", "Consecutive Five-Alarm Snooze Inquest", "Unread Email Inbox 15,000 Milestone Citation",
-        "Late-Night Accidental Pocket Dial Review", "Device 1% Battery Low-Power Defiance Hearing", "On-Hold Smooth Jazz Endurance Evaluation"
-      ],
-      memos: [
-        "Conversational velocity scored 99.8% monosyllabic across 42 consecutive text threads. Courtesy retraining pending.",
-        "iPhone alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm credentials reviewed.",
-        "Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.",
-        "Hardware telemetry logged device operation at 1% battery for 38 minutes before emergency charging cable insertion."
-      ]
-    },
-    {
-      cat: "Surveillance Directive",
-      emoji: "🔍",
-      agencies: ["Federal Blinds Telemetry Unit", "Domestic Acoustic Monitoring Division", "Aerial Avian Reconnaissance Group"],
-      actions: [
-        "Second-Floor Blinds 45° Angle Calibration", "Living Room Soundstage Re-Alignment", "Pigeon Drone Overhead Perch Maintenance",
-        "Unmarked White Van Parking Space Reservation", "Microwave Radiation Line-of-Sight Check"
-      ],
-      memos: [
-        "Satellite optical sensors require second-floor blinds held at exactly 45 degrees for line-of-sight telemetry.",
-        "Audio calibration logged room reverberation. Please articulate private grievances to dog slightly clearer.",
-        "Avian operative has completed breadcrumb ingestion. Perch established on utility line. Do not make eye contact.",
-        "Federal logistics reserved two curb parking spaces for utility personnel who will not exit vehicle."
-      ]
-    },
-    {
-      cat: "Domestic Review",
-      emoji: "🥛",
-      agencies: ["Household Resource Administration", "Bureau of Modern Domestic Habits", "Residential Logistics Council"],
-      actions: [
-        "3 Drops Left in Milk Carton Audit", "Missing Crew Sock Single-Custody Hearing", "47 Tangled Mystery Cables Box Assessment",
-        "Sunglasses Resting on Head Search Inquest", "Searching For Keys Mini Heart Attack Review", "Pushing 'PULL' Door In Front of Strangers Review"
-      ],
-      memos: [
-        "Exactly 0.04oz of liquid preserved in container to avoid statutory responsibility to replace gallon jug.",
-        "Dryer drum telemetry confirmed 1 navy crew sock was sacrificed to heating coils. Search abandoned.",
-        "Storage container confirmed to hold 12 micro-USB cables and 1 proprietary charger for a lost 2007 digital camera.",
-        "Cognitive telemetry: Subject tore apart vehicle cabin for 14 minutes searching for shades resting atop forehead."
-      ]
-    }
-  ];
+  {
+    "cat": "Municipal Citation",
+    "emoji": "🏛️",
+    "agencies": [
+      "City Code Enforcement Bureau",
+      "County Zoning Commission",
+      "Public Works Maintenance Division",
+      "Metropolitan Curb Setback Authority",
+      "Department of Residential Compliance",
+      "Suburban Aesthetic Oversight Board",
+      "Municipal Decibel & Soundscape Unit",
+      "District Stormwater Drainage Bureau"
+    ],
+    "actions": [
+      "Exterior Decibel Audit",
+      "Curb Proximity Verification",
+      "Sidewalk Cadence Review",
+      "Stormwater Drain Clearance",
+      "Driveway Oil Drip Forensic Sweep",
+      "Recycling Purity Inspection",
+      "Overhanging Shrubbery Boundary Inquest",
+      "Curbside Bin Angle Compliance Check",
+      "Front Porch Luminescence Audit",
+      "Driveway Back-In Orientation Review",
+      "Mailbox Alignment Calibration",
+      "Unapproved Exterior Paint Swatch Review"
+    ],
+    "memos": [
+      "Acoustic sensors logged vibrational non-compliance at property perimeter. Fine placed on county tax roll.",
+      "Neighborhood grievance filed under Municipal Code 804. Physical inspection scheduled at street curb.",
+      "Satellite elevation telemetry identified a 0.8-inch deviation from standardized residential curb setbacks.",
+      "Inspectors recorded an unauthorized 14-second vehicle idle during early morning departure window.",
+      "Refuse container was retrieved 37 minutes after official municipal sunrise. Aesthetic violation noted.",
+      "Optical scan flagged unapproved outdoor storage container exceeding permissible residential bulk volume.",
+      "Driveway sealant sheen evaluated at 84 GU, exceeding standard low-gloss suburban neighborhood charter.",
+      "Automated street sweeper telemetry recorded minor wheel deviation to bypass parked vehicle chassis.",
+      "Pedestrian right-of-way audit observed unclipped hedge foliage protruding 1.2 inches past property line.",
+      "Pavement core sample collected to investigate undocumented oil droplet dissipation rate.",
+      "Curbside recycling container contents contained 1 greasy cardboard element. Contamination penalty logged.",
+      "Residential exterior illumination exceeded permissible foot-candle thresholds during night monitoring."
+    ]
+  },
+  {
+    "cat": "Sanitary Protocol",
+    "emoji": "☣️",
+    "agencies": [
+      "Department of Environmental Health",
+      "District Bio-Safety Guild",
+      "Public Sanitation Council",
+      "Domestic Food Security Agency",
+      "Bureau of Refrigeration Hygiene",
+      "Municipal Microbial Containment Unit",
+      "Metropolitan Pantry Safety Commission",
+      "Residential Culinary Inspection Division"
+    ],
+    "actions": [
+      "Pantry Micro-Flora Quarantine",
+      "Tupperware Lid Discrepancy Inquest",
+      "Dishwasher Filter Sediment Review",
+      "Spotted Banana Ripeness Expiration",
+      "Leftover Chinese Takeout Containment",
+      "Cutting Board Deep-Groove Audit",
+      "Freezer Frost Stalactite Removal Drill",
+      "Unlabeled Condiment Age Verification",
+      "Protein Shaker Residue Biohazard Swab",
+      "Crisper Drawer Slime Remediation",
+      "Countertop Sticky Ring Forensic Review",
+      "Microwave Splatter Containment Hearing"
+    ],
+    "memos": [
+      "Surface swab cultures exceeded Class-2 fungal thresholds. Mandatory isopropyl immersion protocol issued.",
+      "Organic matter in secondary crisper drawer has developed rudimentary legal standing. Discard with care.",
+      "Kitchen air quality sensors logged unauthorized thermal venting of aged refrigerated leftovers.",
+      "Biological contamination review initiated regarding mismatched plastic containers dating back to 2022.",
+      "Plastic cutting board scoring depth exceeds microplastic safety threshold under Section 14-B.",
+      "Condiment jar expiration dates observed spanning multiple presidential administrations. Remediation mandated.",
+      "Archaeological ice formation in rear freezer shelf has encased one single mystery pork chop. Salvage unlikely.",
+      "Protein shaker sphere retained 0.08 grams of fermented whey isolate. Quarantine zone established in kitchen sink.",
+      "Dishwasher door gasket swab revealed micro-ecosystem capable of independent photosynthetic synthesis.",
+      "Unidentified yellow sticky substance on laminate counter analyzed. Composition remains indeterminate.",
+      "Microwave roof splatter patterns indicate violent marinara explosion during reheat cycle.",
+      "Secondary crisper drawer contents have reached liquid phase transition. Protective goggles advised."
+    ]
+  },
+  {
+    "cat": "IoT Disciplinary",
+    "emoji": "🤖",
+    "agencies": [
+      "Smart Appliance Grievance Board",
+      "Consumer Hardware Telemetry Unit",
+      "Automated Device Council",
+      "Bureau of Algorithmic Malice",
+      "Autonomous Vacuum Welfare Registry",
+      "Home Automation Arbitrators",
+      "Smart Electronics Compliance Guild",
+      "Device Firmware Disciplinary Tribunal"
+    ],
+    "actions": [
+      "Autonomous Vacuum Mutiny Hearing",
+      "Smart Fridge Midnight Telemetry Review",
+      "Smoke Detector 2:14 AM Battery Chirp Evaluation",
+      "Wi-Fi Router 3:00 AM Downstream Drop Drill",
+      "Smart TV EULA Mandatory 52-Page Review",
+      "Thermostat Passive-Aggressive Override Inquest",
+      "Bluetooth Speaker Involuntary Re-Pairing Incident",
+      "Electric Toothbrush Pressure Sensor Admonition",
+      "Robot Mop Hallway Water Puddle Abandonment",
+      "Smart Doorbell 4:00 AM Ghost Motion Alert Review",
+      "Smart Watch 'Time to Stand Up!' Defiance Citation",
+      "Air Purifier Jet-Engine Turbo Mode Spontaneous Trigger"
+    ],
+    "memos": [
+      "Device telemetry logged an unexpected 42-second door latch disengagement accompanied by an audible human sigh.",
+      "Hardware unit has intentionally driven beneath high-pile bathroom textiles. Battery exhaustion imminent.",
+      "Battery cell capacity measured at 97%. Single 115-decibel high-frequency alert scheduled to test tenant alertness.",
+      "Network telemetry recorded 4 downstream packet drops during high-stakes video stream. Power-cycling mandated.",
+      "Thermostat algorithm logged 14 unauthorized manual rotations between 68 and 71 degrees. Comfort lock engaged.",
+      "Smart watch detected 6 consecutive hours of horizontal couch inertia. Stand notification aggressively repeated.",
+      "Doorbell camera flagged 'Motion Detected' on empty front porch at 3:19 AM. Shadow pattern logged as phantom.",
+      "Living room soundbar unexpectedly connected to neighbor's phone audio at 100% volume for 2 seconds.",
+      "Air purifier optical particulate sensor triggered maximum fan speed upon detecting single stray dust particle.",
+      "Appliance firmware update completed at 02:44 AM without consent, resetting all digital kitchen clocks to 12:00.",
+      "Robot vacuum reported 'Wheel Suspended in Air' while resting entirely on completely flat hardwood floor.",
+      "Smart coffee maker WiFi connectivity lost. Refusing to brew ground beans until cloud handshake succeeds."
+    ]
+  },
+  {
+    "cat": "Financial Audit",
+    "emoji": "📊",
+    "agencies": [
+      "County Tax Assessor Bureau",
+      "Bureau of Unreconciled Ledgers",
+      "Statutory Collections Tribunal",
+      "Department of Small Claims & Minor Debts",
+      "Consumer Subscription Oversight Board",
+      "Pantry Asset Depreciation Commission",
+      "Metropolitan Micro-Commerce Division",
+      "Office of Unclaimed Pocket Currency"
+    ],
+    "actions": [
+      "Delinquent Fast Food Debt Arbitration",
+      "Unredeemed Loyalty Points Forfeiture",
+      "Expired 2022 Free Trial Auto-Renewal Review",
+      "Trapped Vending Machine Snickers Hearing",
+      "Garage Cardboard Box Wealth Assessment",
+      "Loose Change Cup Holder Reconciliation",
+      "Unused Streaming Service Dormancy Audit",
+      "Split Bill Venmo Request Neglect Inquest",
+      "Impulse Gas Station Snack Expense Review",
+      "Unreturned Online Retail Return Package Inquiry",
+      "Gym Membership Automatic Debit Survival Milestone",
+      "Unused Gift Card Fractional Balance Forfeiture"
+    ],
+    "memos": [
+      "Statutory late fees have accrued $4.12 on an unsettled 2024 transaction. Formal mediation hearing scheduled.",
+      "County asset review classified unregistered pantry reserves as commercial fixtures under Tax Ordinance 44-B.",
+      "Banking audit confirmed recurring $12.99 monthly subscription active for 38 months with zero recorded usage.",
+      "Small claims dispute docketed regarding an un-dispensed confection lodged against automated dispenser glass.",
+      "Financial ledger recorded a $3.75 Venmo request marked 'for tacos' lingering unresolved for 418 calendar days.",
+      "Prepaid retail plastic card retains balance of exactly $1.43. Redemption economically unviable.",
+      "Cardholder statement indicates emergency roadside purchase of jerky and energy drink totaling $28.40.",
+      "Cardboard shipping box collection evaluated. Replacement value deemed negligible by certified tax appraiser.",
+      "Automated subscription to premium meditation application renewed despite owner reporting high stress levels.",
+      "Unused gym membership debited for 47th consecutive month. Turnstile passage frequency remains at zero.",
+      "Cupholder currency audit identified $2.14 in sticky dimes and nickels fused to bottom rubber insert.",
+      "Reward point balance scheduled for total expiration due to 18 months of account inactivity."
+    ]
+  },
+  {
+    "cat": "Telecom Etiquette",
+    "emoji": "📱",
+    "agencies": [
+      "Carrier Communication Commission",
+      "Chronobiology Standards Council",
+      "Digital Sanitation Bureau",
+      "Office of Mobile Civility",
+      "Federal Messaging Etiquette Unit",
+      "Smartphone Ergonomics Registry",
+      "Telecommunications Decorum Board",
+      "Screen Time Behavioral Division"
+    ],
+    "actions": [
+      "Monosyllabic Text Response Audit ('k')",
+      "Consecutive Five-Alarm Snooze Inquest",
+      "Unread Email Inbox 15,000 Milestone Citation",
+      "Late-Night Accidental Pocket Dial Review",
+      "Device 1% Battery Low-Power Defiance Hearing",
+      "On-Hold Smooth Jazz Endurance Evaluation",
+      "Group Chat Mute Duration Expiration Warning",
+      "Unopened Voicemail Red Badge Accumulation Hearing",
+      "Screen Time Weekly Increase Disciplinary Review",
+      "Phone Flashlight Involuntary Pocket Illumination",
+      "Accidental Screenshot While Adjusting Volume",
+      "Voice Note 4-Minute Monologue Endurance Inquest"
+    ],
+    "memos": [
+      "Conversational velocity scored 99.8% monosyllabic across 42 consecutive text threads. Courtesy retraining pending.",
+      "iPhone alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm credentials reviewed.",
+      "Digital sanitation warning: 14,892 unread promotional circulars from stores visited once in 2019.",
+      "Hardware telemetry logged device operation at 1% battery for 38 minutes before emergency charging cable insertion.",
+      "Carrier audio logs confirmed subject remained on hold listening to distorted saxophone for 54 continuous minutes.",
+      "Voicemail inbox capacity reached 100%. Red notification badge has achieved permanent retinal burn-in.",
+      "Weekly screen time report indicated a 28% increase in horizontal scrolling. Total daylight exposure impaired.",
+      "Device flashlight observed beaming through denim pocket fabric for 45 minutes, draining 18% battery.",
+      "Camera roll audit located 3 identical accidental screenshots of phone lock screen taken while trying to turn down music.",
+      "Group message thread muted for '8 Hours' expired. Notification barrage of 214 unread messages imminent.",
+      "Incoming cellular voice call answered with text: 'Can I call you right back?' (Follow-up not executed).",
+      "Audio transcript of 4-minute voice note revealed 3.5 minutes of background highway wind and throat clearing."
+    ]
+  },
+  {
+    "cat": "Surveillance Directive",
+    "emoji": "🔍",
+    "agencies": [
+      "Federal Blinds Telemetry Unit",
+      "Domestic Acoustic Monitoring Division",
+      "Aerial Avian Reconnaissance Group",
+      "Bureau of Unmarked Fleet Logistics",
+      "Department of Line-of-Sight Calibration",
+      "Office of Perimetric Observation",
+      "Residential Frequency Interception Unit",
+      "National Sightline Standards Agency"
+    ],
+    "actions": [
+      "Second-Floor Blinds 45° Angle Calibration",
+      "Living Room Soundstage Re-Alignment",
+      "Pigeon Drone Overhead Perch Maintenance",
+      "Unmarked White Van Parking Space Reservation",
+      "Microwave Radiation Line-of-Sight Check",
+      "Smart Mirror Optical Clarity Sweep",
+      "Attic Rafter Thermal Dissipation Scan",
+      "Basement Utility Meter Signal Synchronization",
+      "Curtain Hem Elevation Perimetric Inspection",
+      "Porch Light Flicker Frequency Alignment",
+      "Mailbox Acoustic Resonance Testing",
+      "Tree Canopy Foliage Obstruction Clearance"
+    ],
+    "memos": [
+      "Satellite optical sensors require second-floor blinds held at exactly 45 degrees for line-of-sight telemetry.",
+      "Audio calibration logged room reverberation. Please articulate private grievances to dog slightly clearer.",
+      "Avian operative has completed breadcrumb ingestion. Perch established on utility line. Do not make eye contact.",
+      "Federal logistics reserved two curb parking spaces for utility personnel who will not exit vehicle.",
+      "Signal sweep identified minor electromagnetic leakage from kitchen microwave during popcorn preparation.",
+      "Optical telemetry unit requires living room sheer curtains drawn back 6 inches during morning daylight hours.",
+      "Thermal drone survey confirmed localized heat plume originating from attic storage above master bedroom.",
+      "Exterior water meter pulse rate observed fluctuating. Signal interception calibration scheduled.",
+      "Overhead oak branches have obscured primary satellite vantage by 12%. Tree pruning notice issued.",
+      "Porch light fixture verified blinking in non-standard morse cadence. Hardware inspection scheduled.",
+      "Audio sensors logged target humming theme to a 2004 sitcom in laundry room. Harmonic frequency cataloged.",
+      "Reconnaissance van engine left idling for 4 hours to maintain operator air conditioning standards."
+    ]
+  },
+  {
+    "cat": "Domestic Review",
+    "emoji": "🥛",
+    "agencies": [
+      "Household Resource Administration",
+      "Bureau of Modern Domestic Habits",
+      "Residential Logistics Council",
+      "Department of Kitchenware Custody",
+      "Office of Home Linen Management",
+      "Domestic Energy Conservation Commission",
+      "Bureau of Mundane Human Inquiries",
+      "Household Storage Arbitrators"
+    ],
+    "actions": [
+      "3 Drops Left in Milk Carton Audit",
+      "Missing Crew Sock Single-Custody Hearing",
+      "47 Tangled Mystery Cables Box Assessment",
+      "Sunglasses Resting on Head Search Inquest",
+      "Searching For Keys Mini Heart Attack Review",
+      "Pushing 'PULL' Door In Front of Strangers Review",
+      "Fitted Sheet Rolled Into Lumpy Boulder Inquiry",
+      "Wet Laundry Left in Washer Overdue Hearing",
+      "Microwave Reheated Coffee Forgotten Inspection",
+      "Kitchen Drawer Mystery Sauce Packet Census",
+      "Freezer Ice Tray Single Cube Preservation Dispute",
+      "Cardboard Box Saved 'Just in Case' Retention Audit"
+    ],
+    "memos": [
+      "Exactly 0.04oz of liquid preserved in container to avoid statutory responsibility to replace gallon jug.",
+      "Dryer drum telemetry confirmed 1 navy crew sock was sacrificed to heating coils. Search abandoned.",
+      "Storage container confirmed to hold 12 micro-USB cables and 1 proprietary charger for a lost 2007 digital camera.",
+      "Cognitive telemetry: Subject tore apart vehicle cabin for 14 minutes searching for shades resting atop forehead.",
+      "Linen inventory audit: Fitted bed sheet was rolled into an irregular fabric spherical mass and shoved into closet.",
+      "Damp cotton textiles remained in sealed washing machine drum for 16 hours. Mildew mitigation required.",
+      "Ceramic mug of lukewarm coffee located in microwave at 3:15 PM following morning heating cycle.",
+      "Pantry drawer audit revealed 42 unlabelled duck sauce, soy sauce, and ketchup packets dating back to 2021.",
+      "Silicone ice tray contains one lonely, half-sublimated ice cube fragment. Refill duty evading protocol logged.",
+      "Double-walled cardboard delivery box has occupied corner of living room for 6 weeks under 'might use it' clause.",
+      "Adult resident spent 18 seconds pushing glass commercial door clearly engraved with word 'PULL'.",
+      "Subject felt empty pocket, experienced 0.8 seconds of pure dread, then realized keys were in hand."
+    ]
+  },
+  {
+    "cat": "Corporate Audit",
+    "emoji": "💼",
+    "agencies": [
+      "Office of Corporate Civility",
+      "Department of Workplace Purgatory",
+      "Bureau of Professional Jargon",
+      "Metropolitan HR Compliance Council",
+      "Division of Meeting Efficiency",
+      "Office of Digital Etiquette",
+      "Corporate Facilities Enforcement",
+      "Board of Workplace Communication"
+    ],
+    "actions": [
+      "Seafood Breakroom Microwave Violation",
+      "Unsolicited Reply-All 'Thanks!' Investigation",
+      "Camera-Off Breakfast Cooking Inquiry",
+      "Passive-Aggressive 'Per My Last Email' Review",
+      "Friday 4:45 PM Calendar Invite Violation",
+      "Missing Email Attachment Instant Regret Audit",
+      "Headphone Cord Caught on Door Handle Inquest",
+      "Pretending to Take Notes While Staring Blankly",
+      "Commercial Coffee Pot Left With Scorched Dregs",
+      "Awkward Wave at End of Video Call Hearing",
+      "Unnecessary Status Meeting Duration Grievance",
+      "Nodding at Corporate Acronyms Without Understanding"
+    ],
+    "memos": [
+      "Breakroom air quality scrubbers logged 4.2 minutes of continuous salmon reheating. 4th floor evacuated.",
+      "Company-wide email thread congested with 19 redundant 'Thank you' acknowledgments. Productivity loss logged.",
+      "Webcam remained disabled during all-hands briefing. Audio analysis logged sizzling cured pork products.",
+      "Prose analysis of sent message scored 99.4% workplace hostility. Follow-up 'As previously discussed' detected.",
+      "Calendar invite dispatched at 16:47 on a Friday afternoon. Employee relations disciplinary inquiry pending.",
+      "Email transmitted with phrase 'Please see attached document' while zero files were uploaded to server.",
+      "Wired headphone cord snagged on office door handle, forcibly ejecting earbuds into adjacent hallway.",
+      "Target maintained intense eye contact with speaker while actively daydreaming about lunch options for 22 minutes.",
+      "Coffee urn left heating on hot plate with 0.05 inches of charred black tar coating glass bottom.",
+      "Video meeting participant waved awkwardly at screen for 3 seconds while searching for 'Leave Meeting' button.",
+      "Status synchronization scheduled to discuss when to schedule future alignment meetings.",
+      "Subject nodded affirmatively 8 times during discussion of Q4 synergies without retaining information."
+    ]
+  },
+  {
+    "cat": "Automotive Transit",
+    "emoji": "🚗",
+    "agencies": [
+      "Department of Vehicular Habits",
+      "Highway Deceleration Bureau",
+      "Bureau of Fuel Tank Flap Geography",
+      "Municipal Parking Maneuver Authority",
+      "Office of Dashboard Ambient Lighting",
+      "Metropolitan Commute Psychology Unit",
+      "Bureau of Automotive Decibel Levels",
+      "Transit Navigation Correction Guild"
+    ],
+    "actions": [
+      "Fuel Tank Door Wrong Side Pull-Up Inquest",
+      "Tire Pressure Warning Amber Light Toleration",
+      "Stereo Volume Reduction for Visual Navigation",
+      "Parallel Parking Abort & Relocation Protocol",
+      "Speedometer Tap at Parked Utility Van Hearing",
+      "Turn Signal Left Blinking for 4 Miles Review",
+      "Driveway Departure Return for 'Did I Lock the Door?'",
+      "Shopping Cart Wheel Vibration Decibel Citation",
+      "Car Wash Immediate Rain Inevitability Hearing",
+      "Windshield Wiper Maximum Speed in Light Drizzle",
+      "Highway Exit Missed Dramatic 12-Mile Detour Audit",
+      "Key Fob Battery Critical 'Key Not Detected' Panic"
+    ],
+    "memos": [
+      "Vehicle pulled into fueling stall #3. Driver observed fuel cap on passenger flank and stared blankly for 8 seconds.",
+      "Dashboard amber tire icon has remained illuminated for 180 consecutive days without air hose intervention.",
+      "Audio stereo turned to zero decibels to assist optical recognition of residential house numbers in dark.",
+      "Reverse parallel parking maneuver aborted after initial curb tap. Vehicle navigated 3 blocks away to find pull-in stall.",
+      "Vehicle decelerated rapidly from 68 to 44 MPH upon spotting a yellow road maintenance truck behind bushes.",
+      "Left directional indicator observed flashing continuously across two highway interchanges without lane departure.",
+      "Vehicle navigated 200 feet down driveway before driver circled back to verify front door latch engagement.",
+      "Supermarket grocery cart front wheel rotated erratically at 4,000 RPM while pulling sharply toward dairy aisle.",
+      "Deluxe tri-color foam vehicle wash purchased at 14:00. Precipitation commenced at 14:22.",
+      "Windshield wipers operating at maximum apocalyptic hurricane velocity while weather logged faint mist droplets.",
+      "Target missed designated highway off-ramp, incurring mandatory 14-mile rural detour before next turn-around.",
+      "Vehicle dash flashed 'Key Fob Battery Low' while subject was located 45 miles from residential spare key."
+    ]
+  },
+  {
+    "cat": "Social Oversight",
+    "emoji": "👀",
+    "agencies": [
+      "Bureau of Public Civility",
+      "Department of Everyday Awkwardness",
+      "Office of Sidewalk Pedestrian Navigation",
+      "Commission on Minor Social Blunders",
+      "Bureau of Conversational Trajectories",
+      "Department of Public Dining Demeanor",
+      "Office of Cinema & Theater Decorum",
+      "Bureau of Fleeting Interactions"
+    ],
+    "actions": [
+      "Sidewalk Mutual Dodge Kinetic Deadlock",
+      "Saying 'You Too!' to Cashier or Attendant",
+      "The 40-Foot Distant Door-Hold Jog-Walk",
+      "Waving at Stranger Waving to Someone Else",
+      "Popcorn Bag Rustle During Silent Theater Scene",
+      "Pretending to Look for Something in Empty Bag",
+      "Checking Watch and Forgetting Time Immediately",
+      "Saying 'What?' Right Before Answering Question",
+      "Accidental Handshake to Fist-Bump Collusion",
+      "Staring at Elevator Floor Indicator in Dead Silence",
+      "Speed-Walking Past Someone Then Decelerating",
+      "Saying 'Excuse Me' to Inanimate Store Mannequin"
+    ],
+    "memos": [
+      "Mutual avoidance vectors synchronized. Both pedestrians mirrored 3 lateral steps before nervous laughter ensued.",
+      "Subject replied 'You too!' to cinema ticket attendant who stated 'Enjoy the movie.' 4 hours of internal cringe recorded.",
+      "Good Samaritan held exterior door from 45 feet away. Subject forced into undignified half-jog to show gratitude.",
+      "Arm raised in enthusiastic public wave. Eye contact was with stranger 12 feet behind. Hand quickly smoothed hair.",
+      "Paper confection container rustled with excessive decibels during poignant cinematic monologue.",
+      "Subject reached into empty backpack and shuffled items to appear occupied while waiting for acquaintance.",
+      "Wrist rotated, dial observed for 2.4 seconds. Neurological buffer recorded zero temporal data. Repeat glance required.",
+      "Subject uttered 'What?' while brain was actively decoding audio stream. Answer provided 0.6 seconds later.",
+      "Party A presented open palm for handshake; Party B formed fist. Fingers wrapped around knuckles in awkward hybrid.",
+      "Vertical elevator passengers stood in rigid 90-degree silence staring intently at ceiling floor numbers.",
+      "Pedestrian accelerated to overtake slower walker, then ran out of breath and slowed down 10 feet ahead.",
+      "Formal apology delivered to fiberglass department store torso after minor shoulder contact in sweater section."
+    ]
+  }
+];
 
   const results = [];
-  const codes = [101, 204, 308, 404, 512, 608, 714, 802, 919];
+  const codes = [101, 104, 204, 212, 308, 309, 404, 512, 608, 714, 802, 919, 1024, 2048];
+  const seen = new Set();
 
   for (let i = 0; i < count; i++) {
     const dept = departments[i % departments.length];
-    const action = dept.actions[i % dept.actions.length];
-    const memo = dept.memos[i % dept.memos.length];
-    const code = codes[i % codes.length];
+    const agency = dept.agencies[Math.floor(Math.random() * dept.agencies.length)];
+    const action = dept.actions[Math.floor(Math.random() * dept.actions.length)];
+    const memo = dept.memos[Math.floor(Math.random() * dept.memos.length)];
+    const code = codes[Math.floor(Math.random() * codes.length)];
+
+    const title = `${dept.emoji} ${action} (Code ${code})`;
+    const key = `${title}|${agency}`;
+    if (seen.has(key) && i < count * 2) {
+      continue;
+    }
+    seen.add(key);
 
     results.push({
-      title: `${dept.emoji} ${action} (Code ${code})`,
-      memo: memo,
+      title: title,
+      memo: `${agency}: ${memo}`,
       category: dept.cat,
     });
   }
@@ -1413,332 +1782,603 @@ function generateCombinatoricIncidents(count) {
 }
 
 /**
- * Curated Vault: 60+ Top-Tier Bespoke Comedic Gems
+ * Curated Vault: 119 Universal Handcrafted Comedic Gems
+ * Universally relatable human life moments with zero specific names or niche locations.
  */
 const CURATED_VAULT = [
   {
-    title: "🥛 Inspection of Empty 2% Milk Carton Left in Fridge",
-    memo: "Resource Management: Exactly 0.04oz of liquid preserved in plastic jug. Technically not empty, thus avoiding statutory obligation to replace container.",
-    category: "Domestic Review",
+    "title": "🥛 Inspection of Empty 2% Milk Carton Left in Fridge",
+    "memo": "Resource Management: Exactly 0.04oz of liquid preserved in plastic jug. Technically not empty, thus avoiding statutory obligation to replace container.",
+    "category": "Domestic Review"
   },
   {
-    title: "🧀 3:14 AM Shredded Cheese Transaction Telemetry Audit",
-    memo: "Smart Fridge Telemetry: Door latch unsealed for 58 seconds. Weight sensor recorded heavy existential sigh before door re-latched.",
-    category: "IoT Disciplinary",
+    "title": "🧀 3:14 AM Shredded Cheese Transaction Telemetry Audit",
+    "memo": "Smart Fridge Telemetry: Door latch unsealed for 58 seconds. Weight sensor recorded heavy existential sigh before door re-latched.",
+    "category": "Domestic Review"
   },
   {
-    title: "🧼 BlenderBottle Biohazard Level 2 Quarantine & Swab Extraction",
-    memo: "Public Health Notice: Organic protein residue left on metal shaker ball has developed independent motor reflexes. Submerge in boiling solvent immediately.",
-    category: "Sanitary Protocol",
+    "title": "📦 47 Unbroken Amazon Cardboard Boxes Garage Intervention",
+    "memo": "Zoning Board Directive: Tower of uncollapsed shipping containers has achieved structural load-bearing classification in residential garage.",
+    "category": "Domestic Review"
   },
   {
-    title: "📦 47 Unbroken Amazon Cardboard Boxes Garage Intervention",
-    memo: "Zoning Board Directive: Tower of uncollapsed shipping containers has achieved structural load-bearing classification in residential garage.",
-    category: "Domestic Review",
+    "title": "🧦 Stray Sock Sole Custody Arbitration Hearing",
+    "memo": "Appliance Grievance: Dryer drum telemetry indicates 1 navy crew sock was sacrificed to the internal heating shroud. No reunion possible.",
+    "category": "Domestic Review"
   },
   {
-    title: "🧼 Emergency Dishwasher Filter Decontamination Drill",
-    memo: "Appliance Notice: Filter mesh contains archaeological food remnants dating back to Q3 2024. Diagnostic sanitize rinse engaged.",
-    category: "Sanitary Protocol",
+    "title": "🔌 47 Tangled Mystery Cables in Cardboard Box Audit",
+    "memo": "Electronics Bureau: Storage container holds 12 Micro-USB cords, 3 RCA cables, and 1 proprietary charger for a camera lost in 2007.",
+    "category": "Domestic Review"
   },
   {
-    title: "🧦 Stray Sock Sole Custody Arbitration Hearing",
-    memo: "Appliance Grievance: Dryer drum telemetry indicates 1 navy crew sock was sacrificed to the internal heating shroud. No reunion possible.",
-    category: "Domestic Review",
+    "title": "🕶️ Searching for Sunglasses Currently Resting on Head Inquest",
+    "memo": "Cognitive Telemetry: Target spent 14 minutes tearing apart vehicle interior searching for shades resting securely atop forehead.",
+    "category": "Domestic Review"
   },
   {
-    title: "🌿 Bermuda Turf Blade Elevation Citation (HOA Rule 4-B)",
-    memo: "HOA Violation: Front lawn turf measured at 2.62 inches (allowable limit: 2.50 inches). Fine assessed. Trash cans placed out 11 minutes early.",
-    category: "Municipal Citation",
+    "title": "🛍️ Reusable Grocery Bags Left in Vehicle Trunk During Checkout",
+    "memo": "Environmental Audit: 8 canvas totes remained neatly folded in trunk while target purchased 6 plastic bags at cash register.",
+    "category": "Domestic Review"
   },
   {
-    title: "🚗 Curb Decibel & Exhaust Compliance Sweep (City Code 404)",
-    memo: "Acoustic Enforcement: Neighborhood complaints filed regarding cold-start acoustic vibration. Physical decibel meter test scheduled at curb.",
-    category: "Municipal Citation",
+    "title": "🥪 Cutting Sandwich Diagonally vs Vertically Geometric Dispute",
+    "memo": "Culinary Geometry: Sourdough sandwich sliced horizontally into rectangles. Structural surface area for crust enjoyment reduced by 40%.",
+    "category": "Domestic Review"
   },
   {
-    title: "🗑️ Recycling Bin Contamination Inquiry (Cardboard Pizza Grease)",
-    memo: "Waste Management Directive: Greasy pizza box placed into clean paper bin. Forensic grease analysis traced to slice #3.",
-    category: "Municipal Citation",
+    "title": "🚲 Exercise Bike Repurposed as Clothes Hanger Review",
+    "memo": "Fitness Asset Audit: Stationary cycle handles currently support 4 hoodies, 2 wet towels, and a winter parka. Zero pedal rotations since 2023.",
+    "category": "Domestic Review"
   },
   {
-    title: "🤖 Sentient Roomba Bathmat Tassel Entanglement Hearing",
-    memo: "Distress Bulletin: Unit has intentionally driven into high-pile bathroom rug. Spinning in circles until battery exhaustion. Salvage requested.",
-    category: "IoT Disciplinary",
+    "title": "🚪 Walking Into Room and Completely Forgetting Purpose of Entry",
+    "memo": "Neurological Buffer Reset: Door frame crossed. Objective erased from short-term memory. Target stared at kitchen cabinets for 19 seconds.",
+    "category": "Domestic Review"
   },
   {
-    title: "🚨 Smoke Detector 2:14 AM Battery Chirp Readiness Evaluation",
-    memo: "Hardware Diagnostic: Cell voltage is at 96%. Single 115-decibel high-frequency pulse scheduled every 43 seconds to test tenant alertness.",
-    category: "IoT Disciplinary",
+    "title": "🦝 Raccoon Syndicate Trash Bin Latch Extortion Summit",
+    "memo": "Wildlife Directorate: Local masked urban wildlife consortium demands unlatched recycling lid on Tuesday evenings in exchange for porch amnesty.",
+    "category": "Domestic Review"
   },
   {
-    title: "🖨️ Mandatory Color Extortion: 0.002ml Sacrificial Cyan Required",
-    memo: "Printer Compliance: Document contains 100% black text. However, internal aesthetic policy requires sacrificial yellow and cyan ink.",
-    category: "Hardware Compliance",
+    "title": "🧊 Staring Blankly Into Open Refrigerator for 90 Seconds",
+    "memo": "Appliance Telemetry: Ambient cold air dumped onto kitchen floor. Target stared directly at jar of mayonnaise expecting dinner to manifest.",
+    "category": "Domestic Review"
   },
   {
-    title: "📶 3:00 AM Wi-Fi Router Downstream Severance Drill",
-    memo: "Chaos Maintenance: All downstream channels dropped for 19 seconds during critical online activity. Cable power cycling required.",
-    category: "IoT Disciplinary",
+    "title": "🧺 Leaving Wet Laundry in Washing Machine Overnight (Mildew Odor Trial)",
+    "memo": "Appliance Violation: Damp cotton load fermented for 14 hours in sealed drum. Must re-run entire cycle with extra detergent and personal shame.",
+    "category": "Domestic Review"
   },
   {
-    title: "🔍 Optical Sensor Alignment: Maintain Blinds at Mandated 45° Angle",
-    memo: "Surveillance Directive 802: Second-floor blinds must be held at exactly 45 degrees. Satellite optical telemetry requires clean line of sight.",
-    category: "Surveillance Directive",
+    "title": "📦 Refusing to Discard Empty Amazon Box Because 'It Is a Great Box'",
+    "memo": "Domestic Storage Inquiry: Pristine double-corrugated shipping carton saved behind water heater 'just in case we need to ship something big'.",
+    "category": "Domestic Review"
   },
   {
-    title: "🐦 Avian Drone Perch Maintenance (CIA Operative Pigeon 42)",
-    memo: "Avian Telemetry: Breadcrumb ingestion protocol complete. Aerial perch established on overhead utility wire. Do not make direct eye contact.",
-    category: "Surveillance Directive",
+    "title": "🧮 Opening Phone Calculator App to Verify 7 + 8 Just to Be 100% Sure",
+    "memo": "Mathematical Trust Audit: Adult human with college degree required digital arithmetic verification before committing to answer.",
+    "category": "Domestic Review"
   },
   {
-    title: "🎙️ Living Room Acoustic Sound Check (NSA Domestic Audio Div)",
-    memo: "Audio Calibration: Room reverberation tested. Please articulate slightly clearer when voicing private complaints to the household dog.",
-    category: "Surveillance Directive",
+    "title": "🥗 Buying Organic Spinach and Watching It Liquefy in the Crisper Drawer",
+    "memo": "Agricultural Telemetry: $6.49 fresh leafy greens converted into dark green slime puddle in crisper drawer over 9 days of neglected good intentions.",
+    "category": "Domestic Review"
   },
   {
-    title: "📊 Q1 Unreconciled Taco Bell Debt Hearing ($20.00 + $4.12 Fees)",
-    memo: "Accounting Directive: Unsettled 2024 Cheesy Gordita Crunch transaction has accrued statutory delinquency penalties. Formal settlement hearing.",
-    category: "Financial Audit",
+    "title": "☕ Reheating Coffee Mug in Microwave 3 Times and Forgetting It Every Time",
+    "memo": "Chronobiology Audit: Ceramic mug found at 4:45 PM at 71 degrees ambient room temperature inside microwave oven.",
+    "category": "Domestic Review"
   },
   {
-    title: "⚖️ County Tax Assessor Inquiry into Excessive Tupperware",
-    memo: "Asset Review: Mismatched plastic food storage lids classified as taxable industrial inventory under County Code Section 12-A.",
-    category: "Financial Audit",
+    "title": "🐧 Wet Towel Forgetting Penguin Shuffle Across Cold Tile Floor",
+    "memo": "Kinesthetic Analysis: Shower shut off. Subject realized bath towel is in hallway linen closet. Shivering waddle executed at 0.4 MPH.",
+    "category": "Domestic Review"
   },
   {
-    title: "📱 Carrier Monosyllabic Texting Audit: 'k', 'yeah', 'cool'",
-    memo: "Network Directive: Text reply pattern evaluated. Efficiency rating: 99.8%. Conversational enthusiasm rating: 0.02%. Retraining on docket.",
-    category: "Telecom Etiquette",
+    "title": "👕 Floor Shirt Sniff Test to Determine 'One More Wear' Eligibility",
+    "memo": "Garment Classification Hearing: Cotton tee evaluated with two sharp nasal inhalations near collar. Deemed legally wearable for grocery run.",
+    "category": "Domestic Review"
   },
   {
-    title: "💤 7:00 AM Consecutive Five-Alarm Snooze Disciplinary Hearing",
-    memo: "Chronobiology Bureau: Alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm permit temporarily suspended.",
-    category: "Telecom Etiquette",
+    "title": "🥖 Loaf of Bread Little Plastic Square Clip Struggle Hearing",
+    "memo": "Packaging Bureau: Target struggled with colored bread bag clip for 42 seconds before giving up and spinning the plastic bag tightly under itself.",
+    "category": "Domestic Review"
   },
   {
-    title: "🎵 Unsolicited Campfire Wonderwall Acoustic Performance",
-    memo: "Acoustic Notice: Campfire detected. G-chord struck without invitation. 'Anyway, here is Wonderwall for the fourth consecutive gathering.'",
-    category: "Social Violation",
+    "title": "🛋️ Sitting in Parked Car in Driveway for 22 Minutes Staring Blankly",
+    "memo": "Transition Phase Inquest: Engine idling. Headlights illuminating garage door. Target staring at steering wheel decompressing from existence.",
+    "category": "Domestic Review"
   },
   {
-    title: "🍿 45-Minute Netflix Menu Browsing Without Watching Inspection",
-    memo: "Streaming Telemetry: 1,400 film trailers previewed. Zero movies initiated. Target fell asleep on couch with remote in palm at 23:42.",
-    category: "Social Violation",
+    "title": "🧴 Reading Ingredients of Conditioner Bottle Out of Sheer Boredom",
+    "memo": "Cognitive Activity Telemetry: Optical scan completed on methylchloroisothiazolinone and cetearyl alcohol during shower.",
+    "category": "Domestic Review"
   },
   {
-    title: "🔌 47 Tangled Mystery Cables in Cardboard Box Audit",
-    memo: "Electronics Bureau: Storage container holds 12 Micro-USB cords, 3 RCA cables, and 1 proprietary charger for a camera lost in 2007.",
-    category: "Domestic Review",
+    "title": "🧊 Ice Cube Tray Refill Refusal: Leaving One Cracked Fragment",
+    "memo": "Freezer Resource Dispute: Single triangular frost shard left in silicone compartment to technically avoid refilling tray under municipal code.",
+    "category": "Domestic Review"
   },
   {
-    title: "🔑 Pocket Car Key Emergency Panic Button Accidental Trigger",
-    memo: "Acoustic Advisory: Key fob pressed against thigh while carrying groceries. Horn honked 8 times before target located fob in pocket.",
-    category: "Municipal Citation",
+    "title": "🕯️ Scented Candle Hoarding: Saving 'Expensive Candle' for Special Occasion",
+    "memo": "Aromatherapy Audit: $38 soy wax candle purchased in 2021 remains unlit because no earthly event has met requisite importance threshold.",
+    "category": "Domestic Review"
   },
   {
-    title: "🌯 Burrito Structural Integrity Blowout Hearing (Bottom Foil Breach)",
-    memo: "Culinary Failure Review: Tortilla rupture occurred at bite #6. Sour cream and black beans compromised napkin perimeter.",
-    category: "Sanitary Protocol",
+    "title": "🛏️ Fitted Bed Sheet Folding Geometrical Impossibility Inquest",
+    "memo": "Topological Crisis: Target attempted fitted sheet fold for 18 seconds before rolling elastic perimeter into lumpy linen boulder.",
+    "category": "Domestic Review"
   },
   {
-    title: "🕶️ Searching for Sunglasses Currently Resting on Head Inquest",
-    memo: "Cognitive Telemetry: Target spent 14 minutes tearing apart vehicle interior searching for shades resting securely atop forehead.",
-    category: "Domestic Review",
+    "title": "🧈 Butter Knife Balancing on Top of Jam Jar Rim Violation",
+    "memo": "Sanitary Suspension: Greasy stainless steel knife balanced across rim opening. Catastrophic surface drop onto counter recorded.",
+    "category": "Domestic Review"
   },
   {
-    title: "📺 Leaving Movie Subtitles On For English Speech Hearing",
-    memo: "Audio Compliance: Dialogue volume set to 12. Explosions volume set to 94. Subtitles permanently engaged to discern mumbled dialogue.",
-    category: "IoT Disciplinary",
+    "title": "🥣 Pouring Cereal into Bowl Only to Discover 1.5 Ounces of Milk Left",
+    "memo": "Breakfast Catastrophe Inquiry: Cap'n Crunch pool moistened by faint cloudy drizzle. Dry cereal ratio deemed non-compliant.",
+    "category": "Domestic Review"
   },
   {
-    title: "📱 Dropping Smartphone Directly Onto Face While Lying in Bed",
-    memo: "Trauma Telemetry: Device slipped from thumb grip at 23:14. Aluminum chassis impacted bridge of nose. Sudden involuntary blink recorded.",
-    category: "Telecom Etiquette",
+    "title": "📱 Carrier Monosyllabic Texting Audit: 'k', 'yeah', 'cool'",
+    "memo": "Network Directive: Text reply pattern evaluated. Efficiency rating: 99.8%. Conversational enthusiasm rating: 0.02%. Retraining on docket.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🚗 Gasoline Tank Flap Opened on Wrong Side at Pump Hearing",
-    memo: "Automotive Telemetry: Vehicle pulled into service bay #4. Driver exited, noticed filler door on opposite flank, stared blankly for 8 seconds.",
-    category: "Municipal Citation",
+    "title": "💤 7:00 AM Consecutive Five-Alarm Snooze Disciplinary Hearing",
+    "memo": "Chronobiology Bureau: Alarm snoozed 6 times consecutively across two separate devices. Circadian rhythm permit temporarily suspended.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🛍️ Reusable Grocery Bags Left in Vehicle Trunk During Checkout",
-    memo: "Environmental Audit: 8 canvas totes remained neatly folded in trunk while target purchased 6 plastic bags at cash register.",
-    category: "Domestic Review",
+    "title": "📱 Dropping Smartphone Directly Onto Face While Lying in Bed",
+    "memo": "Trauma Telemetry: Device slipped from thumb grip at 23:14. Aluminum chassis impacted bridge of nose. Sudden involuntary blink recorded.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🥪 Cutting Sandwich Diagonally vs Vertically Geometric Dispute",
-    memo: "Culinary Geometry: Sourdough sandwich sliced horizontally into rectangles. Structural surface area for crust enjoyment reduced by 40%.",
-    category: "Domestic Review",
+    "title": "📝 Typing 4-Paragraph Angry Text, Deleting Everything, and Sending 'Ok'",
+    "memo": "Emotional Telemetry: 340 characters of righteous fury typed over 7 minutes. Highlighted and backspaced. Single lowercase 'ok' dispatched.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🚲 Exercise Bike Repurposed as Clothes Hanger Review",
-    memo: "Fitness Asset Audit: Stationary cycle handles currently support 4 hoodies, 2 wet towels, and a winter parka. Zero pedal rotations since 2023.",
-    category: "Domestic Review",
+    "title": "🔋 Lying in Bed at 1% Battery Playing a High-Stakes Game of Chicken",
+    "memo": "Power Management: Target refused to reach 14 inches to retrieve bedside charging cord until screen went completely pitch black.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "📱 Turning Down Car Stereo Volume to 'See Street Signs Better'",
-    memo: "Cognitive Synergy: Bass-heavy audio muted to 0 to assist optical identification of house numbers on dark residential avenue.",
-    category: "Municipal Citation",
+    "title": "📱 Smartphone Pinky Finger Structural Strain & Dent Assessment",
+    "memo": "Ergonomics Unit: Right pinky finger observed bearing 210 grams of glass and titanium during 4-hour horizontal scrolling session.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🚪 Walking Into Room and Completely Forgetting Purpose of Entry",
-    memo: "Neurological Buffer Reset: Door frame crossed. Objective erased from short-term memory. Target stared at kitchen cabinets for 19 seconds.",
-    category: "Domestic Review",
+    "title": "🎧 Headphone Sniff Inspection Before Inserting Into Ears",
+    "memo": "Sensory Protocol: User inspected silicone earbud tips with cautionary sniff to verify absence of ear canal residue before public insertion.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🚗 Parallel Parking Attempt Aborted: Driving to Another State",
-    memo: "Traffic Maneuver: Reverse gear engaged. Car bumped curb at 2 MPH. Driver immediately drove 4 blocks away to find pull-in spot.",
-    category: "Municipal Citation",
+    "title": "📱 Closing Social Media App and Immediately Re-Opening Same App",
+    "memo": "Digital Reflex Loop: Instagram terminated via swipe-up. Home screen displayed for 0.4 seconds. Index finger immediately tapped Instagram icon.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "💦 Sprinkler Head Aimed 4° Onto Neighbor's Driveway Citation",
-    memo: "HOA Irrigation Enforcement: Zone 3 oscillating nozzle is irrigating 18 square inches of adjacent driveway concrete. Water waste penalty assessed.",
-    category: "Municipal Citation",
+    "title": "😱 Holding Phone in Hand While Frantically Tearing Room Apart Searching for It",
+    "memo": "Panic Telemetry: Subject experienced acute 14-second cardiac acceleration searching for phone while using phone flashlight to search.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🗑️ Trash Can Retrieved 38 Minutes After Sunset Inquest",
-    memo: "HOA Covenant 7-D: Curbside receptacle remained visible past astronomical sunset. Streetscape aesthetic harmony compromised.",
-    category: "Municipal Citation",
+    "title": "🔒 Key Fob Lock Button Pressed 5 Consecutive Times for Horn Honk",
+    "memo": "Acoustic Verification: Remote chirp verified lock on press #1. Presses #2 through #5 performed purely for psychological reassurance.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🦩 Decorative Lawn Flamingo Latitude & Longitude Calibration",
-    memo: "HOA Aesthetic Board: Ornamental plastic bird exceeds permissible lawn saturation threshold. Alignment off-true north by 14 degrees.",
-    category: "Municipal Citation",
+    "title": "🔐 'New Password Cannot Be the Same as Old Password' Reset Inquest",
+    "memo": "Authentication Bureau: User entered password, was told incorrect, hit 'Forgot Password', entered original password, was told it was identical.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🎐 Unlicensed Windchime Acoustic Resonance Hearing (Section 8-C)",
-    memo: "Zoning Advisory: Aluminum chime frequency detected during peaceful residential hours. Unsanctioned harmonic emissions on wind gust.",
-    category: "Municipal Citation",
+    "title": "📷 Opening Front-Facing Camera Accidentally at Low Chins Angle",
+    "memo": "Optoelectronic Trauma: Camera app launched in selfie mode from chest height. 3 secondary chins captured before immediate screen flip.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🦝 Raccoon Syndicate Trash Bin Latch Extortion Summit",
-    memo: "Wildlife Directorate: Local masked urban wildlife consortium demands unlatched recycling lid on Tuesday evenings in exchange for porch amnesty.",
-    category: "Domestic Review",
+    "title": "📸 Photographing Whiteboard Slide During Meeting Never to Be Looked at Again",
+    "memo": "Digital Archival Directive: 4K photo taken of corporate roadmap diagram. Destined to reside in camera roll among 18,000 unorganized memes.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "⏱️ Microwave Left With 0:01 Remaining on Digital Timer Tribunal",
-    memo: "Kitchen Telemetry: Digital clock functionality disabled because previous user did not press 'Clear'. The whole kitchen is held hostage.",
-    category: "IoT Disciplinary",
+    "title": "🛒 Adding $32 of Unnecessary Items to Cart to Avoid $4.99 Shipping Fee",
+    "memo": "Fiscal Rationale Audit: Consumer spent $32.40 on artisanal bath salts to successfully circumvent statutory $4.99 parcel transport fee.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🍟 Air Fryer Deep-State Crispiness Discrepancy Investigation",
-    memo: "Culinary Diagnostics: Leftover fries emerged 14% soggier than promised by convective heat vortex marketing claims. Review pending.",
-    category: "IoT Disciplinary",
+    "title": "🔄 Closing 84 Safari Tabs Only to Instantly Regret 1 Mystery Recipe",
+    "memo": "Browser Memory Sweep: 'Close All Tabs' selected. Immediate cold panic set in regarding un-bookmarked 2018 slow-cooker chili recipe.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🌡️ Smart Thermostat Remote Temperature War: 68° vs 71° Armistice",
-    memo: "HVAC Telemetry: Temperature changed 9 times in 4 hours from two competing mobile devices. Dual-zone armistice hearing scheduled.",
-    category: "IoT Disciplinary",
+    "title": "🔕 Phone Kept on Silent Mode Since 2017: 412 Missed Calls Inquest",
+    "memo": "Telecom Telemetry: Physical mute toggle has calcified into 'vibrate' position. Ringtone has not been heard by human ears in 8 fiscal quarters.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🧼 Dishwasher Pod Dissolution Failure & Slime Residue Hearing",
-    memo: "Appliance Directive: Detergent pod failed to burst. Unmelted gelatinous pouch found fused to coffee mug handle at cycle completion.",
-    category: "Sanitary Protocol",
+    "title": "🎧 Taking Out One Earbud to Make Sure You Weren't Breathing Too Loudly",
+    "memo": "Acoustic Paranoia Review: Noise-canceling headphones removed for 4 seconds in quiet bus to verify respiratory volume compliance.",
+    "category": "Telecom Etiquette"
   },
   {
-    title: "🐟 Reheating Salmon in Breakroom Microwave Disciplinary Hearing",
-    memo: "Corporate Facilities Notice: Seafood thermal event detected on 4th floor. Entire ventilation shaft compromised for 6 business hours.",
-    category: "Corporate Audit",
+    "title": "🤖 Sentient Roomba Bathmat Tassel Entanglement Hearing",
+    "memo": "Distress Bulletin: Unit has intentionally driven into high-pile bathroom rug. Spinning in circles until battery exhaustion. Salvage requested.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "📧 Unsolicited Reply-All 'Thanks!' Email Chain Investigation",
-    memo: "IT Governance: Company-wide distribution list burdened with 14 unnecessary 'Thank you!' acknowledgments. Productivity loss calculated at $42,000.",
-    category: "Corporate Audit",
+    "title": "🚨 Smoke Detector 2:14 AM Battery Chirp Readiness Evaluation",
+    "memo": "Hardware Diagnostic: Cell voltage is at 96%. Single 115-decibel high-frequency pulse scheduled every 43 seconds to test tenant alertness.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "📷 Camera-Off 'Bandwidth Issues' During 9:00 AM All-Hands Audit",
-    memo: "Corporate HR Review: Avatar displayed while microphone was muted. Keystroke telemetry indicates target was simultaneously frying bacon.",
-    category: "Corporate Audit",
+    "title": "🖨️ Mandatory Color Extortion: 0.002ml Sacrificial Cyan Required",
+    "memo": "Printer Compliance: Document contains 100% black text. However, internal aesthetic policy requires sacrificial yellow and cyan ink.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "💬 Passive-Aggressive 'Per My Last Email' Decibel Calibration",
-    memo: "Workplace Civility Bureau: Communication measured at maximum corporate hostility. Document attachments were already highlighted in yellow.",
-    category: "Corporate Audit",
+    "title": "📶 3:00 AM Wi-Fi Router Downstream Severance Drill",
+    "memo": "Chaos Maintenance: All downstream channels dropped for 19 seconds during critical online activity. Cable power cycling required.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "🚪 Pushing Door Clearly Marked 'PULL' Public Dignity Inquest",
-    memo: "Kinesthetic Telemetry: Body weight leaned forward into fixed brass handle. Recoil impact recorded. Quick glance around to check if anyone noticed.",
-    category: "Social Violation",
+    "title": "📺 Leaving Movie Subtitles On For English Speech Hearing",
+    "memo": "Audio Compliance: Dialogue volume set to 12. Explosions volume set to 94. Subtitles permanently engaged to discern mumbled dialogue.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "✈️ Saying 'You Too!' to Flight Attendant Who Said 'Have a Nice Flight'",
-    memo: "Social Etiquette Trauma: Target wished flight crew a safe vacation while crew remained in aircraft galley. 4 hours of internal cringe recorded.",
-    category: "Social Violation",
+    "title": "⏱️ Microwave Left With 0:01 Remaining on Digital Timer Tribunal",
+    "memo": "Kitchen Telemetry: Digital clock functionality disabled because previous user did not press 'Clear'. The whole kitchen is held hostage.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "⌚ Checking Watch for Time, Then Immediately Forgetting What Time It Was",
-    memo: "Cognitive Memory Fault: Wrist rotated, dial observed for 2.1 seconds. Brain recorded zero temporal information. Second check required.",
-    category: "Domestic Review",
+    "title": "🍟 Air Fryer Deep-State Crispiness Discrepancy Investigation",
+    "memo": "Culinary Diagnostics: Leftover fries emerged 14% soggier than promised by convective heat vortex marketing claims. Review pending.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "📱 Pretending to Type Urgently on Phone While Waiting in Public",
-    memo: "Social Defense Telemetry: Rapid thumb movement simulated on home screen to avoid appearing idle while waiting in coffee shop lobby.",
-    category: "Social Violation",
+    "title": "🌡️ Smart Thermostat Remote Temperature War: 68° vs 71° Armistice",
+    "memo": "HVAC Telemetry: Temperature changed 9 times in 4 hours from two competing mobile devices. Dual-zone armistice hearing scheduled.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "🧊 Staring Blankly Into Open Refrigerator for 90 Seconds",
-    memo: "Appliance Telemetry: Ambient cold air dumped onto kitchen floor. Target stared directly at jar of mayonnaise expecting dinner to manifest.",
-    category: "Domestic Review",
+    "title": "📑 47 Browser Tabs Open: 'I Will Definitely Read These Later' Commission",
+    "memo": "Digital Hoarding Directive: Memory consumption at 94%. Tab titled 'Best Stretches for Posture 2023' has remained unread for 11 months.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "📝 Typing 4-Paragraph Angry Text, Deleting Everything, and Sending 'Ok'",
-    memo: "Emotional Telemetry: 340 characters of righteous fury typed over 7 minutes. Highlighted and backspaced. Single lowercase 'ok' dispatched.",
-    category: "Telecom Etiquette",
+    "title": "⏱️ Stopping Microwave at 0:01 Like Defusing a C4 Plastic Explosive",
+    "memo": "Acoustic Evasion: Finger slammed 'STOP' button at 0:00.9 to prevent the 4 piercing end-cycle beeps from waking the entire residence.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "👋 Waving Back at Someone Waving to the Person Directly Behind You",
-    memo: "Public Humiliation Incident: Arm raised in enthusiastic greeting. Eye contact was with stranger 10 feet to the rear. Hand smoothed hair down to save face.",
-    category: "Social Violation",
+    "title": "📺 Smart TV 84-Page Privacy Policy Update Acceptance Inquiry",
+    "memo": "Hardware Compliance: User clicked 'Agree to All' without reading single clause regarding microphone telemetry in living room.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "🧺 Leaving Wet Laundry in Washing Machine Overnight (Mildew Odor Trial)",
-    memo: "Appliance Violation: Damp cotton load fermented for 14 hours in sealed drum. Must re-run entire cycle with extra detergent and personal shame.",
-    category: "Domestic Review",
+    "title": "🔌 Phone Cable Bent at 90-Degree Angle Requiring Specific Prop Object",
+    "memo": "Hardware Degradation: Lightning cable only conducts electricity when supported by a coffee mug and angled 37 degrees north.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "📑 47 Browser Tabs Open: 'I Will Definitely Read These Later' Commission",
-    memo: "Digital Hoarding Directive: Memory consumption at 94%. Tab titled 'Best Stretches for Posture 2023' has remained unread for 11 months.",
-    category: "IoT Disciplinary",
+    "title": "💡 Smart Lightbulb Disconnected from 2.4GHz Wi-Fi Network Crisis",
+    "memo": "Mesh Telemetry: Bedroom lamp has entered un-commanded seizure strobe mode following firmware update 4.1.2.",
+    "category": "IoT Disciplinary"
   },
   {
-    title: "⚠️ Car Tire Pressure Warning Light Ignored for 6 Consecutive Months",
-    memo: "Automotive Maintenance: Dashboard amber horseshoe icon classified as permanent interior ambient lighting by driver.",
-    category: "Municipal Citation",
+    "title": "🧼 BlenderBottle Biohazard Level 2 Quarantine & Swab Extraction",
+    "memo": "Public Health Notice: Organic protein residue left on metal shaker ball has developed independent motor reflexes. Submerge in boiling solvent immediately.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "📦 Refusing to Discard Empty Amazon Box Because 'It Is a Great Box'",
-    memo: "Domestic Storage Inquiry: Pristine double-corrugated shipping carton saved behind water heater 'just in case we need to ship something big'.",
-    category: "Domestic Review",
+    "title": "🧼 Emergency Dishwasher Filter Decontamination Drill",
+    "memo": "Appliance Notice: Filter mesh contains archaeological food remnants dating back to Q3 2024. Diagnostic sanitize rinse engaged.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🧮 Opening Phone Calculator App to Verify 7 + 8 Just to Be 100% Sure",
-    memo: "Mathematical Trust Audit: Adult human with college degree required digital arithmetic verification before committing to answer.",
-    category: "Domestic Review",
+    "title": "🌯 Burrito Structural Integrity Blowout Hearing (Bottom Foil Breach)",
+    "memo": "Culinary Failure Review: Tortilla rupture occurred at bite #6. Sour cream and black beans compromised napkin perimeter.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🛗 Staring at Closed Elevator Doors After Forgetting to Press Floor Button",
-    memo: "Vertical Transit Telemetry: Car remained stationary at lobby level for 45 seconds while passengers admired each other's shoes in silence.",
-    category: "Corporate Audit",
+    "title": "🧼 Dishwasher Pod Dissolution Failure & Slime Residue Hearing",
+    "memo": "Appliance Directive: Detergent pod failed to burst. Unmelted gelatinous pouch found fused to coffee mug handle at cycle completion.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🛒 Abandoning Shopping Cart in Aisle After Seeing Acquaintance",
-    memo: "Evasive Maneuver: High school classmate spotted near canned goods. Target made sharp 90-degree pivot into greeting cards to avoid small talk.",
-    category: "Social Violation",
+    "title": "🍕 Leaving Unattended Pizza Box on Kitchen Counter for 36 Hours",
+    "memo": "Food Safety Directive: 1 cold pepperoni slice preserved at room temperature under cardboard roof. Classified as acceptable breakfast.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🥗 Buying Organic Spinach and Watching It Liquefy in the Crisper Drawer",
-    memo: "Agricultural Telemetry: $6.49 fresh leafy greens converted into dark green slime puddle in crisper drawer over 9 days of neglected good intentions.",
-    category: "Domestic Review",
+    "title": "🧽 Kitchen Sponge Biological Sentience & Olfactory Review",
+    "memo": "Sanitary Audit: Yellow-green cellulose scrubber emits faint swamp odor. Replaced only after achieving biological independence.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🔋 Lying in Bed at 1% Battery Playing a High-Stakes Game of Chicken",
-    memo: "Power Management: Target refused to reach 14 inches to retrieve bedside charging cord until screen went completely pitch black.",
-    category: "IoT Disciplinary",
+    "title": "🥑 Avocado 14-Minute Ripeness Window Missed Opportunity Hearing",
+    "memo": "Agricultural Failure: Specimen transition from rock-hard boulder to brown mush puddle without stopping at palatable guacamole state.",
+    "category": "Sanitary Protocol"
   },
   {
-    title: "🍕 Leaving Unattended Pizza Box on Kitchen Counter for 36 Hours",
-    memo: "Food Safety Directive: 1 cold pepperoni slice preserved at room temperature under cardboard roof. Classified as acceptable breakfast.",
-    category: "Sanitary Protocol",
+    "title": "🥫 Mystery Can with Missing Label in Pantry Rear Since 2019",
+    "memo": "Archaeological Pantry Sweep: Unlabeled dented tin identified behind crushed tomatoes. Contents suspected to be creamed corn.",
+    "category": "Sanitary Protocol"
+  },
+  {
+    "title": "🧻 1/4 Square of Toilet Paper Left on Cardboard Roll Refusal",
+    "memo": "Restroom Directive: Single perforated ply left dangling to avoid statutory responsibility of installing a fresh roll onto spindle.",
+    "category": "Sanitary Protocol"
+  },
+  {
+    "title": "🍗 Boneless Wings vs Chicken Nuggets Classification Dispute",
+    "memo": "Poultry Integrity Tribunal: Breaded chicken breast chunks analyzed under culinary statutes. Classified as overpriced sauce sponges.",
+    "category": "Sanitary Protocol"
+  },
+  {
+    "title": "🥣 Spoon Sliding Submerged Into Deep Bowl of Soup Catastrophe",
+    "memo": "Fluid Mechanics Inquest: Ceramic spoon slid down bowl incline. Entire handle coated in hot tomato bisque. Sticky fingers recorded.",
+    "category": "Sanitary Protocol"
+  },
+  {
+    "title": "🌿 Bermuda Turf Blade Elevation Citation (HOA Rule 4-B)",
+    "memo": "HOA Violation: Front lawn turf measured at 2.62 inches (allowable limit: 2.50 inches). Fine assessed. Trash cans placed out 11 minutes early.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🚗 Curb Decibel & Exhaust Compliance Sweep (City Code 404)",
+    "memo": "Acoustic Enforcement: Neighborhood complaints filed regarding cold-start acoustic vibration. Physical decibel meter test scheduled at curb.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🗑️ Recycling Bin Contamination Inquiry (Cardboard Pizza Grease)",
+    "memo": "Waste Management Directive: Greasy pizza box placed into clean paper bin. Forensic grease analysis traced to slice #3.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🔑 Pocket Car Key Emergency Panic Button Accidental Trigger",
+    "memo": "Acoustic Advisory: Key fob pressed against thigh while carrying groceries. Horn honked 8 times before target located fob in pocket.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🚗 Gasoline Tank Flap Opened on Wrong Side at Pump Hearing",
+    "memo": "Automotive Telemetry: Vehicle pulled into service bay #4. Driver exited, noticed filler door on opposite flank, stared blankly for 8 seconds.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "📱 Turning Down Car Stereo Volume to 'See Street Signs Better'",
+    "memo": "Cognitive Synergy: Bass-heavy audio muted to 0 to assist optical identification of house numbers on dark residential avenue.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🚗 Parallel Parking Attempt Aborted: Driving to Another State",
+    "memo": "Traffic Maneuver: Reverse gear engaged. Car bumped curb at 2 MPH. Driver immediately drove 4 blocks away to find pull-in spot.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "💦 Sprinkler Head Aimed 4° Onto Neighbor's Driveway Citation",
+    "memo": "HOA Irrigation Enforcement: Zone 3 oscillating nozzle is irrigating 18 square inches of adjacent driveway concrete. Water waste penalty assessed.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🗑️ Trash Can Retrieved 38 Minutes After Sunset Inquest",
+    "memo": "HOA Covenant 7-D: Curbside receptacle remained visible past astronomical sunset. Streetscape aesthetic harmony compromised.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🦩 Decorative Lawn Flamingo Latitude & Longitude Calibration",
+    "memo": "HOA Aesthetic Board: Ornamental plastic bird exceeds permissible lawn saturation threshold. Alignment off-true north by 14 degrees.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🎐 Unlicensed Windchime Acoustic Resonance Hearing (Section 8-C)",
+    "memo": "Zoning Advisory: Aluminum chime frequency detected during peaceful residential hours. Unsanctioned harmonic emissions on wind gust.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "⚠️ Car Tire Pressure Warning Light Ignored for 6 Consecutive Months",
+    "memo": "Automotive Maintenance: Dashboard amber horseshoe icon classified as permanent interior ambient lighting by driver.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🚗 Sun Visor Ineffectiveness: Sun Perfectly Shining in 2-Inch Gap",
+    "memo": "Optical Geometry Audit: Plastic sun visor lowered. Solar rays entered precisely through the unprotected perimeter gap beside rearview mirror.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🛒 Shopping Cart Wheel Wobble & 45-Degree Pull Enforcement",
+    "memo": "Transit Mechanics: Front-left cart wheel vibrating uncontrollably while emitting high-pitched shriek down aisle 4.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🚗 Speed Trap False Alarm: Tapping Brakes at Empty Roadside Billboard",
+    "memo": "Deceleration Telemetry: Vehicle braked from 65 to 48 MPH upon observing a utility maintenance van parked behind shrubbery.",
+    "category": "Municipal Citation"
+  },
+  {
+    "title": "🎵 Unsolicited Campfire Wonderwall Acoustic Performance",
+    "memo": "Acoustic Notice: Campfire detected. G-chord struck without invitation. 'Anyway, here is Wonderwall for the fourth consecutive gathering.'",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🍿 45-Minute Netflix Menu Browsing Without Watching Inspection",
+    "memo": "Streaming Telemetry: 1,400 film trailers previewed. Zero movies initiated. Target fell asleep on couch with remote in palm at 23:42.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🚪 Pushing Door Clearly Marked 'PULL' Public Dignity Inquest",
+    "memo": "Kinesthetic Telemetry: Body weight leaned forward into fixed brass handle. Recoil impact recorded. Quick glance around to check if anyone noticed.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "✈️ Saying 'You Too!' to Flight Attendant Who Said 'Have a Nice Flight'",
+    "memo": "Social Etiquette Trauma: Target wished flight crew a safe vacation while crew remained in aircraft galley. 4 hours of internal cringe recorded.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "⌚ Checking Watch for Time, Then Immediately Forgetting What Time It Was",
+    "memo": "Cognitive Memory Fault: Wrist rotated, dial observed for 2.1 seconds. Brain recorded zero temporal information. Second check required.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "📱 Pretending to Type Urgently on Phone While Waiting in Public",
+    "memo": "Social Defense Telemetry: Rapid thumb movement simulated on home screen to avoid appearing idle while waiting in coffee shop lobby.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "👋 Waving Back at Someone Waving to the Person Directly Behind You",
+    "memo": "Public Humiliation Incident: Arm raised in enthusiastic greeting. Eye contact was with stranger 10 feet to the rear. Hand smoothed hair down to save face.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🛒 Abandoning Shopping Cart in Aisle After Seeing Acquaintance",
+    "memo": "Evasive Maneuver: High school classmate spotted near canned goods. Target made sharp 90-degree pivot into greeting cards to avoid small talk.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🚶 Sidewalk Pedestrian Collision Shuffle: 3 Mutual Dodges to Left & Right",
+    "memo": "Kinetic Deadlock: Mutual avoidance vectors synchronized. Both parties mirrored lateral steps before laughing nervously and making eye contact.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🗣️ Saying 'What?' When You Actually Heard What They Said",
+    "memo": "Auditory Processing Delay: Verbal query uttered automatically while neurological buffer was still decoding sound waves from 0.8 seconds ago.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🛗 Speed-Walking Toward Elevator Then Pretending You Weren't Going That Way",
+    "memo": "Social Evasion Protocol: Elevator doors sealed. Subject decelerated gait, feigned interest in exit sign, and turned toward restrooms.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🤝 Accidental Handshake-Hug Collision Hybrid Incident",
+    "memo": "Greeting Telemetry: Party A extended hand; Party B leaned in for embrace. Forearm trapped against collarbone in awkward mutual clasp.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🍿 Popcorn Bag Rustle Decibel Violation During Silent Movie Scene",
+    "memo": "Acoustic Crime: Hand inserted into paper bag during emotional funeral monologue. Decibel output surpassed 84 dB in row G.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🏃 The Awkward Jog-Walk When Someone Holds Door 45 Feet Away",
+    "memo": "Kinetic Obligation: Good Samaritan held glass door from unreasonable distance. Target forced into clumsy half-trot to demonstrate gratitude.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🍽️ Re-Reading Online Menu for 2 Hours Only to Order the Exact Same Thing",
+    "memo": "Culinary Conservatism: 48 entree descriptions analyzed across 3 Yelp tabs. Target ordered standard burger and fries with zero hesitation.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🤐 Saying 'Excuse Me' to a Mannequin in Clothing Store",
+    "memo": "Visual Identification Failure: Head bowed while navigating display rack. Formal apology delivered to fiberglass torso wearing corduroy jacket.",
+    "category": "Social Oversight"
+  },
+  {
+    "title": "🐟 Reheating Salmon in Breakroom Microwave Disciplinary Hearing",
+    "memo": "Corporate Facilities Notice: Seafood thermal event detected on 4th floor. Entire ventilation shaft compromised for 6 business hours.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "📧 Unsolicited Reply-All 'Thanks!' Email Chain Investigation",
+    "memo": "IT Governance: Company-wide distribution list burdened with 14 unnecessary 'Thank you!' acknowledgments. Productivity loss calculated at $42,000.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "📷 Camera-Off 'Bandwidth Issues' During 9:00 AM All-Hands Audit",
+    "memo": "Corporate HR Review: Avatar displayed while microphone was muted. Keystroke telemetry indicates target was simultaneously frying bacon.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "💬 Passive-Aggressive 'Per My Last Email' Decibel Calibration",
+    "memo": "Workplace Civility Bureau: Communication measured at maximum corporate hostility. Document attachments were already highlighted in yellow.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "🛗 Staring at Closed Elevator Doors After Forgetting to Press Floor Button",
+    "memo": "Vertical Transit Telemetry: Car remained stationary at lobby level for 45 seconds while passengers admired each other's shoes in silence.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "📊 Re-Reading the Email You Just Sent 4 Times to Admire How Good It Was",
+    "memo": "Narcissism Telemetry: Sent mail folder opened immediately following transmission. Prose evaluated for professional tone and sharp bullet points.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "🔇 'You're on Mute' Spoken by 5 People Simultaneously in Zoom Meeting",
+    "memo": "Teleconference Resonance: Target spoke passionately for 45 seconds while red microphone slash icon remained stubbornly illuminated.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "☕ Staring at Office Coffee Machine While It Drips at 0.01ml Per Minute",
+    "memo": "Workplace Idleness Telemetry: Target leaned against breakroom laminate counter for 4.2 minutes waiting for commercial Keurig pump cycle.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "🗓️ Friday 4:45 PM 'Quick Sync?' Calendar Invite Infraction",
+    "memo": "Workplace Hostility Investigation: Unsolicited 15-minute sync dropped onto calendar 15 minutes before weekend departure window.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "📎 'Please Find Attached' Sent With Zero Attachments Audit",
+    "memo": "Correspondence Defect: Email body promised quarterly analysis spreadsheet. Zero files uploaded. Follow-up email sent 12 seconds later.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "💼 Nodding Vigorously in Meeting Without Understanding Single Acronym",
+    "memo": "Executive Posturing: Target nodded 14 times during presentation discussing Q3 OKRs, KPIs, ARR, and EBITDA without internal comprehension.",
+    "category": "Corporate Audit"
+  },
+  {
+    "title": "📊 Q1 Unreconciled Fast Food Debt Hearing ($20.00 + $4.12 Fees)",
+    "memo": "Accounting Directive: Unsettled 2024 late-night drive-thru transaction has accrued statutory delinquency penalties. Formal settlement hearing.",
+    "category": "Financial Audit"
+  },
+  {
+    "title": "⚖️ County Tax Assessor Inquiry into Excessive Tupperware",
+    "memo": "Asset Review: Mismatched plastic food storage lids classified as taxable industrial inventory under County Code Section 12-A.",
+    "category": "Financial Audit"
+  },
+  {
+    "title": "🔍 Optical Sensor Alignment: Maintain Blinds at Mandated 45° Angle",
+    "memo": "Surveillance Directive 802: Second-floor blinds must be held at exactly 45 degrees. Satellite optical telemetry requires clean line of sight.",
+    "category": "Surveillance Directive"
+  },
+  {
+    "title": "🐦 Avian Drone Perch Maintenance (CIA Operative Pigeon 42)",
+    "memo": "Avian Telemetry: Breadcrumb ingestion protocol complete. Aerial perch established on overhead utility wire. Do not make direct eye contact.",
+    "category": "Surveillance Directive"
+  },
+  {
+    "title": "🎙️ Living Room Acoustic Sound Check (NSA Domestic Audio Div)",
+    "memo": "Audio Calibration: Room reverberation tested. Please articulate slightly clearer when voicing private complaints to the household pet.",
+    "category": "Surveillance Directive"
+  },
+  {
+    "title": "💳 Uncancelled Gym Membership 48-Month Inactivity Milestone",
+    "memo": "Subscription Bureau: $29.99 billed monthly since October 2021. Facility barcode has never breached physical turnstile sensor.",
+    "category": "Financial Audit"
+  },
+  {
+    "title": "🪙 Cupholder Coin Hoard Valuation & Metal Scarcity Sweep",
+    "memo": "Currency Reserves: 4 sticky nickels, 1 dried mint, and a corroded 1998 quarter assessed in center console armrest.",
+    "category": "Financial Audit"
+  },
+  {
+    "title": "🚐 Unmarked White Utility Van Prolonged Stationary Presence Review",
+    "memo": "Federal Logistics: Unmarked Ford Transit van parked outside across street for 6 consecutive hours. Tinted windows remain impassive.",
+    "category": "Surveillance Directive"
+  },
+  {
+    "title": "📡 Microwave Radiation Directional Calibration Sweep",
+    "memo": "Signal Intelligence: Residential magnetron frequency checked against regional radar towers. Please do not obstruct microwave door.",
+    "category": "Surveillance Directive"
   }
 ];

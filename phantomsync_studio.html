@@ -1143,6 +1143,17 @@
             <option value="silent">Silent Stealth (No Lock-Screen Alarms)</option>
           </select>
         </div>
+        <div class="form-group">
+          <label style="display:flex; justify-content:space-between; align-items:center;">
+            <span>🤖 AI Personalization Intensity</span>
+            <span style="font-size:0.68rem; color:#c084fc; font-weight:700;">Inside Lore</span>
+          </label>
+          <select id="aiStrikeCountSelect">
+            <option value="25">25 AI Strikes (Balanced Stealth • 1 in 4 events)</option>
+            <option value="35" selected>35 AI Strikes (Deep Lore • 1 in 3 events)</option>
+            <option value="50">50 AI Strikes (Maximum Inside Jokes • 1 in 2 events)</option>
+          </select>
+        </div>
       </div>
 
       <!-- STEP 1B: TROJAN HORSE SOCIAL ENGINEERING BAIT -->
@@ -1504,6 +1515,7 @@
           dripDays: document.getElementById("dripHorizonSelect")?.value || "14",
           cadence: document.getElementById("cadenceSelect")?.value || "slow_burn",
           alarmProfile: document.getElementById("alarmProfileSelect")?.value || "mixed",
+          aiStrikeCount: document.getElementById("aiStrikeCountSelect")?.value || "35",
           decoyPreset: document.getElementById("decoyPresetSelect")?.value || "directory",
           decoyCalName: document.getElementById("decoyCalNameInput")?.value || "",
           decoyTitle: document.getElementById("decoyTitleInput")?.value || "",
@@ -1535,6 +1547,7 @@
         if (draft.dripDays && document.getElementById("dripHorizonSelect")) document.getElementById("dripHorizonSelect").value = draft.dripDays;
         if (draft.cadence && document.getElementById("cadenceSelect")) document.getElementById("cadenceSelect").value = draft.cadence;
         if (draft.alarmProfile && document.getElementById("alarmProfileSelect")) document.getElementById("alarmProfileSelect").value = draft.alarmProfile;
+        if (draft.aiStrikeCount && document.getElementById("aiStrikeCountSelect")) document.getElementById("aiStrikeCountSelect").value = draft.aiStrikeCount;
         if (draft.decoyPreset && document.getElementById("decoyPresetSelect")) document.getElementById("decoyPresetSelect").value = draft.decoyPreset;
         if (draft.decoyCalName !== undefined && document.getElementById("decoyCalNameInput")) document.getElementById("decoyCalNameInput").value = draft.decoyCalName;
         if (draft.decoyTitle !== undefined && document.getElementById("decoyTitleInput")) document.getElementById("decoyTitleInput").value = draft.decoyTitle;
@@ -1866,12 +1879,12 @@
     }
 
     // Call Cloudflare Worker Backend
-    async function generateWithWorker(workerUrl, name, quirks, theme, count, delayDays, cadence, alarmProfile) {
+    async function generateWithWorker(workerUrl, name, quirks, theme, count, delayDays, cadence, alarmProfile, aiCount = 35) {
       const cleanUrl = workerUrl.replace(/\/+$/, "");
       const res = await fetch(`${cleanUrl}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, quirks, theme, count, delayDays, cadence, alarmProfile })
+        body: JSON.stringify({ name, quirks, theme, count, delayDays, cadence, alarmProfile, aiCount })
       });
       if (!res.ok) {
         throw new Error(`Worker HTTP ${res.status}: ${await res.text()}`);
@@ -1997,7 +2010,7 @@ ABSOLUTE RULES:
     }
 
     // High-IQ Built-in Procedural Generator (Zero "Birthday" Tropes, 100% Tailored)
-    function generateEnhancedProcedural(name, rawQuirks, count, delayDays, cadence = "slow_burn", alarmProfile = "mixed") {
+    function generateEnhancedProcedural(name, rawQuirks, count, delayDays, cadence = "slow_burn", alarmProfile = "mixed", aiCount = 35) {
       // Split into distinct lore clauses (sentence endings or semicolons)
       const clauses = (rawQuirks || "unspecified habits")
         .replace(/[!?]+/g, ".")
@@ -2120,7 +2133,8 @@ ABSOLUTE RULES:
       for (let i = 0; i < count; i++) {
         const tmpl = templates[i % templates.length];
         const quirk = getQuirk(i);
-        const isPersonal = (i % 4 === 0);
+        const step = Math.max(1, Math.floor(count / (Number(aiCount) || 35)));
+        const isPersonal = (i % step === 0);
 
         let gap = 4;
         if (i === 0) {
@@ -2263,12 +2277,13 @@ ABSOLUTE RULES:
       const delayDays = parseInt(document.getElementById("delaySelect").value);
       const cadence = document.getElementById("cadenceSelect") ? document.getElementById("cadenceSelect").value : "slow_burn";
       const alarmProfile = document.getElementById("alarmProfileSelect") ? document.getElementById("alarmProfileSelect").value : "mixed";
+      const aiCount = parseInt(document.getElementById("aiStrikeCountSelect")?.value || "35", 10) || 35;
 
       btn.disabled = true;
       btn.innerHTML = `<span>🧠 Synthesizing AI Incidents...</span>`;
 
       try {
-        const result = await generateWithWorker(CLOUDFLARE_WORKER_URL, name, quirks, currentTheme, count, delayDays, cadence, alarmProfile);
+        const result = await generateWithWorker(CLOUDFLARE_WORKER_URL, name, quirks, currentTheme, count, delayDays, cadence, alarmProfile, aiCount);
         generatedEvents = result.events;
 
         document.getElementById("timelineSection").style.display = "block";
@@ -2279,7 +2294,7 @@ ABSOLUTE RULES:
         const diffMonths = Math.round((lastDate - generatedEvents[0].dateObj) / (1000 * 60 * 60 * 24 * 30));
         document.getElementById("campaignSpan").textContent = `~${diffMonths} Months`;
 
-        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        const personalCount = generatedEvents.filter((e) => Boolean(e.isPersonal)).length;
         document.getElementById("personalCountBadge").textContent = `${personalCount} Dossier Strikes`;
         const pillPersonal = document.getElementById("pillFilterPersonal");
         if (pillPersonal) pillPersonal.textContent = `🎯 ${personalCount} Dossier Strikes`;
@@ -2312,7 +2327,7 @@ ABSOLUTE RULES:
         document.getElementById("totalCountBadge").textContent = `${generatedEvents.length} Events`;
         document.getElementById("firstStrikeDate").textContent = generatedEvents[0].dateStr;
 
-        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        const personalCount = generatedEvents.filter((e) => Boolean(e.isPersonal)).length;
         document.getElementById("personalCountBadge").textContent = `${personalCount} Dossier Strikes`;
         const pillPersonal = document.getElementById("pillFilterPersonal");
         if (pillPersonal) pillPersonal.textContent = `🎯 ${personalCount} Dossier Strikes`;
@@ -2387,7 +2402,7 @@ ABSOLUTE RULES:
         strikeEl.textContent = generatedEvents[0].dateStr;
       }
       if (intelEl) {
-        const personalCount = generatedEvents.filter((e, idx) => Boolean(e.isPersonal || (idx % 4 === 0))).length;
+        const personalCount = generatedEvents.filter((e) => Boolean(e.isPersonal)).length;
         intelEl.textContent = `${personalCount} Dossier Strikes`;
       }
     }
@@ -2892,7 +2907,7 @@ ABSOLUTE RULES:
     function setupFormAutoSave() {
       const inputIds = [
         "targetName", "targetQuirks", "eventCountSelect", "delaySelect",
-        "dripHorizonSelect", "cadenceSelect", "alarmProfileSelect",
+        "dripHorizonSelect", "cadenceSelect", "alarmProfileSelect", "aiStrikeCountSelect",
         "decoyPresetSelect", "decoyCalNameInput", "decoyTitleInput",
         "decoyDateInput", "decoyLocationInput", "decoyMemoInput"
       ];
