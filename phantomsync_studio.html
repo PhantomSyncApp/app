@@ -1264,66 +1264,36 @@
 
       <!-- STEP 3: ARMING & MONETIZATION -->
       <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08);">
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">🚀 Ready to Deploy to Victim's Phone?</h3>
-        <p style="font-size: 0.8rem; color: var(--subtext); margin-bottom: 14px;">
-          Choose how you want to deliver this slow-burn campaign to your target.
-        </p>
-
-        <div class="checkout-grid">
-          <!-- Digital Pass -->
-          <div class="pricing-card">
-            <div>
-              <div class="plan-name">Digital Phantom Pass</div>
-              <div class="plan-price">$4.99 <span>one-time</span></div>
-              <ul class="plan-features">
-                <li>🍏 <strong>Native 1-Tap iPhone Subscription (iOS 15–18+)</strong></li>
-                <li>🤖 Google Calendar cloud sync &amp; Android .ics support</li>
-                <li>🛡️ <strong>24-Hour Trojan Horse Decoy</strong> (Zero suspicion)</li>
-                <li>📱 High-res dynamic QR code</li>
-                <li>📶 Live Mission Control Telemetry</li>
-                <li>🚨 Remote Emergency Kill Switch</li>
-              </ul>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom: 14px;">
+          <div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#a7f3d0; font-size:0.72rem; font-weight:800; text-transform:uppercase; padding:3px 10px; border-radius:999px; margin-bottom:6px;">
+              🎉 100% Free Full Access
             </div>
-            <button class="btn-buy btn-digital" id="btnArmDigital">
-              ⚡ Arm Digital Pass ($4.99)
-            </button>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 4px;">🚀 Arm &amp; Deploy Campaign to Target</h3>
+            <p style="font-size: 0.82rem; color: var(--subtext);">
+              Publish your slow-burn payload to the global edge network and generate your stealth Trojan invite link.
+            </p>
           </div>
-
-          <!-- Physical Stealth NFC Card -->
-          <div class="pricing-card featured">
-            <div class="featured-tag">Physical Tap Card</div>
-            <div>
-              <div class="plan-name">Matte-Black NFC Card</div>
-              <div class="plan-price">$14.99 <span>shipped</span></div>
-              <ul class="plan-features">
-                <li>✨ <strong>Discrete Matte-Black NFC Tap Card</strong></li>
-                <li>🍏 <strong>1-Tap native tap-to-subscribe on iPhones</strong></li>
-                <li>🤖 Universal NFC tap compatible across all devices</li>
-                <li>✨ Dispatched with 100% discrete exterior</li>
-                <li>✨ Pre-programmed to your target's Trojan Horse URL</li>
-                <li>✨ Includes Digital Pass + Mission Control FREE</li>
-              </ul>
-            </div>
-            <button class="btn-buy btn-card" id="btnArmCard">
-              💳 Get NFC Stealth Card ($14.99)
-            </button>
-          </div>
+          <button type="button" class="btn-reset" onclick="resetStudioDraft()" title="Clear draft and start fresh" style="padding:6px 12px; font-size:0.75rem;">
+            🔄 Start Fresh
+          </button>
         </div>
 
-        <!-- Free Instant Test Drive Bar -->
-        <div class="demo-arm-bar">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #a7f3d0; margin-bottom: 4px;">
-            🧪 Test Drive Live Trojan Horse Feed & Mission Control
+        <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(6, 182, 212, 0.1)); border: 1px solid rgba(6, 182, 212, 0.35); border-radius: 14px; padding: 22px; margin-bottom: 16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom: 16px;">
+            <div style="font-size:0.85rem; color:#cbd5e1; line-height:1.5;">
+              ✨ <strong>Full Access Unlocked:</strong> RFC-5545 WebCal stream, 24h Trojan Decoy shield, rolling anti-spoil drip, and real-time subscriber telemetry.
+            </div>
           </div>
-          <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px;">
-            Arm the dynamic live feed instantly to test on your own phone or verify before purchasing:
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn-buy" id="btnArmFree" style="flex:1; min-width:240px; background:linear-gradient(135deg, #06b6d4, #2563eb); color:white; font-size:1rem; font-weight:800; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; box-shadow:0 0 25px rgba(6,182,212,0.35);">
+              ⚡ Arm Live Campaign (100% Free)
+            </button>
+            <button class="btn-buy" id="btnExportCustomIcs" style="background:rgba(139,92,246,0.18); border:1px solid #8b5cf6; color:#c4b5fd; font-size:0.88rem; font-weight:700; padding:14px 20px; border-radius:10px; cursor:pointer;">
+              📥 Download .ICS File
+            </button>
           </div>
-          <button class="btn-test-feed" id="btnInstantArmDemo" style="background:#06b6d4; color:#080c14; border:none; cursor:pointer;">
-            ⚡ Arm Free Test Feed & QR Code
-          </button>
-          <button class="btn-test-feed" id="btnExportCustomIcs" style="background:#8b5cf6; color:white; border:none; cursor:pointer;">
-            📥 Download .ics File
-          </button>
         </div>
 
         <!-- ARMED MISSION CONTROL DASHBOARD -->
@@ -2645,7 +2615,7 @@ ABSOLUTE RULES:
     let isForceLiveActive = false;
     let telemetryPollInterval = null;
 
-    async function armCampaignDeployment(plan = "digital") {
+    async function armCampaignDeployment() {
       if (!generatedEvents || !generatedEvents.length) {
         alert("Please generate a timeline in Step 1 first!");
         return;
@@ -2662,11 +2632,11 @@ ABSOLUTE RULES:
       const decoyDate = document.getElementById("decoyDateInput")?.value || null;
       const decoyMemo = (document.getElementById("decoyMemoInput")?.value || "").trim() || "Routine periodic sync active.";
 
-      const armBtn = plan === "physical_card" ? document.getElementById("btnArmCard") : document.getElementById("btnArmDigital");
+      const armBtn = document.getElementById("btnArmFree");
       const originalText = armBtn ? armBtn.innerHTML : "";
       if (armBtn) {
         armBtn.disabled = true;
-        armBtn.innerHTML = `<span>⏳ Arming Campaign...</span>`;
+        armBtn.innerHTML = `<span>⏳ Arming Live Campaign...</span>`;
       }
 
       try {
@@ -2695,9 +2665,6 @@ ABSOLUTE RULES:
         });
 
         if (!saveRes.ok) {
-          if (saveRes.status === 404) {
-            throw new Error("Cloudflare Worker needs to be updated! Your live worker is still running the older version without the /api/campaigns endpoint. Please copy the updated code from cloudflare_worker/worker.js into your Cloudflare Dashboard and click Deploy.");
-          }
           throw new Error(`Worker returned error (${saveRes.status}): ${await saveRes.text()}`);
         }
 
@@ -2719,30 +2686,10 @@ ABSOLUTE RULES:
             webcalUrl: campData.webcalUrl,
             httpUrl: campData.httpUrl
           });
-          localStorage.setItem("phantom_campaigns", JSON.stringify(stored.slice(0, 20)));
+          localStorage.setItem("phantom_campaigns", JSON.stringify(stored.slice(0, 30)));
         } catch (e) {}
 
-        // 2. Create Stripe Checkout Session (or Instant Demo Fallback)
-        const stripeRes = await fetch(`${cleanUrl}/api/create-checkout-session`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            plan,
-            campaignId: campData.campaignId,
-            successUrl: `${window.location.origin}${window.location.pathname}?armed=1&cid=${campData.campaignId}`,
-            cancelUrl: window.location.href,
-          })
-        });
-
-        const checkoutData = await stripeRes.json();
-
-        if (checkoutData.url) {
-          // Live Stripe Checkout URL returned: redirect user
-          window.location.href = checkoutData.url;
-          return;
-        }
-
-        // Demo Mode / Free Arming: Open Mission Control right on the page
+        // Open Mission Control right on the page immediately!
         displayArmedMissionControl(campData, name);
 
       } catch (err) {
@@ -2892,9 +2839,10 @@ ABSOLUTE RULES:
     }
 
     // Button Listeners
-    document.getElementById("btnArmDigital").addEventListener("click", () => armCampaignDeployment("digital"));
-    document.getElementById("btnArmCard").addEventListener("click", () => armCampaignDeployment("physical_card"));
-    document.getElementById("btnInstantArmDemo").addEventListener("click", () => armCampaignDeployment("demo"));
+    const btnArmFree = document.getElementById("btnArmFree");
+    if (btnArmFree) {
+      btnArmFree.addEventListener("click", () => armCampaignDeployment());
+    }
 
     const btnCopyJoin = document.getElementById("btnCopyJoin");
     if (btnCopyJoin) {

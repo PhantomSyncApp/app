@@ -36,7 +36,7 @@ A commercial stealth digital prank platform and operations toolkit. Features ano
 
 ```text
 ├── index.html                  # Official PhantomSync commercial landing page
-├── phantomsync_studio.html     # AI campaign generator, themes, and checkout UI
+├── phantomsync_studio.html     # AI campaign generator, themes, and arming UI
 ├── dashboard.html              # Pranker Mission Control & telemetry tracker
 ├── card.html                   # Discrete personal contact card & vCard gateway
 ├── schedule_data.json          # Cached slow-burn campaign payload
