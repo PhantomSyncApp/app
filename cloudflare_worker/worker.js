@@ -426,6 +426,40 @@ export default {
       );
     }
 
+    // Update Campaign Scheduled Strikes: /api/campaigns/:id/events
+    const updateEventsMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/events$/);
+    if (updateEventsMatch && (request.method === "POST" || request.method === "PUT")) {
+      const campaignId = updateEventsMatch[1];
+      const campaign = await getCampaign(env, campaignId);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+
+      let body = {};
+      try {
+        body = await request.json();
+      } catch (e) {}
+
+      if (!Array.isArray(body.events)) {
+        return new Response(JSON.stringify({ error: "Invalid payload: 'events' array required" }), { status: 400, headers: CORS_HEADERS });
+      }
+
+      // Save updated strikes
+      campaign.events = body.events;
+      campaign.updatedAt = Date.now();
+      await saveCampaign(env, campaign);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          campaignId: campaign.id,
+          count: campaign.events.length,
+          message: `Successfully updated ${campaign.events.length} strikes. Subscribed calendar feeds will update automatically on next sync!`,
+        }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
     // Set Drip Horizon: /api/campaigns/:id/drip
     const dripMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/drip$/);
     if (dripMatch && request.method === "POST") {
@@ -933,7 +967,8 @@ function formatIcsCalendar({
       const cleanMemo = (ev.memo || "").replace(/[\r\n]+/g, " ");
 
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:phantom-${campaignId || 'ps'}-${idx}@phantomsync.io`);
+      const eventUid = ev.uid || `phantom-${campaignId || 'ps'}-${ev.id !== undefined ? ev.id : idx}@phantomsync.io`;
+      lines.push(`UID:${eventUid}`);
       lines.push("DTSTAMP:20260101T000000Z");
       lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
       lines.push(`DTEND;VALUE=DATE:${nextStr}`);

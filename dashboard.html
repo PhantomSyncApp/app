@@ -528,6 +528,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:4px;">
               <span style="font-size:0.68rem; color:var(--subtext); margin-right:2px;">Horizon:</span>
+              <button type="button" class="btn-action" style="padding:3px 8px; font-size:0.7rem;" onclick="setDripDays('${camp.id}', 7, this)">7d</button>
               <button type="button" class="btn-action" style="padding:3px 8px; font-size:0.7rem;" onclick="setDripDays('${camp.id}', 14, this)">14d</button>
               <button type="button" class="btn-action" style="padding:3px 8px; font-size:0.7rem;" onclick="setDripDays('${camp.id}', 21, this)">21d</button>
               <button type="button" class="btn-action" style="padding:3px 8px; font-size:0.7rem;" onclick="setDripDays('${camp.id}', 30, this)">30d</button>
@@ -705,7 +706,10 @@
                 <span>📅 Scheduled Strikes Timeline</span>
                 <span id="strikeDrawerCount-${camp.id}" style="font-size:0.7rem; background:rgba(6,182,212,0.2); padding:2px 8px; border-radius:999px; color:#67e8f9;">Loading...</span>
               </div>
-              <input type="text" id="strikeDrawerSearch-${camp.id}" placeholder="🔍 Search this target's strikes..." style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.75rem; padding:6px 12px; border-radius:6px; min-width:180px;" oninput="filterDrawerStrikes('${camp.id}', this.value)">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.72rem; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399; font-weight:700;" onclick="openDrawerAddStrikeModal('${camp.id}')">➕ Add Strike</button>
+                <input type="text" id="strikeDrawerSearch-${camp.id}" placeholder="🔍 Search this target's strikes..." style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.75rem; padding:6px 12px; border-radius:6px; min-width:180px;" oninput="filterDrawerStrikes('${camp.id}', this.value)">
+              </div>
             </div>
             <div id="strikeDrawerList-${camp.id}">
               <div style="text-align:center; padding:20px; color:#94a3b8; font-size:0.8rem;">Loading campaign schedule from edge KV...</div>
@@ -1099,6 +1103,7 @@
 
       let html = "";
       filtered.forEach((ev, idx) => {
+        const actualIdx = events.indexOf(ev);
         const eventTime = new Date(ev.dateObj || Date.now()).getTime();
         const isLive = !isDecoy && (dripDays === 0 || eventTime <= maxFutureTime);
 
@@ -1113,10 +1118,16 @@
               <div style="font-size:0.85rem; font-weight:700; color:#f1f5f9;">${ev.title}</div>
               <div style="font-size:0.75rem; color:#94a3b8; margin-top:2px; font-style:italic;">"${ev.memo || ''}"</div>
             </div>
-            <div>
-              ${isLive
-                ? '<span style="font-size:0.65rem; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399; padding:3px 8px; border-radius:6px; white-space:nowrap;">🟢 LIVE ON PHONE</span>'
-                : '<span style="font-size:0.65rem; font-weight:700; background:rgba(148,163,184,0.1); border:1px solid rgba(148,163,184,0.2); color:#94a3b8; padding:3px 8px; border-radius:6px; white-space:nowrap;">⏳ STEALTH QUEUE</span>'}
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+              <div>
+                ${isLive
+                  ? '<span style="font-size:0.65rem; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399; padding:3px 8px; border-radius:6px; white-space:nowrap;">🟢 LIVE ON PHONE</span>'
+                  : '<span style="font-size:0.65rem; font-weight:700; background:rgba(148,163,184,0.1); border:1px solid rgba(148,163,184,0.2); color:#94a3b8; padding:3px 8px; border-radius:6px; white-space:nowrap;">⏳ STEALTH QUEUE</span>'}
+              </div>
+              <div style="display:flex; gap:4px;">
+                <button type="button" class="btn-action" style="padding:2px 7px; font-size:0.68rem;" onclick="openDrawerEditStrikeModal('${cid}', ${actualIdx})">✏️ Edit</button>
+                <button type="button" class="btn-action" style="padding:2px 7px; font-size:0.68rem; color:#f87171;" onclick="deleteDrawerStrike('${cid}', ${actualIdx})">🗑️</button>
+              </div>
             </div>
           </div>
         `;
@@ -1518,6 +1529,236 @@
     });
 
     renderDashboard();
+  
+    // ==========================================
+    // MISSION CONTROL STRIKE EDITOR & MANAGER
+    // ==========================================
+    function openDrawerEditStrikeModal(cid, idx) {
+      const campData = CAMPAIGN_EVENTS_CACHE[cid];
+      if (!campData || !campData.events || idx < 0 || idx >= campData.events.length) return;
+      const ev = campData.events[idx];
+
+      document.getElementById("drawerModalTitle").textContent = "✏️ Edit Scheduled Strike";
+      document.getElementById("drawerModalCid").value = cid;
+      document.getElementById("drawerModalIndex").value = idx;
+
+      const d = new Date(ev.dateObj || Date.now());
+      document.getElementById("drawerModalDate").value = d.toISOString().slice(0, 10);
+      document.getElementById("drawerModalStrikeTitle").value = ev.title || "";
+      document.getElementById("drawerModalMemo").value = ev.memo || "";
+      document.getElementById("drawerModalCategory").value = ev.category || "Municipal Citation";
+      document.getElementById("drawerModalAlarm").value = ev.alarmTime || "09:00";
+      document.getElementById("drawerModalIsPersonal").value = ev.isPersonal ? "1" : "0";
+
+      const modal = document.getElementById("drawerStrikeModal");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function openDrawerAddStrikeModal(cid) {
+      document.getElementById("drawerModalTitle").textContent = "➕ Add Custom Scheduled Strike";
+      document.getElementById("drawerModalCid").value = cid;
+      document.getElementById("drawerModalIndex").value = -1;
+
+      const defaultDate = new Date();
+      defaultDate.setDate(defaultDate.getDate() + 14);
+      document.getElementById("drawerModalDate").value = defaultDate.toISOString().slice(0, 10);
+      document.getElementById("drawerModalStrikeTitle").value = "";
+      document.getElementById("drawerModalMemo").value = "";
+      document.getElementById("drawerModalCategory").value = "Municipal Citation";
+      document.getElementById("drawerModalAlarm").value = "09:00";
+      document.getElementById("drawerModalIsPersonal").value = "1";
+
+      const modal = document.getElementById("drawerStrikeModal");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function closeDrawerStrikeModal() {
+      const modal = document.getElementById("drawerStrikeModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    async function saveDrawerStrikeModal() {
+      const cid = document.getElementById("drawerModalCid").value;
+      const idx = parseInt(document.getElementById("drawerModalIndex").value, 10);
+      const dateVal = document.getElementById("drawerModalDate").value;
+      const titleVal = document.getElementById("drawerModalStrikeTitle").value.trim();
+      const memoVal = document.getElementById("drawerModalMemo").value.trim();
+      const catVal = document.getElementById("drawerModalCategory").value;
+      const isPersonal = document.getElementById("drawerModalIsPersonal").value === "1";
+      const alarmVal = document.getElementById("drawerModalAlarm").value;
+      const saveBtn = document.getElementById("btnDrawerSaveStrike");
+
+      if (!titleVal) {
+        alert("Please enter a strike title.");
+        return;
+      }
+      if (!dateVal) {
+        alert("Please select a date for this strike.");
+        return;
+      }
+
+      const parts = dateVal.split("-");
+      const dateObj = new Date(parts[0], parts[1] - 1, parts[2], 12, 0, 0);
+      const dateStr = dateObj.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+      const campData = CAMPAIGN_EVENTS_CACHE[cid] || { events: [] };
+      campData.events = campData.events || [];
+
+      if (idx >= 0 && idx < campData.events.length) {
+        // Edit existing strike
+        const ev = campData.events[idx];
+        ev.title = titleVal;
+        ev.memo = memoVal;
+        ev.category = catVal;
+        ev.dateObj = dateObj.toISOString();
+        ev.dateStr = dateStr;
+        ev.isPersonal = isPersonal;
+        ev.alarmTime = alarmVal;
+      } else {
+        // Add new strike
+        const newId = `ev_custom_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+        campData.events.push({
+          id: newId,
+          uid: `phantom-${cid}-${newId}@phantomsync.io`,
+          title: titleVal,
+          memo: memoVal,
+          category: catVal,
+          dateObj: dateObj.toISOString(),
+          dateStr: dateStr,
+          isPersonal: isPersonal,
+          alarmTime: alarmVal,
+          gap: 4
+        });
+      }
+
+      // Sort events chronologically
+      campData.events.sort((a, b) => new Date(a.dateObj).getTime() - new Date(b.dateObj).getTime());
+
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "⏳ Saving to Phone Feed...";
+      }
+
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/events`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ events: campData.events })
+        });
+        if (!res.ok) {
+          console.warn("Worker response error:", res.status);
+        }
+      } catch (err) {
+        console.warn("Error posting events to worker:", err);
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "💾 Save & Sync to Phone";
+        }
+      }
+
+      closeDrawerStrikeModal();
+      renderDrawerStrikes(cid, campData, document.getElementById(`strikeDrawerSearch-${cid}`)?.value || "");
+      updateCardTelemetry(cid);
+    }
+
+    async function deleteDrawerStrike(cid, idx) {
+      const campData = CAMPAIGN_EVENTS_CACHE[cid];
+      if (!campData || !campData.events || idx < 0 || idx >= campData.events.length) return;
+      const ev = campData.events[idx];
+      if (!confirm(`Delete strike "${ev.title}"?\n\nThis strike will be removed from the target's phone calendar on next sync.`)) return;
+
+      campData.events.splice(idx, 1);
+
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        await fetch(`${cleanUrl}/api/campaigns/${cid}/events`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ events: campData.events })
+        });
+      } catch (err) {
+        console.warn("Error deleting event from worker:", err);
+      }
+
+      renderDrawerStrikes(cid, campData, document.getElementById(`strikeDrawerSearch-${cid}`)?.value || "");
+      updateCardTelemetry(cid);
+    }
+
   </script>
+
+  <!-- Modal: Edit / Add Scheduled Strike in Mission Control -->
+  <div id="drawerStrikeModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); z-index:9999; justify-content:center; align-items:center; padding:16px;">
+    <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.3); border-radius:16px; max-width:540px; width:100%; padding:20px 24px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.7); max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+        <h3 id="drawerModalTitle" style="margin:0; font-size:1.05rem; font-weight:800; color:#38bdf8;">✏️ Edit Scheduled Strike</h3>
+        <button type="button" onclick="closeDrawerStrikeModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer; padding:4px;">✕</button>
+      </div>
+
+      <input type="hidden" id="drawerModalCid" value="">
+      <input type="hidden" id="drawerModalIndex" value="-1">
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div>
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Strike Date</label>
+          <input type="date" id="drawerModalDate" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Push Alarm Trigger</label>
+          <select id="drawerModalAlarm" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
+            <option value="09:00">Morning Commute (9:00 AM)</option>
+            <option value="13:15">Workday Lunch Panic (1:15 PM)</option>
+            <option value="02:30">Late-Night Chaos (2:30 AM)</option>
+            <option value="03:14">Midnight Existential (3:14 AM)</option>
+            <option value="silent">Silent Stealth (No Alarm)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Strike Title</label>
+        <input type="text" id="drawerModalStrikeTitle" placeholder="e.g. 🥛 Inspection of Empty 2% Milk Carton Left in Fridge" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.88rem; font-weight:600;">
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Official Citation Memo / Subtext</label>
+        <textarea id="drawerModalMemo" rows="3" placeholder="e.g. Resource Management: Exactly 0.04oz of liquid preserved in plastic jug to avoid replacement duty." style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.82rem; font-family:inherit; resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+        <div>
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Institutional Category</label>
+          <select id="drawerModalCategory" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
+            <option value="Municipal Citation">🏛️ Municipal Citation</option>
+            <option value="Sanitary Protocol">☣️ Sanitary Protocol</option>
+            <option value="IoT Disciplinary">🤖 IoT Disciplinary</option>
+            <option value="Financial Audit">📊 Financial Audit</option>
+            <option value="Telecom Etiquette">📱 Telecom Etiquette</option>
+            <option value="Surveillance Directive">🔍 Surveillance Directive</option>
+            <option value="Domestic Review">🥛 Domestic Review</option>
+            <option value="Corporate Audit">💼 Corporate Audit</option>
+            <option value="Automotive Transit">🚗 Automotive Transit</option>
+            <option value="Social Oversight">👀 Social Oversight</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Strike Type</label>
+          <select id="drawerModalIsPersonal" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
+            <option value="1">🎯 Personal Dossier Strike</option>
+            <option value="0">🏛️ General Institutional Incident</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button type="button" class="btn-action" style="padding:7px 14px; font-size:0.8rem;" onclick="closeDrawerStrikeModal()">Cancel</button>
+        <button type="button" id="btnDrawerSaveStrike" class="btn-primary" style="padding:7px 18px; font-size:0.82rem; background:linear-gradient(135deg, #0ea5e9, #0284c7); border:none; color:white; border-radius:8px; font-weight:800; cursor:pointer;" onclick="saveDrawerStrikeModal()">
+          💾 Save &amp; Sync to Phone
+        </button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
