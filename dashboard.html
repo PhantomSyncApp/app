@@ -1546,9 +1546,14 @@
       document.getElementById("drawerModalDate").value = d.toISOString().slice(0, 10);
       document.getElementById("drawerModalStrikeTitle").value = ev.title || "";
       document.getElementById("drawerModalMemo").value = ev.memo || "";
-      document.getElementById("drawerModalCategory").value = ev.category || "Municipal Citation";
-      document.getElementById("drawerModalAlarm").value = ev.alarmTime || "09:00";
-      document.getElementById("drawerModalIsPersonal").value = ev.isPersonal ? "1" : "0";
+      document.getElementById("drawerModalCategory").value = ev.category || "Custom Strike";
+      document.getElementById("drawerModalIsPersonal").value = ev.isPersonal === false ? "0" : "1";
+
+      const isSilent = ev.alarmTime === "silent";
+      document.getElementById("drawerModalSilent").checked = isSilent;
+      const timeInput = document.getElementById("drawerModalAlarmTime");
+      timeInput.disabled = isSilent;
+      timeInput.value = (ev.alarmTime && ev.alarmTime !== "silent") ? ev.alarmTime : "09:00";
 
       const modal = document.getElementById("drawerStrikeModal");
       if (modal) modal.style.display = "flex";
@@ -1564,12 +1569,35 @@
       document.getElementById("drawerModalDate").value = defaultDate.toISOString().slice(0, 10);
       document.getElementById("drawerModalStrikeTitle").value = "";
       document.getElementById("drawerModalMemo").value = "";
-      document.getElementById("drawerModalCategory").value = "Municipal Citation";
-      document.getElementById("drawerModalAlarm").value = "09:00";
+      document.getElementById("drawerModalCategory").value = "Custom Strike";
       document.getElementById("drawerModalIsPersonal").value = "1";
+      document.getElementById("drawerModalSilent").checked = false;
+      const timeInput = document.getElementById("drawerModalAlarmTime");
+      timeInput.disabled = false;
+      timeInput.value = "09:00";
 
       const modal = document.getElementById("drawerStrikeModal");
       if (modal) modal.style.display = "flex";
+    }
+
+    
+    function toggleDrawerSilent(isSilent) {
+      const timeInput = document.getElementById("drawerModalAlarmTime");
+      if (timeInput) {
+        timeInput.disabled = isSilent;
+        timeInput.style.opacity = isSilent ? "0.4" : "1";
+      }
+    }
+
+    function setDrawerAlarm(timeStr) {
+      const silentCheckbox = document.getElementById("drawerModalSilent");
+      if (silentCheckbox) silentCheckbox.checked = false;
+      const timeInput = document.getElementById("drawerModalAlarmTime");
+      if (timeInput) {
+        timeInput.disabled = false;
+        timeInput.style.opacity = "1";
+        timeInput.value = timeStr;
+      }
     }
 
     function closeDrawerStrikeModal() {
@@ -1583,9 +1611,11 @@
       const dateVal = document.getElementById("drawerModalDate").value;
       const titleVal = document.getElementById("drawerModalStrikeTitle").value.trim();
       const memoVal = document.getElementById("drawerModalMemo").value.trim();
-      const catVal = document.getElementById("drawerModalCategory").value;
-      const isPersonal = document.getElementById("drawerModalIsPersonal").value === "1";
-      const alarmVal = document.getElementById("drawerModalAlarm").value;
+      const catVal = document.getElementById("drawerModalCategory")?.value || "Custom Strike";
+      const isPersonal = document.getElementById("drawerModalIsPersonal")?.value !== "0";
+      const isSilent = document.getElementById("drawerModalSilent")?.checked;
+      const customTime = document.getElementById("drawerModalAlarmTime")?.value || "09:00";
+      const alarmVal = isSilent ? "silent" : customTime;
       const saveBtn = document.getElementById("btnDrawerSaveStrike");
 
       if (!titleVal) {
@@ -1699,20 +1729,25 @@
       <input type="hidden" id="drawerModalCid" value="">
       <input type="hidden" id="drawerModalIndex" value="-1">
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+      <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:12px; margin-bottom:14px;">
         <div>
-          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Strike Date</label>
-          <input type="date" id="drawerModalDate" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">📅 Strike Date</label>
+          <input type="date" id="drawerModalDate" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 10px; border-radius:8px; font-size:0.85rem;">
         </div>
         <div>
-          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Push Alarm Trigger</label>
-          <select id="drawerModalAlarm" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
-            <option value="09:00">Morning Commute (9:00 AM)</option>
-            <option value="13:15">Workday Lunch Panic (1:15 PM)</option>
-            <option value="02:30">Late-Night Chaos (2:30 AM)</option>
-            <option value="03:14">Midnight Existential (3:14 AM)</option>
-            <option value="silent">Silent Stealth (No Alarm)</option>
-          </select>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <label style="font-size:0.75rem; color:#94a3b8; font-weight:700;">⏰ Custom Alarm Time</label>
+            <label style="font-size:0.72rem; color:#cbd5e1; cursor:pointer; display:flex; align-items:center; gap:4px;">
+              <input type="checkbox" id="drawerModalSilent" onchange="toggleDrawerSilent(this.checked)">
+              <span>Silent</span>
+            </label>
+          </div>
+          <input type="time" id="drawerModalAlarmTime" value="09:00" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.88rem; font-weight:600;">
+          <div style="display:flex; gap:5px; margin-top:5px; flex-wrap:wrap;">
+            <button type="button" class="btn-action" style="padding:1px 6px; font-size:0.65rem;" onclick="setDrawerAlarm('09:00')">9:00 AM</button>
+            <button type="button" class="btn-action" style="padding:1px 6px; font-size:0.65rem;" onclick="setDrawerAlarm('13:15')">1:15 PM</button>
+            <button type="button" class="btn-action" style="padding:1px 6px; font-size:0.65rem;" onclick="setDrawerAlarm('03:14')">3:14 AM</button>
+          </div>
         </div>
       </div>
 
@@ -1721,35 +1756,14 @@
         <input type="text" id="drawerModalStrikeTitle" placeholder="e.g. 🥛 Inspection of Empty 2% Milk Carton Left in Fridge" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.88rem; font-weight:600;">
       </div>
 
-      <div style="margin-bottom:12px;">
-        <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Official Citation Memo / Subtext</label>
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Citation Memo / Description</label>
         <textarea id="drawerModalMemo" rows="3" placeholder="e.g. Resource Management: Exactly 0.04oz of liquid preserved in plastic jug to avoid replacement duty." style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.82rem; font-family:inherit; resize:vertical;"></textarea>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-        <div>
-          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Institutional Category</label>
-          <select id="drawerModalCategory" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
-            <option value="Municipal Citation">🏛️ Municipal Citation</option>
-            <option value="Sanitary Protocol">☣️ Sanitary Protocol</option>
-            <option value="IoT Disciplinary">🤖 IoT Disciplinary</option>
-            <option value="Financial Audit">📊 Financial Audit</option>
-            <option value="Telecom Etiquette">📱 Telecom Etiquette</option>
-            <option value="Surveillance Directive">🔍 Surveillance Directive</option>
-            <option value="Domestic Review">🥛 Domestic Review</option>
-            <option value="Corporate Audit">💼 Corporate Audit</option>
-            <option value="Automotive Transit">🚗 Automotive Transit</option>
-            <option value="Social Oversight">👀 Social Oversight</option>
-          </select>
-        </div>
-        <div>
-          <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Strike Type</label>
-          <select id="drawerModalIsPersonal" style="width:100%; box-sizing:border-box; background:#1e293b; border:1px solid rgba(255,255,255,0.15); color:white; padding:8px 10px; border-radius:8px; font-size:0.85rem;">
-            <option value="1">🎯 Personal Dossier Strike</option>
-            <option value="0">🏛️ General Institutional Incident</option>
-          </select>
-        </div>
-      </div>
+      <!-- Hidden category & type: automatically marked as Custom Strike (no bottom boxes to select) -->
+      <input type="hidden" id="drawerModalCategory" value="Custom Strike">
+      <input type="hidden" id="drawerModalIsPersonal" value="1">
 
       <div style="display:flex; justify-content:flex-end; gap:8px;">
         <button type="button" class="btn-action" style="padding:7px 14px; font-size:0.8rem;" onclick="closeDrawerStrikeModal()">Cancel</button>

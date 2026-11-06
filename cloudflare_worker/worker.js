@@ -977,7 +977,7 @@ function formatIcsCalendar({
       lines.push("TRANSP:TRANSPARENT");
       // Configurable Lock-Screen Push Notification Trigger
       const eventAlarmTime = ev.alarmTime || getAlarmTimeForProfile(ev, alarmProfile);
-      if (eventAlarmTime && alarmProfile !== "silent") {
+      if (eventAlarmTime && eventAlarmTime !== "silent" && alarmProfile !== "silent") {
         const valarmTrigger = formatValarmTrigger(eventAlarmTime);
         lines.push("BEGIN:VALARM");
         lines.push("ACTION:DISPLAY");
@@ -1260,10 +1260,12 @@ function getAlarmTimeForProfile(ev, profile = "mixed") {
 }
 
 function formatValarmTrigger(timeStr = "09:00") {
-  if (!timeStr) return "PT9H";
-  const parts = timeStr.split(":");
-  const h = parseInt(parts[0], 10) || 9;
-  const m = parseInt(parts[1], 10) || 0;
+  if (!timeStr || timeStr === "silent") return "PT9H";
+  const parts = String(timeStr).split(":");
+  const parsedH = parseInt(parts[0], 10);
+  const h = !isNaN(parsedH) ? parsedH : 9;
+  const parsedM = parseInt(parts[1], 10);
+  const m = !isNaN(parsedM) ? parsedM : 0;
   return m > 0 ? `PT${h}H${m}M` : `PT${h}H`;
 }
 
