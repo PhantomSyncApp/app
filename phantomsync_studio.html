@@ -1475,9 +1475,17 @@
         <input type="text" id="modalStrikeTitle" placeholder="e.g. Incident: Microwave Fish Audit" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.88rem; font-weight:600; box-sizing:border-box;">
       </div>
 
-      <div class="form-group" style="margin-bottom:16px;">
+      <div class="form-group" style="margin-bottom:14px;">
         <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:4px;">Event Memo / Description:</label>
         <textarea id="modalStrikeMemo" rows="3" placeholder="e.g. Mandatory breakroom audit following incident report." style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.85rem; line-height:1.4; resize:vertical; box-sizing:border-box;"></textarea>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label style="font-size:0.8rem; font-weight:700; color:#cbd5e1;">📍 Fake Spot Location (Optional):</label>
+          <span style="font-size:0.68rem; color:#38bdf8;">Apple / Google Maps Pin</span>
+        </div>
+        <input type="text" id="modalStrikeLocation" placeholder="e.g. Planet Fitness - Front Desk, Target Aisle 4, or Starbucks on Main St" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px; color:white; font-size:0.88rem; box-sizing:border-box;">
       </div>
 
       <!-- Hidden category & type: automatically marked as Custom Strike (no bottom boxes to select) -->
@@ -2233,6 +2241,9 @@ ABSOLUTE RULES:
 
         const alarmText = ev.alarmTime === 'silent' ? '🔕 Silent' : `⏰ ${ev.alarmTime || '9:00 AM'}`;
         badges += `<span class="badge" style="background:rgba(253,224,71,0.12); color:#fde047; border:1px solid rgba(253,224,71,0.25);">${alarmText}</span>`;
+        if (ev.location) {
+          badges += `<span class="badge" style="background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.3);">📍 ${ev.location}</span>`;
+        }
 
         const catClass = getCategoryClass(ev.category);
 
@@ -2422,6 +2433,8 @@ ABSOLUTE RULES:
         dateInput.value = d.toISOString().slice(0, 10);
         titleInput.value = ev.title;
         memoInput.value = ev.memo;
+        const locInput = document.getElementById("modalStrikeLocation");
+        if (locInput) locInput.value = ev.location || "";
         catInput.value = ev.category || "Custom Strike";
         typeSelect.value = ev.isPersonal ? "1" : "0";
         const isSilent = ev.alarmTime === "silent";
@@ -2442,6 +2455,8 @@ ABSOLUTE RULES:
         dateInput.value = defaultDate.toISOString().slice(0, 10);
         titleInput.value = "";
         memoInput.value = "";
+        const locInput = document.getElementById("modalStrikeLocation");
+        if (locInput) locInput.value = "";
         catInput.value = "Custom Strike";
         typeSelect.value = "1";
         const silentEl = document.getElementById("modalStrikeSilent");
@@ -2487,6 +2502,7 @@ ABSOLUTE RULES:
       const dateVal = document.getElementById("modalStrikeDate").value;
       const titleVal = document.getElementById("modalStrikeTitle").value.trim();
       const memoVal = document.getElementById("modalStrikeMemo").value.trim();
+      const locVal = document.getElementById("modalStrikeLocation")?.value.trim() || "";
       const catVal = document.getElementById("modalStrikeCategory")?.value.trim() || "Custom Strike";
       const isPersonal = document.getElementById("modalStrikeIsPersonal")?.value !== "0";
       const isSilent = document.getElementById("modalStrikeSilent")?.checked;
@@ -2508,6 +2524,7 @@ ABSOLUTE RULES:
       if (idx >= 0 && idx < generatedEvents.length) {
         generatedEvents[idx].title = titleVal;
         generatedEvents[idx].memo = memoVal;
+        generatedEvents[idx].location = locVal;
         generatedEvents[idx].category = catVal;
         generatedEvents[idx].dateObj = dateObj;
         generatedEvents[idx].isPersonal = isPersonal;
@@ -2517,6 +2534,7 @@ ABSOLUTE RULES:
           id: generatedEvents.length,
           title: titleVal,
           memo: memoVal,
+          location: locVal,
           category: catVal,
           dateObj: dateObj,
           isPersonal: isPersonal,
@@ -2605,6 +2623,9 @@ ABSOLUTE RULES:
         lines.push(`DTEND;VALUE=DATE:${nextStr}`);
         lines.push("RRULE:FREQ=YEARLY");
         lines.push(`SUMMARY:${ev.title}`);
+        if (ev.location && ev.location.trim()) {
+          lines.push(`LOCATION:${ev.location.trim().replace(/[\r\n]+/g, " ")}`);
+        }
         lines.push(`DESCRIPTION:${ev.memo}`);
         lines.push("TRANSP:TRANSPARENT");
         lines.push("BEGIN:VALARM");

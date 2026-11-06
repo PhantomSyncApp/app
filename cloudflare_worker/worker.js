@@ -973,6 +973,9 @@ function formatIcsCalendar({
       lines.push(`DTSTART;VALUE=DATE:${dtStr}`);
       lines.push(`DTEND;VALUE=DATE:${nextStr}`);
       lines.push(`SUMMARY:${cleanTitle}`);
+      if (ev.location && String(ev.location).trim()) {
+        lines.push(`LOCATION:${String(ev.location).trim().replace(/[\r\n]+/g, " ")}`);
+      }
       lines.push(`DESCRIPTION:${cleanMemo}`);
       lines.push("TRANSP:TRANSPARENT");
       // Configurable Lock-Screen Push Notification Trigger

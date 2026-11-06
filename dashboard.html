@@ -1112,6 +1112,7 @@
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
                 <span style="font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:#94a3b8; font-weight:700;">${ev.dateStr || 'Upcoming'}</span>
+                ${ev.location ? `<span style="font-size:0.65rem; background:rgba(56,189,248,0.15); color:#38bdf8; padding:2px 6px; border-radius:4px; font-weight:700;">📍 ${ev.location}</span>` : ''}
                 <span style="font-size:0.65rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; color:#cbd5e1;">${ev.category || 'Strike'}</span>
                 ${ev.isPersonal ? '<span style="font-size:0.65rem; background:rgba(244,63,94,0.15); color:#fb7185; padding:2px 6px; border-radius:4px; font-weight:700;">🎯 DOSSIER</span>' : ''}
               </div>
@@ -1546,6 +1547,7 @@
       document.getElementById("drawerModalDate").value = d.toISOString().slice(0, 10);
       document.getElementById("drawerModalStrikeTitle").value = ev.title || "";
       document.getElementById("drawerModalMemo").value = ev.memo || "";
+      document.getElementById("drawerModalLocation").value = ev.location || "";
       document.getElementById("drawerModalCategory").value = ev.category || "Custom Strike";
       document.getElementById("drawerModalIsPersonal").value = ev.isPersonal === false ? "0" : "1";
 
@@ -1569,6 +1571,7 @@
       document.getElementById("drawerModalDate").value = defaultDate.toISOString().slice(0, 10);
       document.getElementById("drawerModalStrikeTitle").value = "";
       document.getElementById("drawerModalMemo").value = "";
+      document.getElementById("drawerModalLocation").value = "";
       document.getElementById("drawerModalCategory").value = "Custom Strike";
       document.getElementById("drawerModalIsPersonal").value = "1";
       document.getElementById("drawerModalSilent").checked = false;
@@ -1611,6 +1614,7 @@
       const dateVal = document.getElementById("drawerModalDate").value;
       const titleVal = document.getElementById("drawerModalStrikeTitle").value.trim();
       const memoVal = document.getElementById("drawerModalMemo").value.trim();
+      const locVal = document.getElementById("drawerModalLocation")?.value.trim() || "";
       const catVal = document.getElementById("drawerModalCategory")?.value || "Custom Strike";
       const isPersonal = document.getElementById("drawerModalIsPersonal")?.value !== "0";
       const isSilent = document.getElementById("drawerModalSilent")?.checked;
@@ -1639,6 +1643,7 @@
         const ev = campData.events[idx];
         ev.title = titleVal;
         ev.memo = memoVal;
+        ev.location = locVal;
         ev.category = catVal;
         ev.dateObj = dateObj.toISOString();
         ev.dateStr = dateStr;
@@ -1652,6 +1657,7 @@
           uid: `phantom-${cid}-${newId}@phantomsync.io`,
           title: titleVal,
           memo: memoVal,
+          location: locVal,
           category: catVal,
           dateObj: dateObj.toISOString(),
           dateStr: dateStr,
@@ -1756,9 +1762,17 @@
         <input type="text" id="drawerModalStrikeTitle" placeholder="e.g. 🥛 Inspection of Empty 2% Milk Carton Left in Fridge" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.88rem; font-weight:600;">
       </div>
 
-      <div style="margin-bottom:14px;">
+      <div style="margin-bottom:12px;">
         <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px; font-weight:700;">Citation Memo / Description</label>
         <textarea id="drawerModalMemo" rows="3" placeholder="e.g. Resource Management: Exactly 0.04oz of liquid preserved in plastic jug to avoid replacement duty." style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.82rem; font-family:inherit; resize:vertical;"></textarea>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <label style="display:block; font-size:0.75rem; color:#94a3b8; font-weight:700;">📍 Fake Spot Location (Optional)</label>
+          <span style="font-size:0.68rem; color:#38bdf8;">Apple / Google Maps Pin</span>
+        </div>
+        <input type="text" id="drawerModalLocation" placeholder="e.g. Planet Fitness - Front Desk, Target Aisle 4, or Starbucks on Main St" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:white; padding:9px 12px; border-radius:8px; font-size:0.85rem;">
       </div>
 
       <!-- Hidden category & type: automatically marked as Custom Strike (no bottom boxes to select) -->
