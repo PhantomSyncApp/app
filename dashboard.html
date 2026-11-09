@@ -708,6 +708,8 @@
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
                 <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.72rem; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#34d399; font-weight:700;" onclick="openDrawerAddStrikeModal('${camp.id}')">➕ Add Strike</button>
+                <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.72rem;" onclick="topUpStrikes('${camp.id}', 100, this)">⬆️ Top up to 100</button>
+                <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.72rem;" onclick="resetTelemetry('${camp.id}', this)">🧹 Reset devices</button>
                 <input type="text" id="strikeDrawerSearch-${camp.id}" placeholder="🔍 Search this target's strikes..." style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.75rem; padding:6px 12px; border-radius:6px; min-width:180px;" oninput="filterDrawerStrikes('${camp.id}', this.value)">
               </div>
             </div>
@@ -1584,6 +1586,38 @@
     }
 
     
+
+    async function topUpStrikes(cid, target, btnEl) {
+      if (!confirm(`Add generic strikes until this campaign has ${target} total? Your existing strikes and edits are kept.`)) return;
+      const old = btnEl.textContent; btnEl.disabled = true; btnEl.textContent = "⏳ Adding...";
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/top-up`, {
+          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ target })
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || "Top-up failed");
+        delete CAMPAIGN_EVENTS_CACHE[cid];
+        await loadAndRenderDrawerStrikes(cid);
+        updateCardTelemetry(cid);
+        alert(data.added ? `Added ${data.added} strikes. Total: ${data.count}.` : "Already at target.");
+      } catch (e) { alert("Top-up error: " + e.message); }
+      finally { btnEl.disabled = false; btnEl.textContent = old; }
+    }
+
+    async function resetTelemetry(cid, btnEl) {
+      if (!confirm("Clear the subscriber/device list and sync counters for this campaign? Strikes are not touched.")) return;
+      const old = btnEl.textContent; btnEl.disabled = true;
+      try {
+        const cleanUrl = CLOUDFLARE_WORKER_URL.replace(/\/+$/, "");
+        const res = await fetch(`${cleanUrl}/api/campaigns/${cid}/reset-telemetry`, { method: "POST" });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || "Reset failed");
+        updateCardTelemetry(cid);
+      } catch (e) { alert("Reset error: " + e.message); }
+      finally { btnEl.disabled = false; btnEl.textContent = old; }
+    }
+
     function toggleDrawerSilent(isSilent) {
       const timeInput = document.getElementById("drawerModalAlarmTime");
       if (timeInput) {
